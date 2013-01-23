@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Михаил Калашник</title>
-    <style>@font-face{font-family:'PT Sans Caption';src:url('fonts/PTC55F_W.eot');src:local('PT Sans Caption'),url('fonts/PTC55F_W.woff') format('woff'),url('fonts/PTC55F_W.ttf') format('truetype'),url('fonts/PTC55F_W.svg#PTSans-Caption') format('svg')}@font-face{font-family:'PT Serif';src:url('fonts/PTF55F_W.eot');src:local('PT Serif'),url('fonts/PTF55F_W.woff') format('woff'),url('fonts/PTF55F_W.ttf') format('truetype'),url('fonts/PTF55F_W.svg#PTSerif-Regular') format('svg')}html,body{background:#fefefe;color:#222}body{font-family:'PT Serif',serif;font-size:16px;line-height:1.5;margin:0;padding:20px 40px}a{white-space:nowrap}a:link{color:#4100f1;text-decoration:none}a:visited{color:#63008c;text-decoration:none}a:hover,a:active{text-decoration:underline}h1{font-size:24px;font-family:'PT Sans Caption',sans-serif;font-weight:normal;margin:0 0 12px}h2{font-size:18px;font-family:'PT Sans Caption',sans-serif;font-weight:normal;margin:18px 0 4px}p{margin:0 0 12px}.content{min-width:260px;max-width:520px}.photo{margin:8px 0 20px 20px;float:right;border-radius:10px}@media all and (max-width:420px){.photo{float:none;display:block;margin:0 auto 20px}}.footer{margin-top:30px;font-size:14px;color:#ccc}.footer a:link{text-decoration:underline;color:#ccc}.footer a:visited{text-decoration:underline;color:#ccc}.footer a:hover,.footer a:active{text-decoration:none}</style>
+    <link rel="stylesheet" type="text/css" href="css/design.css"/>
     <script type="text/javascript">
 
         var _gaq = _gaq || [];
@@ -22,7 +22,7 @@
 
 <div class="content">
     <img class="photo js-photo" src="i/photo-2012-05.jpg" alt="Михаил Калашник, май 2012" width="180" height="180"/>
-    <script>if(window.devicePixelRatio>=2){document.querySelector(".js-photo").src="i/photo-2012-05-2x.jpg"};</script>
+    <script src="js/photo.js"></script>
 
     <h1>Михаил Калашник</h1>
 
@@ -65,14 +65,14 @@
     </p>
 
     <div class="footer">
-        <p class="js-last-change" style="visibility: hidden" data-last-change="1359210416">Последнее обновление: </p>
-        <script>var lastChange=document.querySelector(".js-last-change");var lastChangeDate=new Date(lastChange.getAttribute("data-last-change")*1000);var months=["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"];lastChange.appendChild(document.createTextNode(lastChangeDate.getDate()+" "+months[lastChangeDate.getMonth()]+" "+lastChangeDate.getFullYear()+" года"));lastChange.style.visibility="visible";</script>
+        <p class="js-last-change" style="visibility: hidden" data-last-change="%last_change">Последнее обновление: </p>
+        <script src="js/last-change.js"></script>
         <p>За хостинг спасибо <a href="http://pages.github.com">Гитхабу</a></p>
     </div>
 </div>
 
 <!-- Yandex.Metrika counter -->
-<script>(function(g,a,i){(a[i]=a[i]||[]).push(function(){try{a.yaCounter19642528=new Ya.Metrika({id:19642528,webvisor:true,clickmap:true,trackLinks:true,accurateTrackBounce:true})}catch(c){}});var h=g.getElementsByTagName("script")[0],b=g.createElement("script"),e=function(){h.parentNode.insertBefore(b,h)};b.type="text/javascript";b.async=true;b.src=(g.location.protocol=="https:"?"https:":"http:")+"//mc.yandex.ru/metrika/watch.js";if(a.opera=="[object Opera]"){g.addEventListener("DOMContentLoaded",e,false)}else{e()}})(document,window,"yandex_metrika_callbacks");</script>
+<script src="js/ya-metrika.js"></script>
 <noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
