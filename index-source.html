@@ -4,6 +4,7 @@
     <meta charset="UTF-8"/>
     <title>Михаил Калашник</title>
     <link rel="stylesheet" type="text/css" href="css/design.css"/>
+    <link rel="profile" href="http://microformats.org/profile/hcard"/>
     <script type="text/javascript">
 
         var _gaq = _gaq || [];
@@ -20,18 +21,18 @@
 </head>
 <body>
 
-<div class="content">
+<div class="content vcard">
     <img class="photo js-photo" src="i/photo-2012-05.jpg" alt="Михаил Калашник, май 2012" width="180" height="180"/>
     <script src="js/photo.js"></script>
 
-    <h1>Михаил Калашник</h1>
+    <h1><a href="http://mkln.ru/" class="url fn">Михаил Калашник</a></h1>
 
     <p>Родился в Томске, живу в Москве.</p>
     <p>Работаю ведущим разработчиком и тимлидом команды продуктов в <a href="http://hh.ru">Хэдхантере</a>.</p>
 
     <h2>Контакты</h2>
     <p>
-        Электронная почта: <a href="mailto:splurov@gmail.com">splurov@gmail.com</a><br />
+        Электронная почта: <a class="email" href="mailto:splurov@gmail.com">splurov@gmail.com</a><br />
         Скайп: <a href="skype:Splurov?add" title="Добавить меня в контакты Скайпа">Splurov</a><br />
     </p>
 
@@ -68,6 +69,23 @@
         <p class="js-last-change" style="visibility: hidden" data-last-change="%last_change">Последнее обновление: </p>
         <script src="js/last-change.js"></script>
         <p>За хостинг спасибо <a href="http://pages.github.com">Гитхабу</a></p>
+    </div>
+
+    <div class="hidden">
+        <span class="n">
+            <span class="given-name">Михаил</span>
+            <span class="additional-name">Сергеевич</span>
+            <span class="family-name">Калашник</span>
+        </span>
+        <span class="nickname">Splurov</span>
+        <span class="org vcard">
+            <a href="http://hh.ru/" class="url fn org">HeadHunter</a>
+        </span>
+        <span class="adr">
+            <span class="locality">Москва</span>
+            <span class="country-name">Россия</span>
+        </span>
+        <span class="bday">1986-07-31</span>
     </div>
 </div>
 
