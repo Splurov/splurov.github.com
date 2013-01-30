@@ -1,7 +1,6 @@
 @font-face {
     font-family: 'PT Serif';
-    src: url('fonts/PTF55F_W.eot');
-    src: local('PT Serif'),
+    src: url('fonts/PTF55F_W.eot?#iefix') format('embedded-opentype'),
          url('fonts/PTF55F_W.woff') format('woff'),
          url('fonts/PTF55F_W.ttf') format('truetype'),
          url('fonts/PTF55F_W.svg#PTSerif-Regular') format('svg');
@@ -9,8 +8,7 @@
 
 @font-face {
     font-family: 'PT Serif Caption';
-    src: url('fonts/PTZ55F_W.eot');
-    src: local('PT Serif Caption'),
+    src: url('fonts/PTZ55F_W.eot?#iefix') format('embedded-opentype'),
          url('fonts/PTZ55F_W.woff') format('woff'),
          url('fonts/PTZ55F_W.ttf') format('truetype'),
          url('fonts/PTZ55F_W.svg#PTSerif-Caption') format('svg');
