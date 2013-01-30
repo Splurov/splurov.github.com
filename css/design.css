@@ -1,18 +1,19 @@
 @font-face {
-    font-family: 'PT Sans Caption';
-    src: url('fonts/PTC55F_W.eot');
-    src: local('PT Sans Caption'),
-         url('fonts/PTC55F_W.woff') format('woff'),
-         url('fonts/PTC55F_W.ttf') format('truetype'),
-         url('fonts/PTC55F_W.svg#PTSans-Caption') format('svg');
-}
-@font-face {
     font-family: 'PT Serif';
     src: url('fonts/PTF55F_W.eot');
     src: local('PT Serif'),
          url('fonts/PTF55F_W.woff') format('woff'),
          url('fonts/PTF55F_W.ttf') format('truetype'),
          url('fonts/PTF55F_W.svg#PTSerif-Regular') format('svg');
+}
+
+@font-face {
+    font-family: 'PT Serif Caption';
+    src: url('fonts/PTZ55F_W.eot');
+    src: local('PT Serif Caption'),
+         url('fonts/PTZ55F_W.woff') format('woff'),
+         url('fonts/PTZ55F_W.ttf') format('truetype'),
+         url('fonts/PTZ55F_W.svg#PTSerif-Caption') format('svg');
 }
 
 
@@ -22,7 +23,7 @@ html, body {
 }
 body {
     font-family: 'PT Serif', serif;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.5;
     margin: 0;
     padding: 20px 40px;
@@ -44,14 +45,14 @@ a:hover, a:active {
 }
 
 h1 {
-    font-size: 24px;
-    font-family: 'PT Sans Caption', sans-serif;
+    font-size: 28px;
+    font-family: 'PT Serif Caption', sans-serif;
     font-weight: normal;
     margin: 0 0 12px;
 }
 h2 {
-    font-size: 18px;
-    font-family: 'PT Sans Caption', sans-serif;
+    font-size: 22px;
+    font-family: 'PT Serif Caption', sans-serif;
     font-weight: normal;
     margin: 18px 0 4px;
 }
