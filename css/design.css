@@ -64,7 +64,7 @@ p {
     float: right;
     border-radius: 10px;
 }
-@media all and (max-width: 420px) {
+@media all and (max-width: 560px) {
     .photo {
         float: none;
         display: block;
