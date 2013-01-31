@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'PT Serif';
-    src: url('fonts/PTF55F_W.woff') format('woff');
+    src: url('/fonts/PTF55F_W.woff') format('woff');
 }
 
 @font-face {
     font-family: 'PT Serif Caption';
-    src: url('fonts/PTZ55F_W.woff') format('woff');
+    src: url('/fonts/PTZ55F_W.woff') format('woff');
 }
 
 
