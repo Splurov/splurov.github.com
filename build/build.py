@@ -8,6 +8,8 @@ from time import time
 from hashlib import md5
 from os import utime
 
+from translations import translations
+
 def log(message, print_sum=False, previous_times=[]):
     current_time = time()
     if print_sum:
@@ -89,50 +91,6 @@ def script_repl(match):
     return '<script>{0}</script>'.format(data)
 
 log('start')
-
-translations = {
-    'lang': ('ru', 'en'),
-    'lang_switcher_href': ('/en/', '/'),
-    'lang_switcher_title': ('In English', 'На русском'),
-    'title': ('Михаил Калашник', 'Mikhail Kalashnik'),
-    'born_info': ('Родился в Томске, живу в Москве.', 'I was born in Tomsk. Now I live in Moscow.'),
-    'work_info': ('Работаю ведущим разработчиком и тимлидом команды продуктов в ', 'Worked as a senior developer and team lead of products team in '),
-    'work_info_company': ('Хэдхантере', 'HeadHunter'),
-    'email': ('Электронная почта', 'E-mail'),
-    'skype': ('Скайп', 'Skype'),
-    'add_to_skype': ('Добавить меня в контакты Скайпа', 'Add me to Skype contacts'),
-    'photo_alt': ('Михаил Калашник, май 2012', 'Mikhail Kalashnik, May 2012'),
-    'contacts': ('Контакты', 'Contacts'),
-    'resume': ('Резюме', 'CV'),
-    'hh_link_title': ('Хэдхантер', 'HeadHunter'),
-    'moikrug_link_title': ('Мой Круг', 'Moi Krug'),
-    'linkedin_link_title': ('Линкедин', 'LinkedIn'),
-    'social_networks': ('Блоги/социальные сети', 'Blogs and Social Networks'),
-    'twitter': ('Твитер', 'Twitter'),
-    'vk': ('ВКонтакте', 'VK'),
-    'facebook': ('Фейсбук', 'Facebook'),
-    'friendfeed': ('Френдфид', 'FriendFeed'),
-    'habr': ('Хабрахабр', 'Habrahabr'),
-    'lepra': ('Лепрозорий', 'Leprosorium'),
-    'instagram': ('Инстаграм', 'Instagram'),
-    'google_plus': ('Гугл+', 'Google+'),
-    'lj': ('ЖЖ', 'LiveJournal'),
-    'pinterest': ('Пинтерест', 'Pinterest'),
-    'github': ('Гитхаб', 'GitHub'),
-    'movies_music': ('Фильмы/музыка', 'Movies and Music'),
-    'imdb_viewed': ('IMDb просмотренные', 'IMDb Viewed'),
-    'imdb_watchlist': ('IMDb «на посмотреть»', 'IMDb Watchlist'),
-    'last_fm': ('Ласт.фм', 'Last.fm'),
-    'tv_shows': ('Сериалы, которые я смотрю', 'TV Series'),
-    'last_change_title': ('Последнее обновление', 'Last updated'),
-    'hosting': ('За хостинг спасибо ', 'For hosting thanks to '),
-    'hosting_provider': ('Гитхабу', 'GitHub'),
-    'given_name': ('Михаил', 'Mikhail'),
-    'additional_name': ('Сергеевич', 'Sergeevich'),
-    'family_name': ('Калашник', 'Kalashnik'),
-    'locality': ('Москва', 'Moscow'),
-    'country_name': ('Россия', 'Russia'),
-}
 
 last_change_time = int(os.path.getmtime('index-source.html'))
 translations.update(last_change=(last_change_time, last_change_time))
