@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta property="fb:admins" content="splurov"/>
+    <meta name="keywords" content="clash of clans, army calculator, troops calculator, army price, troops price"/>
+    <title>Clash of Clans — Troops Price Calculator</title>
+    <style>@font-face{font-family:'PT Serif';src:url('/fonts/PTF55F_W.woff') format('woff')}@font-face{font-family:'PT Serif Caption';src:url('/fonts/PTZ55F_W.woff') format('woff')}html,body{background:#fefefe;color:#222}body{font-family:'PT Serif',Georgia,serif;font-size:18px;line-height:1.5;margin:0;padding:20px 40px}a{white-space:nowrap}a:link{color:#4100f1;text-decoration:none}a:visited{color:#63008c;text-decoration:none}a:hover,a:active{text-decoration:underline}h1{font-size:28px;font-family:'PT Serif Caption',Georgia,sans-serif;font-weight:normal;margin:0 0 12px}h2{font-size:22px;font-family:'PT Serif Caption',Georgia,sans-serif;font-weight:normal;margin:18px 0 4px}p{margin:0 0 12px}.content{min-width:260px;max-width:520px}.photo{margin:8px 0 20px 20px;float:right;border-radius:10px}@media all and (max-width:560px){.photo{float:none;display:block;margin:0 auto 20px}}a.fn.url{color:#222;text-decoration:none}.footer{margin-top:30px;font-size:14px;color:#ccc}.footer a:link{text-decoration:underline;color:#ccc}.footer a:visited{text-decoration:underline;color:#ccc}.footer a:hover,.footer a:active{text-decoration:none}.hidden{display:none}</style>
+    <style>input,select{font-family:'PT Serif',Georgia,serif;font-size:inherit}.units{border-spacing:0;margin-bottom:12px}.units th{text-align:left;padding:2px 14px 3px 0;font-weight:normal;font-size:22px}.units td{padding:2px 14px 3px 0}.units td>input{text-align:right}.units__result{border-top:2px solid #ccc}</style>
+    <script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-37991363-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+</head>
+<body>
+
+<form class="js-calculator">
+
+    <h1>Clash of Clans — Troops Price Calculator</h1>
+
+    <table class="js-units units">
+        <tr>
+            <th>Unit</th>
+            <th>Quantity</th>
+            <th>Level</th>
+        </tr>
+    </table>
+
+    <p>
+        <label for="barracks">Number of Barracks</label>
+        <input class="js-barracks" type="number" id="barracks" value="1" size="2" oninput="calculate()"/>
+    </p>
+
+    <table class="js-result units units__result">
+    </table>
+
+</form>
+
+<script>(function(){var h={Barbarian:[1,20,[25,40,60,80,100]],Archer:[1,25,[50,80,120,160,200]],Goblin:[1,30,[25,40,60,80,100]],Giant:[5,120,[500,1000,1500,2000,2500]],Wall_Breaker:[1,120,[1000,1500,2000,2500,3000]],Balloon:[5,600,[2000,2500,3000,3500,4000]],Wizard:[4,600,[1500,2000,2500,3000,3500]],Healer:[20,1200,[700,10000,13000]],Dragon:[20,1800,[25000,32500,40000]],"P-E-K-K-A-":[25,3600,[35000,42500,50000]]},l=document.querySelector(".js-units"),j={};if("localStorage" in window){j=localStorage.getItem("savedData");if(j){j=JSON.parse(j)}else{j={}}}for(var c in h){var o=h[c],m=document.createElement("tr"),b=[],f=[];b.push('<td><label for="'+c+'">'+c.replace("_"," ").replace(/-/g,".")+"</label></td>");var k=0;if(j[c]){k=j[c]}b.push('<td><input id="'+c+'" size="4" oninput="calculate()" value="'+k+'"/></td>');var n=c+"-level";f.push('<select id="'+n+'" onchange="calculate()">');for(var g=0,q=o[2].length;g<q;g++){f.push('<option value="'+o[2][g]+'">'+(g+1)+"</option>")}f.push("</select>");b.push("<td>"+f.join("")+"</td>");m.innerHTML=b.join("");l.appendChild(m);var e=0;if(j[n]){e=j[n]}var a=document.getElementById(n);a.options[e].selected=true}var d=document.querySelector(".js-barracks"),p=document.querySelector(".js-result");if(j.barracks){d.value=j.barracks}window.calculate=function(){var B=0,w=0,r=0,y={};for(var s in h){var z=document.getElementById(s);if(z.value<0){z.value=0}else{if(z.value>9999){z.value=9999}}var A=s+"-level",i=document.getElementById(A),x=i.value;B+=(x*z.value);w+=(h[s][0]*z.value);r+=(h[s][1]*z.value);y[s]=z.value;y[A]=i.selectedIndex}if(d.value<1){d.value=1}else{if(d.value>99){d.value=99}}y.barracks=d.value;var u=Math.ceil(r/d.value),v="";if(u>3599){v+=Math.floor(u/3600)+"h ";u=u%3600}if(u>59){v+=Math.floor(u/60)+"m ";u=u%60}v+=u+"s";var t=[];t.push("<tr><th>Price</th><td>"+B.toString(10).replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,")+"</td>");t.push("<tr><th>Capacity:</th><td>"+w+"</td>");t.push("<tr><th>Average Production Time:</th><td>"+v+"</td>");p.innerHTML=t.join("");if("localStorage" in window){localStorage.setItem("savedData",JSON.stringify(y))}};calculate()})();</script>
+
+<!-- Yandex.Metrika counter -->
+<script src="js/ya-metrika.js"></script>
+<noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<h2>Comments</h2>
+<p>Feel free to post bugs and feature suggestions.</p>
+
+<div class="fb-comments" data-href="http://mkln.ru/clash-of-clans/" data-width="470" data-num-posts="5"></div>
+
+<div class="footer">
+    Developed by <a href="/en/">Mikhail Kalashnik</a>
+</div>
+
+</body>
+</html>

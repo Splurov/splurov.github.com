@@ -7,6 +7,7 @@ from string import Template
 from time import time
 from hashlib import md5
 from os import utime
+from functools import partial
 
 from translations import translations
 
@@ -58,8 +59,8 @@ def make_cache(cached_path, data, path_modified):
     open(cached_path, 'w').write(data)
     utime(cached_path, (path_modified, path_modified))
 
-def link_repl(match):
-    path = os.path.abspath(match.group(1))
+def link_repl(match, dir=''):
+    path = os.path.abspath(dir + match.group(1))
     path_modified = int(os.path.getmtime(path))
 
     cached_path = get_cached_path(path)
@@ -72,8 +73,8 @@ def link_repl(match):
 
     return '<style>{0}</style>'.format(data)
 
-def script_repl(match):
-    path = os.path.abspath(match.group(1))
+def script_repl(match, dir=''):
+    path = os.path.abspath(dir + match.group(1))
     path_modified = int(os.path.getmtime(path))
 
     cached_path = get_cached_path(path)
@@ -92,34 +93,44 @@ def script_repl(match):
 
 log('start')
 
-last_change_time = int(os.path.getmtime('index-source.html'))
-translations.update(last_change=(last_change_time, last_change_time))
+sources = {
+    'index-source.html': True,
+    'clash-of-clans/index-source.html': False,
+}
 
-with open('index-source.html') as source:
-    data = source.read()
+for file, is_multilang in sources.iteritems():
+    last_change_time = int(os.path.getmtime(file))
+    translations.update(last_change=(last_change_time, last_change_time))
 
-    log('source read')
+    dir = os.path.dirname(file)
+    if dir:
+        dir = '{0}/'.format(dir)
+    with open(file) as source:
+        data = source.read()
 
-    data = re.sub('<link rel="stylesheet" type="text/css" href="([^"]+)"/>', link_repl, data)
-    data = re.sub('<script src="([^"]+)"( data-compress="no")?></script>', script_repl, data)
+        log('{0} - source read'.format(file))
 
-    log('replaces done')
+        data = re.sub('<link rel="stylesheet" type="text/css" href="([^"]+)"/>', partial(link_repl, dir=dir), data)
+        data = re.sub('<script src="([^"]+)"( data-compress="no")?></script>', partial(script_repl, dir=dir), data)
 
-    template = Template(data)
-    translations_ru = {key: value[0] for (key, value) in translations.iteritems()}
-    data_ru = template.substitute(**translations_ru)
+        log('{0} - replaces done'.format(file))
 
-    with open('index.html', 'w') as dest:
-        dest.write(data_ru)
+        template = Template(data)
+        translations_ru = {key: value[0] for (key, value) in translations.iteritems()}
+        data_ru = template.substitute(**translations_ru)
 
-    log('ru version written')
+        with open('{0}index.html'.format(dir), 'w') as dest:
+            dest.write(data_ru)
 
-    translations_en = {key: value[1] for (key, value) in translations.iteritems()}
-    data_en = template.substitute(**translations_en)
+        log('ru version written')
 
-    with open('en/index.html', 'w') as dest:
-        dest.write(data_en)
+        if is_multilang:
+            translations_en = {key: value[1] for (key, value) in translations.iteritems()}
+            data_en = template.substitute(**translations_en)
 
-    log('en version written')
+            with open('{0}en/index.html'.format(dir), 'w') as dest:
+                dest.write(data_en)
+
+            log('en version written')
 
 log('all done', True)

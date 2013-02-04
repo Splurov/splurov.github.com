@@ -1,5 +1,24 @@
 # coding=utf-8
 
+ga_code = """<script type="text/javascript">
+
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-37991363-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>"""
+
+ya_metrika_code = """<!-- Yandex.Metrika counter -->
+<script src="js/ya-metrika.js"></script>
+<noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->"""
+
 translations = {
     'lang': ('ru', 'en'),
     'lang_switcher_href': ('/en/', '/'),
@@ -35,11 +54,15 @@ translations = {
     'last_fm': ('Ласт.фм', 'Last.fm'),
     'tv_shows': ('Сериалы, которые я смотрю', 'TV Series'),
     'last_change_title': ('Последнее обновление', 'Last updated'),
-    'hosting': ('За хостинг спасибо ', 'For hosting thanks to '),
+    'hosting': ('За хостинг спасибо ', 'Thanks to '),
+    'hosting_after': ('', ' for hosting'),
     'hosting_provider': ('Гитхабу', 'GitHub'),
     'given_name': ('Михаил', 'Mikhail'),
     'additional_name': ('Сергеевич', 'Sergeevich'),
     'family_name': ('Калашник', 'Kalashnik'),
     'locality': ('Москва', 'Moscow'),
     'country_name': ('Россия', 'Russia'),
+    'ga_code': (ga_code, ga_code),
+    'ya_metrika_code': (ya_metrika_code, ya_metrika_code),
+    'clash_of_clans': ('Clash of Clans — калькулятор стоимости войска', 'Clash of Clans — Troops Price Calculator'),
 }

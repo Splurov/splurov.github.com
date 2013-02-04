@@ -1,0 +1,26 @@
+input, select {
+    font-family: 'PT Serif', Georgia, serif;
+    font-size: inherit;
+}
+
+.units {
+    border-spacing: 0;
+    margin-bottom: 12px;
+}
+
+.units th {
+    text-align: left;
+    padding: 2px 14px 3px 0;
+    font-weight: normal;
+    font-size: 22px;
+}
+.units td {
+    padding: 2px 14px 3px 0;
+}
+.units td > input {
+    text-align: right;
+}
+
+.units__result {
+    border-top: 2px solid #ccc;
+}
