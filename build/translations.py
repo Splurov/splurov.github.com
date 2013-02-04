@@ -64,5 +64,8 @@ translations = {
     'country_name': ('Россия', 'Russia'),
     'ga_code': (ga_code, ga_code),
     'ya_metrika_code': (ya_metrika_code, ya_metrika_code),
-    'clash_of_clans': ('Clash of Clans — калькулятор стоимости войска', 'Clash of Clans — Troops Price Calculator'),
+    'clash_of_clans': ('Калькулятор стоимости армии для Clash of Clans', 'Troops Price Calculator for Clash of Clans'),
+    'miscellaneous': ('Разное', 'Miscellaneous'),
+    'userscripts': ('Юзерскрипты для Фаерфокса', 'Userscripts for Firefox'),
+    'minimum_font_size_addon': ('Дополнение для Фаерфокса — Minimum Font Size Hotkey', 'Firefox Add-on — Minimum Font Size Hotkey'),
 }
