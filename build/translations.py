@@ -14,10 +14,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 </script>"""
 
-ya_metrika_code = """<!-- Yandex.Metrika counter -->
-<script src="js/ya-metrika.js"></script>
-<noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->"""
+ya_metrika_noscript = """<noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>"""
 
 translations = {
     'lang': ('ru', 'en'),
@@ -63,7 +60,7 @@ translations = {
     'locality': ('Москва', 'Moscow'),
     'country_name': ('Россия', 'Russia'),
     'ga_code': (ga_code, ga_code),
-    'ya_metrika_code': (ya_metrika_code, ya_metrika_code),
+    'ya_metrika_noscript': (ya_metrika_noscript, ya_metrika_noscript),
     'clash_of_clans': ('Калькулятор стоимости армии для Clash of Clans', 'Troops Price Calculator for Clash of Clans'),
     'miscellaneous': ('Разное', 'Miscellaneous'),
     'userscripts': ('Юзерскрипты для Фаерфокса', 'Userscripts for Firefox'),
