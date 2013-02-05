@@ -16,6 +16,9 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 ya_metrika_noscript = """<noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>"""
 
+clash_of_clans = 'Clash of Clans'
+coc_calc_title = 'Troops Cost Calculator'
+
 translations = {
     'lang': ('ru', 'en'),
     'lang_switcher_href': ('/en/', '/'),
@@ -61,8 +64,10 @@ translations = {
     'country_name': ('Россия', 'Russia'),
     'ga_code': (ga_code, ga_code),
     'ya_metrika_noscript': (ya_metrika_noscript, ya_metrika_noscript),
-    'clash_of_clans': ('Калькулятор стоимости армии для Clash of Clans', 'Troops Price Calculator for Clash of Clans'),
+    'clash_of_clans': ('Калькулятор стоимости армии для {0}'.format(clash_of_clans), '{0} for {1}'.format(coc_calc_title, clash_of_clans)),
     'miscellaneous': ('Разное', 'Miscellaneous'),
     'userscripts': ('Юзерскрипты для Фаерфокса', 'Userscripts for Firefox'),
     'minimum_font_size_addon': ('Дополнение для Фаерфокса — Minimum Font Size Hotkey', 'Firefox Add-on — Minimum Font Size Hotkey'),
+
+    'coc_title': ('', '{0} — {1}'.format(clash_of_clans, coc_calc_title))
 }

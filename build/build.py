@@ -94,11 +94,11 @@ def script_repl(match, dir=''):
 log('start')
 
 sources = {
-    'index-source.html': True,
-    'clash-of-clans/index-source.html': False,
+    'index-source.html': {'ru': (False, 0), 'en': (True, 1)},
+    'clash-of-clans/index-source.html': {'en': (False, 1)},
 }
 
-for file, is_multilang in sources.iteritems():
+for file, langs in sources.iteritems():
     last_change_time = int(os.path.getmtime(file))
     translations.update(last_change=(last_change_time, last_change_time))
 
@@ -116,21 +116,18 @@ for file, is_multilang in sources.iteritems():
         log('{0} - replaces done'.format(file))
 
         template = Template(data)
-        translations_ru = {key: value[0] for (key, value) in translations.iteritems()}
-        data_ru = template.substitute(**translations_ru)
 
-        with open('{0}index.html'.format(dir), 'w') as dest:
-            dest.write(data_ru)
+        for lang, options in langs.iteritems():
+            translations_current = {key: value[options[1]] for (key, value) in translations.iteritems()}
+            data_ru = template.substitute(**translations_current)
 
-        log('ru version written')
+            base_dir = dir
+            if options[0]:
+                base_dir = '{0}{1}/'.format(base_dir, lang)
 
-        if is_multilang:
-            translations_en = {key: value[1] for (key, value) in translations.iteritems()}
-            data_en = template.substitute(**translations_en)
+            with open('{0}index.html'.format(base_dir), 'w') as dest:
+                dest.write(data_ru)
 
-            with open('{0}en/index.html'.format(dir), 'w') as dest:
-                dest.write(data_en)
-
-            log('en version written')
+            log('{0} version written'.format(lang))
 
 log('all done', True)
