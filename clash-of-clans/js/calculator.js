@@ -1,11 +1,11 @@
 (function(){
     var data = {
-            'Barbarian': [1, 20, [25, 40, 60, 80, 100]],
-            'Archer': [1, 25, [50, 80, 120, 160, 200]],
+            'Barbarian': [1, 20, [25, 40, 60, 80, 100, 150]],
+            'Archer': [1, 25, [50, 80, 120, 160, 200, 300]],
             'Goblin': [1, 30, [25, 40, 60, 80, 100]],
-            'Giant': [5, 120, [500, 1000, 1500, 2000, 2500]],
+            'Giant': [5, 120, [500, 1000, 1500, 2000, 2500, 3000]],
             'Wall_Breaker': [1, 120, [1000, 1500, 2000, 2500, 3000]],
-            'Balloon': [5, 600, [2000, 2500, 3000, 3500, 4000]],
+            'Balloon': [5, 600, [2000, 2500, 3000, 3500, 4000, 4500]],
             'Wizard': [4, 600, [1500, 2000, 2500, 3000, 3500]],
             'Healer': [20, 1200, [700, 10000, 13000]],
             'Dragon': [20, 1800, [25000, 32500, 40000]],
@@ -112,8 +112,8 @@
 
         var output = [];
         output.push('<tr><th>Price</th><td>' + totalPrice.toString(10).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,') + '</td>');
-        output.push('<tr><th>Capacity:</th><td>' + totalSpace + '</td>');
-        output.push('<tr><th>Average Production Time:</th><td>' + formattedTime + '</td>');
+        output.push('<tr><th>Capacity</th><td>' + totalSpace + '</td>');
+        output.push('<tr><th>Average Production Time</th><td>' + formattedTime + '</td>');
         result.innerHTML = output.join('');
 
         if ('localStorage' in window) {

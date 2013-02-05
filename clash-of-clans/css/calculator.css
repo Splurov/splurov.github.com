@@ -21,6 +21,7 @@ input, select {
     text-align: right;
 }
 
-.units__result {
+.units_result {
     border-top: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
 }
