@@ -25,7 +25,12 @@
 
     <p>
         <label for="barracks">Number of Barracks</label>
-        <input class="js-barracks" type="number" id="barracks" value="1" size="2" oninput="calculate()"/>
+        <select id="barracks" class="js-barracks" onchange="calculate()">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
     </p>
 
     <table class="js-result units units_result">

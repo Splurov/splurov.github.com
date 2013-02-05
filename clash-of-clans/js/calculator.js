@@ -90,12 +90,6 @@
             savedData[levelId] = level.selectedIndex;
         }
 
-        if (barracks.value < 1) {
-            barracks.value = 1;
-        } else if (barracks.value > 99) {
-            barracks.value = 99;
-        }
-
         savedData['barracks'] = barracks.value;
 
         var time = Math.ceil(totalTime / barracks.value),
