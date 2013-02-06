@@ -1,5 +1,69 @@
 (function(){
 
+    var Spinner = function(el) {
+
+        this.el = el;
+
+        this.plus = function() {
+            var current = parseInt(this.el.value);
+            if (isNaN(current)) {
+                this.el.value = 1;
+            } else {
+                this.el.value = current + 1;
+            }
+            calculate();
+        };
+
+        this.minus = function(el){
+            var current = parseInt(this.el.value);
+            if (isNaN(current) || current < 2) {
+                this.el.value = '';
+            } else {
+                this.el.value = current - 1;
+            }
+            calculate();
+        };
+
+        this.create = function(type){
+            var span = document.createElement('span');
+            span.className = 'number-' + type;
+            span.innerHTML = (type == 'plus' ? '+' : '−');
+
+            span.onclick = this[type].bind(this);
+
+            var interval = null,
+                timeout = null;
+            span.onmousedown = function(){
+                timeout = window.setTimeout(function(){
+                    interval = window.setInterval(this[type].bind(this), 100);
+                }.bind(this), 500);
+            }.bind(this);
+            span.onmouseup = function(){
+                clearTimeout(timeout);
+                clearInterval(interval);
+            };
+            el.parentNode.appendChild(span);
+        };
+
+        this.create('plus');
+        this.create('minus');
+
+    };
+
+    var numberFormat = function(n) {
+        return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+    };
+
+    var savedData = {};
+    if ('localStorage' in window) {
+        savedData = localStorage.getItem('savedData');
+        if (savedData) {
+            savedData = JSON.parse(savedData);
+        } else {
+            savedData = {};
+        }
+    }
+
     var data = {
             'Barbarian': [1, 20, [25, 40, 60, 80, 100, 150]],
             'Archer': [1, 25, [50, 80, 120, 160, 200, 300]],
@@ -12,21 +76,7 @@
             'Dragon': [20, 1800, [25000, 32500, 40000]],
             'P-E-K-K-A-': [25, 3600, [35000, 42500, 50000]]
         },
-        unitsTable = document.getElementById('units'),
-        savedData = {};
-
-    if ('localStorage' in window) {
-        savedData = localStorage.getItem('savedData');
-        if (savedData) {
-            savedData = JSON.parse(savedData);
-        } else {
-            savedData = {};
-        }
-    }
-
-    var numberFormat = function(n) {
-        return n.toString(10).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
-    };
+        unitsTable = document.getElementById('units');
 
     for (var name in data) {
         var unit = data[name],
@@ -70,7 +120,7 @@
         if (savedData[name]) {
             defaultValue = savedData[name];
         }
-        td4.innerHTML = '<input id="' + name + '" size="4" oninput="calculate()" value="' + defaultValue + '"/>';
+        td4.innerHTML = '<input class="js-number" id="' + name + '" size="4" oninput="calculate()" value="' + defaultValue + '"/>';
         unitRow.appendChild(td4);
 
         var summaryId = name + '-summary',
@@ -81,6 +131,11 @@
         unitRow.appendChild(td5);
 
         unitsTable.appendChild(unitRow);
+    }
+
+    var numbers = document.querySelectorAll('.js-number');
+    for (var i = 0, numberLength = numbers.length; i < numberLength; i++) {
+        new Spinner(numbers[i]);
     }
 
     var barracks = document.getElementById('barracks');
