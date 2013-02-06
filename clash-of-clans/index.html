@@ -25,176 +25,47 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 </head>
 <body>
 
-<form class="js-calculator">
+<h1>Clash of Clans — Troops Cost Calculator</h1>
 
-    <h1>Clash of Clans — Troops Cost Calculator</h1>
+<table id="units" class="units">
+    <tr>
+        <th>Unit</th>
+        <th>Level</th>
+        <th><span class="cost-elixir">Cost</span></th>
+        <th>Quantity</th>
+        <th><span class="cost-elixir">Total Cost</span></th>
+    </tr>
+</table>
 
-    <table class="js-units units">
-        <tr>
-            <th>Unit</th>
-            <th>Level</th>
-            <th><span class="cost-elixir">Cost</span></th>
-            <th>Quantity</th>
-            <th><span class="cost-elixir">Total Cost</span></th>
-        </tr>
-    </table>
+<p>
+    <label for="barracks">Number of Barracks</label>
+    <select id="barracks" onchange="calculate()">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+</p>
 
-    <p>
-        <label for="barracks">Number of Barracks</label>
-        <select id="barracks" class="js-barracks" onchange="calculate()">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
-    </p>
+<table class="units units_result">
+    <tr>
+        <th colspan="2">All Troops</th>
+    </tr>
+    <tr>
+        <th>Cost</th>
+        <td><span class="cost-elixir" id="total-cost"></span></td>
+    </tr>
+    <tr>
+        <th>Required Space</th>
+        <td id="total-space"></td>
+    </tr>
+    <tr>
+        <th>Average Production Time</th>
+        <td id="total-time"></td>
+    </tr>
+</table>
 
-    <table class="js-result units units_result">
-    </table>
-
-</form>
-
-<script>(function(){
-
-    var data = {
-            'Barbarian': [1, 20, [25, 40, 60, 80, 100, 150]],
-            'Archer': [1, 25, [50, 80, 120, 160, 200, 300]],
-            'Goblin': [1, 30, [25, 40, 60, 80, 100]],
-            'Giant': [5, 120, [500, 1000, 1500, 2000, 2500, 3000]],
-            'Wall_Breaker': [1, 120, [1000, 1500, 2000, 2500, 3000]],
-            'Balloon': [5, 600, [2000, 2500, 3000, 3500, 4000, 4500]],
-            'Wizard': [4, 600, [1500, 2000, 2500, 3000, 3500]],
-            'Healer': [20, 1200, [7000, 10000, 13000]],
-            'Dragon': [20, 1800, [25000, 32500, 40000]],
-            'P-E-K-K-A-': [25, 3600, [35000, 42500, 50000]]
-        },
-        unitsTable = document.querySelector('.js-units'),
-        savedData = {};
-
-    if ('localStorage' in window) {
-        savedData = localStorage.getItem('savedData');
-        if (savedData) {
-            savedData = JSON.parse(savedData);
-        } else {
-            savedData = {};
-        }
-    }
-
-    var numberFormat = function(n) {
-        return n.toString(10).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
-    };
-
-    for (var name in data) {
-        var unit = data[name],
-            unitRow = document.createElement('tr'),
-            unitCells = [],
-            unitLevelSelect = [];
-
-        unitCells.push('<td><label for="' + name + '">' + name.replace('_', ' ').replace(/-/g, '.') + '</label></td>');
-
-        var levelId = name + '-level',
-            levelIndex = 0,
-            costPerUnit;
-        if (savedData[levelId]) {
-            levelIndex = savedData[levelId];
-        }
-        unitLevelSelect.push('<select id="' + levelId + '" onchange="calculate()">');
-        for (var i = 0, levelLength = unit[2].length; i < levelLength; i++) {
-            var levelSelected = '';
-            if (i == levelIndex) {
-                levelSelected = ' selected="selected"';
-                costPerUnit = unit[2][i];
-            }
-            unitLevelSelect.push('<option value="' + unit[2][i] + '"' + levelSelected + '>' + (i + 1) + '</option>');
-        }
-        unitLevelSelect.push('</select>');
-        unitCells.push('<td>' + unitLevelSelect.join('') + '</td>');
-
-        var costId = name + '-cost';
-        unitCells.push('<td class="number" id="' + costId + '">' + costPerUnit + '</td>');
-
-        var defaultValue = '';
-        if (savedData[name]) {
-            defaultValue = savedData[name];
-        }
-        unitCells.push('<td><input id="' + name + '" size="4" oninput="calculate()" value="' + defaultValue + '"/></td>');
-
-        var summaryId = name + '-summary';
-        unitCells.push('<td class="number" id="' + summaryId + '">' + (defaultValue ? numberFormat(costPerUnit * defaultValue) : '') + '</td>');
-
-        unitRow.innerHTML = unitCells.join('');
-        unitsTable.appendChild(unitRow);
-    }
-
-    var barracks = document.querySelector('.js-barracks'),
-        result = document.querySelector('.js-result');
-
-    if (savedData['barracks']) {
-        barracks.value = savedData['barracks'];
-    }
-
-    window.calculate = function(){
-        var totalCost = 0,
-            totalSpace = 0,
-            totalTime = 0,
-            savedData = {};
-        for (var name in data) {
-            var unit = document.getElementById(name);
-
-            if (unit.value < 0) {
-                unit.value = 0;
-            } else if (unit.value > 9999) {
-                unit.value = 9999;
-            }
-
-            var levelId = name + '-level',
-                levelEl = document.getElementById(levelId),
-                costEl = document.getElementById(name + '-cost'),
-                summaryEl = document.getElementById(name + '-summary'),
-                costPerUnit = levelEl.value,
-                summaryCost = (costPerUnit * unit.value);
-
-            costEl.innerHTML = numberFormat(costPerUnit);
-            summaryEl.innerHTML = (summaryCost ? numberFormat(summaryCost) : '');
-
-            totalCost += summaryCost;
-            totalSpace += (data[name][0] * unit.value);
-            totalTime += (data[name][1] * unit.value);
-
-            savedData[name] = unit.value;
-            savedData[levelId] = levelEl.selectedIndex;
-        }
-
-        savedData['barracks'] = barracks.value;
-
-        var time = Math.ceil(totalTime / barracks.value),
-            formattedTime = '';
-        if (time > 3599) {
-            formattedTime += Math.floor(time / 3600) + 'h ';
-            time = time % 3600;
-        }
-        if (time > 59) {
-            formattedTime += Math.floor(time / 60) + 'm ';
-            time = time % 60;
-        }
-        formattedTime += time + 's';
-
-        var output = [];
-        output.push('<tr><th colspan="2">All Troops</th></tr>');
-        output.push('<tr><th>Cost</th><td><span class="cost-elixir">' + numberFormat(totalCost) + '</span></td>');
-        output.push('<tr><th>Required Space</th><td>' + totalSpace + '</td>');
-        output.push('<tr><th>Average Production Time</th><td>' + formattedTime + '</td>');
-        result.innerHTML = output.join('');
-
-        if ('localStorage' in window) {
-            localStorage.setItem('savedData', JSON.stringify(savedData));
-        }
-    };
-
-    calculate();
-
-})();
-</script>
+<script>(function(){var v={Barbarian:[1,20,[25,40,60,80,100,150]],Archer:[1,25,[50,80,120,160,200,300]],Goblin:[1,30,[25,40,60,80,100]],Giant:[5,120,[500,1000,1500,2000,2500,3000]],Wall_Breaker:[1,120,[1000,1500,2000,2500,3000]],Balloon:[5,600,[2000,2500,3000,3500,4000,4500]],Wizard:[4,600,[1500,2000,2500,3000,3500]],Healer:[20,1200,[7000,10000,13000]],Dragon:[20,1800,[25000,32500,40000]],"P-E-K-K-A-":[25,3600,[35000,42500,50000]]},k=document.getElementById("units"),t={};if("localStorage" in window){t=localStorage.getItem("savedData");if(t){t=JSON.parse(t)}else{t={}}}var s=function(i){return i.toString(10).replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,")};for(var x in v){var l=v[x],p=document.createElement("tr"),m=[];var g=document.createElement("td");g.innerHTML='<label for="'+x+'">'+x.replace("_"," ").replace(/-/g,".")+"</label>";p.appendChild(g);var f=x+"-level",u=0,n;if(t[f]){u=t[f]}m.push('<select id="'+f+'" onchange="calculate()">');for(var r=0,j=l[2].length;r<j;r++){var w="";if(r==u){w=' selected="selected"';n=l[2][r]}m.push('<option value="'+l[2][r]+'"'+w+">"+(r+1)+"</option>")}m.push("</select>");var e=document.createElement("td");e.innerHTML=m.join("");p.appendChild(e);var d=document.createElement("td"),o=x+"-cost";d.setAttribute("id",o);d.className="number";d.innerHTML=n;p.appendChild(d);var q="",c=document.createElement("td");if(t[x]){q=t[x]}c.innerHTML='<input id="'+x+'" size="4" oninput="calculate()" value="'+q+'"/>';p.appendChild(c);var a=x+"-summary",b=document.createElement("td");b.setAttribute("id",a);b.className="number";b.innerHTML=(q?s(n*q):"");p.appendChild(b);k.appendChild(p)}var h=document.getElementById("barracks");if(t.barracks){h.value=t.barracks}window.calculate=function(){var i=0,F=0,y=0,G={};for(var z in v){var I=document.getElementById(z);if(I.value<0){I.value=0}else{if(I.value>9999){I.value=9999}}var J=z+"-level",K=document.getElementById(J),D=document.getElementById(z+"-cost"),H=document.getElementById(z+"-summary"),A=K.value,C=(A*I.value);D.innerHTML=s(A);H.innerHTML=(C?s(C):"");i+=C;F+=(v[z][0]*I.value);y+=(v[z][1]*I.value);G[z]=I.value;G[J]=K.selectedIndex}G.barracks=h.value;var B=Math.ceil(y/h.value),E="";if(B>3599){E+=Math.floor(B/3600)+"h ";B=B%3600}if(B>59){E+=Math.floor(B/60)+"m ";B=B%60}E+=B+"s";document.getElementById("total-cost").innerHTML=s(i);document.getElementById("total-space").innerHTML=F;document.getElementById("total-time").innerHTML=E;if("localStorage" in window){localStorage.setItem("savedData",JSON.stringify(G))}};calculate()})();</script>
 
 <!-- Yandex.Metrika counter -->
 <script>(function(g,a,i){(a[i]=a[i]||[]).push(function(){try{a.yaCounter19642528=new Ya.Metrika({id:19642528,webvisor:true,clickmap:true,trackLinks:true,accurateTrackBounce:true})}catch(c){}});var h=g.getElementsByTagName("script")[0],b=g.createElement("script"),e=function(){h.parentNode.insertBefore(b,h)};b.type="text/javascript";b.async=true;b.src=(g.location.protocol=="https:"?"https:":"http:")+"//mc.yandex.ru/metrika/watch.js";if(a.opera=="[object Opera]"){g.addEventListener("DOMContentLoaded",e,false)}else{e()}})(document,window,"yandex_metrika_callbacks");</script>
@@ -221,6 +92,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
         <td>1.2</td>
         <td>6 February, 2013</td>
         <td>
+            Now works fine in IE;<br />
             Changed favicon to app store game icon;<br />
             Added elixir icon to costs;<br />
             Added intermediate results of the calculations to the units table.<br />

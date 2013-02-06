@@ -13,36 +13,47 @@
 </head>
 <body>
 
-<form class="js-calculator">
+<h1>$coc_title</h1>
 
-    <h1>$coc_title</h1>
+<table id="units" class="units">
+    <tr>
+        <th>Unit</th>
+        <th>Level</th>
+        <th><span class="cost-elixir">Cost</span></th>
+        <th>Quantity</th>
+        <th><span class="cost-elixir">Total Cost</span></th>
+    </tr>
+</table>
 
-    <table class="js-units units">
-        <tr>
-            <th>Unit</th>
-            <th>Level</th>
-            <th><span class="cost-elixir">Cost</span></th>
-            <th>Quantity</th>
-            <th><span class="cost-elixir">Total Cost</span></th>
-        </tr>
-    </table>
+<p>
+    <label for="barracks">Number of Barracks</label>
+    <select id="barracks" onchange="calculate()">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+</p>
 
-    <p>
-        <label for="barracks">Number of Barracks</label>
-        <select id="barracks" class="js-barracks" onchange="calculate()">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
-    </p>
+<table class="units units_result">
+    <tr>
+        <th colspan="2">All Troops</th>
+    </tr>
+    <tr>
+        <th>Cost</th>
+        <td><span class="cost-elixir" id="total-cost"></span></td>
+    </tr>
+    <tr>
+        <th>Required Space</th>
+        <td id="total-space"></td>
+    </tr>
+    <tr>
+        <th>Average Production Time</th>
+        <td id="total-time"></td>
+    </tr>
+</table>
 
-    <table class="js-result units units_result">
-    </table>
-
-</form>
-
-<script src="js/calculator.js" data-compress="no"></script>
+<script src="js/calculator.js"></script>
 
 <!-- Yandex.Metrika counter -->
 <script src="../js/ya-metrika.js"></script>
@@ -69,6 +80,7 @@ $ya_metrika_noscript
         <td>1.2</td>
         <td>6 February, 2013</td>
         <td>
+            Now works fine in IE;<br />
             Changed favicon to app store game icon;<br />
             Added elixir icon to costs;<br />
             Added intermediate results of the calculations to the units table.<br />

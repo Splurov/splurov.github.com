@@ -12,7 +12,7 @@
             'Dragon': [20, 1800, [25000, 32500, 40000]],
             'P-E-K-K-A-': [25, 3600, [35000, 42500, 50000]]
         },
-        unitsTable = document.querySelector('.js-units'),
+        unitsTable = document.getElementById('units'),
         savedData = {};
 
     if ('localStorage' in window) {
@@ -31,10 +31,11 @@
     for (var name in data) {
         var unit = data[name],
             unitRow = document.createElement('tr'),
-            unitCells = [],
             unitLevelSelect = [];
 
-        unitCells.push('<td><label for="' + name + '">' + name.replace('_', ' ').replace(/-/g, '.') + '</label></td>');
+        var td1 = document.createElement('td');
+        td1.innerHTML = '<label for="' + name + '">' + name.replace('_', ' ').replace(/-/g, '.') + '</label>';
+        unitRow.appendChild(td1);
 
         var levelId = name + '-level',
             levelIndex = 0,
@@ -52,26 +53,37 @@
             unitLevelSelect.push('<option value="' + unit[2][i] + '"' + levelSelected + '>' + (i + 1) + '</option>');
         }
         unitLevelSelect.push('</select>');
-        unitCells.push('<td>' + unitLevelSelect.join('') + '</td>');
 
-        var costId = name + '-cost';
-        unitCells.push('<td class="number" id="' + costId + '">' + costPerUnit + '</td>');
+        var td2 = document.createElement('td');
+        td2.innerHTML = unitLevelSelect.join('');
+        unitRow.appendChild(td2);
 
-        var defaultValue = '';
+        var td3 = document.createElement('td'),
+            costId = name + '-cost';
+        td3.setAttribute('id', costId);
+        td3.className = 'number';
+        td3.innerHTML = costPerUnit;
+        unitRow.appendChild(td3);
+
+        var defaultValue = '',
+            td4 = document.createElement('td');
         if (savedData[name]) {
             defaultValue = savedData[name];
         }
-        unitCells.push('<td><input id="' + name + '" size="4" oninput="calculate()" value="' + defaultValue + '"/></td>');
+        td4.innerHTML = '<input id="' + name + '" size="4" oninput="calculate()" value="' + defaultValue + '"/>';
+        unitRow.appendChild(td4);
 
-        var summaryId = name + '-summary';
-        unitCells.push('<td class="number" id="' + summaryId + '">' + (defaultValue ? numberFormat(costPerUnit * defaultValue) : '') + '</td>');
+        var summaryId = name + '-summary',
+            td5 = document.createElement('td');
+        td5.setAttribute('id', summaryId);
+        td5.className = 'number';
+        td5.innerHTML = (defaultValue ? numberFormat(costPerUnit * defaultValue) : '');
+        unitRow.appendChild(td5);
 
-        unitRow.innerHTML = unitCells.join('');
         unitsTable.appendChild(unitRow);
     }
 
-    var barracks = document.querySelector('.js-barracks'),
-        result = document.querySelector('.js-result');
+    var barracks = document.getElementById('barracks');
 
     if (savedData['barracks']) {
         barracks.value = savedData['barracks'];
@@ -123,12 +135,9 @@
         }
         formattedTime += time + 's';
 
-        var output = [];
-        output.push('<tr><th colspan="2">All Troops</th></tr>');
-        output.push('<tr><th>Cost</th><td><span class="cost-elixir">' + numberFormat(totalCost) + '</span></td>');
-        output.push('<tr><th>Required Space</th><td>' + totalSpace + '</td>');
-        output.push('<tr><th>Average Production Time</th><td>' + formattedTime + '</td>');
-        result.innerHTML = output.join('');
+        document.getElementById('total-cost').innerHTML = numberFormat(totalCost);
+        document.getElementById('total-space').innerHTML = totalSpace;
+        document.getElementById('total-time').innerHTML = formattedTime;
 
         if ('localStorage' in window) {
             localStorage.setItem('savedData', JSON.stringify(savedData));
