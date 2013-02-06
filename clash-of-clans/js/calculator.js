@@ -1,4 +1,5 @@
 (function(){
+
     var data = {
             'Barbarian': [1, 20, [25, 40, 60, 80, 100, 150]],
             'Archer': [1, 25, [50, 80, 120, 160, 200, 300]],
@@ -35,16 +36,26 @@
 
         unitCells.push('<td><label for="' + name + '">' + name.replace('_', ' ').replace(/-/g, '.') + '</label></td>');
 
-        var levelId = name + '-level';
+        var levelId = name + '-level',
+            levelIndex = 0,
+            costPerUnit;
+        if (savedData[levelId]) {
+            levelIndex = savedData[levelId];
+        }
         unitLevelSelect.push('<select id="' + levelId + '" onchange="calculate()">');
         for (var i = 0, levelLength = unit[2].length; i < levelLength; i++) {
-            unitLevelSelect.push('<option value="' + unit[2][i] + '">' + (i + 1) + '</option>');
+            var levelSelected = '';
+            if (i == levelIndex) {
+                levelSelected = ' selected="selected"';
+                costPerUnit = unit[2][i];
+            }
+            unitLevelSelect.push('<option value="' + unit[2][i] + '"' + levelSelected + '>' + (i + 1) + '</option>');
         }
         unitLevelSelect.push('</select>');
         unitCells.push('<td>' + unitLevelSelect.join('') + '</td>');
 
         var costId = name + '-cost';
-        unitCells.push('<td class="number" id="' + costId + '"></td>');
+        unitCells.push('<td class="number" id="' + costId + '">' + costPerUnit + '</td>');
 
         var defaultValue = '';
         if (savedData[name]) {
@@ -53,21 +64,10 @@
         unitCells.push('<td><input id="' + name + '" size="4" oninput="calculate()" value="' + defaultValue + '"/></td>');
 
         var summaryId = name + '-summary';
-        unitCells.push('<td class="number" id="' + summaryId + '"></td>');
+        unitCells.push('<td class="number" id="' + summaryId + '">' + (defaultValue ? numberFormat(costPerUnit * defaultValue) : '') + '</td>');
 
         unitRow.innerHTML = unitCells.join('');
         unitsTable.appendChild(unitRow);
-
-        var levelIndex = 0;
-        if (savedData[levelId]) {
-            levelIndex = savedData[levelId];
-        }
-        var levelEl = document.getElementById(levelId);
-        levelEl.options[levelIndex].selected = true;
-
-        var costPerUnit = levelEl.options[levelEl.selectedIndex].value;
-        document.getElementById(costId).innerHTML = numberFormat(costPerUnit);
-        document.getElementById(summaryId).innerHTML = (defaultValue ? numberFormat(costPerUnit * defaultValue) : '');
     }
 
     var barracks = document.querySelector('.js-barracks'),
