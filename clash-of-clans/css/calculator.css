@@ -8,20 +8,38 @@ input, select {
     margin-bottom: 12px;
 }
 
-.units th {
-    text-align: left;
-    padding: 2px 14px 3px 0;
-    font-weight: normal;
-    font-size: 22px;
-}
-.units td {
-    padding: 2px 14px 3px 0;
-}
-.units td > input {
-    text-align: right;
-}
+    .units th {
+        text-align: left;
+        padding: 2px 24px 3px 0;
+        font-weight: normal;
+        font-size: 22px;
+    }
+    .units td {
+        padding: 2px 24px 3px 0;
+    }
+        .units td > input {
+            text-align: right;
+        }
 
-.units_result {
-    border-top: 2px solid #ccc;
-    border-bottom: 2px solid #ccc;
+    .units_result {
+        border-top: 2px solid #ccc;
+        border-bottom: 2px solid #ccc;
+    }
+    .number {
+        text-align: right;
+    }
+
+.changelog {
+    border-spacing: 0;
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+    .changelog td {
+        padding: 2px 24px 3px 0;
+        vertical-align: top;
+    }
+
+.cost-elixir {
+    background: url(/clash-of-clans/i/elixir.png) no-repeat 100% 50%;
+    padding-right: 28px;
 }

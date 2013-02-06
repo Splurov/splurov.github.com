@@ -23,6 +23,10 @@
         }
     }
 
+    var numberFormat = function(n) {
+        return n.toString(10).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+    };
+
     for (var name in data) {
         var unit = data[name],
             unitRow = document.createElement('tr'),
@@ -31,20 +35,25 @@
 
         unitCells.push('<td><label for="' + name + '">' + name.replace('_', ' ').replace(/-/g, '.') + '</label></td>');
 
-        var defaultValue = 0;
-        if (savedData[name]) {
-            defaultValue = savedData[name];
-        }
-        unitCells.push('<td><input id="' + name + '" size="4" oninput="calculate()" value="' + defaultValue + '"/></td>');
-
         var levelId = name + '-level';
         unitLevelSelect.push('<select id="' + levelId + '" onchange="calculate()">');
         for (var i = 0, levelLength = unit[2].length; i < levelLength; i++) {
             unitLevelSelect.push('<option value="' + unit[2][i] + '">' + (i + 1) + '</option>');
         }
         unitLevelSelect.push('</select>');
-
         unitCells.push('<td>' + unitLevelSelect.join('') + '</td>');
+
+        var costId = name + '-cost';
+        unitCells.push('<td class="number" id="' + costId + '"></td>');
+
+        var defaultValue = '';
+        if (savedData[name]) {
+            defaultValue = savedData[name];
+        }
+        unitCells.push('<td><input id="' + name + '" size="4" oninput="calculate()" value="' + defaultValue + '"/></td>');
+
+        var summaryId = name + '-summary';
+        unitCells.push('<td class="number" id="' + summaryId + '"></td>');
 
         unitRow.innerHTML = unitCells.join('');
         unitsTable.appendChild(unitRow);
@@ -53,8 +62,12 @@
         if (savedData[levelId]) {
             levelIndex = savedData[levelId];
         }
-        var level = document.getElementById(levelId);
-        level.options[levelIndex].selected = true;
+        var levelEl = document.getElementById(levelId);
+        levelEl.options[levelIndex].selected = true;
+
+        var costPerUnit = levelEl.options[levelEl.selectedIndex].value;
+        document.getElementById(costId).innerHTML = numberFormat(costPerUnit);
+        document.getElementById(summaryId).innerHTML = (defaultValue ? numberFormat(costPerUnit * defaultValue) : '');
     }
 
     var barracks = document.querySelector('.js-barracks'),
@@ -65,7 +78,7 @@
     }
 
     window.calculate = function(){
-        var totalPrice = 0,
+        var totalCost = 0,
             totalSpace = 0,
             totalTime = 0,
             savedData = {};
@@ -79,15 +92,21 @@
             }
 
             var levelId = name + '-level',
-                level = document.getElementById(levelId),
-                price = level.value;
+                levelEl = document.getElementById(levelId),
+                costEl = document.getElementById(name + '-cost'),
+                summaryEl = document.getElementById(name + '-summary'),
+                costPerUnit = levelEl.value,
+                summaryCost = (costPerUnit * unit.value);
 
-            totalPrice += (price * unit.value);
+            costEl.innerHTML = numberFormat(costPerUnit);
+            summaryEl.innerHTML = (summaryCost ? numberFormat(summaryCost) : '');
+
+            totalCost += summaryCost;
             totalSpace += (data[name][0] * unit.value);
             totalTime += (data[name][1] * unit.value);
 
             savedData[name] = unit.value;
-            savedData[levelId] = level.selectedIndex;
+            savedData[levelId] = levelEl.selectedIndex;
         }
 
         savedData['barracks'] = barracks.value;
@@ -105,8 +124,9 @@
         formattedTime += time + 's';
 
         var output = [];
-        output.push('<tr><th>Price</th><td>' + totalPrice.toString(10).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,') + '</td>');
-        output.push('<tr><th>Capacity</th><td>' + totalSpace + '</td>');
+        output.push('<tr><th colspan="2">All Troops</th></tr>');
+        output.push('<tr><th>Cost</th><td><span class="cost-elixir">' + numberFormat(totalCost) + '</span></td>');
+        output.push('<tr><th>Required Space</th><td>' + totalSpace + '</td>');
         output.push('<tr><th>Average Production Time</th><td>' + formattedTime + '</td>');
         result.innerHTML = output.join('');
 
