@@ -5,9 +5,8 @@ input, select {
 
 .units {
     border-spacing: 0;
-    margin-bottom: 12px;
+    margin-bottom: 24px;
 }
-
     .units th {
         text-align: left;
         padding: 2px 24px 3px 0;
@@ -21,9 +20,12 @@ input, select {
             text-align: right;
         }
 
-    .units_result {
-        border-top: 2px solid #ccc;
-        border-bottom: 2px solid #ccc;
+    .units tfoot td, .units tfoot th {
+        text-align: right;
+    }
+
+    .units-quantity {
+        font-size: 16px;
     }
 
 .changelog {
@@ -44,6 +46,10 @@ input, select {
     background: url(/clash-of-clans/i/elixir.png) no-repeat 100% 50%;
     padding-right: 28px;
 }
+.cost-gold {
+    background: url(/clash-of-clans/i/gold.png) no-repeat 100% 50%;
+    padding-right: 28px;
+}
 
 .number-plus, .number-minus {
     color: #000;
@@ -57,4 +63,8 @@ input, select {
 
 .number {
     text-align: right;
+}
+
+.limit-exceeded {
+    color: #d00;
 }
