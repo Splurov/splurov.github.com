@@ -98,7 +98,7 @@
             if (items.hasOwnProperty(name) && items[name][3] <= levelValue) {
                 var item = document.getElementById(name);
 
-                var value = parseInt(item.value, 10);
+                var value = parseInt(item.value, 10) || 0;
 
                 var levelId = name + '-level',
                     levelEl = document.getElementById(levelId),
@@ -265,7 +265,7 @@
                 td3.innerHTML = costPerItem;
                 itemRow.appendChild(td3);
 
-                var defaultValue = savedData.get(name, 0),
+                var defaultValue = savedData.get(name) || 0,
                     td4 = document.createElement('td');
                 if (type === 'spells') {
                     var itemQuantitySelect = [];
@@ -297,7 +297,15 @@
     createRows(spells, 'spells');
 
     var numbers = document.querySelectorAll('.js-number');
+    var selectAll = function(e) {
+        if (e.target.tagName.toLowerCase() === 'input') {
+            setTimeout(function(el){
+                el.setSelectionRange(0, 9999);
+            }.bind(null, e.target), 10);
+        }
+    };
     for (var i = 0, numberLength = numbers.length; i < numberLength; i++) {
+        numbers[i].addEventListener('focus', selectAll, false);
         setSpinner(numbers[i]);
     }
 
