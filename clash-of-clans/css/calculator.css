@@ -68,3 +68,7 @@ input, select {
 .limit-exceeded {
     color: #d00;
 }
+
+.intro {
+    font-size: 16px;
+}
