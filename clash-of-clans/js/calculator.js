@@ -1,6 +1,17 @@
-(function(){
+(function() {
 
     'use strict';
+
+
+    if (!Function.prototype.bind) {
+        Function.prototype.bind = function(context) {
+            var self = this;
+            var args = Array.prototype.slice.call(arguments, 1);
+            return function() {
+                return self.apply(context, args.concat(Array.prototype.slice.call(arguments)));
+            };
+        };
+    }
 
 
     var objectIterate = function(obj, callback) {
