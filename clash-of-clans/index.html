@@ -5,7 +5,7 @@
     <meta property="fb:admins" content="splurov"/>
     <title>Clash of Clans — Troops and Spells Cost Calculator</title>
     <style>@font-face{font-family:'PT Serif';src:url('/fonts/PTF55F_W.woff') format('woff')}@font-face{font-family:'PT Serif Caption';src:url('/fonts/PTZ55F_W.woff') format('woff')}html,body{background:#fefefe;color:#222}body{font-family:'PT Serif',Georgia,serif;font-size:18px;line-height:1.5;margin:0;padding:20px 40px}a{white-space:nowrap}a:link{color:#4100f1;text-decoration:none}a:visited{color:#63008c;text-decoration:none}a:hover,a:active{text-decoration:underline}h1{font-size:28px;font-family:'PT Serif Caption',Georgia,sans-serif;font-weight:normal;margin:0 0 12px}h2{font-size:22px;font-family:'PT Serif Caption',Georgia,sans-serif;font-weight:normal;margin:18px 0 4px}p{margin:0 0 12px}.content{min-width:260px;max-width:520px}.photo{margin:8px 0 20px 20px;float:right;border-radius:10px}@media all and (max-width:560px){.photo{float:none;display:block;margin:0 auto 20px}}a.fn.url{color:#222;text-decoration:none}.footer{margin-top:30px;font-size:14px;color:#ccc}.footer a:link{text-decoration:underline;color:#ccc}.footer a:visited{text-decoration:underline;color:#ccc}.footer a:hover,.footer a:active{text-decoration:none}.hidden{display:none}</style>
-    <style>input,select{font-family:'PT Serif',Georgia,serif;font-size:inherit}.units{border-spacing:0;margin-bottom:24px}.units th{text-align:left;padding:2px 24px 3px 0;font-weight:normal;font-size:22px}.units td{padding:2px 24px 3px 0}.units td>input{text-align:right}.units tfoot td,.units tfoot th{text-align:right}.units-quantity{font-size:16px}.changelog{border-spacing:0;margin-bottom:12px;font-size:14px}.changelog td{padding:2px 24px 3px 0;vertical-align:top}.todo{font-size:14px}.cost-elixir{background:url(/clash-of-clans/i/elixir.png) no-repeat 100% 50%;padding-right:28px}.cost-gold{background:url(/clash-of-clans/i/gold.png) no-repeat 100% 50%;padding-right:28px}.number-plus,.number-minus{color:#000;cursor:pointer;display:inline-block;margin-left:6px;border:1px solid #aaa;border-radius:8px;padding:0 6px}.number{text-align:right}.limit-exceeded{color:#d00}.intro{font-size:16px}</style>
+    <style>.field{font-family:'PT Serif',Georgia,serif;font-size:inherit}.units{border-spacing:0;margin-bottom:24px}.units_common{margin-bottom:12px}.units th{text-align:left;padding:2px 24px 3px 0;font-weight:normal;font-size:22px}.units td{padding:2px 24px 3px 0}.units td>input{text-align:right}.units tfoot td,.units tfoot th{text-align:right}.units-quantity{font-size:16px}.changelog{border-spacing:0;margin-bottom:12px;font-size:14px}.changelog td{padding:2px 24px 3px 0;vertical-align:top}.todo{font-size:14px}.cost-elixir{background:url(/clash-of-clans/i/elixir.png) no-repeat 100% 50%;padding-right:28px}.cost-gold{background:url(/clash-of-clans/i/gold.png) no-repeat 100% 50%;padding-right:28px}.like-button{color:#000;cursor:pointer;display:inline-block;border:1px outset #777;border-radius:8px;padding:0 8px}.like-button_after{margin-left:6px}.like-button_lonely{margin-left:-8px;margin-right:16px}.number{text-align:right}.limit-exceeded{color:#d00}.intro{font-size:16px}.saved-list{font-size:14px}.saved-list__item{display:inline-block;margin:0 33px 20px -13px;width:180px;border:1px solid #ccc;border-radius:10px;padding:10px 13px;vertical-align:top}.saved-list__item-title{font-size:16px}.saved-list__item-title_next{margin-top:15px}.saved-list__item-result{margin-top:10px}.saved-list__actions{margin-top:15px}</style>
     <script>navigator.appName=="Microsoft Internet Explorer"&&(function(b,e,c,a){b.src="/clash-of-clans/i/favicon.ico";c=e.getElementsByTagName("script")[0];a=c.parentNode.insertBefore(e.createElement("link"),c);a.rel="shortcut icon";a.href=b.src})(new Image,document);</script>
     <link rel="icon" href="/clash-of-clans/i/favicon.png"/>
     <script type="text/javascript">
@@ -32,13 +32,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     <p>All entered data will be saved in your browser and pre-filled in next time you visit this page.</p>
 </div>
 
-<table class="units">
+<table class="units units_common">
     <tr>
         <td>
             <label for="barracks">Number of Barracks</label>
         </td>
         <td>
-            <select id="barracks">
+            <select id="barracks" class="field">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -52,7 +52,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
             <label for="barracks-level">Maximum Barracks Level</label>
         </td>
         <td>
-            <select id="barracks-level">
+            <select id="barracks-level" class="field">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -72,7 +72,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
             <label for="army-camps">Army Camps Capacity</label>
         </td>
         <td>
-            <input class="js-number" value="220" id="army-camps" size="4"/>
+            <input class="js-number field" value="220" id="army-camps" size="4"/>
         </td>
     </tr>
 
@@ -81,7 +81,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
             <label for="spell-factory-level">Spell Factory Level</label>
         </td>
         <td>
-            <select id="spell-factory-level">
+            <select id="spell-factory-level" class="field">
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -103,6 +103,28 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
         </tr>
     </thead>
     <tbody id="units-body">
+        <tr class="js-item-template hidden">
+            <td>
+                <label for="%valueId%">%valueTitle%</label>
+            </td>
+            <td>
+                <select id="%levelId%" class="field">
+                    %levelContent%
+                </select>
+            </td>
+            <td id="%costId%" class="number">
+            </td>
+            <td class="js-item-template-for js-item-template-for-spells hidden">
+                <select id="%valueId%" class="field">
+                    %valueContent%
+                </select>
+            </td>
+            <td class="js-item-template-for js-item-template-for-units hidden">
+                <input class="js-number field" id="%valueId%" size="4"/>
+            </td>
+            <td id="%summaryId%" class="number">
+            </td>
+        </tr>
     </tbody>
     <tfoot>
         <tr>
@@ -148,7 +170,18 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
     </tfoot>
 </table>
 
-<script>(function(){var p=function(i){return i.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,")};var n=function(i){var u=localStorage.getItem(i);if(u){u=JSON.parse(u)}else{u={}}this.get=function(w,v){var x=u[w];if(v!==undefined&&x===undefined){return v}return x};this.set=function(v,w){u[v]=w};this.update=function(){localStorage.setItem(i,JSON.stringify(u))};return this};var q=new n("savedData");var c=document.getElementById("barracks");c.options[q.get("barracks",c.selectedIndex)].selected=true;var j=document.getElementById("barracks-level");j.options[q.get("barracksLevel",j.selectedIndex)].selected=true;var l=document.getElementById("army-camps");l.value=q.get("armyCamps",l.value);var h=document.getElementById("spell-factory-level");h.options[q.get("spellFactoryLevel",h.selectedIndex)].selected=true;var k={Barbarian:[20,[25,40,60,80,100,150],1,1],Archer:[25,[50,80,120,160,200,300],1,2],Goblin:[30,[25,40,60,80,100],1,3],Giant:[120,[500,1000,1500,2000,2500,3000],5,4],Wall_Breaker:[120,[1000,1500,2000,2500,3000],1,5],Balloon:[600,[2000,2500,3000,3500,4000,4500],5,6],Wizard:[600,[1500,2000,2500,3000,3500],4,7],Healer:[1200,[7000,10000,13000],20,8],Dragon:[1800,[25000,32500,40000],20,9],"P-E-K-K-A-":[3600,[35000,42500,50000],25,10]},f=document.getElementById("units"),e={Lightning:[3600,[15000,16500,18000,20000,22000],1,1],Healing:[5400,[20000,22000,24000,26500,29000],1,2],Rage:[7200,[30000,33000,36000,40000,44000],1,3],Jump:[5400,[30000,38000],1,4]},a=document.getElementById("spells");var t=function(D,w,L){var A=parseInt(L.levelSelect.value,10);L.table.style.display=(A===0?"none":"");for(var I=parseInt(L.levelSelect.options[L.levelSelect.options.length-1].value);I>=1;I--){document.getElementById(w+"-building-level-"+I).style.display=(I>A?"none":"")}var J=0,B=0,y=0,N;for(N in D){if(D.hasOwnProperty(N)&&D[N][3]<=A){var K=document.getElementById(N);var G=parseInt(K.value,10)||0;var v=N+"-level",E=document.getElementById(v),u=document.getElementById(N+"-cost"),C=document.getElementById(N+"-summary"),M=E.value,H=(M*G);u.innerHTML=p(M);C.innerHTML=(H?p(H):0);J+=H;B+=(D[N][2]*G);y+=(D[N][0]*G);q.set(N,G);q.set(v,E.selectedIndex)}}document.getElementById(w+"-cost").innerHTML=p(J);var F=L.space-B;if(F<0){F='<span class="limit-exceeded">'+F+"</span>"}document.getElementById(w+"-quantity").innerHTML="("+F+")";if(B>L.space){B='<span class="limit-exceeded">'+B+"</span>"}B=B+" / "+L.space;document.getElementById(w+"-space").innerHTML=B;var z=Math.ceil(y/L.buildings),x="";if(z>3599){x+=Math.floor(z/3600)+"h ";z=z%3600}if(z>59){x+=Math.floor(z/60)+"m ";z=z%60}x+=z+"s";document.getElementById(w+"-time").innerHTML=x};var g=function(){t(k,"units",{table:f,levelSelect:j,space:l.value,buildings:c.value});t(e,"spells",{table:a,levelSelect:h,space:h.value,buildings:1});q.set("barracks",c.selectedIndex);q.set("barracksLevel",j.selectedIndex);q.set("armyCamps",l.value);q.set("spellFactoryLevel",h.selectedIndex);q.update()};c.addEventListener("change",g,false);j.addEventListener("change",g,false);l.addEventListener("input",g,false);h.addEventListener("change",g,false);var s=function(u){var w=function(){var x=parseInt(u.value,10);if(isNaN(x)){u.value=1}else{u.value=x+1}g()};var v=function(){var x=parseInt(u.value,10);if(isNaN(x)||x<2){u.value=0}else{u.value=x-1}g()};var i=function(z){var y=document.createElement("span");y.className="number-"+z;y.innerHTML=(z==="plus"?"+":"−");y.onclick=(z==="plus"?w:v);var x=null,A=null;y.onmousedown=function(){A=window.setTimeout(function(){x=window.setInterval((z==="plus"?w:v),100)},500)};y.onmouseup=function(){clearTimeout(A);clearInterval(x)};u.parentNode.appendChild(y)};i("plus");i("minus")};var o=function(F,C){for(var O in F){if(F.hasOwnProperty(O)){var J=F[O],B=document.createElement("tr");B.setAttribute("id",C+"-building-level-"+J[3]);var A=document.createElement("td");A.innerHTML='<label for="'+O+'">'+O.replace("_"," ").replace(/-/g,".")+"</label>";B.appendChild(A);var z=O+"-level",L=q.get(z,0),K,N=[];N.push('<select id="'+z+'">');for(var I=0,D=J[1].length;I<D;I++){var M="";if(I===L){M=' selected="selected"';K=J[1][I]}N.push('<option value="'+J[1][I]+'"'+M+">"+(I+1)+"</option>")}N.push("</select>");var y=document.createElement("td");y.innerHTML=N.join("");y.firstChild.addEventListener("change",g,false);B.appendChild(y);var x=document.createElement("td"),G=O+"-cost";x.setAttribute("id",G);x.className="number";x.innerHTML=K;B.appendChild(x);var H=q.get(O)||0,w=document.createElement("td");if(C==="spells"){var E=[];E.push('<select id="'+O+'">');for(var I=0;I<5;I++){E.push('<option value="'+I+'"'+(I===H?' selected="selected"':"")+">"+I+"</option>")}E.push("</select>");w.innerHTML=E.join("")}else{w.innerHTML='<input class="js-number" id="'+O+'" size="4" value="'+H+'"/>'}w.firstChild.addEventListener((C==="spells"?"change":"input"),g,false);B.appendChild(w);var u=O+"-summary",v=document.createElement("td");v.setAttribute("id",u);v.className="number";v.innerHTML=(H?p(K*H):0);B.appendChild(v);document.getElementById(C+"-body").appendChild(B)}}};o(k,"units");o(e,"spells");var d=document.querySelectorAll(".js-number");var r=function(i){if(i.target.tagName.toLowerCase()==="input"){setTimeout(function(u){u.setSelectionRange(0,9999)}.bind(null,i.target),10)}};for(var m=0,b=d.length;m<b;m++){d[m].addEventListener("focus",r,false);s(d[m])}g()})();</script>
+<p>
+    <span id="save" class="like-button like-button_lonely">Save Calculation</span>
+    <span id="view-saved" class="like-button like-button_lonely" style="display: none;">View Saved Calculations</span>
+    <span id="save-success" style="display: none;">Saved.</span>
+</p>
+
+<div id="saved-list" class="saved-list" style="display: none;">
+    <div id="saved-list-content" class="saved-list__content">
+    </div>
+</div>
+
+<script>(function(){var p=function(F,G){var E;for(E in F){if(F.hasOwnProperty(E)){G(E,F[E])}}};var a=function(F){var E=F.constructor();p(F,function(G,H){E[G]=H});return E};var y=function(E){return E.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,")};var g=function(E){return E.replace("_"," ").replace(/-/g,".")};var s=function(F){var E="";if(F>3599){E+=Math.floor(F/3600)+"h ";F=F%3600}if(F>59){E+=Math.floor(F/60)+"m ";F=F%60}E+=F+"s";return E};var x=function(F,E){this.key=F;this.defaultData=E;this.load=function(){var G=window.localStorage.getItem(this.key);return(G&&JSON.parse(G))||this.defaultData};this.save=function(G){window.localStorage.setItem(this.key,JSON.stringify(G))}};var j=function(E){this.data=E;this.get=function(G,F){var H=this.data[G];if(F!==undefined&&H===undefined){return F}return H};this.set=function(F,G){this.data[F]=G};this.getAll=function(){return this.data};this.setAll=function(F){this.data=F}};var k=function(E){this.entries=[];this.retrieve=function(F){return this.entries[F]};this.insert=function(F){this.entries.push(new j(F))};this.remove=function(F){this.entries.splice(F,1)};this.getAll=function(){return this.entries.map(function(F){return F.getAll()})};this.forEach=function(F){this.entries.forEach(F)};E.forEach(this.insert.bind(this))};var v=function(){var E={};this.get=function(F){if(!E.hasOwnProperty(F)){E[F]=document.getElementById(F)}return E[F]}};var r=new v();var D=new x("savedData",{});var z=new j(D.load());var d=r.get("barracks");var q=r.get("barracks-level");var u=r.get("army-camps");var l=r.get("spell-factory-level");var t={Barbarian:[20,[25,40,60,80,100,150],1,1],Archer:[25,[50,80,120,160,200,300],1,2],Goblin:[30,[25,40,60,80,100],1,3],Giant:[120,[500,1000,1500,2000,2500,3000],5,4],Wall_Breaker:[120,[1000,1500,2000,2500,3000],1,5],Balloon:[600,[2000,2500,3000,3500,4000,4500],5,6],Wizard:[600,[1500,2000,2500,3000,3500],4,7],Healer:[1200,[7000,10000,13000],20,8],Dragon:[1800,[25000,32500,40000],20,9],"P-E-K-K-A-":[3600,[35000,42500,50000],25,10]};var i=r.get("units");var f={Lightning:[3600,[15000,16500,18000,20000,22000],1,1],Healing:[5400,[20000,22000,24000,26500,29000],1,2],Rage:[7200,[30000,33000,36000,40000,44000],1,3],Jump:[5400,[30000,38000],1,4]};var c=r.get("spells");var C=function(K,L,G){var J=parseInt(G.levelSelect.value,10);G.table.style.display=(J===0?"none":"");var I;for(I=parseInt(G.levelSelect.options[G.levelSelect.options.length-1].value,10);I>=1;I--){r.get(L+"-building-level-"+I).style.display=(I>J?"none":"")}var E=0;var H=0;var F=0;p(K,function(N,T){if(T[3]>J){return}var W=r.get(N);var R=parseInt(W.value,10)||0;var U=N+"-level";var V=r.get(U);var P=r.get(N+"-cost");var S=r.get(N+"-summary");var Q=V.value;var O=(Q*R);P.innerHTML=y(Q);S.innerHTML=(O?y(O):0);E+=O;H+=(T[2]*R);F+=(T[0]*R);z.set(N,R);z.set(U,V.selectedIndex)});r.get(L+"-cost").innerHTML=y(E);var M=G.space-H;if(M<0){M='<span class="limit-exceeded">'+M+"</span>"}r.get(L+"-quantity").innerHTML="("+M+")";if(H>G.space){H='<span class="limit-exceeded">'+H+"</span>"}H=H+" / "+G.space;r.get(L+"-space").innerHTML=H;r.get(L+"-time").innerHTML=s(Math.ceil(F/G.buildings))};var h=function(){C(t,"units",{table:i,levelSelect:q,space:u.value,buildings:d.value});C(f,"spells",{table:c,levelSelect:l,space:l.value,buildings:1});z.set("barracks",d.selectedIndex);z.set("barracksLevel",q.selectedIndex);z.set("armyCamps",u.value);z.set("spellFactoryLevel",l.selectedIndex);D.save(z.getAll())};var o=function(){d.options[z.get("barracks",d.selectedIndex)].selected=true;q.options[z.get("barracksLevel",q.selectedIndex)].selected=true;u.value=z.get("armyCamps",u.value);l.options[z.get("spellFactoryLevel",l.selectedIndex)].selected=true;var E=function(F,G){p(F,function(I){var J=I+"-level";var H=r.get(J);H.options[z.get(J,H.selectedIndex)].selected=true;var K=r.get(I);if(G==="spells"){K.options[z.get(I,K.selectedIndex)].selected=true}else{K.value=z.get(I)||0}})};E(t,"units");E(f,"spells")};d.addEventListener("change",h,false);q.addEventListener("change",h,false);u.addEventListener("input",h,false);l.addEventListener("change",h,false);var B=function(F){var H=function(){var I=parseInt(F.value,10);if(isNaN(I)){F.value=1}else{F.value=I+1}h()};var G=function(){var I=parseInt(F.value,10);if(isNaN(I)||I<2){F.value=0}else{F.value=I-1}h()};var E=function(K){var J=document.createElement("span");J.className="like-button like-button_after";J.innerHTML=(K==="plus"?"+":"−");J.addEventListener("click",(K==="plus"?H:G),false);var I=null;var L=null;J.addEventListener("mousedown",function(){L=window.setTimeout(function(){I=window.setInterval((K==="plus"?H:G),100)},500)});J.addEventListener("mouseup",function(){clearTimeout(L);clearInterval(I)});F.parentNode.appendChild(J)};E("plus");E("minus")};var w=function(F,K){var J=function(N,M){return'<option value="'+N+'">'+(M+1)+"</option>"};var L=document.getElementsByClassName("js-item-template")[0];var E="";if(K==="spells"){var I=[];var H;for(H=0;H<5;H++){I.push('<option value="'+H+'">'+H+"</option>")}E=I.join("")}var G=r.get(K+"-body");p(F,function(N,S){var Q=L.cloneNode(true);var P=Q.getElementsByClassName("js-item-template-for-"+K)[0];P.className="";Q.removeChild(Q.getElementsByClassName("js-item-template-for")[0]);var R={valueId:N,valueTitle:g(N),levelId:N+"-level",levelContent:S[1].map(J).join(""),costId:N+"-cost",summaryId:N+"-summary",valueContent:E};var T=Q.innerHTML;p(R,function(V,U){T=T.replace(new RegExp("%"+V+"%","g"),U)});var M=document.createElement("div");M.innerHTML="<table><tr>"+T+"</tr></table>";var O=M.querySelector("tr");O.setAttribute("id",K+"-building-level-"+S[3]);G.appendChild(O);r.get(R.levelId).addEventListener("change",h,false);r.get(R.valueId).addEventListener((K==="spells"?"change":"input"),h,false)})};w(t,"units");w(f,"spells");var A=function(E){if(E.target.tagName.toLowerCase()==="input"){setTimeout(function(F){F.setSelectionRange(0,9999)}.bind(null,E.target),10)}};Array.prototype.slice.call(document.getElementsByClassName("js-number")).forEach(function(E){E.addEventListener("focus",A,false);B(E)});o();h();var e=new x("savedCalculations",[]);var n=new k(e.load());var b=function(){r.get("view-saved").style.display=(n.retrieve(0)?"":"none")};var m=function(G){var H=r.get("saved-list");if(H.style.display!=="none"){H.style.display="none";r.get("saved-list-content").innerHTML="";if(!G){z.set("savedListOpened",false);D.save(z.getAll());return}}z.set("savedListOpened",true);D.save(z.getAll());var F=[];n.forEach(function(P,J){F.push('<div class="saved-list__item" id="saved-list-item-'+J+'">');F.push('<div class="saved-list__item-title">Units</div>');var O=0;var M=0;var K=0;p(t,function(Q,S){var R=parseInt(P.get(Q),10)||0;if(R>0&&S[3]<=(P.get("barracksLevel")+1)){F.push(g(Q)+" "+(P.get(Q+"-level")+1)+"lvl &times;"+P.get(Q)+"<br/>");O+=S[1][P.get(Q+"-level")]*R;M+=S[0]*R;K+=S[2]*R}});F.push('<div class="saved-list__item-result">All Troops Cost: '+y(O)+"<br/>Capacity: "+K+"/"+P.get("armyCamps")+"<br/>Time: "+s(Math.ceil(M/(P.get("barracks")+1)))+" ("+(P.get("barracks")+1)+" Barracks)</div>");if(P.get("spellFactoryLevel")>0){F.push('<div class="saved-list__item-title saved-list__item-title_next">Spells</div>');var N=0;var L=0;var I=0;p(f,function(R,S){var Q=parseInt(P.get(R),10)||0;if(Q>0&&S[3]<=P.get("spellFactoryLevel")){F.push(g(R)+" "+(P.get(R+"-level")+1)+"lvl &times;"+P.get(R)+"<br/>");N+=S[1][P.get(R+"-level")]*Q;L+=S[0]*Q;I+=S[2]*Q}});F.push('<div class="saved-list__item-result">All Spells Cost: '+y(N)+"<br/>Capacity: "+I+"/"+P.get("spellFactoryLevel")+"<br/>Time: "+s(L)+"</div>")}F.push('<div class="saved-list__actions">');F.push('<span class="like-button like-button_lonely js-saved-load" data-num="'+J+'" title="Current calculation will be lost">Load</span>');F.push('<span class="like-button like-button_lonely js-saved-delete" data-num="'+J+'">Delete</span>');F.push("</div>");F.push("</div>")});var E=r.get("saved-list-content");E.innerHTML=F.join("");Array.prototype.slice.call(E.getElementsByClassName("js-saved-load")).forEach(function(I){I.addEventListener("click",function(){z=n.retrieve(I.getAttribute("data-num"));o();h();m()},false)});Array.prototype.slice.call(E.getElementsByClassName("js-saved-delete")).forEach(function(I){I.addEventListener("click",function(){n.remove(I.getAttribute("data-num"));e.save(n.getAll());b();m((n.retrieve(0)?true:false))},false)});r.get("saved-list").style.display="block"};r.get("view-saved").addEventListener("click",function(){m()});b();if(z.get("savedListOpened")){m()}r.get("save").addEventListener("click",function(){n.insert(a(z.getAll()));e.save(n.getAll());b();var G=r.get("save-success");G.style.display="";var F=100;var E=window.setInterval(function(){F-=5;G.style.opacity=(F/100).toString(10).replace("0.",".");if(F===0){G.style.display="none";G.style.opacity="1";clearInterval(E)}},50)},false)}());</script>
 
 <!-- Yandex.Metrika counter -->
 <script>(function(g,a,i){(a[i]=a[i]||[]).push(function(){try{a.yaCounter19642528=new Ya.Metrika({id:19642528,webvisor:true,clickmap:true,trackLinks:true,accurateTrackBounce:true})}catch(c){}});var h=g.getElementsByTagName("script")[0],b=g.createElement("script"),e=function(){h.parentNode.insertBefore(b,h)};b.type="text/javascript";b.async=true;b.src=(g.location.protocol=="https:"?"https:":"http:")+"//mc.yandex.ru/metrika/watch.js";if(a.opera=="[object Opera]"){g.addEventListener("DOMContentLoaded",e,false)}else{e()}})(document,window,"yandex_metrika_callbacks");</script>
@@ -171,6 +204,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 
 <h2>Changelog</h2>
 <table class="changelog">
+    <tr>
+        <td>1.4</td>
+        <td>17 February, 2013</td>
+        <td>
+            Added saving of calculations.<br/>
+        </td>
+    </tr>
     <tr>
         <td>1.3.2</td>
         <td>10 February, 2013</td>
@@ -228,8 +268,8 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <h2>To-do</h2>
 <div class="todo">
     <p>Distribution of troops between barracks for optimal training speed.</p>
-    <p>(?) Save results to simplify comparison of different sets.</p>
     <p>(?) Gem costs.</p>
+    <p>(?) Clan Castle troops.</p>
 </div>
 
 <div class="footer">

@@ -1,4 +1,4 @@
-input, select {
+.field {
     font-family: 'PT Serif', Georgia, serif;
     font-size: inherit;
 }
@@ -7,6 +7,9 @@ input, select {
     border-spacing: 0;
     margin-bottom: 24px;
 }
+    .units_common {
+        margin-bottom: 12px;
+    }
     .units th {
         text-align: left;
         padding: 2px 24px 3px 0;
@@ -51,15 +54,21 @@ input, select {
     padding-right: 28px;
 }
 
-.number-plus, .number-minus {
+.like-button {
     color: #000;
     cursor: pointer;
     display: inline-block;
-    margin-left: 6px;
-    border: 1px solid #aaa;
+    border: 1px outset #777;
     border-radius: 8px;
-    padding: 0 6px;
+    padding: 0 8px;
 }
+    .like-button_after {
+        margin-left: 6px;
+    }
+    .like-button_lonely {
+        margin-left: -8px;
+        margin-right: 16px;
+    }
 
 .number {
     text-align: right;
@@ -72,3 +81,29 @@ input, select {
 .intro {
     font-size: 16px;
 }
+
+
+.saved-list {
+    font-size: 14px;
+}
+    .saved-list__item {
+        display: inline-block;
+        margin: 0 33px 20px -13px;
+        width: 180px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px 13px;
+        vertical-align: top;
+    }
+    .saved-list__item-title {
+        font-size: 16px;
+    }
+        .saved-list__item-title_next {
+            margin-top: 15px;
+        }
+    .saved-list__item-result {
+        margin-top: 10px;
+    }
+    .saved-list__actions {
+        margin-top: 15px;
+    }

@@ -20,13 +20,13 @@
     <p>All entered data will be saved in your browser and pre-filled in next time you visit this page.</p>
 </div>
 
-<table class="units">
+<table class="units units_common">
     <tr>
         <td>
             <label for="barracks">Number of Barracks</label>
         </td>
         <td>
-            <select id="barracks">
+            <select id="barracks" class="field">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -40,7 +40,7 @@
             <label for="barracks-level">Maximum Barracks Level</label>
         </td>
         <td>
-            <select id="barracks-level">
+            <select id="barracks-level" class="field">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -60,7 +60,7 @@
             <label for="army-camps">Army Camps Capacity</label>
         </td>
         <td>
-            <input class="js-number" value="220" id="army-camps" size="4"/>
+            <input class="js-number field" value="220" id="army-camps" size="4"/>
         </td>
     </tr>
 
@@ -69,7 +69,7 @@
             <label for="spell-factory-level">Spell Factory Level</label>
         </td>
         <td>
-            <select id="spell-factory-level">
+            <select id="spell-factory-level" class="field">
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -91,6 +91,28 @@
         </tr>
     </thead>
     <tbody id="units-body">
+        <tr class="js-item-template hidden">
+            <td>
+                <label for="%valueId%">%valueTitle%</label>
+            </td>
+            <td>
+                <select id="%levelId%" class="field">
+                    %levelContent%
+                </select>
+            </td>
+            <td id="%costId%" class="number">
+            </td>
+            <td class="js-item-template-for js-item-template-for-spells hidden">
+                <select id="%valueId%" class="field">
+                    %valueContent%
+                </select>
+            </td>
+            <td class="js-item-template-for js-item-template-for-units hidden">
+                <input class="js-number field" id="%valueId%" size="4"/>
+            </td>
+            <td id="%summaryId%" class="number">
+            </td>
+        </tr>
     </tbody>
     <tfoot>
         <tr>
@@ -136,6 +158,17 @@
     </tfoot>
 </table>
 
+<p>
+    <span id="save" class="like-button like-button_lonely">Save Calculation</span>
+    <span id="view-saved" class="like-button like-button_lonely" style="display: none;">View Saved Calculations</span>
+    <span id="save-success" style="display: none;">Saved.</span>
+</p>
+
+<div id="saved-list" class="saved-list" style="display: none;">
+    <div id="saved-list-content" class="saved-list__content">
+    </div>
+</div>
+
 <script src="js/calculator.js"></script>
 
 <!-- Yandex.Metrika counter -->
@@ -159,6 +192,13 @@ $ya_metrika_noscript
 
 <h2>Changelog</h2>
 <table class="changelog">
+    <tr>
+        <td>1.4</td>
+        <td>17 February, 2013</td>
+        <td>
+            Added saving of calculations.<br/>
+        </td>
+    </tr>
     <tr>
         <td>1.3.2</td>
         <td>10 February, 2013</td>
@@ -216,8 +256,8 @@ $ya_metrika_noscript
 <h2>To-do</h2>
 <div class="todo">
     <p>Distribution of troops between barracks for optimal training speed.</p>
-    <p>(?) Save results to simplify comparison of different sets.</p>
     <p>(?) Gem costs.</p>
+    <p>(?) Clan Castle troops.</p>
 </div>
 
 <div class="footer">
