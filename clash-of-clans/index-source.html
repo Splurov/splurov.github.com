@@ -91,28 +91,6 @@
         </tr>
     </thead>
     <tbody id="units-body">
-        <tr class="js-item-template hidden">
-            <td>
-                <label for="%valueId%">%valueTitle%</label>
-            </td>
-            <td>
-                <select id="%levelId%" class="field">
-                    %levelContent%
-                </select>
-            </td>
-            <td id="%costId%" class="number">
-            </td>
-            <td class="js-item-template-for js-item-template-for-spells hidden">
-                <select id="%valueId%" class="field">
-                    %valueContent%
-                </select>
-            </td>
-            <td class="js-item-template-for js-item-template-for-units hidden">
-                <input class="js-number field" id="%valueId%" size="4"/>
-            </td>
-            <td id="%summaryId%" class="number">
-            </td>
-        </tr>
     </tbody>
     <tfoot>
         <tr>
@@ -160,15 +138,86 @@
 
 <p>
     <span id="save" class="like-button like-button_lonely">Save Calculation</span>
-    <span id="view-saved" class="like-button like-button_lonely" style="display: none;">View Saved Calculations</span>
-    <span id="save-success" style="display: none;">Saved.</span>
 </p>
 
-<div id="saved-list" class="saved-list" style="display: none;">
+<div id="saved-list" class="saved-list">
     <div id="saved-list-content" class="saved-list__content">
     </div>
 </div>
 
+<script type="text/x-hogan-template" id="hogan-item-row-template">
+    <tr id="{{rowId}}">
+        <td>
+            <label for="{{id}}">{{title}}</label>
+        </td>
+        <td>
+            <select id="{{levelId}}" class="field">
+                {{#levelContent}}
+                    <option value="{{value}}">{{text}}</option>
+                {{/levelContent}}
+            </select>
+        </td>
+        <td id="{{costId}}" class="number">
+        </td>
+        <td>
+            {{#spells}}
+                <select id="{{id}}" class="field">
+                    {{#options}}
+                        <option value="{{value}}">{{text}}</option>
+                    {{/options}}
+                </select>
+            {{/spells}}
+            {{^spells}}
+                <input class="js-number field" id="{{id}}" size="4"/>
+            {{/spells}}
+        </td>
+        <td id="{{summaryId}}" class="number">
+        </td>
+    </tr>
+</script>
+
+<script type="text/x-hogan-template" id="hogan-saved-list-item-template">
+    <div class="saved-list__item" id="saved-list-item-{{index}}">
+        {{#hasUnits}}
+            <div class="saved-list__item-title"><span class="cost-elixir-small">{{totalCost}}</span>Units</div>
+            <table class="saved-list__table">
+                {{#units}}
+                    <tr>
+                        <td class="number">{{quantity}}</td>
+                        <td>{{name}}</td>
+                        <td class="saved-list__level">{{level}}</td>
+                    </tr>
+                {{/units}}
+            </table>
+            <div class="saved-list__item-result">
+                {{totalCapacity}}/{{armyCamps}} — ≈{{totalTime}} × {{barracksCount}}
+            </div>
+        {{/hasUnits}}
+
+        {{#hasSpells}}
+            <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-gold-small">{{spellsCost}}</span>Spells</div>
+            <table class="saved-list__table">
+                {{#spells}}
+                    <tr>
+                        <td class="number">{{quantity}}</td>
+                        <td>{{name}}</td>
+                        <td class="saved-list__level">{{level}}</td>
+                    </tr>
+                {{/spells}}
+            </table>
+            <div class="saved-list__item-result">
+                {{spellsCapacity}}/{{spellsFactoryLevel}} — {{spellsTime}}
+            </div>
+        {{/hasSpells}}
+
+        <div class="saved-list__actions">
+            <span class="like-button like-button_lonely js-saved-load" data-num="{{index}}" title="Current calculation will be lost">Load</span>
+            <span class="like-button like-button_lonely js-saved-delete" data-num="{{index}}">Delete</span>
+        </div>
+    </div>
+</script>
+
+<script src="js/hogan-2.0.0.min.js" data-compress="no"></script>
 <script src="js/calculator.js"></script>
 
 <!-- Yandex.Metrika counter -->
@@ -192,6 +241,15 @@ $ya_metrika_noscript
 
 <h2>Changelog</h2>
 <table class="changelog">
+    <tr>
+        <td>1.5</td>
+        <td>26 February, 2013</td>
+        <td>
+            Reduced indents and font sizes;<br/>
+            The list of saved calculations is always shown;<br/>
+            Redesigned saved calculations layout.<br/>
+        </td>
+    </tr>
     <tr>
         <td>1.4</td>
         <td>17 February, 2013</td>

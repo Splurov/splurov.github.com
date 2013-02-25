@@ -1,3 +1,8 @@
+body {
+    padding: 15px 30px;
+    line-height: 1.4;
+}
+
 .field {
     font-family: 'PT Serif', Georgia, serif;
     font-size: inherit;
@@ -12,12 +17,14 @@
     }
     .units th {
         text-align: left;
-        padding: 2px 24px 3px 0;
+        padding: 1px 24px 2px 0;
         font-weight: normal;
-        font-size: 22px;
+        font-size: 18px;
+        font-family: 'PT Serif Caption', Georgia, serif;
     }
     .units td {
         padding: 2px 24px 3px 0;
+        font-size: 17px;
     }
         .units td > input {
             text-align: right;
@@ -28,7 +35,7 @@
     }
 
     .units-quantity {
-        font-size: 16px;
+        font-size: 14px;
     }
 
 .changelog {
@@ -54,8 +61,17 @@
     padding-right: 28px;
 }
 
+.cost-elixir-small {
+    background: url(/clash-of-clans/i/elixir-small.png) no-repeat 100% 50%;
+    padding-right: 19px;
+}
+.cost-gold-small {
+    background: url(/clash-of-clans/i/gold-small.png) no-repeat 100% 50%;
+    padding-right: 19px;
+}
+
 .like-button {
-    color: #000;
+    color: #222;
     cursor: pointer;
     display: inline-block;
     border: 1px outset #777;
@@ -88,22 +104,41 @@
 }
     .saved-list__item {
         display: inline-block;
-        margin: 0 33px 20px -13px;
-        width: 180px;
+        margin: 0 30px 17px -13px;
         border: 1px solid #ccc;
         border-radius: 10px;
         padding: 10px 13px;
         vertical-align: top;
+        color: #444;
+        line-height: 1.35;
     }
     .saved-list__item-title {
-        font-size: 16px;
+        font-size: 14px;
+        font-family: 'PT Serif Caption', Georgia, serif;
+        color: #222;
+        margin-bottom: 3px;
     }
         .saved-list__item-title_next {
-            margin-top: 15px;
+            margin-top: 8px;
+        }
+        .saved-list__item-title span {
+            float: right;
         }
     .saved-list__item-result {
-        margin-top: 10px;
+        margin-top: 3px;
     }
     .saved-list__actions {
-        margin-top: 15px;
+        margin-top: 8px;
     }
+    .saved-list__table {
+        border-spacing: 0;
+    }
+        .saved-list__table td {
+            padding-right: 8px;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        .saved-list__table td.saved-list__level {
+            padding-top: 6px;
+            line-height: 8px;
+        }

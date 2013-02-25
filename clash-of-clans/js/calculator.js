@@ -1,4 +1,4 @@
-(function() {
+(function(window, document) {
 
     'use strict';
 
@@ -43,17 +43,23 @@
     };
 
 
-    var getFormattedTime = function(time) {
+    var getFormattedTime = function(time, hideSeconds) {
         var formattedTime = '';
         if (time > 3599) {
             formattedTime += Math.floor(time / 3600) + 'h ';
             time = time % 3600;
         }
         if (time > 59) {
-            formattedTime += Math.floor(time / 60) + 'm ';
+            var minutes = Math.floor(time / 60);
             time = time % 60;
+            if (hideSeconds && time > 0) {
+                minutes++;
+            }
+            formattedTime += minutes + 'm ';
         }
-        formattedTime += time + 's';
+        if (formattedTime === '' || !hideSeconds) {
+            formattedTime += time + 's';
+        }
         return formattedTime;
     };
 
@@ -90,10 +96,6 @@
 
         this.getAll = function() {
             return this.data;
-        };
-
-        this.setAll = function(values) {
-            this.data = values;
         };
     };
 
@@ -230,7 +232,7 @@
         totalSpace = totalSpace + ' / ' + params.space;
         ids.get(type + '-space').innerHTML = totalSpace;
 
-        ids.get(type + '-time').innerHTML = getFormattedTime(Math.ceil(totalTime / params.buildings));
+        ids.get(type + '-time').innerHTML = getFormattedTime(Math.ceil(totalTime / params.buildings), (type === 'spells' ? true : false));
     };
 
 
@@ -316,7 +318,7 @@
             span.className = 'like-button like-button_after';
             span.innerHTML = (type === 'plus' ? '+' : '−');
 
-            span.addEventListener('click',(type === 'plus' ? plus : minus), false);
+            span.addEventListener('click', (type === 'plus' ? plus : minus), false);
 
             var interval = null;
             var timeout = null;
@@ -337,55 +339,48 @@
 
     };
 
+    var rowTemplate = Hogan.compile(document.getElementById('hogan-item-row-template').innerHTML);
+
     var createRows = function(items, type) {
         var createLevelOption = function(value, index) {
-            return '<option value="' + value + '">' + (index + 1) + '</option>';
+            return {'value': value, 'text': (index + 1)};
         };
 
-        var baseTemplate = document.getElementsByClassName('js-item-template')[0];
-
-        var valueContent = '';
+        var spellsValuesContent = [];
         if (type === 'spells') {
-            var itemQuantityOptions = [];
             var i;
             for (i = 0; i < 5; i++) {
-                itemQuantityOptions.push('<option value="' + i + '">' + i + '</option>');
+                spellsValuesContent.push({'value': i, 'text': i});
             }
-            valueContent = itemQuantityOptions.join('');
         }
 
         var itemsBody = ids.get(type + '-body');
         objectIterate(items, function(name, value) {
-            var template = baseTemplate.cloneNode(true);
-
-            var valueCell = template.getElementsByClassName('js-item-template-for-' + type)[0];
-            valueCell.className = '';
-            template.removeChild(template.getElementsByClassName('js-item-template-for')[0]);
-
             var templateVars = {
-                'valueId': name,
-                'valueTitle': convertToTitle(name),
+                'id': name,
+                'title': convertToTitle(name),
                 'levelId': name + '-level',
-                'levelContent': value[1].map(createLevelOption).join(''),
+                'levelContent': value[1].map(createLevelOption),
                 'costId': name + '-cost',
                 'summaryId': name + '-summary',
-                'valueContent': valueContent
+                'rowId': type + '-building-level-' + value[3]
             };
+            if (type === 'spells') {
+                templateVars.spells = {
+                    'options': spellsValuesContent
+                };
+            }
 
-            var templateHTML = template.innerHTML;
-            objectIterate(templateVars, function(varName, varValue) {
-                templateHTML = templateHTML.replace(new RegExp('%' + varName + '%', 'g'), varValue);
-            });
+            var rowHTML = rowTemplate.render(templateVars);
 
             var tempDiv = document.createElement('div');
-            tempDiv.innerHTML = '<table><tr>' + templateHTML + '</tr></table>';
+            tempDiv.innerHTML = '<table>' + rowHTML + '</table>';
 
             var itemRow = tempDiv.querySelector('tr');
-            itemRow.setAttribute('id', type + '-building-level-' + value[3]);
             itemsBody.appendChild(itemRow);
 
             ids.get(templateVars.levelId).addEventListener('change', calculate, false);
-            ids.get(templateVars.valueId).addEventListener((type === 'spells' ? 'change' : 'input'), calculate, false);
+            ids.get(templateVars.id).addEventListener((type === 'spells' ? 'change' : 'input'), calculate, false);
         });
     };
 
@@ -411,97 +406,72 @@
     var savedCalculationsStorage = new DataStorage('savedCalculations', []);
     var savedCalculations = new MultiDict(savedCalculationsStorage.load());
 
-    var viewSavedToggle = function() {
-        ids.get('view-saved').style.display = (savedCalculations.retrieve(0) ? '' : 'none');
-    };
-
-    var savedListCreateItems = function(isRedraw) {
-        var savedList = ids.get('saved-list');
-        if (savedList.style.display !== 'none') {
-            savedList.style.display = 'none';
-            ids.get('saved-list-content').innerHTML = '';
-            if (!isRedraw) {
-                savedData.set('savedListOpened', false);
-                savedDataStorage.save(savedData.getAll());
-                return;
-            }
-        }
-
-        savedData.set('savedListOpened', true);
-        savedDataStorage.save(savedData.getAll());
-
+    var savedListItemTemplate = Hogan.compile(document.getElementById('hogan-saved-list-item-template').innerHTML);
+    var savedListCreateItems = function() {
         var content = [];
         savedCalculations.forEach(function(data, index) {
-            content.push('<div class="saved-list__item" id="saved-list-item-' + index + '">');
+            var templateVars = {
+                'index': index
+            };
 
-            content.push('<div class="saved-list__item-title">Units</div>');
+            var unitsItems = [];
             var totalCost = 0;
             var totalTime = 0;
             var totalCapacity = 0;
             objectIterate(units, function(name, unitValue) {
                 var quantity = parseInt(data.get(name), 10) || 0;
                 if (quantity > 0 && unitValue[3] <= (data.get('barracksLevel') + 1)) {
-                    content.push(convertToTitle(name) +
-                                 ' ' +
-                                 (data.get(name + '-level') + 1) +
-                                 'lvl &times;' +
-                                 data.get(name) +
-                                 '<br/>');
+                    unitsItems.push({
+                        'name': convertToTitle(name),
+                        'level': (new Array(data.get(name + '-level') + 2)).join('*'),
+                        'quantity': quantity
+                    });
                     totalCost += unitValue[1][data.get(name + '-level')] * quantity;
                     totalTime += unitValue[0] * quantity;
                     totalCapacity += unitValue[2] * quantity;
                 }
             });
-            content.push('<div class="saved-list__item-result">All Troops Cost: ' +
-                         numberFormat(totalCost) +
-                         '<br/>Capacity: ' +
-                         totalCapacity +
-                         '/' +
-                         data.get('armyCamps') +
-                         '<br/>Time: ' +
-                         getFormattedTime(Math.ceil(totalTime / (data.get('barracks') + 1))) +
-                         ' (' + (data.get('barracks') + 1) + ' Barracks)' +
-                        '</div>');
+            if (unitsItems.length) {
+                templateVars.hasUnits = {
+                    'units': unitsItems,
+                    'totalCost': numberFormat(totalCost),
+                    'totalCapacity': totalCapacity,
+                    'armyCamps': data.get('armyCamps'),
+                    'totalTime': getFormattedTime(Math.ceil(totalTime / (data.get('barracks') + 1)), true),
+                    'barracksCount': (data.get('barracks') + 1)
+                };
+            }
 
             if (data.get('spellFactoryLevel') > 0) {
-                content.push('<div class="saved-list__item-title saved-list__item-title_next">Spells</div>');
+                var spellsItems = [];
                 var spellsCost = 0;
                 var spellsTime = 0;
                 var spellsCapacity = 0;
                 objectIterate(spells, function(spellName, spellValue) {
                     var spellQuantity = parseInt(data.get(spellName), 10) || 0;
                     if (spellQuantity > 0 && spellValue[3] <= data.get('spellFactoryLevel')) {
-                        content.push(convertToTitle(spellName) +
-                                     ' ' +
-                                     (data.get(spellName + '-level') + 1) +
-                                     'lvl &times;' +
-                                     data.get(spellName) +
-                                     '<br/>');
+                        spellsItems.push({
+                            'name': convertToTitle(spellName),
+                            'level': (new Array(data.get(spellName + '-level') + 2)).join('*'),
+                            'quantity': spellQuantity
+                        });
                         spellsCost += spellValue[1][data.get(spellName + '-level')] * spellQuantity;
                         spellsTime += spellValue[0] * spellQuantity;
                         spellsCapacity += spellValue[2] * spellQuantity;
                     }
                 });
-                content.push('<div class="saved-list__item-result">All Spells Cost: ' +
-                             numberFormat(spellsCost) +
-                             '<br/>Capacity: ' +
-                             spellsCapacity +
-                             '/' +
-                             data.get('spellFactoryLevel') +
-                             '<br/>Time: ' +
-                             getFormattedTime(spellsTime) +
-                             '</div>');
+                if (spellsItems.length) {
+                    templateVars.hasSpells = {
+                        'spells': spellsItems,
+                        'spellsCost': numberFormat(spellsCost),
+                        'spellsCapacity': spellsCapacity,
+                        'spellsFactoryLevel': data.get('spellFactoryLevel'),
+                        'spellsTime': getFormattedTime(spellsTime, true)
+                    };
+                }
             }
 
-            content.push('<div class="saved-list__actions">');
-            content.push('<span class="like-button like-button_lonely js-saved-load" data-num="' +
-                         index +
-                         '" title="Current calculation will be lost">Load</span>');
-            content.push('<span class="like-button like-button_lonely js-saved-delete" data-num="' +
-                         index +
-                         '">Delete</span>');
-            content.push('</div>');
-            content.push('</div>');
+            content.push(savedListItemTemplate.render(templateVars));
         });
 
         var savedListContent = ids.get('saved-list-content');
@@ -509,7 +479,7 @@
 
         Array.prototype.slice.call(savedListContent.getElementsByClassName('js-saved-load')).forEach(function(el){
             el.addEventListener('click', function(){
-                savedData = savedCalculations.retrieve(el.getAttribute('data-num'));
+                savedData = new Dict(objectCopy(savedCalculations.retrieve(el.getAttribute('data-num')).getAll()));
                 setDefaults();
                 calculate();
                 savedListCreateItems();
@@ -520,43 +490,17 @@
             el.addEventListener('click', function(){
                 savedCalculations.remove(el.getAttribute('data-num'));
                 savedCalculationsStorage.save(savedCalculations.getAll());
-                viewSavedToggle();
-                savedListCreateItems((savedCalculations.retrieve(0) ? true : false));
+                savedListCreateItems();
             }, false);
         });
-
-        ids.get('saved-list').style.display = 'block';
     };
-
-    ids.get('view-saved').addEventListener('click', function() {
-        savedListCreateItems();
-    });
-
-    viewSavedToggle();
-
-    if (savedData.get('savedListOpened')) {
-        savedListCreateItems();
-    }
 
     ids.get('save').addEventListener('click', function() {
         savedCalculations.insert(objectCopy(savedData.getAll()));
         savedCalculationsStorage.save(savedCalculations.getAll());
-        viewSavedToggle();
-
-        var saveSuccess = ids.get('save-success');
-        saveSuccess.style.display = '';
-
-        var baseOpacity = 100;
-        var interval = window.setInterval(function(){
-            baseOpacity -= 5;
-            saveSuccess.style.opacity = (baseOpacity / 100).toString(10).replace('0.', '.');
-            if (baseOpacity === 0) {
-                saveSuccess.style.display = 'none';
-                saveSuccess.style.opacity = '1';
-                clearInterval(interval);
-            }
-        }, 50);
+        savedListCreateItems();
     }, false);
 
+    savedListCreateItems();
 
-}());
+}(window, document));

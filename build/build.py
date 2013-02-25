@@ -11,6 +11,8 @@ from functools import partial
 
 from translations import translations
 
+base_dir = os.path.abspath(os.path.dirname(__file__) + '/../')
+
 def log(message, print_sum=False, previous_times=[]):
     current_time = time()
     if print_sum:
@@ -59,6 +61,18 @@ def make_cache(cached_path, data, path_modified):
     open(cached_path, 'w').write(data)
     utime(cached_path, (path_modified, path_modified))
 
+def make_data_uris(data):
+    def make_uri(match, mime_type):
+        path = match.group(1)
+        data_uri = open(base_dir + path).read().encode('base64').replace('\n', '')
+        result = 'url(data:{0};base64,{1})'.format(mime_type, data_uri)
+        log('make data uri {0}'.format(path))
+        return result
+
+    data = re.sub('url\((.+?\.png)\)', partial(make_uri, mime_type='image/png'), data)
+    #data = re.sub('url\(\'(.+?\.woff)\'\)', partial(make_uri, mime_type='application/font-woff'), data)
+    return data
+
 def link_repl(match, dir=''):
     path = os.path.abspath(dir + match.group(1))
     path_modified = int(os.path.getmtime(path))
@@ -69,6 +83,7 @@ def link_repl(match, dir=''):
         data = open(cached_path).read()
     else:
         data = template_safe(parse_source(path))
+        data = make_data_uris(data)
         make_cache(cached_path, data, path_modified)
 
     return '<style>{0}</style>'.format(data)
