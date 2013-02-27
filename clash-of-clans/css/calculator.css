@@ -11,28 +11,54 @@ body {
 .units {
     border-spacing: 0;
     margin-bottom: 24px;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    margin-left: -11px;
+    border-radius: 10px;
 }
     .units_common {
         margin-bottom: 12px;
     }
     .units th {
         text-align: left;
-        padding: 1px 24px 2px 0;
+        padding: 1px 10px 2px;
         font-weight: normal;
         font-size: 18px;
         font-family: 'PT Serif Caption', Georgia, serif;
+        white-space: nowrap;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
     }
+
+    .units thead tr:first-child th:first-child, .units_common tr:first-child td:first-child {
+        border-top-left-radius: 10px;
+    }
+    .units thead tr:first-child th:last-child, .units_common tr:first-child td:last-child {
+        border-top-right-radius: 10px;
+    }
+
     .units td {
-        padding: 2px 24px 3px 0;
+        padding: 2px 10px 3px;
         font-size: 17px;
+        white-space: nowrap;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
     }
         .units td > input {
             text-align: right;
         }
 
-    .units tfoot td, .units tfoot th {
-        text-align: right;
+    .units tfoot td:first-child, .units_common tr:last-child td:first-child {
+        border-bottom-left-radius: 10px;
     }
+    .units tfoot td:last-child, .units_common tr:last-child td:last-child {
+        border-bottom-right-radius: 10px;
+    }
+
+    .units tbody tr:hover td {
+        background: #fcfcfc;
+    }
+
 
     .units-quantity {
         font-size: 14px;
@@ -98,6 +124,11 @@ body {
     font-size: 16px;
 }
 
+.result {
+    font-size: 18px;
+    font-family: 'PT Serif Caption', Georgia, serif;
+}
+
 
 .saved-list {
     font-size: 14px;
@@ -105,7 +136,7 @@ body {
     .saved-list__item {
         display: inline-block;
         margin: 0 30px 17px -13px;
-        border: 1px solid #ccc;
+        border: 1px solid #ddd;
         border-radius: 10px;
         padding: 10px 13px;
         vertical-align: top;

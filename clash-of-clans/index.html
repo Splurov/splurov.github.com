@@ -5,7 +5,7 @@
     <meta property="fb:admins" content="splurov"/>
     <title>Clash of Clans — Troops and Spells Cost Calculator</title>
     <style>@font-face{font-family:'PT Serif';src:url('/fonts/PTF55F_W.woff') format('woff')}@font-face{font-family:'PT Serif Caption';src:url('/fonts/PTZ55F_W.woff') format('woff')}html,body{background:#fefefe;color:#222}body{font-family:'PT Serif',Georgia,serif;font-size:18px;line-height:1.5;margin:0;padding:20px 40px}a{white-space:nowrap}a:link{color:#4100f1;text-decoration:none}a:visited{color:#63008c;text-decoration:none}a:hover,a:active{text-decoration:underline}h1{font-size:28px;font-family:'PT Serif Caption',Georgia,sans-serif;font-weight:normal;margin:0 0 12px}h2{font-size:22px;font-family:'PT Serif Caption',Georgia,sans-serif;font-weight:normal;margin:18px 0 4px}p{margin:0 0 12px}.content{min-width:260px;max-width:520px}.photo{margin:8px 0 20px 20px;float:right;border-radius:10px}@media all and (max-width:560px){.photo{float:none;display:block;margin:0 auto 20px}}a.fn.url{color:#222;text-decoration:none}.footer{margin-top:30px;font-size:14px;color:#ccc}.footer a:link{text-decoration:underline;color:#ccc}.footer a:visited{text-decoration:underline;color:#ccc}.footer a:hover,.footer a:active{text-decoration:none}.hidden{display:none}</style>
-    <style>body{padding:15px 30px;line-height:1.4}.field{font-family:'PT Serif',Georgia,serif;font-size:inherit}.units{border-spacing:0;margin-bottom:24px}.units_common{margin-bottom:12px}.units th{text-align:left;padding:1px 24px 2px 0;font-weight:normal;font-size:18px;font-family:'PT Serif Caption',Georgia,serif}.units td{padding:2px 24px 3px 0;font-size:17px}.units td>input{text-align:right}.units tfoot td,.units tfoot th{text-align:right}.units-quantity{font-size:14px}.changelog{border-spacing:0;margin-bottom:12px;font-size:14px}.changelog td{padding:2px 24px 3px 0;vertical-align:top}.todo{font-size:14px}.cost-elixir{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAYCAYAAAAVibZIAAAEs0lEQVR4XpWVW4yV1RmGn2+t9e/zHA8yM3tmyBRnwDIBCQdBkFOLLaYWCthEDAUSU0JEjNHEaEAGiqFtOqT0oil6o00aGhM1toEmBkkaEL3BQ/HUxAuEQScKzoGZPXv//7/W6iZ7J2AEQ5/kTb6b9eTNd7E+vPf/dwADdK5NL1rwVPOD9z/W8sASQFcdKG4RETH3pe9eti+/7Q/HegZOvt/317cP9u4+9WT34//Y0HzfsQayM6liuAU2Nq1ZdaT7wJNzc9NW9KSnBph6ABADkiIfXUp1m3zdLUmzkm3/fceOvXs7Nm/pyXSaqgl8EdDgIxBHva41i3J9zVRR3ISHmtb+5PXegRPb2n72cE+6y+AcoCoyhOupSzZJe3Pb4u9turttxyP9ndt+15NuySIpkAwVLPgYRIGYykyMkjRTM52LRSThvQ+/I92Xf2LPlin3Pzst06aQdEWoshWRD8GXwEeAAlHVOaAz19VLC13AZ4rr2NW6feeapuV7piRqFFAVTIC7AjhQOVA1IMF12zMghtsTdzaszd/b962dbsr/ctXq5hUHalQg+KjSCgCpCH1cbRqB9eA8ICAGsLRKu/Rxx1IAAzBbbr/tt9P3HGo0jRkRixIDGPCGChG4SaAIAA1UZCMWAHyEikJmZX+wUkSyCmBz54M7p2dn3HHFFkipFIokmADySbgtcU0sFno1bG2CR1tgehosVSK6fUdXsiXZrkSkdW7t7E0WRVIlSOksRqUhraEdaPaQpRwF9QLTDcxLwfIEzEyB+GpbR4fpyP5q3rp2va5+1Yb1Lb/Y/E08QUIcdTqHFoVYUKGHAqCBlAKjIUc5AVwGTo/DoAOTAa+RjNdn5D+n9I/rl2xc3bh68VA8gsaSVAoNKFEoB6IUBAIJB8pDwcJXIbw3CR+VwAmoLAAqFXHcnjxtjJikEY1CE/oikbfE3qGVhwQkyhEDCCAWCgL/LcKohigGEfAFcBZJxETWBSrCeYCkTlFwjpLzWAQr5QCxOPCABSLAeQgdWAvigBjsGNgrTGTHuGQvh+ZiYXBwNP6GWl3D1wwz7iNyCMY6vPcQV5pqNBJXxUUPLgZsJd6BDvhEzhVOXDx1Un9V+vLCqoalG7pSU+tG7CSj8ThJMYiCylIBDxKDKjlk0kFsr1X3Mdgi1ApHE+8cPfLvfx5Ul33hwtsj7zyPn2RKUM+Eh/PhMCNhgYlCxOREiVI54VhIPB7iSyG46No/4Aogjo9zn4+/fOHNA957p/v7+1n6xE/PLsz0LevL/rADUQzFo0zaEtoLEntcVNmhVH8l/NUUcW4SbMhYk+awPbb3pRNH/g5gAMr24bvSMzYq5JUljSvnGNGcKw6VG4/QqBPU6yQ5ZSgpRQKHeIsnJOmTBE11vMixV5/716GB/fwRACkLqUKzZPKHpu3/86K6hT8PdD0Xw8sMR8MoLDUqIKsUAZ5anaYhqGMoNWqPJk7+6bHj/b+5WowqN7qUwdOtW7cen/HimQ9nvxGdn/uuH5z/gf9iwVk/dDXzzvhP5xwvvrbw8FubZ61ff6Nr+31nOLu9Yc09u1p/3f9C177Df+seeOEvU/uff6Zr+9PrWn80H0jd7O3/AJZfQcRuS8+WAAAAAElFTkSuQmCC) no-repeat 100% 50%;padding-right:28px}.cost-gold{background:url(data:image/png;base64,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) no-repeat 100% 50%;padding-right:28px}.cost-elixir-small{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAACtUlEQVR42n2TbUhTcRSHb0FEBVaTUlBERJZsujnv3JtTiTJrQyksE/piGfal+lBR2ItGpCUZRSVIaUqEQaikFVpObDozNXXzZZub5nQynE5RM7dA9+usQCirAw9/LpyH34FzLgPgv6RukQZc35mhKAnOyXoUdCmdYZgNAJh/ChcDsyQa7sPSYWHtkFOsdXvkZvQL6ia2M5tC/ipKmXC/mrDbubboWhdkXYBikDADcSNwinUzx7cmx6wRz/tnR3TyKhu/Szup2QLIB4kBn0gMYVFuWC6OyDn1S1yVMiO6+VV6KExA3CgQ7yJmAeUEfdt+Jnrj7aiTlJWuiqodqsB3u8p18+JWQNZDKSYS7EDCAiVNAxIbvUTiHPrj2zo4HI4fQ7X+Fbf8gTlag1lWSw0GarDSO0KQnOoATjqB3XZKdcKm7FjI4qWJmHNBJ4Q9As2MRaTFkpjS1GYgk0bdMwwkUcrjOWDcC2RPUbIdX5VG3Eu4coy5E3K5wCjqwEB0ExZj9VhOHKQUC0FiGon5lPZyEThMyXIXJU/iWfLdm0xJ2K1KK6tHp6AeU+wnLCn7sKIeIskKZBDpNPIBG0lfaNRJYK8DparCYqYo9GrFWKwRHyIbMB7TjvmEPnhSjPD6RB9qIo6gA4DMDM/+PtxQn8llLgRkpljZz56PwjZK1cAh78Lsvl641UasJFNzgunXPmV6woARVb3jqOoQl6Ha2Mqvqh4Tm/Ca9wbtggaMStowreiCm1azIu2B13cQEh2WEltQnVqct7rHzG0HQ1v5Nc0W1oDGyPdo4tVCH9WAMZEGUzEafGOb4Va0QJNU9oJNYTf/djlH/OVBTbzn5f0i7Vy3UItewirSYVzUgmFJo+ut8un9YD6f4+tdc6tU64pCzrIVofkFddwn1bVEWXhh3rWo01F//gw/ABEvTc8QZ7BnAAAAAElFTkSuQmCC) no-repeat 100% 50%;padding-right:19px}.cost-gold-small{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAQCAYAAADJViUEAAAC8klEQVR42p1TfSzUcRz+npcUmV6YTMPREiXrlREqrcaMRipRqPujFHWEjWxcSJpNb9NWf1BUQ1oZRs1JiVNH3bXzdsq5Xzpvc879uPenW3+0ib96tuePz2fP8/n88Xk+BMAiGmGZnbLHryg3qKCQE1iVl7WTzWZHexn7Zv9qFxW3i/wihLzTbb/6k2iZ6BykgkhMSxNBUQXTvK7SlxkZGb5LzEaYlBV7sylhGE1LwjHYEQfemxS0NVzGQG8ifvZHQ6Mqx4ikhiopZoUuMudfWRsjfb9BtSByw9SPVMwrmwA9FzDUQ6cpxxSVBj43CjOjOZB+iZFyckJ2/DG729pat1Wt+wgRAf3DFwbNfegWiqCey4ZGmQnDXDowdhwzfcGoe7BLS1PH0MWNeUIIMSVxEev8xC2r6MleS8gnwqGZOw3VTDTU8pPQzrKgGQ6A9qsHMLIP7+p26buaAjAqPjp2ieXMJBnxlufG280gbPaEXBYJtTIGasUpaORGDvlA3bsROoErIPHHED/Q0FC5VT8uCdelXXELIddY5MJ0jxVaa/0xTZ2ATmXcNhsHZf9m0D3W0AhdYBjcBsgOYvizP96/9jZMjkXoUy86hpGLUSSU+uaj7eAmQsCLh4GOw9y3TVB2EqgEdtAPMAHJbmDiEMQfPCDr98evwX0TaQkrthAPZ+LQWHtgSCE/i1dPYzHcuh2KdhOouk2gF64B+hyMA9yhFLlDJmQC80fAb/Ku228MDQFAzsd63ej7EgrZaDAeX7dD/U0GBJUMDNQQg+i5KUTVKzHbYw4odmPoU4C8MN0l6O+dHa0d1+ckb3/Lb3CGtJmBzkcELwqIvjqfaHsrCMZbCeYF5hC1OOFell3mknhG7bF3zYu3aXyWZ4ruCgbEr00gbmSAX8VAyx2C6jzT2ZIEwiGEWCyb7dxou9WcMzassqv23Ic5G3/eZVtNlCZZfL+VaF6eeZj4LfsYSz8rxILF2svMTXbyjIx0diAEjGV1AP6bvwEHTGubIzKNeQAAAABJRU5ErkJggg==) no-repeat 100% 50%;padding-right:19px}.like-button{color:#222;cursor:pointer;display:inline-block;border:1px outset #777;border-radius:8px;padding:0 8px}.like-button_after{margin-left:6px}.like-button_lonely{margin-left:-8px;margin-right:16px}.number{text-align:right}.limit-exceeded{color:#d00}.intro{font-size:16px}.saved-list{font-size:14px}.saved-list__item{display:inline-block;margin:0 30px 17px -13px;border:1px solid #ccc;border-radius:10px;padding:10px 13px;vertical-align:top;color:#444;line-height:1.35}.saved-list__item-title{font-size:14px;font-family:'PT Serif Caption',Georgia,serif;color:#222;margin-bottom:3px}.saved-list__item-title_next{margin-top:8px}.saved-list__item-title span{float:right}.saved-list__item-result{margin-top:3px}.saved-list__actions{margin-top:8px}.saved-list__table{border-spacing:0}.saved-list__table td{padding-right:8px;padding-top:0;padding-bottom:0}.saved-list__table td.saved-list__level{padding-top:6px;line-height:8px}</style>
+    <style>body{padding:15px 30px;line-height:1.4}.field{font-family:'PT Serif',Georgia,serif;font-size:inherit}.units{border-spacing:0;margin-bottom:24px;border-left:1px solid #ddd;border-top:1px solid #ddd;margin-left:-11px;border-radius:10px}.units_common{margin-bottom:12px}.units th{text-align:left;padding:1px 10px 2px;font-weight:normal;font-size:18px;font-family:'PT Serif Caption',Georgia,serif;white-space:nowrap;border-bottom:1px solid #ddd;border-right:1px solid #ddd}.units thead tr:first-child th:first-child,.units_common tr:first-child td:first-child{border-top-left-radius:10px}.units thead tr:first-child th:last-child,.units_common tr:first-child td:last-child{border-top-right-radius:10px}.units td{padding:2px 10px 3px;font-size:17px;white-space:nowrap;border-bottom:1px solid #ddd;border-right:1px solid #ddd}.units td>input{text-align:right}.units tfoot td:first-child,.units_common tr:last-child td:first-child{border-bottom-left-radius:10px}.units tfoot td:last-child,.units_common tr:last-child td:last-child{border-bottom-right-radius:10px}.units tbody tr:hover td{background:#fcfcfc}.units-quantity{font-size:14px}.changelog{border-spacing:0;margin-bottom:12px;font-size:14px}.changelog td{padding:2px 24px 3px 0;vertical-align:top}.todo{font-size:14px}.cost-elixir{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAYCAYAAAAVibZIAAAEs0lEQVR4XpWVW4yV1RmGn2+t9e/zHA8yM3tmyBRnwDIBCQdBkFOLLaYWCthEDAUSU0JEjNHEaEAGiqFtOqT0oil6o00aGhM1toEmBkkaEL3BQ/HUxAuEQScKzoGZPXv//7/W6iZ7J2AEQ5/kTb6b9eTNd7E+vPf/dwADdK5NL1rwVPOD9z/W8sASQFcdKG4RETH3pe9eti+/7Q/HegZOvt/317cP9u4+9WT34//Y0HzfsQayM6liuAU2Nq1ZdaT7wJNzc9NW9KSnBph6ABADkiIfXUp1m3zdLUmzkm3/fceOvXs7Nm/pyXSaqgl8EdDgIxBHva41i3J9zVRR3ISHmtb+5PXegRPb2n72cE+6y+AcoCoyhOupSzZJe3Pb4u9turttxyP9ndt+15NuySIpkAwVLPgYRIGYykyMkjRTM52LRSThvQ+/I92Xf2LPlin3Pzst06aQdEWoshWRD8GXwEeAAlHVOaAz19VLC13AZ4rr2NW6feeapuV7piRqFFAVTIC7AjhQOVA1IMF12zMghtsTdzaszd/b962dbsr/ctXq5hUHalQg+KjSCgCpCH1cbRqB9eA8ICAGsLRKu/Rxx1IAAzBbbr/tt9P3HGo0jRkRixIDGPCGChG4SaAIAA1UZCMWAHyEikJmZX+wUkSyCmBz54M7p2dn3HHFFkipFIokmADySbgtcU0sFno1bG2CR1tgehosVSK6fUdXsiXZrkSkdW7t7E0WRVIlSOksRqUhraEdaPaQpRwF9QLTDcxLwfIEzEyB+GpbR4fpyP5q3rp2va5+1Yb1Lb/Y/E08QUIcdTqHFoVYUKGHAqCBlAKjIUc5AVwGTo/DoAOTAa+RjNdn5D+n9I/rl2xc3bh68VA8gsaSVAoNKFEoB6IUBAIJB8pDwcJXIbw3CR+VwAmoLAAqFXHcnjxtjJikEY1CE/oikbfE3qGVhwQkyhEDCCAWCgL/LcKohigGEfAFcBZJxETWBSrCeYCkTlFwjpLzWAQr5QCxOPCABSLAeQgdWAvigBjsGNgrTGTHuGQvh+ZiYXBwNP6GWl3D1wwz7iNyCMY6vPcQV5pqNBJXxUUPLgZsJd6BDvhEzhVOXDx1Un9V+vLCqoalG7pSU+tG7CSj8ThJMYiCylIBDxKDKjlk0kFsr1X3Mdgi1ApHE+8cPfLvfx5Ul33hwtsj7zyPn2RKUM+Eh/PhMCNhgYlCxOREiVI54VhIPB7iSyG46No/4Aogjo9zn4+/fOHNA957p/v7+1n6xE/PLsz0LevL/rADUQzFo0zaEtoLEntcVNmhVH8l/NUUcW4SbMhYk+awPbb3pRNH/g5gAMr24bvSMzYq5JUljSvnGNGcKw6VG4/QqBPU6yQ5ZSgpRQKHeIsnJOmTBE11vMixV5/716GB/fwRACkLqUKzZPKHpu3/86K6hT8PdD0Xw8sMR8MoLDUqIKsUAZ5anaYhqGMoNWqPJk7+6bHj/b+5WowqN7qUwdOtW7cen/HimQ9nvxGdn/uuH5z/gf9iwVk/dDXzzvhP5xwvvrbw8FubZ61ff6Nr+31nOLu9Yc09u1p/3f9C177Df+seeOEvU/uff6Zr+9PrWn80H0jd7O3/AJZfQcRuS8+WAAAAAElFTkSuQmCC) no-repeat 100% 50%;padding-right:28px}.cost-gold{background:url(data:image/png;base64,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) no-repeat 100% 50%;padding-right:28px}.cost-elixir-small{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAYAAAAmlE46AAACtUlEQVR42n2TbUhTcRSHb0FEBVaTUlBERJZsujnv3JtTiTJrQyksE/piGfal+lBR2ItGpCUZRSVIaUqEQaikFVpObDozNXXzZZub5nQynE5RM7dA9+usQCirAw9/LpyH34FzLgPgv6RukQZc35mhKAnOyXoUdCmdYZgNAJh/ChcDsyQa7sPSYWHtkFOsdXvkZvQL6ia2M5tC/ipKmXC/mrDbubboWhdkXYBikDADcSNwinUzx7cmx6wRz/tnR3TyKhu/Szup2QLIB4kBn0gMYVFuWC6OyDn1S1yVMiO6+VV6KExA3CgQ7yJmAeUEfdt+Jnrj7aiTlJWuiqodqsB3u8p18+JWQNZDKSYS7EDCAiVNAxIbvUTiHPrj2zo4HI4fQ7X+Fbf8gTlag1lWSw0GarDSO0KQnOoATjqB3XZKdcKm7FjI4qWJmHNBJ4Q9As2MRaTFkpjS1GYgk0bdMwwkUcrjOWDcC2RPUbIdX5VG3Eu4coy5E3K5wCjqwEB0ExZj9VhOHKQUC0FiGon5lPZyEThMyXIXJU/iWfLdm0xJ2K1KK6tHp6AeU+wnLCn7sKIeIskKZBDpNPIBG0lfaNRJYK8DparCYqYo9GrFWKwRHyIbMB7TjvmEPnhSjPD6RB9qIo6gA4DMDM/+PtxQn8llLgRkpljZz56PwjZK1cAh78Lsvl641UasJFNzgunXPmV6woARVb3jqOoQl6Ha2Mqvqh4Tm/Ca9wbtggaMStowreiCm1azIu2B13cQEh2WEltQnVqct7rHzG0HQ1v5Nc0W1oDGyPdo4tVCH9WAMZEGUzEafGOb4Va0QJNU9oJNYTf/djlH/OVBTbzn5f0i7Vy3UItewirSYVzUgmFJo+ut8un9YD6f4+tdc6tU64pCzrIVofkFddwn1bVEWXhh3rWo01F//gw/ABEvTc8QZ7BnAAAAAElFTkSuQmCC) no-repeat 100% 50%;padding-right:19px}.cost-gold-small{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAQCAYAAADJViUEAAAC8klEQVR42p1TfSzUcRz+npcUmV6YTMPREiXrlREqrcaMRipRqPujFHWEjWxcSJpNb9NWf1BUQ1oZRs1JiVNH3bXzdsq5Xzpvc879uPenW3+0ib96tuePz2fP8/n88Xk+BMAiGmGZnbLHryg3qKCQE1iVl7WTzWZHexn7Zv9qFxW3i/wihLzTbb/6k2iZ6BykgkhMSxNBUQXTvK7SlxkZGb5LzEaYlBV7sylhGE1LwjHYEQfemxS0NVzGQG8ifvZHQ6Mqx4ikhiopZoUuMudfWRsjfb9BtSByw9SPVMwrmwA9FzDUQ6cpxxSVBj43CjOjOZB+iZFyckJ2/DG729pat1Wt+wgRAf3DFwbNfegWiqCey4ZGmQnDXDowdhwzfcGoe7BLS1PH0MWNeUIIMSVxEev8xC2r6MleS8gnwqGZOw3VTDTU8pPQzrKgGQ6A9qsHMLIP7+p26buaAjAqPjp2ieXMJBnxlufG280gbPaEXBYJtTIGasUpaORGDvlA3bsROoErIPHHED/Q0FC5VT8uCdelXXELIddY5MJ0jxVaa/0xTZ2ATmXcNhsHZf9m0D3W0AhdYBjcBsgOYvizP96/9jZMjkXoUy86hpGLUSSU+uaj7eAmQsCLh4GOw9y3TVB2EqgEdtAPMAHJbmDiEMQfPCDr98evwX0TaQkrthAPZ+LQWHtgSCE/i1dPYzHcuh2KdhOouk2gF64B+hyMA9yhFLlDJmQC80fAb/Ku228MDQFAzsd63ej7EgrZaDAeX7dD/U0GBJUMDNQQg+i5KUTVKzHbYw4odmPoU4C8MN0l6O+dHa0d1+ckb3/Lb3CGtJmBzkcELwqIvjqfaHsrCMZbCeYF5hC1OOFell3mknhG7bF3zYu3aXyWZ4ruCgbEr00gbmSAX8VAyx2C6jzT2ZIEwiGEWCyb7dxou9WcMzassqv23Ic5G3/eZVtNlCZZfL+VaF6eeZj4LfsYSz8rxILF2svMTXbyjIx0diAEjGV1AP6bvwEHTGubIzKNeQAAAABJRU5ErkJggg==) no-repeat 100% 50%;padding-right:19px}.like-button{color:#222;cursor:pointer;display:inline-block;border:1px outset #777;border-radius:8px;padding:0 8px}.like-button_after{margin-left:6px}.like-button_lonely{margin-left:-8px;margin-right:16px}.number{text-align:right}.limit-exceeded{color:#d00}.intro{font-size:16px}.result{font-size:18px;font-family:'PT Serif Caption',Georgia,serif}.saved-list{font-size:14px}.saved-list__item{display:inline-block;margin:0 30px 17px -13px;border:1px solid #ddd;border-radius:10px;padding:10px 13px;vertical-align:top;color:#444;line-height:1.35}.saved-list__item-title{font-size:14px;font-family:'PT Serif Caption',Georgia,serif;color:#222;margin-bottom:3px}.saved-list__item-title_next{margin-top:8px}.saved-list__item-title span{float:right}.saved-list__item-result{margin-top:3px}.saved-list__actions{margin-top:8px}.saved-list__table{border-spacing:0}.saved-list__table td{padding-right:8px;padding-top:0;padding-bottom:0}.saved-list__table td.saved-list__level{padding-top:6px;line-height:8px}</style>
     <script>navigator.appName=="Microsoft Internet Explorer"&&(function(b,e,c,a){b.src="/clash-of-clans/i/favicon.ico";c=e.getElementsByTagName("script")[0];a=c.parentNode.insertBefore(e.createElement("link"),c);a.rel="shortcut icon";a.href=b.src})(new Image,document);</script>
     <link rel="icon" href="/clash-of-clans/i/favicon.png"/>
     <script type="text/javascript">
@@ -35,24 +35,49 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 <table class="units units_common">
     <tr>
         <td>
-            <label for="barracks">Number of Barracks</label>
+            <label for="barracks-levels-1">Barracks Levels</label>
         </td>
         <td>
-            <select id="barracks" class="field">
+            <select id="barracks-levels-1" class="field">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-                <option value="4" selected="selected">4</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected="selected">10</option>
             </select>
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            <label for="barracks-level">Maximum Barracks Level</label>
-        </td>
-        <td>
-            <select id="barracks-level" class="field">
+            <select id="barracks-levels-2" class="field">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected="selected">10</option>
+            </select>
+            <select id="barracks-levels-3" class="field">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected="selected">10</option>
+            </select>
+            <select id="barracks-levels-4" class="field">
+                <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -99,23 +124,28 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
             <th>Level</th>
             <th><span class="cost-elixir">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="units-quantity"></span></th>
-            <th><span class="cost-elixir">Total Cost</span></th>
+            <th><span class="cost-elixir">Total</span></th>
+            <th colspan="8">Barracks</th>
+        </tr>
+        <tr>
+            <td colspan="5"></td>
+            <td colspan="2" id="barrack-header-1"></td>
+            <td colspan="2" id="barrack-header-2"></td>
+            <td colspan="2" id="barrack-header-3"></td>
+            <td colspan="2" id="barrack-header-4"></td>
         </tr>
     </thead>
     <tbody id="units-body">
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="4">All Troops Cost</th>
-            <td id="units-cost"></td>
-        </tr>
-        <tr>
-            <th colspan="4">Capacity</th>
-            <td id="units-space"></td>
-        </tr>
-        <tr>
-            <th colspan="4">Average Production Time</th>
-            <td id="units-time"></td>
+            <td colspan="3"></td>
+            <td id="units-space" class="result"></td>
+            <td id="units-cost" class="number result"></td>
+            <td id="units-time-barrack-1" colspan="2" class="number"></td>
+            <td id="units-time-barrack-2" colspan="2" class="number"></td>
+            <td id="units-time-barrack-3" colspan="2" class="number"></td>
+            <td id="units-time-barrack-4" colspan="2" class="number"></td>
         </tr>
     </tfoot>
 </table>
@@ -127,23 +157,18 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
             <th>Level</th>
             <th><span class="cost-gold">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="spells-quantity"></span></th>
-            <th><span class="cost-gold">Total Cost</span></th>
+            <th><span class="cost-gold">Total</span></th>
+            <th>Time</th>
         </tr>
     </thead>
     <tbody id="spells-body">
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="4">All Spells Cost</th>
-            <td id="spells-cost"></td>
-        </tr>
-        <tr>
-            <th colspan="4">Capacity</th>
-            <td id="spells-space"></td>
-        </tr>
-        <tr>
-            <th colspan="4">Production Time</th>
-            <td id="spells-time"></td>
+            <td colspan="3"></td>
+            <td id="spells-space" class="result"></td>
+            <td id="spells-cost" class="number result"></td>
+            <td id="spells-time" class="number result"></td>
         </tr>
     </tfoot>
 </table>
@@ -185,6 +210,13 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
         </td>
         <td id="{{summaryId}}" class="number">
         </td>
+        {{#barracksTimes}}
+            <td id="{{barrackQuantityId}}" class="number"></td>
+            <td id="{{barrackTimeId}}" class="number"></td>
+        {{/barracksTimes}}
+        {{^barracksTimes}}
+            <td></td>
+        {{/barracksTimes}}
     </tr>
 </script>
 
@@ -202,7 +234,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
                 {{/units}}
             </table>
             <div class="saved-list__item-result">
-                {{totalCapacity}}/{{armyCamps}} — ≈{{totalTime}} × {{barracksCount}}
+                {{totalCapacity}}/{{armyCamps}}
             </div>
         {{/hasUnits}}
 
@@ -218,7 +250,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
                 {{/spells}}
             </table>
             <div class="saved-list__item-result">
-                {{spellsCapacity}}/{{spellsFactoryLevel}} — {{spellsTime}}
+                {{spellsCapacity}}/{{spellsFactoryLevel}}
             </div>
         {{/hasSpells}}
 
@@ -234,7 +266,710 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 * @license http://www.apache.org/licenses/LICENSE-2.0.txt
 */
 var Hogan={};(function(a,b){function i(a){return String(a===null||a===undefined?"":a)}function j(a){return a=i(a),h.test(a)?a.replace(c,"&amp;").replace(d,"&lt;").replace(e,"&gt;").replace(f,"&#39;").replace(g,"&quot;"):a}a.Template=function(a,c,d,e){this.r=a||this.r,this.c=d,this.options=e,this.text=c||"",this.buf=b?[]:""},a.Template.prototype={r:function(a,b,c){return""},v:j,t:i,render:function(b,c,d){return this.ri([b],c||{},d)},ri:function(a,b,c){return this.r(a,b,c)},rp:function(a,b,c,d){var e=c[a];return e?(this.c&&typeof e=="string"&&(e=this.c.compile(e,this.options)),e.ri(b,c,d)):""},rs:function(a,b,c){var d=a[a.length-1];if(!k(d)){c(a,b,this);return}for(var e=0;e<d.length;e++)a.push(d[e]),c(a,b,this),a.pop()},s:function(a,b,c,d,e,f,g){var h;return k(a)&&a.length===0?!1:(typeof a=="function"&&(a=this.ls(a,b,c,d,e,f,g)),h=a===""||!!a,!d&&h&&b&&b.push(typeof a=="object"?a:b[b.length-1]),h)},d:function(a,b,c,d){var e=a.split("."),f=this.f(e[0],b,c,d),g=null;if(a==="."&&k(b[b.length-2]))return b[b.length-1];for(var h=1;h<e.length;h++)f&&typeof f=="object"&&e[h]in f?(g=f,f=f[e[h]]):f="";return d&&!f?!1:(!d&&typeof f=="function"&&(b.push(g),f=this.lv(f,b,c),b.pop()),f)},f:function(a,b,c,d){var e=!1,f=null,g=!1;for(var h=b.length-1;h>=0;h--){f=b[h];if(f&&typeof f=="object"&&a in f){e=f[a],g=!0;break}}return g?(!d&&typeof e=="function"&&(e=this.lv(e,b,c)),e):d?!1:""},ho:function(a,b,c,d,e){var f=this.c,g=this.options;g.delimiters=e;var d=a.call(b,d);return d=d==null?String(d):d.toString(),this.b(f.compile(d,g).render(b,c)),!1},b:b?function(a){this.buf.push(a)}:function(a){this.buf+=a},fl:b?function(){var a=this.buf.join("");return this.buf=[],a}:function(){var a=this.buf;return this.buf="",a},ls:function(a,b,c,d,e,f,g){var h=b[b.length-1],i=null;if(!d&&this.c&&a.length>0)return this.ho(a,h,c,this.text.substring(e,f),g);i=a.call(h);if(typeof i=="function"){if(d)return!0;if(this.c)return this.ho(i,h,c,this.text.substring(e,f),g)}return i},lv:function(a,b,c){var d=b[b.length-1],e=a.call(d);if(typeof e=="function"){e=i(e.call(d));if(this.c&&~e.indexOf("{{"))return this.c.compile(e,this.options).render(d,c)}return i(e)}};var c=/&/g,d=/</g,e=/>/g,f=/\'/g,g=/\"/g,h=/[&<>\"\']/,k=Array.isArray||function(a){return Object.prototype.toString.call(a)==="[object Array]"}})(typeof exports!="undefined"?exports:Hogan),function(a){function h(a){a.n.substr(a.n.length-1)==="}"&&(a.n=a.n.substring(0,a.n.length-1))}function i(a){return a.trim?a.trim():a.replace(/^\s*|\s*$/g,"")}function j(a,b,c){if(b.charAt(c)!=a.charAt(0))return!1;for(var d=1,e=a.length;d<e;d++)if(b.charAt(c+d)!=a.charAt(d))return!1;return!0}function k(a,b,c,d){var e=[],f=null,g=null;while(a.length>0){g=a.shift();if(g.tag=="#"||g.tag=="^"||l(g,d))c.push(g),g.nodes=k(a,g.tag,c,d),e.push(g);else{if(g.tag=="/"){if(c.length===0)throw new Error("Closing tag without opener: /"+g.n);f=c.pop();if(g.n!=f.n&&!m(g.n,f.n,d))throw new Error("Nesting error: "+f.n+" vs. "+g.n);return f.end=g.i,e}e.push(g)}}if(c.length>0)throw new Error("missing closing tag: "+c.pop().n);return e}function l(a,b){for(var c=0,d=b.length;c<d;c++)if(b[c].o==a.n)return a.tag="#",!0}function m(a,b,c){for(var d=0,e=c.length;d<e;d++)if(c[d].c==a&&c[d].o==b)return!0}function n(a){return a.replace(f,"\\\\").replace(c,'\\"').replace(d,"\\n").replace(e,"\\r")}function o(a){return~a.indexOf(".")?"d":"f"}function p(a){var b="";for(var c=0,d=a.length;c<d;c++){var e=a[c].tag;e=="#"?b+=q(a[c].nodes,a[c].n,o(a[c].n),a[c].i,a[c].end,a[c].otag+" "+a[c].ctag):e=="^"?b+=r(a[c].nodes,a[c].n,o(a[c].n)):e=="<"||e==">"?b+=s(a[c]):e=="{"||e=="&"?b+=t(a[c].n,o(a[c].n)):e=="\n"?b+=v('"\\n"'+(a.length-1==c?"":" + i")):e=="_v"?b+=u(a[c].n,o(a[c].n)):e===undefined&&(b+=v('"'+n(a[c])+'"'))}return b}function q(a,b,c,d,e,f){return"if(_.s(_."+c+'("'+n(b)+'",c,p,1),'+"c,p,0,"+d+","+e+',"'+f+'")){'+"_.rs(c,p,"+"function(c,p,_){"+p(a)+"});c.pop();}"}function r(a,b,c){return"if(!_.s(_."+c+'("'+n(b)+'",c,p,1),c,p,1,0,0,"")){'+p(a)+"};"}function s(a){return'_.b(_.rp("'+n(a.n)+'",c,p,"'+(a.indent||"")+'"));'}function t(a,b){return"_.b(_.t(_."+b+'("'+n(a)+'",c,p,0)));'}function u(a,b){return"_.b(_.v(_."+b+'("'+n(a)+'",c,p,0)));'}function v(a){return"_.b("+a+");"}var b=/\S/,c=/\"/g,d=/\n/g,e=/\r/g,f=/\\/g,g={"#":1,"^":2,"/":3,"!":4,">":5,"<":6,"=":7,_v:8,"{":9,"&":10};a.scan=function(c,d){function w(){p.length>0&&(q.push(new String(p)),p="")}function x(){var a=!0;for(var c=t;c<q.length;c++){a=q[c].tag&&g[q[c].tag]<g._v||!q[c].tag&&q[c].match(b)===null;if(!a)return!1}return a}function y(a,b){w();if(a&&x())for(var c=t,d;c<q.length;c++)q[c].tag||((d=q[c+1])&&d.tag==">"&&(d.indent=q[c].toString()),q.splice(c,1));else b||q.push({tag:"\n"});r=!1,t=q.length}function z(a,b){var c="="+v,d=a.indexOf(c,b),e=i(a.substring(a.indexOf("=",b)+1,d)).split(" ");return u=e[0],v=e[1],d+c.length-1}var e=c.length,f=0,k=1,l=2,m=f,n=null,o=null,p="",q=[],r=!1,s=0,t=0,u="{{",v="}}";d&&(d=d.split(" "),u=d[0],v=d[1]);for(s=0;s<e;s++)m==f?j(u,c,s)?(--s,w(),m=k):c.charAt(s)=="\n"?y(r):p+=c.charAt(s):m==k?(s+=u.length-1,o=g[c.charAt(s+1)],n=o?c.charAt(s+1):"_v",n=="="?(s=z(c,s),m=f):(o&&s++,m=l),r=s):j(v,c,s)?(q.push({tag:n,n:i(p),otag:u,ctag:v,i:n=="/"?r-v.length:s+u.length}),p="",s+=v.length-1,m=f,n=="{"&&(v=="}}"?s++:h(q[q.length-1]))):p+=c.charAt(s);return y(r,!0),q},a.generate=function(b,c,d){var e='var _=this;_.b(i=i||"");'+p(b)+"return _.fl();";return d.asString?"function(c,p,i){"+e+";}":new a.Template(new Function("c","p","i",e),c,a,d)},a.parse=function(a,b,c){return c=c||{},k(a,"",[],c.sectionTags||[])},a.cache={},a.compile=function(a,b){b=b||{};var c=a+"||"+!!b.asString,d=this.cache[c];return d?d:(d=this.generate(this.parse(this.scan(a,b.delimiters),a,b),a,b),this.cache[c]=d)}}(typeof exports!="undefined"?exports:Hogan)</script>
-<script>(function(h,r){if(!Function.prototype.bind){Function.prototype.bind=function(J){var H=this;var I=Array.prototype.slice.call(arguments,1);return function(){return H.apply(J,I.concat(Array.prototype.slice.call(arguments)))}}}var q=function(I,J){var H;for(H in I){if(I.hasOwnProperty(H)){J(H,I[H])}}};var a=function(I){var H=I.constructor();q(I,function(J,K){H[J]=K});return H};var A=function(H){return H.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,"$1,")};var g=function(H){return H.replace("_"," ").replace(/-/g,".")};var v=function(K,H){var J="";if(K>3599){J+=Math.floor(K/3600)+"h ";K=K%3600}if(K>59){var I=Math.floor(K/60);K=K%60;if(H&&K>0){I++}J+=I+"m "}if(J===""||!H){J+=K+"s"}return J};var z=function(I,H){this.key=I;this.defaultData=H;this.load=function(){var J=h.localStorage.getItem(this.key);return(J&&JSON.parse(J))||this.defaultData};this.save=function(J){h.localStorage.setItem(this.key,JSON.stringify(J))}};var k=function(H){this.data=H;this.get=function(J,I){var K=this.data[J];if(I!==undefined&&K===undefined){return I}return K};this.set=function(I,J){this.data[I]=J};this.getAll=function(){return this.data}};var l=function(H){this.entries=[];this.retrieve=function(I){return this.entries[I]};this.insert=function(I){this.entries.push(new k(I))};this.remove=function(I){this.entries.splice(I,1)};this.getAll=function(){return this.entries.map(function(I){return I.getAll()})};this.forEach=function(I){this.entries.forEach(I)};H.forEach(this.insert.bind(this))};var x=function(){var H={};this.get=function(I){if(!H.hasOwnProperty(I)){H[I]=r.getElementById(I)}return H[I]}};var t=new x();var G=new z("savedData",{});var B=new k(G.load());var c=t.get("barracks");var s=t.get("barracks-level");var w=t.get("army-camps");var m=t.get("spell-factory-level");var u={Barbarian:[20,[25,40,60,80,100,150],1,1],Archer:[25,[50,80,120,160,200,300],1,2],Goblin:[30,[25,40,60,80,100],1,3],Giant:[120,[500,1000,1500,2000,2500,3000],5,4],Wall_Breaker:[120,[1000,1500,2000,2500,3000],1,5],Balloon:[600,[2000,2500,3000,3500,4000,4500],5,6],Wizard:[600,[1500,2000,2500,3000,3500],4,7],Healer:[1200,[7000,10000,13000],20,8],Dragon:[1800,[25000,32500,40000],20,9],"P-E-K-K-A-":[3600,[35000,42500,50000],25,10]};var j=t.get("units");var f={Lightning:[3600,[15000,16500,18000,20000,22000],1,1],Healing:[5400,[20000,22000,24000,26500,29000],1,2],Rage:[7200,[30000,33000,36000,40000,44000],1,3],Jump:[5400,[30000,38000],1,4]};var b=t.get("spells");var F=function(N,O,J){var M=parseInt(J.levelSelect.value,10);J.table.style.display=(M===0?"none":"");var L;for(L=parseInt(J.levelSelect.options[J.levelSelect.options.length-1].value,10);L>=1;L--){t.get(O+"-building-level-"+L).style.display=(L>M?"none":"")}var H=0;var K=0;var I=0;q(N,function(Q,W){if(W[3]>M){return}var Z=t.get(Q);var U=parseInt(Z.value,10)||0;var X=Q+"-level";var Y=t.get(X);var S=t.get(Q+"-cost");var V=t.get(Q+"-summary");var T=Y.value;var R=(T*U);S.innerHTML=A(T);V.innerHTML=(R?A(R):0);H+=R;K+=(W[2]*U);I+=(W[0]*U);B.set(Q,U);B.set(X,Y.selectedIndex)});t.get(O+"-cost").innerHTML=A(H);var P=J.space-K;if(P<0){P='<span class="limit-exceeded">'+P+"</span>"}t.get(O+"-quantity").innerHTML="("+P+")";if(K>J.space){K='<span class="limit-exceeded">'+K+"</span>"}K=K+" / "+J.space;t.get(O+"-space").innerHTML=K;t.get(O+"-time").innerHTML=v(Math.ceil(I/J.buildings),(O==="spells"?true:false))};var i=function(){F(u,"units",{table:j,levelSelect:s,space:w.value,buildings:c.value});F(f,"spells",{table:b,levelSelect:m,space:m.value,buildings:1});B.set("barracks",c.selectedIndex);B.set("barracksLevel",s.selectedIndex);B.set("armyCamps",w.value);B.set("spellFactoryLevel",m.selectedIndex);G.save(B.getAll())};var p=function(){c.options[B.get("barracks",c.selectedIndex)].selected=true;s.options[B.get("barracksLevel",s.selectedIndex)].selected=true;w.value=B.get("armyCamps",w.value);m.options[B.get("spellFactoryLevel",m.selectedIndex)].selected=true;var H=function(I,J){q(I,function(L){var M=L+"-level";var K=t.get(M);K.options[B.get(M,K.selectedIndex)].selected=true;var N=t.get(L);if(J==="spells"){N.options[B.get(L,N.selectedIndex)].selected=true}else{N.value=B.get(L)||0}})};H(u,"units");H(f,"spells")};c.addEventListener("change",i,false);s.addEventListener("change",i,false);w.addEventListener("input",i,false);m.addEventListener("change",i,false);var D=function(I){var K=function(){var L=parseInt(I.value,10);if(isNaN(L)){I.value=1}else{I.value=L+1}i()};var J=function(){var L=parseInt(I.value,10);if(isNaN(L)||L<2){I.value=0}else{I.value=L-1}i()};var H=function(N){var M=r.createElement("span");M.className="like-button like-button_after";M.innerHTML=(N==="plus"?"+":"−");M.addEventListener("click",(N==="plus"?K:J),false);var L=null;var O=null;M.addEventListener("mousedown",function(){O=h.setTimeout(function(){L=h.setInterval((N==="plus"?K:J),100)},500)});M.addEventListener("mouseup",function(){clearTimeout(O);clearInterval(L)});I.parentNode.appendChild(M)};H("plus");H("minus")};var E=Hogan.compile(r.getElementById("hogan-item-row-template").innerHTML);var y=function(H,L){var K=function(O,N){return{value:O,text:(N+1)}};var M=[];if(L==="spells"){var J;for(J=0;J<5;J++){M.push({value:J,text:J})}}var I=t.get(L+"-body");q(H,function(P,S){var R={id:P,title:g(P),levelId:P+"-level",levelContent:S[1].map(K),costId:P+"-cost",summaryId:P+"-summary",rowId:L+"-building-level-"+S[3]};if(L==="spells"){R.spells={options:M}}var N=E.render(R);var O=r.createElement("div");O.innerHTML="<table>"+N+"</table>";var Q=O.querySelector("tr");I.appendChild(Q);t.get(R.levelId).addEventListener("change",i,false);t.get(R.id).addEventListener((L==="spells"?"change":"input"),i,false)})};y(u,"units");y(f,"spells");var C=function(H){if(H.target.tagName.toLowerCase()==="input"){setTimeout(function(I){I.setSelectionRange(0,9999)}.bind(null,H.target),10)}};Array.prototype.slice.call(r.getElementsByClassName("js-number")).forEach(function(H){H.addEventListener("focus",C,false);D(H)});p();i();var e=new z("savedCalculations",[]);var o=new l(e.load());var d=Hogan.compile(r.getElementById("hogan-saved-list-item-template").innerHTML);var n=function(){var I=[];o.forEach(function(L,P){var N={index:P};var M=[];var J=0;var K=0;var Q=0;q(u,function(U,W){var V=parseInt(L.get(U),10)||0;if(V>0&&W[3]<=(L.get("barracksLevel")+1)){M.push({name:g(U),level:(new Array(L.get(U+"-level")+2)).join("*"),quantity:V});J+=W[1][L.get(U+"-level")]*V;K+=W[0]*V;Q+=W[2]*V}});if(M.length){N.hasUnits={units:M,totalCost:A(J),totalCapacity:Q,armyCamps:L.get("armyCamps"),totalTime:v(Math.ceil(K/(L.get("barracks")+1)),true),barracksCount:(L.get("barracks")+1)}}if(L.get("spellFactoryLevel")>0){var O=[];var T=0;var S=0;var R=0;q(f,function(V,W){var U=parseInt(L.get(V),10)||0;if(U>0&&W[3]<=L.get("spellFactoryLevel")){O.push({name:g(V),level:(new Array(L.get(V+"-level")+2)).join("*"),quantity:U});T+=W[1][L.get(V+"-level")]*U;S+=W[0]*U;R+=W[2]*U}});if(O.length){N.hasSpells={spells:O,spellsCost:A(T),spellsCapacity:R,spellsFactoryLevel:L.get("spellFactoryLevel"),spellsTime:v(S,true)}}}I.push(d.render(N))});var H=t.get("saved-list-content");H.innerHTML=I.join("");Array.prototype.slice.call(H.getElementsByClassName("js-saved-load")).forEach(function(J){J.addEventListener("click",function(){B=new k(a(o.retrieve(J.getAttribute("data-num")).getAll()));p();i();n()},false)});Array.prototype.slice.call(H.getElementsByClassName("js-saved-delete")).forEach(function(J){J.addEventListener("click",function(){o.remove(J.getAttribute("data-num"));e.save(o.getAll());n()},false)})};t.get("save").addEventListener("click",function(){o.insert(a(B.getAll()));e.save(o.getAll());n()},false);n()}(window,document));</script>
+<script>(function(window, document) {
+
+    'use strict';
+
+
+    if (!Function.prototype.bind) {
+        Function.prototype.bind = function(context) {
+            var self = this;
+            var args = Array.prototype.slice.call(arguments, 1);
+            return function() {
+                return self.apply(context, args.concat(Array.prototype.slice.call(arguments)));
+            };
+        };
+    }
+
+
+    var objectIterate = function(obj, callback) {
+        var key;
+        for (key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (callback(key, obj[key]) === false) {
+                    break;
+                }
+            }
+        }
+    };
+
+
+    var objectCopy = function(obj) {
+        var newObj = obj.constructor();
+        objectIterate(obj, function(key, value) {
+            newObj[key] = value;
+        });
+        return newObj;
+    };
+
+
+    var numberFormat = function(n) {
+        return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+    };
+
+
+    var convertToTitle = function(s) {
+        return s.replace('_', ' ').replace(/-/g, '.');
+    };
+
+
+    var getFormattedTime = function(time, hideSeconds) {
+        var formattedTime = '';
+        if (time > 3599) {
+            formattedTime += Math.floor(time / 3600) + 'h ';
+            time = time % 3600;
+        }
+        if (time > 59) {
+            var minutes = Math.floor(time / 60);
+            time = time % 60;
+            if (hideSeconds && time > 0) {
+                minutes++;
+            }
+            formattedTime += minutes + 'm ';
+        } else {
+            formattedTime += '0m ';
+        }
+        if (formattedTime === '' || !hideSeconds) {
+            formattedTime += time + 's';
+        }
+        return formattedTime;
+    };
+
+
+    var DataStorage = function(key, defaultData) {
+        this.key = key;
+        this.defaultData = defaultData;
+
+        this.load = function() {
+            var data = window.localStorage.getItem(this.key);
+            return (data && JSON.parse(data)) || this.defaultData;
+        };
+
+        this.save = function(data) {
+            window.localStorage.setItem(this.key, JSON.stringify(data));
+        };
+    };
+
+
+    var Dict = function(data) {
+        this.data = data;
+
+        this.get = function(key, defaultValue) {
+            var value = this.data[key];
+            if (defaultValue !== undefined && value === undefined) {
+                return defaultValue;
+            }
+            return value;
+        };
+
+        this.set = function(key, value) {
+            this.data[key] = value;
+        };
+
+        this.getAll = function() {
+            return this.data;
+        };
+    };
+
+    var MultiDict = function(entries) {
+        this.entries = [];
+
+        this.retrieve = function(i) {
+            return this.entries[i];
+        };
+
+        this.insert = function(data) {
+            this.entries.push(new Dict(data));
+        };
+
+        this.remove = function(i) {
+            this.entries.splice(i, 1);
+        };
+
+        this.getAll = function() {
+            return this.entries.map(function(entry) {
+                return entry.getAll();
+            });
+        };
+
+        this.forEach = function(callback) {
+            this.entries.forEach(callback);
+        };
+
+        entries.forEach(this.insert.bind(this));
+    };
+
+
+    var IdsCacher = function() {
+        var elements = {};
+        this.get = function(id) {
+            if (!elements.hasOwnProperty(id)) {
+                elements[id] = document.getElementById(id);
+            }
+            return elements[id];
+        };
+    };
+
+
+    var ids = new IdsCacher();
+
+
+    var savedDataStorage = new DataStorage('savedData', {});
+    var savedData = new Dict(savedDataStorage.load());
+
+    var BarracksContainer = function() {
+        this.barracks = [];
+
+        var maxCount = 4;
+        var i;
+        for (i = 1; i <= maxCount; i++) {
+            var barrack = ids.get('barracks-levels-' + i);
+            this.barracks.push(barrack);
+        }
+
+        this.setDefaults = function() {
+            var saved = savedData.get('barracksLevels');
+            if (saved) {
+                this.barracks.forEach(function(el, i) {
+                    el.options[saved[i]].selected = true;
+                });
+            }
+        };
+
+        this.updateSavedData = function() {
+            savedData.set('barracksLevels', this.barracks.map(function(el) {
+                return el.selectedIndex;
+            }));
+        };
+
+        this.getMaxLevel = function() {
+            return Math.max.apply(null, this.barracks.map(function(el) {
+                return parseInt(el.value, 10);
+            }));
+        };
+
+        this.getAll = function() {
+            return this.barracks;
+        };
+
+        this.getObjectForLevel = function(level) {
+            var result = {};
+            this.barracks.forEach(function(el) {
+                if (el.value >= level) {
+                    result[el.getAttribute('id')] = el;
+                }
+            });
+
+            return result;
+        };
+
+        this.getLevels = function() {
+            return this.barracks.map(function(el) {
+                return el.value;
+            });
+        };
+
+    };
+
+    var allBarracks = new BarracksContainer();
+
+    var armyCamps = ids.get('army-camps');
+    var spellFactoryLevel = ids.get('spell-factory-level');
+
+
+    var units = {
+        'Barbarian': [20, [25, 40, 60, 80, 100, 150], 1, 1],
+        'Archer': [25, [50, 80, 120, 160, 200, 300], 1, 2],
+        'Goblin': [30, [25, 40, 60, 80, 100], 1, 3],
+        'Giant': [120, [500, 1000, 1500, 2000, 2500, 3000], 5, 4],
+        'Wall_Breaker': [120, [1000, 1500, 2000, 2500, 3000], 1, 5],
+        'Balloon': [600, [2000, 2500, 3000, 3500, 4000, 4500], 5, 6],
+        'Wizard': [600, [1500, 2000, 2500, 3000, 3500], 4, 7],
+        'Healer': [1200, [7000, 10000, 13000], 20, 8],
+        'Dragon': [1800, [25000, 32500, 40000], 20, 9],
+        'P-E-K-K-A-': [3600, [35000, 42500, 50000], 25, 10]
+    };
+    var unitsTable = ids.get('units');
+
+    var spells = {
+        'Lightning': [3600, [15000, 16500, 18000, 20000, 22000], 1, 1],
+        'Healing': [5400, [20000, 22000, 24000, 26500, 29000], 1, 2],
+        'Rage': [7200, [30000, 33000, 36000, 40000, 44000], 1, 3],
+        'Jump': [5400, [30000, 38000], 1, 4]
+    };
+    var spellsTable = ids.get('spells');
+
+
+    var calculateItems = function(items, type, params) {
+        params.table.style.display = (params.levelValue === 0 ? 'none' : '');
+
+        var i;
+        for (
+            i = params.capLevel;
+            i >= 1;
+            i--
+        ) {
+            ids.get(type + '-building-level-' + i).style.display = (i > params.levelValue ? 'none' : '');
+        }
+
+        var totalCost = 0;
+        var totalSpace = 0;
+        var totalTime = 0;
+        var distribution = [];
+        objectIterate(items, function(name, value) {
+            if (value[3] > params.levelValue) {
+                return;
+            }
+            var item = ids.get(name);
+
+            var quantity = parseInt(item.value, 10) || 0;
+
+            var levelId = name + '-level';
+            var levelEl = ids.get(levelId);
+            var costEl = ids.get(name + '-cost');
+            var summaryEl = ids.get(name + '-summary');
+            var costPerItem = levelEl.value;
+            var summaryCost = (costPerItem * quantity);
+
+            costEl.innerHTML = numberFormat(costPerItem);
+            summaryEl.innerHTML = (summaryCost ? numberFormat(summaryCost) : 0);
+
+            totalCost += summaryCost;
+
+            totalSpace += (value[2] * quantity);
+            if (type === 'spells') {
+                totalTime += (value[0] * quantity);
+            } else {
+                var i;
+                for (i = 1; i <= 4; i++) {
+                    ids.get('quantity-' + name + '-' + i).innerHTML = '';
+                    ids.get('time-' + name + '-' + i).innerHTML = '';
+                }
+
+                if (quantity > 0) {
+                    distribution.push({
+                        'name': name,
+                        'quantity': quantity,
+                        'time': value[0],
+                        'level': value[3]
+                    });
+                }
+            }
+
+            savedData.set(name, quantity);
+            savedData.set(levelId, levelEl.selectedIndex);
+        });
+
+        if (type === 'units') {
+            var barracksLevels = allBarracks.getLevels();
+            barracksLevels.forEach(function(barrackLevel, barrackIndex) {
+                var header;
+                if (parseInt(barrackLevel, 10) === 0) {
+                    header = '';
+                } else {
+                    header = barrackLevel + ' lvl';
+                }
+                ids.get('barrack-header-' + (barrackIndex + 1)).innerHTML = header;
+            });
+
+            distribution.sort(function(a, b) {
+                if (a.time < b.time) {
+                    return 1;
+                }
+                if (a.time > b.time) {
+                    return -1;
+                }
+                if (a.quantity > b.quantity) {
+                    return -1;
+                }
+                if (a.quantity < b.quantity) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            var queue = {};
+            allBarracks.getAll().forEach(function(barrack) {
+                queue[barrack.getAttribute('id')] = {
+                    'time': 0,
+                    'units': {}
+                };
+            });
+
+            var j = 0;
+            var iterateStages = function(currentQueue, kit) {
+                if (kit.quantity === 0 || j > 100) {
+                    return currentQueue;
+                }
+                var nextStage = 0;
+                objectIterate(currentQueue, function(k, v) {
+                    if (v.time === 0) {
+                        nextStage = 0;
+                        return false;
+                    }
+                    if (nextStage === 0) {
+                        nextStage = v.time;
+                    } else {
+                        nextStage = Math.min(v.time, nextStage);
+                    }
+                    return true;
+                });
+                var i;
+                var currentStage = 0;
+                for (i = 1; i <= kit.quantity; i++) {
+                    if (currentStage !== 0 && currentStage >= nextStage) {
+                        break;
+                    }
+                    objectIterate(currentQueue, function(k, v) {
+                        if ((v.time === 0 || v.time <= nextStage) && kit.quantity > 0) {
+                            v.units[kit.name].time += kit.time;
+                            v.units[kit.name].quantity += 1;
+                            v.time += kit.time;
+                            currentStage += kit.time;
+                            kit.quantity -= 1;
+                        }
+                    });
+                }
+                return iterateStages(currentQueue, kit);
+            };
+            distribution.forEach(function(kit) {
+                var barracks = allBarracks.getObjectForLevel(kit.level);
+                var currentQueue = {};
+                objectIterate(queue, function(k, v) {
+                    if (barracks[k]) {
+                        currentQueue[k] = objectCopy(v);
+                        currentQueue[k].units[kit.name] = {
+                            'time': 0,
+                            'quantity': 0
+                        };
+                    }
+                });
+                objectIterate(iterateStages(currentQueue, kit), function(k, v) {
+                    queue[k] = objectCopy(v);
+                });
+            });
+            var maxTime = 0;
+            var maxNum = 1;
+            objectIterate(queue, function(k, v) {
+                var barrackNum = k.slice(-1);
+                objectIterate(v.units, function(unitName, unitData) {
+                    if (unitData.time > 0) {
+                        ids.get('time-' + unitName + '-' + barrackNum).innerHTML = getFormattedTime(unitData.time);
+                        ids.get('quantity-' + unitName + '-' + barrackNum).innerHTML = '×' + unitData.quantity;
+                    }
+                });
+                if (v.time > maxTime) {
+                    maxTime = v.time;
+                    maxNum = barrackNum;
+                }
+                ids.get('units-time-barrack-' + barrackNum).innerHTML = (v.time > 0 ? getFormattedTime(v.time) : '');
+            });
+            var maxBarrack = ids.get('units-time-barrack-' + maxNum);
+            maxBarrack.innerHTML = '<span class="result">' + maxBarrack.innerHTML + '</span>';
+        }
+
+        ids.get(type + '-cost').innerHTML = numberFormat(totalCost);
+
+        var spaceDiff = params.space - totalSpace;
+        if (spaceDiff < 0) {
+            spaceDiff = '<span class="limit-exceeded">' + spaceDiff + '</span>';
+        }
+        ids.get(type + '-quantity').innerHTML = '(' + spaceDiff + ')';
+
+        if (totalSpace > params.space) {
+            totalSpace = '<span class="limit-exceeded">' + totalSpace + '</span>';
+        }
+        totalSpace = totalSpace + ' / ' + params.space;
+        ids.get(type + '-space').innerHTML = totalSpace;
+
+        if (type === 'spells') {
+            ids.get(type + '-time').innerHTML = getFormattedTime(totalTime, true);
+        }
+    };
+
+
+    var calculate = function() {
+        calculateItems(units, 'units', {
+            'table': unitsTable,
+            'levelValue': allBarracks.getMaxLevel(),
+            'space': armyCamps.value,
+            'capLevel': 10
+        });
+        calculateItems(spells, 'spells', {
+            'table': spellsTable,
+            'levelValue': parseInt(spellFactoryLevel.value, 10),
+            'space': spellFactoryLevel.value,
+            'capLevel': 4
+        });
+
+        allBarracks.updateSavedData();
+
+        savedData.set('armyCamps', armyCamps.value);
+        savedData.set('spellFactoryLevel', spellFactoryLevel.selectedIndex);
+
+        savedDataStorage.save(savedData.getAll());
+    };
+
+
+    var setDefaults = function() {
+        allBarracks.setDefaults();
+        armyCamps.value = savedData.get('armyCamps', armyCamps.value);
+        spellFactoryLevel.options[savedData.get('spellFactoryLevel', spellFactoryLevel.selectedIndex)].selected = true;
+
+        var setItems = function(items, type) {
+            objectIterate(items, function(name) {
+                var levelId = name + '-level';
+                var levelEl = ids.get(levelId);
+                levelEl.options[savedData.get(levelId, levelEl.selectedIndex)].selected = true;
+
+                var valueEl = ids.get(name);
+                if (type === 'spells') {
+                    valueEl.options[savedData.get(name, valueEl.selectedIndex)].selected = true;
+                } else {
+                    valueEl.value = savedData.get(name) || 0;
+                }
+            });
+        };
+
+        setItems(units, 'units');
+        setItems(spells, 'spells');
+    };
+
+
+    allBarracks.getAll().forEach(function(el) {
+        el.addEventListener('change', calculate, false);
+    });
+    armyCamps.addEventListener('input', calculate, false);
+    spellFactoryLevel.addEventListener('change', calculate, false);
+
+
+    var setSpinner = function(el) {
+
+        var plus = function() {
+            var current = parseInt(el.value, 10);
+            if (isNaN(current)) {
+                el.value = 1;
+            } else {
+                el.value = current + 1;
+            }
+            calculate();
+        };
+
+        var minus = function(){
+            var current = parseInt(el.value, 10);
+            if (isNaN(current) || current < 2) {
+                el.value = 0;
+            } else {
+                el.value = current - 1;
+            }
+            calculate();
+        };
+
+        var create = function(type){
+            var span = document.createElement('span');
+            span.className = 'like-button like-button_after';
+            span.innerHTML = (type === 'plus' ? '+' : '−');
+
+            span.addEventListener('click', (type === 'plus' ? plus : minus), false);
+
+            var interval = null;
+            var timeout = null;
+            span.addEventListener('mousedown', function() {
+                timeout = window.setTimeout(function(){
+                    interval = window.setInterval((type === 'plus' ? plus : minus), 100);
+                }, 500);
+            });
+            span.addEventListener('mouseup', function() {
+                clearTimeout(timeout);
+                clearInterval(interval);
+            });
+            el.parentNode.appendChild(span);
+        };
+
+        create('plus');
+        create('minus');
+
+    };
+
+    var rowTemplate = Hogan.compile(document.getElementById('hogan-item-row-template').innerHTML);
+
+    var createRows = function(items, type) {
+        var createLevelOption = function(value, index) {
+            return {'value': value, 'text': (index + 1)};
+        };
+
+        var spellsValuesContent = [];
+        if (type === 'spells') {
+            var i;
+            for (i = 0; i < 5; i++) {
+                spellsValuesContent.push({'value': i, 'text': i});
+            }
+        }
+
+        var itemsBody = ids.get(type + '-body');
+        objectIterate(items, function(name, value) {
+            var templateVars = {
+                'id': name,
+                'title': convertToTitle(name),
+                'levelId': name + '-level',
+                'levelContent': value[1].map(createLevelOption),
+                'costId': name + '-cost',
+                'summaryId': name + '-summary',
+                'rowId': type + '-building-level-' + value[3]
+            };
+            if (type === 'spells') {
+                templateVars.spells = {
+                    'options': spellsValuesContent
+                };
+            }
+
+            if (type === 'units') {
+                var i;
+                var barracksTimes = [];
+                for (i = 1; i <= 4; i++) {
+                    barracksTimes.push({
+                       'barrackQuantityId': 'quantity-' + name + '-' + i,
+                       'barrackTimeId': 'time-' + name + '-' + i
+                   });
+                }
+                templateVars.barracksTimes = barracksTimes;
+            }
+
+            var rowHTML = rowTemplate.render(templateVars);
+
+            var tempDiv = document.createElement('div');
+            tempDiv.innerHTML = '<table>' + rowHTML + '</table>';
+
+            var itemRow = tempDiv.querySelector('tr');
+            itemsBody.appendChild(itemRow);
+
+            ids.get(templateVars.levelId).addEventListener('change', calculate, false);
+            ids.get(templateVars.id).addEventListener((type === 'spells' ? 'change' : 'input'), calculate, false);
+        });
+    };
+
+    createRows(units, 'units');
+    createRows(spells, 'spells');
+
+    var selectAll = function(e) {
+        if (e.target.tagName.toLowerCase() === 'input') {
+            setTimeout(function(el){
+                el.setSelectionRange(0, 9999);
+            }.bind(null, e.target), 10);
+        }
+    };
+    Array.prototype.slice.call(document.getElementsByClassName('js-number')).forEach(function(el){
+        el.addEventListener('focus', selectAll, false);
+        setSpinner(el);
+    });
+
+    setDefaults();
+    calculate();
+
+
+    var savedCalculationsStorage = new DataStorage('savedCalculations', []);
+    var savedCalculations = new MultiDict(savedCalculationsStorage.load());
+
+    var savedListItemTemplate = Hogan.compile(document.getElementById('hogan-saved-list-item-template').innerHTML);
+    var savedListCreateItems = function() {
+        var content = [];
+        savedCalculations.forEach(function(data, index) {
+            var templateVars = {
+                'index': index
+            };
+
+            var unitsItems = [];
+            var totalCost = 0;
+            var totalCapacity = 0;
+            var barracksLevels = data.get('barracksLevels', [10, 10, 10, 10]);
+            objectIterate(units, function(name, unitValue) {
+                var quantity = parseInt(data.get(name), 10) || 0;
+                var barracksLevel = Math.max.apply(null, barracksLevels.map(function(barrackIndex, arrayIndex) {
+                    return (arrayIndex === 0 ? barrackIndex + 1 : barrackIndex);
+                }));
+                if (quantity > 0 && unitValue[3] <= barracksLevel) {
+                    unitsItems.push({
+                        'name': convertToTitle(name),
+                        'level': (new Array(data.get(name + '-level') + 2)).join('*'),
+                        'quantity': quantity
+                    });
+                    totalCost += unitValue[1][data.get(name + '-level')] * quantity;
+                    totalCapacity += unitValue[2] * quantity;
+                }
+            });
+            if (unitsItems.length) {
+                var barracksCount = barracksLevels.filter(function(barrackIndex, arrayIndex) {
+                    return (arrayIndex === 0 ? true : barrackIndex > 0);
+                }).length;
+                templateVars.hasUnits = {
+                    'units': unitsItems,
+                    'totalCost': numberFormat(totalCost),
+                    'totalCapacity': totalCapacity,
+                    'armyCamps': data.get('armyCamps'),
+                    'barracksCount': barracksCount
+                };
+            }
+
+            if (data.get('spellFactoryLevel') > 0) {
+                var spellsItems = [];
+                var spellsCost = 0;
+                var spellsCapacity = 0;
+                objectIterate(spells, function(spellName, spellValue) {
+                    var spellQuantity = parseInt(data.get(spellName), 10) || 0;
+                    if (spellQuantity > 0 && spellValue[3] <= data.get('spellFactoryLevel')) {
+                        spellsItems.push({
+                            'name': convertToTitle(spellName),
+                            'level': (new Array(data.get(spellName + '-level') + 2)).join('*'),
+                            'quantity': spellQuantity
+                        });
+                        spellsCost += spellValue[1][data.get(spellName + '-level')] * spellQuantity;
+                        spellsCapacity += spellValue[2] * spellQuantity;
+                    }
+                });
+                if (spellsItems.length) {
+                    templateVars.hasSpells = {
+                        'spells': spellsItems,
+                        'spellsCost': numberFormat(spellsCost),
+                        'spellsCapacity': spellsCapacity,
+                        'spellsFactoryLevel': data.get('spellFactoryLevel'),
+                    };
+                }
+            }
+
+            content.push(savedListItemTemplate.render(templateVars));
+        });
+
+        var savedListContent = ids.get('saved-list-content');
+        savedListContent.innerHTML = content.join('');
+
+        Array.prototype.slice.call(savedListContent.getElementsByClassName('js-saved-load')).forEach(function(el){
+            el.addEventListener('click', function(){
+                savedData = new Dict(objectCopy(savedCalculations.retrieve(el.getAttribute('data-num')).getAll()));
+                setDefaults();
+                calculate();
+                savedListCreateItems();
+            }, false);
+        });
+
+        Array.prototype.slice.call(savedListContent.getElementsByClassName('js-saved-delete')).forEach(function(el){
+            el.addEventListener('click', function(){
+                savedCalculations.remove(el.getAttribute('data-num'));
+                savedCalculationsStorage.save(savedCalculations.getAll());
+                savedListCreateItems();
+            }, false);
+        });
+    };
+
+    ids.get('save').addEventListener('click', function() {
+        savedCalculations.insert(objectCopy(savedData.getAll()));
+        savedCalculationsStorage.save(savedCalculations.getAll());
+        savedListCreateItems();
+    }, false);
+
+    savedListCreateItems();
+
+}(window, document));
+</script>
 
 <!-- Yandex.Metrika counter -->
 <script>(function(g,a,i){(a[i]=a[i]||[]).push(function(){try{a.yaCounter19642528=new Ya.Metrika({id:19642528,webvisor:true,clickmap:true,trackLinks:true,accurateTrackBounce:true})}catch(c){}});var h=g.getElementsByTagName("script")[0],b=g.createElement("script"),e=function(){h.parentNode.insertBefore(b,h)};b.type="text/javascript";b.async=true;b.src=(g.location.protocol=="https:"?"https:":"http:")+"//mc.yandex.ru/metrika/watch.js";if(a.opera=="[object Opera]"){g.addEventListener("DOMContentLoaded",e,false)}else{e()}})(document,window,"yandex_metrika_callbacks");</script>
@@ -257,6 +992,16 @@ var Hogan={};(function(a,b){function i(a){return String(a===null||a===undefined?
 
 <h2>Changelog</h2>
 <table class="changelog">
+    <tr>
+        <td>2.0</td>
+        <td>28 February, 2013</td>
+        <td>
+            Added distribution of troops between barracks for optimal training speed;<br/>
+            The previous values of the maximum level and number of barracks, unfortunately, have not saved;<br/>
+            Production Time removed from saved calculations list;<br/>
+            Simplified tables layouts.
+        </td>
+    </tr>
     <tr>
         <td>1.5</td>
         <td>26 February, 2013</td>
@@ -329,7 +1074,7 @@ var Hogan={};(function(a,b){function i(a){return String(a===null||a===undefined?
 
 <h2>To-do</h2>
 <div class="todo">
-    <p>Distribution of troops between barracks for optimal training speed.</p>
+    <p>Production time in saved calculations.</p>
     <p>(?) Gem costs.</p>
     <p>(?) Clan Castle troops.</p>
 </div>

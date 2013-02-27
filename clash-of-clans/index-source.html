@@ -23,24 +23,49 @@
 <table class="units units_common">
     <tr>
         <td>
-            <label for="barracks">Number of Barracks</label>
+            <label for="barracks-levels-1">Barracks Levels</label>
         </td>
         <td>
-            <select id="barracks" class="field">
+            <select id="barracks-levels-1" class="field">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-                <option value="4" selected="selected">4</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected="selected">10</option>
             </select>
-        </td>
-    </tr>
-
-    <tr>
-        <td>
-            <label for="barracks-level">Maximum Barracks Level</label>
-        </td>
-        <td>
-            <select id="barracks-level" class="field">
+            <select id="barracks-levels-2" class="field">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected="selected">10</option>
+            </select>
+            <select id="barracks-levels-3" class="field">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10" selected="selected">10</option>
+            </select>
+            <select id="barracks-levels-4" class="field">
+                <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -87,23 +112,28 @@
             <th>Level</th>
             <th><span class="cost-elixir">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="units-quantity"></span></th>
-            <th><span class="cost-elixir">Total Cost</span></th>
+            <th><span class="cost-elixir">Total</span></th>
+            <th colspan="8">Barracks</th>
+        </tr>
+        <tr>
+            <td colspan="5"></td>
+            <td colspan="2" id="barrack-header-1"></td>
+            <td colspan="2" id="barrack-header-2"></td>
+            <td colspan="2" id="barrack-header-3"></td>
+            <td colspan="2" id="barrack-header-4"></td>
         </tr>
     </thead>
     <tbody id="units-body">
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="4">All Troops Cost</th>
-            <td id="units-cost"></td>
-        </tr>
-        <tr>
-            <th colspan="4">Capacity</th>
-            <td id="units-space"></td>
-        </tr>
-        <tr>
-            <th colspan="4">Average Production Time</th>
-            <td id="units-time"></td>
+            <td colspan="3"></td>
+            <td id="units-space" class="result"></td>
+            <td id="units-cost" class="number result"></td>
+            <td id="units-time-barrack-1" colspan="2" class="number"></td>
+            <td id="units-time-barrack-2" colspan="2" class="number"></td>
+            <td id="units-time-barrack-3" colspan="2" class="number"></td>
+            <td id="units-time-barrack-4" colspan="2" class="number"></td>
         </tr>
     </tfoot>
 </table>
@@ -115,23 +145,18 @@
             <th>Level</th>
             <th><span class="cost-gold">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="spells-quantity"></span></th>
-            <th><span class="cost-gold">Total Cost</span></th>
+            <th><span class="cost-gold">Total</span></th>
+            <th>Time</th>
         </tr>
     </thead>
     <tbody id="spells-body">
     </tbody>
     <tfoot>
         <tr>
-            <th colspan="4">All Spells Cost</th>
-            <td id="spells-cost"></td>
-        </tr>
-        <tr>
-            <th colspan="4">Capacity</th>
-            <td id="spells-space"></td>
-        </tr>
-        <tr>
-            <th colspan="4">Production Time</th>
-            <td id="spells-time"></td>
+            <td colspan="3"></td>
+            <td id="spells-space" class="result"></td>
+            <td id="spells-cost" class="number result"></td>
+            <td id="spells-time" class="number result"></td>
         </tr>
     </tfoot>
 </table>
@@ -173,6 +198,13 @@
         </td>
         <td id="{{summaryId}}" class="number">
         </td>
+        {{#barracksTimes}}
+            <td id="{{barrackQuantityId}}" class="number"></td>
+            <td id="{{barrackTimeId}}" class="number"></td>
+        {{/barracksTimes}}
+        {{^barracksTimes}}
+            <td></td>
+        {{/barracksTimes}}
     </tr>
 </script>
 
@@ -190,7 +222,7 @@
                 {{/units}}
             </table>
             <div class="saved-list__item-result">
-                {{totalCapacity}}/{{armyCamps}} — ≈{{totalTime}} × {{barracksCount}}
+                {{totalCapacity}}/{{armyCamps}}
             </div>
         {{/hasUnits}}
 
@@ -206,7 +238,7 @@
                 {{/spells}}
             </table>
             <div class="saved-list__item-result">
-                {{spellsCapacity}}/{{spellsFactoryLevel}} — {{spellsTime}}
+                {{spellsCapacity}}/{{spellsFactoryLevel}}
             </div>
         {{/hasSpells}}
 
@@ -218,7 +250,7 @@
 </script>
 
 <script src="js/hogan-2.0.0.min.js" data-compress="no"></script>
-<script src="js/calculator.js"></script>
+<script src="js/calculator.js" data-compress="no"></script>
 
 <!-- Yandex.Metrika counter -->
 <script src="../js/ya-metrika.js"></script>
@@ -241,6 +273,16 @@ $ya_metrika_noscript
 
 <h2>Changelog</h2>
 <table class="changelog">
+    <tr>
+        <td>2.0</td>
+        <td>28 February, 2013</td>
+        <td>
+            Added distribution of troops between barracks for optimal training speed;<br/>
+            The previous values of the maximum level and number of barracks, unfortunately, have not saved;<br/>
+            Production Time removed from saved calculations list;<br/>
+            Simplified tables layouts.
+        </td>
+    </tr>
     <tr>
         <td>1.5</td>
         <td>26 February, 2013</td>
@@ -313,7 +355,7 @@ $ya_metrika_noscript
 
 <h2>To-do</h2>
 <div class="todo">
-    <p>Distribution of troops between barracks for optimal training speed.</p>
+    <p>Production time in saved calculations.</p>
     <p>(?) Gem costs.</p>
     <p>(?) Clan Castle troops.</p>
 </div>
