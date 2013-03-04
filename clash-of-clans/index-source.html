@@ -113,7 +113,7 @@
             <th><span class="cost-elixir">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="units-quantity"></span></th>
             <th><span class="cost-elixir">Total</span></th>
-            <th colspan="8">Barracks</th>
+            <th colspan="8">Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
             <td colspan="5"></td>
@@ -250,7 +250,7 @@
 </script>
 
 <script src="js/hogan-2.0.0.min.js" data-compress="no"></script>
-<script src="js/calculator.js" data-compress="no"></script>
+<script src="js/calculator.js"></script>
 
 <!-- Yandex.Metrika counter -->
 <script src="../js/ya-metrika.js"></script>
@@ -269,10 +269,18 @@ $ya_metrika_noscript
 <h2>Comments</h2>
 <p>Feel free to post bugs and feature suggestions.</p>
 
-<div class="fb-comments" data-href="http://mkln.ru/clash-of-clans/" data-width="470" data-num-posts="5"></div>
+<div class="fb-comments" data-href="http://mkln.ru/clash-of-clans/" data-width="470" data-num-posts="10"></div>
 
 <h2>Changelog</h2>
 <table class="changelog">
+    <tr>
+        <td>2.0.1</td>
+        <td>2 March, 2013</td>
+        <td>
+            Fixed a bug in which the units were distributed in barracks without accounting maximum barracks queue;<br/>
+            Fixed bug with negative number of units.<br/>
+        </td>
+    </tr>
     <tr>
         <td>2.0</td>
         <td>28 February, 2013</td>

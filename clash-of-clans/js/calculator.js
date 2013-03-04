@@ -47,14 +47,15 @@
 
     var getFormattedTime = function(time, hideSeconds) {
         var formattedTime = '';
-        if (time > 3599) {
-            formattedTime += Math.floor(time / 3600) + 'h ';
-            time = time % 3600;
+        var remainingTime = time;
+        if (remainingTime > 3599) {
+            formattedTime += Math.floor(remainingTime / 3600) + 'h ';
+            remainingTime %= 3600;
         }
-        if (time > 59) {
-            var minutes = Math.floor(time / 60);
-            time = time % 60;
-            if (hideSeconds && time > 0) {
+        if (remainingTime > 59) {
+            var minutes = Math.floor(remainingTime / 60);
+            remainingTime %= 60;
+            if (hideSeconds && remainingTime > 0) {
                 minutes++;
             }
             formattedTime += minutes + 'm ';
@@ -62,7 +63,7 @@
             formattedTime += '0m ';
         }
         if (formattedTime === '' || !hideSeconds) {
-            formattedTime += time + 's';
+            formattedTime += remainingTime + 's';
         }
         return formattedTime;
     };
@@ -184,17 +185,6 @@
             return this.barracks;
         };
 
-        this.getObjectForLevel = function(level) {
-            var result = {};
-            this.barracks.forEach(function(el) {
-                if (el.value >= level) {
-                    result[el.getAttribute('id')] = el;
-                }
-            });
-
-            return result;
-        };
-
         this.getLevels = function() {
             return this.barracks.map(function(el) {
                 return el.value;
@@ -231,6 +221,8 @@
     };
     var spellsTable = ids.get('spells');
 
+    var barracksQueueLength = [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75];
+
 
     var calculateItems = function(items, type, params) {
         params.table.style.display = (params.levelValue === 0 ? 'none' : '');
@@ -255,6 +247,12 @@
             var item = ids.get(name);
 
             var quantity = parseInt(item.value, 10) || 0;
+            if (quantity < 0) {
+                quantity = 0;
+            }
+            if (item.value !== '') {
+                item.value = quantity;
+            }
 
             var levelId = name + '-level';
             var levelEl = ids.get(levelId);
@@ -283,8 +281,10 @@
                         'name': name,
                         'quantity': quantity,
                         'time': value[0],
-                        'level': value[3]
+                        'level': value[3],
+                        'space': value[2]
                     });
+
                 }
             }
 
@@ -299,9 +299,23 @@
                 if (parseInt(barrackLevel, 10) === 0) {
                     header = '';
                 } else {
-                    header = barrackLevel + ' lvl';
+                    header = barrackLevel +
+                             ' lvl <span class="units-quantity" title="Maximum Unit Queue Length">(' +
+                             barracksQueueLength[barrackLevel] +
+                             ')</span>';
                 }
                 ids.get('barrack-header-' + (barrackIndex + 1)).innerHTML = header;
+            });
+
+            var queue = {};
+            allBarracks.getAll().forEach(function(barrack) {
+                queue[barrack.getAttribute('id')] = {
+                    'time': 0,
+                    'space': 0,
+                    'maxSpace': barracksQueueLength[barrack.value],
+                    'units': {},
+                    'level': barrack.value
+                };
             });
 
             distribution.sort(function(a, b) {
@@ -320,84 +334,100 @@
                 return 0;
             });
 
-            var queue = {};
-            allBarracks.getAll().forEach(function(barrack) {
-                queue[barrack.getAttribute('id')] = {
-                    'time': 0,
-                    'units': {}
-                };
-            });
-
-            var j = 0;
-            var iterateStages = function(currentQueue, kit) {
-                if (kit.quantity === 0 || j > 100) {
-                    return currentQueue;
-                }
-                var nextStage = 0;
-                objectIterate(currentQueue, function(k, v) {
-                    if (v.time === 0) {
-                        nextStage = 0;
-                        return false;
-                    }
-                    if (nextStage === 0) {
-                        nextStage = v.time;
-                    } else {
-                        nextStage = Math.min(v.time, nextStage);
-                    }
-                    return true;
-                });
+            var getSuitableQueueItem = function(queue, requiredLevel, requiredSpace) {
+                var item = null;
                 var i;
-                var currentStage = 0;
-                for (i = 1; i <= kit.quantity; i++) {
-                    if (currentStage !== 0 && currentStage >= nextStage) {
+                var suitable = [];
+                for (i in queue) {
+                    var current = queue[i];
+                    if (current.level < requiredLevel) {
+                        continue;
+                    }
+                    if ((current.space + requiredSpace) > current.maxSpace) {
+                        continue;
+                    }
+                    suitable.push(current);
+                }
+
+                if (suitable.length > 1) {
+                    suitable.sort(function(a, b) {
+                        if (a.time < b.time) {
+                            return -1;
+                        }
+                        if (a.time > b.time) {
+                            return 1;
+                        }
+                        if (a.space < b.space) {
+                            return -1;
+                        }
+                        if (a.space > b.space) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                    item = suitable[0];
+                } else if (suitable.length) {
+                    item = suitable[0];
+                }
+
+                return item;
+            };
+
+            var j;
+            var distributionLength;
+            var stopDistribution = false;
+            for (j = 0, distributionLength = distribution.length; j < distributionLength; j++) {
+                var kit = distribution[j];
+                var k;
+                for (k = 0; k < kit.quantity; k++) {
+                    var item = getSuitableQueueItem(queue, kit.level, kit.space);
+
+                    if (item === null) {
+                        stopDistribution = true;
                         break;
                     }
-                    objectIterate(currentQueue, function(k, v) {
-                        if ((v.time === 0 || v.time <= nextStage) && kit.quantity > 0) {
-                            v.units[kit.name].time += kit.time;
-                            v.units[kit.name].quantity += 1;
-                            v.time += kit.time;
-                            currentStage += kit.time;
-                            kit.quantity -= 1;
-                        }
-                    });
-                }
-                return iterateStages(currentQueue, kit);
-            };
-            distribution.forEach(function(kit) {
-                var barracks = allBarracks.getObjectForLevel(kit.level);
-                var currentQueue = {};
-                objectIterate(queue, function(k, v) {
-                    if (barracks[k]) {
-                        currentQueue[k] = objectCopy(v);
-                        currentQueue[k].units[kit.name] = {
+                    
+                    if (!item.units[kit.name]) {
+                        item.units[kit.name] = {
                             'time': 0,
                             'quantity': 0
                         };
                     }
-                });
-                objectIterate(iterateStages(currentQueue, kit), function(k, v) {
-                    queue[k] = objectCopy(v);
-                });
-            });
-            var maxTime = 0;
-            var maxNum = 1;
-            objectIterate(queue, function(k, v) {
-                var barrackNum = k.slice(-1);
-                objectIterate(v.units, function(unitName, unitData) {
-                    if (unitData.time > 0) {
-                        ids.get('time-' + unitName + '-' + barrackNum).innerHTML = getFormattedTime(unitData.time);
-                        ids.get('quantity-' + unitName + '-' + barrackNum).innerHTML = '×' + unitData.quantity;
-                    }
-                });
-                if (v.time > maxTime) {
-                    maxTime = v.time;
-                    maxNum = barrackNum;
+
+                    item.units[kit.name].time += kit.time;
+                    item.units[kit.name].quantity += 1;
+                    item.time += kit.time;
+                    item.space += kit.space;
                 }
-                ids.get('units-time-barrack-' + barrackNum).innerHTML = (v.time > 0 ? getFormattedTime(v.time) : '');
-            });
-            var maxBarrack = ids.get('units-time-barrack-' + maxNum);
-            maxBarrack.innerHTML = '<span class="result">' + maxBarrack.innerHTML + '</span>';
+            }
+
+            if (stopDistribution) {
+                ids.get('barracks-exceeded').style.display = '';
+                objectIterate(queue, function(k) {
+                    var barrackNum = k.slice(-1);
+                    ids.get('units-time-barrack-' + barrackNum).innerHTML = '';
+                });
+            } else {
+                ids.get('barracks-exceeded').style.display = 'none';
+                var maxTime = 0;
+                var maxNum = 1;
+                objectIterate(queue, function(k, v) {
+                    var barrackNum = k.slice(-1);
+                    objectIterate(v.units, function(unitName, unitData) {
+                        if (unitData.time > 0) {
+                            ids.get('time-' + unitName + '-' + barrackNum).innerHTML = getFormattedTime(unitData.time);
+                            ids.get('quantity-' + unitName + '-' + barrackNum).innerHTML = '×' + unitData.quantity;
+                        }
+                    });
+                    if (v.time > maxTime) {
+                        maxTime = v.time;
+                        maxNum = barrackNum;
+                    }
+                    ids.get('units-time-barrack-' + barrackNum).innerHTML = (v.time ? getFormattedTime(v.time) : '');
+                });
+                var maxBarrack = ids.get('units-time-barrack-' + maxNum);
+                maxBarrack.innerHTML = '<span class="result">' + maxBarrack.innerHTML + '</span>';
+            }
         }
 
         ids.get(type + '-cost').innerHTML = numberFormat(totalCost);
@@ -663,7 +693,7 @@
                         'spells': spellsItems,
                         'spellsCost': numberFormat(spellsCost),
                         'spellsCapacity': spellsCapacity,
-                        'spellsFactoryLevel': data.get('spellFactoryLevel'),
+                        'spellsFactoryLevel': data.get('spellFactoryLevel')
                     };
                 }
             }
