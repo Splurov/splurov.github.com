@@ -386,7 +386,7 @@
                         stopDistribution = true;
                         break;
                     }
-                    
+
                     if (!item.units[kit.name]) {
                         item.units[kit.name] = {
                             'time': 0,
