@@ -111,6 +111,7 @@ log('start')
 sources = {
     'index-source.html': {'ru': (False, 0), 'en': (True, 1)},
     'clash-of-clans/index-source.html': {'en': (False, 1)},
+    '404-source.html': {'en': (False, 1)},
 }
 
 for file, langs in sources.iteritems():
@@ -140,7 +141,10 @@ for file, langs in sources.iteritems():
             if options[0]:
                 base_dir = '{0}{1}/'.format(base_dir, lang)
 
-            with open('{0}index.html'.format(base_dir), 'w') as dest:
+            dest_name = os.path.basename(file).replace('-source', '')
+            log('dest name: {0}'.format(dest_name))
+
+            with open('{0}{1}'.format(base_dir, dest_name), 'w') as dest:
                 dest.write(data_ru)
 
             log('{0} version written'.format(lang))
