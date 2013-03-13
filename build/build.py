@@ -137,14 +137,14 @@ for file, langs in sources.iteritems():
             translations_current = {key: value[options[1]] for (key, value) in translations.iteritems()}
             data_ru = template.substitute(**translations_current)
 
-            base_dir = dir
+            current_dir = dir
             if options[0]:
-                base_dir = '{0}{1}/'.format(base_dir, lang)
+                current_dir = '{0}{1}/'.format(current_dir, lang)
 
             dest_name = os.path.basename(file).replace('-source', '')
             log('dest name: {0}'.format(dest_name))
 
-            with open('{0}{1}'.format(base_dir, dest_name), 'w') as dest:
+            with open('{0}{1}'.format(current_dir, dest_name), 'w') as dest:
                 dest.write(data_ru)
 
             log('{0} version written'.format(lang))

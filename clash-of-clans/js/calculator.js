@@ -197,6 +197,7 @@
 
     var armyCamps = ids.get('army-camps');
     var spellFactoryLevel = ids.get('spell-factory-level');
+    var darkBarracksLevel = ids.get('dark-barracks-level');
 
 
     var units = {
@@ -222,6 +223,32 @@
     var spellsTable = ids.get('spells');
 
     var barracksQueueLength = [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75];
+    var darkBarracksQueueLength = [40, 50, 60];
+
+    var dark = {
+        'Minion': [45, [6, 7, 8, 9, 10], 2, 1],
+        'Hog Rider': [300, [30, 35, 40, 45, 50], 6, 2],
+        'Valkyrie': [900, [100, 120, 140, 160], 8, 3]
+    };
+
+    var darkTable = ids.get('dark');
+
+    var currentUnitsSpace = 0;
+
+
+    var setQuantityAndSpace = function(maxSpace, totalSpace, type) {
+        var spaceDiff = maxSpace - totalSpace;
+        if (spaceDiff < 0) {
+            spaceDiff = '<span class="limit-exceeded">' + spaceDiff + '</span>';
+        }
+        ids.get(type + '-quantity').innerHTML = '(' + spaceDiff + ')';
+
+        if (totalSpace > maxSpace) {
+            totalSpace = '<span class="limit-exceeded">' + totalSpace + '</span>';
+        }
+        totalSpace = totalSpace + ' / ' + maxSpace;
+        ids.get(type + '-space').innerHTML = totalSpace;
+    };
 
 
     var calculateItems = function(items, type, params) {
@@ -267,7 +294,7 @@
             totalCost += summaryCost;
 
             totalSpace += (value[2] * quantity);
-            if (type === 'spells') {
+            if (type === 'spells' || type === 'dark') {
                 totalTime += (value[0] * quantity);
             } else {
                 var i;
@@ -432,25 +459,20 @@
 
         ids.get(type + '-cost').innerHTML = numberFormat(totalCost);
 
-        var spaceDiff = params.space - totalSpace;
-        if (spaceDiff < 0) {
-            spaceDiff = '<span class="limit-exceeded">' + spaceDiff + '</span>';
-        }
-        ids.get(type + '-quantity').innerHTML = '(' + spaceDiff + ')';
-
-        if (totalSpace > params.space) {
-            totalSpace = '<span class="limit-exceeded">' + totalSpace + '</span>';
-        }
-        totalSpace = totalSpace + ' / ' + params.space;
-        ids.get(type + '-space').innerHTML = totalSpace;
-
         if (type === 'spells') {
-            ids.get(type + '-time').innerHTML = getFormattedTime(totalTime, true);
+            setQuantityAndSpace(params.space, totalSpace, type);
+        } else {
+            currentUnitsSpace += totalSpace;
+        }
+
+        if (type === 'spells' || type === 'dark') {
+            ids.get(type + '-time').innerHTML = getFormattedTime(totalTime, (type === 'spells'));
         }
     };
 
 
     var calculate = function() {
+        currentUnitsSpace = 0;
         calculateItems(units, 'units', {
             'table': unitsTable,
             'levelValue': allBarracks.getMaxLevel(),
@@ -463,11 +485,21 @@
             'space': spellFactoryLevel.value,
             'capLevel': 4
         });
+        calculateItems(dark, 'dark', {
+            'table': darkTable,
+            'levelValue': parseInt(darkBarracksLevel.value, 10),
+            'space': armyCamps.value,
+            'capLevel': 3
+        });
+
+        setQuantityAndSpace(armyCamps.value, currentUnitsSpace, 'units');
+        setQuantityAndSpace(armyCamps.value, currentUnitsSpace, 'dark');
 
         allBarracks.updateSavedData();
 
         savedData.set('armyCamps', armyCamps.value);
         savedData.set('spellFactoryLevel', spellFactoryLevel.selectedIndex);
+        savedData.set('darkBarracksLevel', darkBarracksLevel.selectedIndex);
 
         savedDataStorage.save(savedData.getAll());
     };
@@ -477,6 +509,7 @@
         allBarracks.setDefaults();
         armyCamps.value = savedData.get('armyCamps', armyCamps.value);
         spellFactoryLevel.options[savedData.get('spellFactoryLevel', spellFactoryLevel.selectedIndex)].selected = true;
+        darkBarracksLevel.options[savedData.get('darkBarracksLevel', darkBarracksLevel.selectedIndex)].selected = true;
 
         var setItems = function(items, type) {
             objectIterate(items, function(name) {
@@ -495,6 +528,7 @@
 
         setItems(units, 'units');
         setItems(spells, 'spells');
+        setItems(dark, 'dark');
     };
 
 
@@ -503,6 +537,7 @@
     });
     armyCamps.addEventListener('input', calculate, false);
     spellFactoryLevel.addEventListener('change', calculate, false);
+    darkBarracksLevel.addEventListener('change', calculate, false);
 
 
     var setSpinner = function(el) {
@@ -611,6 +646,7 @@
     };
 
     createRows(units, 'units');
+    createRows(dark, 'dark');
     createRows(spells, 'spells');
 
     var selectAll = function(e) {
@@ -660,15 +696,39 @@
                 }
             });
             if (unitsItems.length) {
-                var barracksCount = barracksLevels.filter(function(barrackIndex, arrayIndex) {
-                    return (arrayIndex === 0 ? true : barrackIndex > 0);
-                }).length;
                 templateVars.hasUnits = {
                     'units': unitsItems,
                     'totalCost': numberFormat(totalCost),
+                };
+            }
+
+            if (data.get('darkBarracksLevel') > 0) {
+                var darkItems = [];
+                var darkCost = 0;
+                objectIterate(dark, function(name, unitValue) {
+                    var quantity = parseInt(data.get(name), 10) || 0;
+                    if (quantity > 0 && unitValue[3] <= data.get('darkBarracksLevel')) {
+                        darkItems.push({
+                            'name': convertToTitle(name),
+                            'level': (new Array(data.get(name + '-level') + 2)).join('*'),
+                            'quantity': quantity
+                        });
+                        darkCost += unitValue[1][data.get(name + '-level')] * quantity;
+                        totalCapacity += unitValue[2] * quantity;
+                    }
+                });
+                if (darkItems.length) {
+                    templateVars.hasDark = {
+                        'dark': darkItems,
+                        'darkCost': numberFormat(darkCost)
+                    };
+                }
+            }
+
+            if (totalCapacity > 0) {
+                templateVars.hasCapacity = {
                     'totalCapacity': totalCapacity,
-                    'armyCamps': data.get('armyCamps'),
-                    'barracksCount': barracksCount
+                    'armyCamps': data.get('armyCamps')
                 };
             }
 

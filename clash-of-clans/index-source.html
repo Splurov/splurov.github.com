@@ -82,6 +82,20 @@
 
     <tr>
         <td>
+            <label for="dark-barracks-level">Dark Barracks Level</label>
+        </td>
+        <td>
+            <select id="dark-barracks-level" class="field">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected="selected">3</option>
+            </select>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
             <label for="army-camps">Army Camps Capacity</label>
         </td>
         <td>
@@ -138,6 +152,31 @@
     </tfoot>
 </table>
 
+<table id="dark" class="units">
+    <thead>
+        <tr>
+            <th>Unit</th>
+            <th>Level</th>
+            <th><span class="cost-dark-elixir">Cost</span></th>
+            <th>Quantity <span class="units-quantity" title="Free Capacity" id="dark-quantity"></span></th>
+            <th><span class="cost-dark-elixir">Total</span></th>
+        </tr>
+    </thead>
+    <tbody id="dark-body">
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3"></td>
+            <td class="result">
+                <span id="dark-space"></span>
+                —
+                <span id="dark-time"></span>
+            </td>
+            <td id="dark-cost" class="number result"></td>
+        </tr>
+    </tfoot>
+</table>
+
 <table id="spells" class="units">
     <thead>
         <tr>
@@ -146,7 +185,6 @@
             <th><span class="cost-gold">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="spells-quantity"></span></th>
             <th><span class="cost-gold">Total</span></th>
-            <th>Time</th>
         </tr>
     </thead>
     <tbody id="spells-body">
@@ -154,9 +192,12 @@
     <tfoot>
         <tr>
             <td colspan="3"></td>
-            <td id="spells-space" class="result"></td>
+            <td class="result">
+                <span id="spells-space"></span>
+                —
+                <span id="spells-time"></span>
+            </td>
             <td id="spells-cost" class="number result"></td>
-            <td id="spells-time" class="number result"></td>
         </tr>
     </tfoot>
 </table>
@@ -202,9 +243,6 @@
             <td id="{{barrackQuantityId}}" class="number"></td>
             <td id="{{barrackTimeId}}" class="number"></td>
         {{/barracksTimes}}
-        {{^barracksTimes}}
-            <td></td>
-        {{/barracksTimes}}
     </tr>
 </script>
 
@@ -221,10 +259,26 @@
                     </tr>
                 {{/units}}
             </table>
+        {{/hasUnits}}
+
+        {{#hasDark}}
+            <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-dark-elixir-small">{{darkCost}}</span>&nbsp;</div>
+            <table class="saved-list__table">
+                {{#dark}}
+                    <tr>
+                        <td class="number">{{quantity}}</td>
+                        <td>{{name}}</td>
+                        <td class="saved-list__level">{{level}}</td>
+                    </tr>
+                {{/dark}}
+            </table>
+        {{/hasDark}}
+
+        {{#hasCapacity}}
             <div class="saved-list__item-result">
                 {{totalCapacity}}/{{armyCamps}}
             </div>
-        {{/hasUnits}}
+        {{/hasCapacity}}
 
         {{#hasSpells}}
             <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-gold-small">{{spellsCost}}</span>Spells</div>
@@ -273,6 +327,13 @@ $ya_metrika_noscript
 
 <h2>Changelog</h2>
 <table class="changelog">
+    <tr>
+        <td>2.1</td>
+        <td>13 March, 2013</td>
+        <td>
+            Dark Barracks troops calculation.<br/>
+        </td>
+    </tr>
     <tr>
         <td>2.0.2</td>
         <td>12 March, 2013</td>
@@ -373,7 +434,6 @@ $ya_metrika_noscript
 
 <h2>To-do</h2>
 <div class="todo">
-    <p>Dark Barracks troops calculation.</p>
     <p>Army camps capacity increment/decrement in five points.</p>
     <p>Production time in saved calculations.</p>
     <p>Sometimes I don't use all my troops, so would be nice if I could have an option to write down the troops I saved and let it automatically adjust the required numbers to what I've predefined. (From <a href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator?p=219572&amp;viewfull=1#post219572">Supercell forums</a>.)</p>
