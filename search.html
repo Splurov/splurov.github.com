@@ -1,0 +1,214 @@
+<meta charset="UTF-8"/>
+<div id="output"></div>
+<script>
+var DATABASE = {
+    'jira': {
+        'name': 'Jira HH',
+        'keyword': 'j',
+        'url': 'https://jira.hh.ru/browse/HH-%s'
+    },
+    'urban_dictionary': {
+        'name': 'Urban Dictionary',
+        'keyword': 'u',
+        'url': 'http://www.urbandictionary.com/define.php?term=%s'
+    },
+    'frf': {
+        'name': 'Поиск по FriendFeed',
+        'keyword': 'f',
+        'url': 'http://frf.dolphin278.net/search?text=%s'
+    },
+    'twitter': {
+        'name': 'Twitter',
+        'keyword': 'tw',
+        'url': 'https://twitter.com/search?q=%s'
+    },
+    'vk_people': {
+        'name': 'ВКонтакте Люди',
+        'keyword': 'vp',
+        'url': 'https://vk.com/search?c[q]=%s&c[section]=people'
+    },
+    'vk_music': {
+        'name': 'ВКонтакте Музыка',
+        'keyword': 'vm',
+        'url': 'https://vk.com/search?c[q]=%s&c[section]=audio'
+    },
+    'kinopoisk': {
+        'name': 'КиноПоиск',
+        'keyword': 'k',
+        'url': 'http://www.kinopoisk.ru/index.php?kp_query=%s'
+    },
+    'imdb': {
+        'name': 'IMDb',
+        'keyword': 'ib',
+        'url': 'http://www.imdb.com/find?q=%s'
+    },
+    'wikipedia_en': {
+        'name': 'Wikipedia En',
+        'keyword': 'w',
+        'url': 'http://en.wikipedia.org/w/index.php?search=%s'
+    },
+    'wikipedia_ru': {
+        'name': 'Wikipedia Ru',
+        'keyword': 'd',
+        'url': 'http://ru.wikipedia.org/w/index.php?search=%s'
+    },
+    'mdn': {
+        'name': 'MDN',
+        'keyword': 'm',
+        'url': 'https://developer.mozilla.org/en-US/search?q=%s'
+    },
+    'firefox_addons': {
+        'name': 'Firefox Add-ons',
+        'keyword': 'a',
+        'url': 'https://addons.mozilla.org/en-US/firefox/search/?q=%s'
+    },
+    'rutracker_all': {
+        'name': 'RuTracker All',
+        'keyword': 'r',
+        'url': 'http://rutracker.org/forum/tracker.php?nm=%s'
+    },
+    'rutracker_movies': {
+        'name': 'RuTracker Movies',
+        'keyword': 'rm',
+        'url': 'http://rutracker.org/forum/tracker.php?f=100,101,1235,124,1543,1576,1577,1666,1670,185,187,2090,2091,2092,2093,212,2198,2199,22,2200,2201,2221,2339,2459,312,313,376,505,511,572,656,7,709,905,93,934,941&nm=%s'
+    },
+    'rutracker_tv': {
+        'name': 'RuTracker TV-Shows',
+        'keyword': 'rs',
+        'url': 'http://rutracker.org/forum/tracker.php?f=121,1690,184,189,194,203,2366,2370,2392,2393,2396,2397,2398,2399,2402,2403,2405,2407,252,265,266,497,504,507,536,595,623,625,636,721,81,820,84,920&nm=%s'
+    },
+    'yandex_translate': {
+        'name': 'Яндекс.Перевод',
+        'keyword': 't',
+        'url': 'http://translate.yandex.ru/?text=%s'
+    },
+    'yandex_music': {
+        'name': 'Яндекс.Музыка',
+        'keyword': 'zv',
+        'url': 'http://music.yandex.ru/#!/search?text=%s'
+    },
+    'yandex_market': {
+        'name': 'Яндекс.Маркет',
+        'keyword': 'zn',
+        'url': 'http://market.yandex.ru/search.xml?text=%s'
+    },
+    'yandex_maps': {
+        'name': 'Яндекс.Карты',
+        'keyword': 'zr',
+        'url': 'http://maps.yandex.ru/?text=%s'
+    },
+    'yandex_search': {
+        'name': 'Яндекс.Поиск',
+        'keyword': 'z',
+        'url': 'http://yandex.ru/yandsearch?text=%s'
+    },
+    'tineye': {
+        'name': 'TinEye',
+        'keyword': 'te',
+        'url': 'http://tineye.com/parse?url=%s'
+    },
+    'google_lucky': {
+        'name': 'Google Lucky',
+        'keyword': 'gl',
+        'url': 'http://www.google.com/search?btnI=1&q=%s'
+    },
+    'youtube': {
+        'name': 'YouTube',
+        'keyword': 'y',
+        'url': 'https://www.youtube.com/results?search_query=%s'
+    },
+    'google_images': {
+        'name': 'Google Images',
+        'keyword': 'gi',
+        'url': 'https://www.google.com/search?hl=en&safe=off&tbm=isch&q=%s'
+    },
+    'google_translate': {
+        'name': 'Google Translate',
+        'keyword': 'gt',
+        'url': 'http://translate.google.com/#auto/en/%s'
+    },
+    'google_search': {
+        'name': 'Google Search',
+        'keyword': 'g',
+        'url': 'https://www.google.com/search?q=%s&safe=off&hl=en',
+        'isDefault': true
+    }
+};
+
+var TRANSLIT_EN = "qwertyuiop[]asdfghjkl;'\\zxcvbnm,.";
+var TRANSLIT_RU = 'йцукенгшщзхъфывапролджэёячсмитьбю';
+
+var ALIASES = {};
+var DEFAULT = '';
+for (var i in DATABASE) {
+    ALIASES[DATABASE[i].keyword] = i;
+
+    if (DATABASE[i].isDefault) {
+        DEFAULT = i;
+    }
+}
+
+var transliterate = function(input, toEn) {
+    var output = '';
+    var from;
+    var to;
+
+    if (toEn || TRANSLIT_EN.indexOf(input[0]) === -1) {
+        from = TRANSLIT_RU;
+        to = TRANSLIT_EN;
+    } else {
+        from = TRANSLIT_EN;
+        to = TRANSLIT_RU;
+    }
+
+    for (var i = 0, l = input.length; i < l; i++) {
+        var c = input[i];
+        var pos = from.indexOf(c);
+        if (pos === -1) {
+            output += c;
+        } else {
+            output += to[pos];
+        }
+    }
+
+    return output;
+};
+
+var q = decodeURIComponent(document.location.search.replace('?q=', '')).trim();
+if (q && q != '_') {
+    var firstSpace = q.indexOf(' ');
+    var key = DEFAULT;
+    if (firstSpace != -1) {
+        var alias = q.substr(0, firstSpace).toLowerCase();
+        if (TRANSLIT_RU.indexOf(alias[0]) != -1) {
+            alias = transliterate(alias, true);
+        }
+        if (ALIASES[alias]) {
+            key = ALIASES[alias];
+            q = q.substr(firstSpace + 1);
+        }
+    }
+
+    if (q.endsWith(' -')) {
+        q = transliterate(q.slice(0, -2));
+    }
+
+    window.location = DATABASE[key].url.replace('%s', encodeURIComponent(q));
+} else {
+    var output = '<table>';
+    output += '<tr>';
+    output += '<th>Title</th>';
+    output += '<th>Latin Keyword</th>';
+    output += '<th>Cyrillic Keyword</th>';
+    output += '</tr>';
+    for (var i in DATABASE) {
+        output += '<tr>';
+        output += '<td>' + DATABASE[i].name + '</td>';
+        output += '<td>' + DATABASE[i].keyword + '</td>';
+        output += '<td>' + transliterate(DATABASE[i].keyword) + '</td>';
+        output += '</tr>';
+    }
+    output += '</table>';
+    document.getElementById('output').innerHTML = output;
+}
+</script>
