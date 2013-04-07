@@ -13,6 +13,7 @@ from translations import translations
 
 base_dir = os.path.abspath(os.path.dirname(__file__) + '/../')
 
+
 def log(message, print_sum=False, previous_times=[]):
     current_time = time()
     if print_sum:
@@ -24,22 +25,31 @@ def log(message, print_sum=False, previous_times=[]):
     print message
     previous_times.append(current_time)
 
+
 def template_safe(text):
     return text.replace('$', '$$')
 
-def parse_source(path):
-    stdout = subprocess.Popen(
-        ['java', '-jar', '/Users/splurov/Work/yuicompressor/build/yuicompressor-2.4.8pre.jar', path],
-        stdout=subprocess.PIPE
-    ).stdout
+
+def parse_source(path, args, type):
+    stdout = subprocess.Popen(args, stdout=subprocess.PIPE).stdout
     data = stdout.read()
-    log('parse {0}'.format(path))
+    log('parse {1} {0}'.format(path, type))
     return data
+
+
+def parse_js_source(path):
+    return parse_source(path, ['/usr/local/bin/uglifyjs', path, '-cm'], 'js')
+
+
+def parse_css_source(path):
+    return parse_source(path, ['/usr/local/bin/csso', path], 'css')
+
 
 def load_source(path):
     data = open(path).read()
     log('parse {0}'.format(path))
     return data
+
 
 def get_cached_path(path):
     m = md5()
@@ -47,6 +57,7 @@ def get_cached_path(path):
     path_hash = m.hexdigest()
     cached_path = os.path.abspath('_cache/{0}'.format(path_hash))
     return cached_path
+
 
 def is_cached(cached_path, path_modified):
     if not os.path.exists(cached_path):
@@ -57,9 +68,11 @@ def is_cached(cached_path, path_modified):
 
     return True
 
+
 def make_cache(cached_path, data, path_modified):
     open(cached_path, 'w').write(data)
     utime(cached_path, (path_modified, path_modified))
+
 
 def make_data_uris(data):
     def make_uri(match, mime_type):
@@ -73,6 +86,7 @@ def make_data_uris(data):
     #data = re.sub('url\(\'(.+?\.woff)\'\)', partial(make_uri, mime_type='application/font-woff'), data)
     return data
 
+
 def link_repl(match, dir=''):
     path = os.path.abspath(dir + match.group(1))
     path_modified = int(os.path.getmtime(path))
@@ -82,11 +96,12 @@ def link_repl(match, dir=''):
     if is_cached(cached_path, path_modified):
         data = open(cached_path).read()
     else:
-        data = template_safe(parse_source(path))
+        data = template_safe(parse_css_source(path))
         data = make_data_uris(data)
         make_cache(cached_path, data, path_modified)
 
     return '<style>{0}</style>'.format(data)
+
 
 def script_repl(match, dir=''):
     path = os.path.abspath(dir + match.group(1))
@@ -98,13 +113,14 @@ def script_repl(match, dir=''):
         data = open(cached_path).read()
     else:
         if match.group(2) is None:
-            data = parse_source(path)
+            data = parse_js_source(path)
         else:
             data = load_source(path)
         data = template_safe(data)
         make_cache(cached_path, data, path_modified)
 
     return '<script>{0}</script>'.format(data)
+
 
 log('start')
 
