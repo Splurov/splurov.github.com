@@ -1,24 +1,12 @@
-@font-face {
-    font-family: 'PT Serif';
-    src: url('/fonts/PTF55F_W.woff') format('woff');
-}
-
-@font-face {
-    font-family: 'PT Serif Caption';
-    src: url('/fonts/PTZ55F_W.woff') format('woff');
-}
-
-
 html, body {
     background: #fefefe;
     color: #222;
 }
 body {
-    font-family: 'PT Serif', Georgia, serif;
+    font-family: 'PT Sans', 'Helvetica Neue', Arial, sans-serif;
     font-size: 18px;
     line-height: 1.5;
-    margin: 0;
-    padding: 20px 40px;
+    margin: 20px 40px;
 }
 
 a {
@@ -38,14 +26,10 @@ a:hover, a:active {
 
 h1 {
     font-size: 28px;
-    font-family: 'PT Serif Caption', Georgia, sans-serif;
-    font-weight: normal;
     margin: 0 0 12px;
 }
 h2 {
     font-size: 22px;
-    font-family: 'PT Serif Caption', Georgia, sans-serif;
-    font-weight: normal;
     margin: 18px 0 4px;
 }
 p {
