@@ -82,10 +82,16 @@
 
     <tr>
         <td>
-            <label for="dark-barracks-level">Dark Barracks Level</label>
+            <label for="dark-barracks-levels-1">Dark Barracks Level</label>
         </td>
         <td>
-            <select id="dark-barracks-level" class="field">
+            <select id="dark-barracks-levels-1" class="field">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3" selected="selected">3</option>
+            </select>
+            <select id="dark-barracks-levels-2" class="field">
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -99,7 +105,7 @@
             <label for="army-camps">Army Camps Capacity</label>
         </td>
         <td>
-            <input class="js-number field" value="220" id="army-camps" size="4"/>
+            <input class="js-number field" data-multiplier="5" value="220" id="army-camps" size="4"/>
         </td>
     </tr>
 
@@ -127,14 +133,14 @@
             <th><span class="cost-elixir">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="units-quantity"></span></th>
             <th><span class="cost-elixir">Total</span></th>
-            <th colspan="8">Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="barracks-exceeded">(too many units)</span></th>
+            <th colspan="8">Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="units-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
             <td colspan="5"></td>
-            <td colspan="2" id="barrack-header-1"></td>
-            <td colspan="2" id="barrack-header-2"></td>
-            <td colspan="2" id="barrack-header-3"></td>
-            <td colspan="2" id="barrack-header-4"></td>
+            <td colspan="2" id="units-barrack-header-1"></td>
+            <td colspan="2" id="units-barrack-header-2"></td>
+            <td colspan="2" id="units-barrack-header-3"></td>
+            <td colspan="2" id="units-barrack-header-4"></td>
         </tr>
     </thead>
     <tbody id="units-body">
@@ -160,6 +166,12 @@
             <th><span class="cost-dark-elixir">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="dark-quantity"></span></th>
             <th><span class="cost-dark-elixir">Total</span></th>
+            <th colspan="4">Dark Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="dark-barracks-exceeded">(too many units)</span></th>
+        </tr>
+        <tr>
+            <td colspan="5"></td>
+            <td colspan="2" id="dark-barrack-header-1"></td>
+            <td colspan="2" id="dark-barrack-header-2"></td>
         </tr>
     </thead>
     <tbody id="dark-body">
@@ -167,12 +179,10 @@
     <tfoot>
         <tr>
             <td colspan="3"></td>
-            <td class="result">
-                <span id="dark-space"></span>
-                —
-                <span id="dark-time"></span>
-            </td>
+            <td id="dark-space" class="result"></td>
             <td id="dark-cost" class="number result"></td>
+            <td id="dark-time-barrack-1" colspan="2" class="number"></td>
+            <td id="dark-time-barrack-2" colspan="2" class="number"></td>
         </tr>
     </tfoot>
 </table>
@@ -328,6 +338,15 @@ $ya_metrika_noscript
 <h2>Changelog</h2>
 <table class="changelog">
     <tr>
+        <td>2.2</td>
+        <td>8 April, 2013</td>
+        <td>
+            Dark Barracks troops distribution;<br/>
+            Removed embedded font, font changed to PT Sans/Helvetica Neue/Arial, it greatly reduced the speed of page loading;<br/>
+            Army camps capacity increment/decrement in five points.<br/>
+        </td>
+    </tr>
+    <tr>
         <td>2.1</td>
         <td>13 March, 2013</td>
         <td>
@@ -434,7 +453,6 @@ $ya_metrika_noscript
 
 <h2>To-do</h2>
 <div class="todo">
-    <p>Army camps capacity increment/decrement in five points.</p>
     <p>Production time in saved calculations.</p>
     <p>Sometimes I don't use all my troops, so would be nice if I could have an option to write down the troops I saved and let it automatically adjust the required numbers to what I've predefined. (From <a href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator?p=219572&amp;viewfull=1#post219572">Supercell forums</a>.)</p>
     <p>(?) Gem costs.</p>
