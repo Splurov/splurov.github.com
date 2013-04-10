@@ -17,7 +17,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 ya_metrika_noscript = """<noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>"""
 
 clash_of_clans = 'Clash of Clans'
-coc_calc_title = 'Troops and Spells Cost Calculator'
+coc_calc_title = 'Troops and Spells Cost Calculator and Time Planner'
 
 translations = {
     'lang': ('ru', 'en'),
@@ -64,10 +64,11 @@ translations = {
     'country_name': ('Россия', 'Russia'),
     'ga_code': (ga_code, ga_code),
     'ya_metrika_noscript': (ya_metrika_noscript, ya_metrika_noscript),
-    'clash_of_clans': ('Калькулятор стоимости армии и заклинаний для {0}'.format(clash_of_clans), '{0} for {1}'.format(coc_calc_title, clash_of_clans)),
+    'clash_of_clans': ('Калькулятор стоимости армии и заклинаний  для {0}'.format(clash_of_clans), '{0} for {1}'.format(coc_calc_title, clash_of_clans)),
     'miscellaneous': ('Разное', 'Miscellaneous'),
     'userscripts': ('Юзерскрипты для Фаерфокса', 'Userscripts for Firefox'),
     'minimum_font_size_addon': ('Дополнение для Фаерфокса — Minimum Font Size Hotkey', 'Firefox Add-on — Minimum Font Size Hotkey'),
 
-    'coc_title': ('', '{0} — {1}'.format(clash_of_clans, coc_calc_title))
+    'coc_title': ('', '{0} — {1}'.format(clash_of_clans, coc_calc_title)),
+    'coc_title_web_clip': ('', 'CoC Calc')
 }
