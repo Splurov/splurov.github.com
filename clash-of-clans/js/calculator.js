@@ -605,7 +605,7 @@
 
     };
 
-    var rowTemplate = Hogan.compile(document.getElementById('hogan-item-row-template').innerHTML);
+    var rowTemplate = templates.item_row;
 
     var createRows = function(items, type) {
         var createLevelOption = function(value, index) {
@@ -685,7 +685,7 @@
     var savedCalculationsStorage = new DataStorage('savedCalculations', []);
     var savedCalculations = new MultiDict(savedCalculationsStorage.load());
 
-    var savedListItemTemplate = Hogan.compile(document.getElementById('hogan-saved-list-item-template').innerHTML);
+    var savedListItemTemplate = templates.saved_list_item;
     var savedListCreateItems = function() {
         var content = [];
         savedCalculations.forEach(function(data, index) {

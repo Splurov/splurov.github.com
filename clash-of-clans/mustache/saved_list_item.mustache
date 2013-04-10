@@ -1,0 +1,54 @@
+<div class="saved-list__item" id="saved-list-item-{{index}}">
+    {{#hasUnits}}
+        <div class="saved-list__item-title"><span class="cost-elixir-small">{{totalCost}}</span>Units</div>
+        <table class="saved-list__table">
+            {{#units}}
+                <tr>
+                    <td class="number">{{quantity}}</td>
+                    <td>{{name}}</td>
+                    <td class="saved-list__level">{{level}}</td>
+                </tr>
+            {{/units}}
+        </table>
+    {{/hasUnits}}
+
+    {{#hasDark}}
+        <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-dark-elixir-small">{{darkCost}}</span>&nbsp;</div>
+        <table class="saved-list__table">
+            {{#dark}}
+                <tr>
+                    <td class="number">{{quantity}}</td>
+                    <td>{{name}}</td>
+                    <td class="saved-list__level">{{level}}</td>
+                </tr>
+            {{/dark}}
+        </table>
+    {{/hasDark}}
+
+    {{#hasCapacity}}
+        <div class="saved-list__item-result">
+            {{totalCapacity}}/{{armyCamps}}
+        </div>
+    {{/hasCapacity}}
+
+    {{#hasSpells}}
+        <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-gold-small">{{spellsCost}}</span>Spells</div>
+        <table class="saved-list__table">
+            {{#spells}}
+                <tr>
+                    <td class="number">{{quantity}}</td>
+                    <td>{{name}}</td>
+                    <td class="saved-list__level">{{level}}</td>
+                </tr>
+            {{/spells}}
+        </table>
+        <div class="saved-list__item-result">
+            {{spellsCapacity}}/{{spellsFactoryLevel}}
+        </div>
+    {{/hasSpells}}
+
+    <div class="saved-list__actions">
+        <span class="like-button like-button_lonely js-saved-load" data-num="{{index}}" title="Current calculation will be lost">Load</span>
+        <span class="like-button like-button_lonely js-saved-delete" data-num="{{index}}">Delete</span>
+    </div>
+</div>

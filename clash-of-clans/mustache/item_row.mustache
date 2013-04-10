@@ -1,0 +1,32 @@
+    <tr id="{{rowId}}">
+        <td>
+            <label for="{{id}}">{{title}}</label>
+        </td>
+        <td>
+            <select id="{{levelId}}" class="field">
+                {{#levelContent}}
+                    <option value="{{value}}">{{text}}</option>
+                {{/levelContent}}
+            </select>
+        </td>
+        <td id="{{costId}}" class="number">
+        </td>
+        <td>
+            {{#spells}}
+                <select id="{{id}}" class="field">
+                    {{#options}}
+                        <option value="{{value}}">{{text}}</option>
+                    {{/options}}
+                </select>
+            {{/spells}}
+            {{^spells}}
+                <input class="js-number field" id="{{id}}" size="4"/>
+            {{/spells}}
+        </td>
+        <td id="{{summaryId}}" class="number">
+        </td>
+        {{#barracksTimes}}
+            <td id="{{barrackQuantityId}}" class="number"></td>
+            <td id="{{barrackTimeId}}" class="number"></td>
+        {{/barracksTimes}}
+    </tr>

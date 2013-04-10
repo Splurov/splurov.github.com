@@ -31,7 +31,7 @@ def template_safe(text):
 
 
 def parse_source(path, args, type):
-    stdout = subprocess.Popen(args, stdout=subprocess.PIPE).stdout
+    stdout = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout
     data = stdout.read()
     log('parse {1} {0}'.format(path, type))
     return data
@@ -83,7 +83,6 @@ def make_data_uris(data):
         return result
 
     data = re.sub('url\((.+?\.png)\)', partial(make_uri, mime_type='image/png'), data)
-    #data = re.sub('url\(\'(.+?\.woff)\'\)', partial(make_uri, mime_type='application/font-woff'), data)
     return data
 
 
@@ -122,6 +121,38 @@ def script_repl(match, dir=''):
     return '<script>{0}</script>'.format(data)
 
 
+def hogan_repl(match, dir=''):
+    paths = match.group(1).strip().split('\n')
+    full_paths = []
+    modified_times = []
+    for path in paths:
+        full_path = dir + path.strip()
+        modified_times.append(int(os.path.getmtime(full_path)))
+        full_paths.append(full_path)
+
+    cached_path = get_cached_path(' '.join(full_paths))
+    max_modified = max(modified_times)
+
+    if is_cached(cached_path, max_modified):
+        data = open(cached_path).read()
+    else:
+        data = parse_source(
+            '; '.join(full_paths),
+            ['/usr/local/bin/hulk'] + full_paths,
+            'hogan'
+        )
+        p = subprocess.Popen(['/usr/local/bin/uglifyjs', '-', '-cm'],
+                             stdin=subprocess.PIPE,
+                             stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE)
+        p.stdin.write(data)
+        data = p.communicate()[0]
+        data = template_safe(data)
+        make_cache(cached_path, data, max_modified)
+
+    return '<script>{0}</script>'.format(data)
+
+
 log('start')
 
 sources = {
@@ -144,6 +175,7 @@ for file, langs in sources.iteritems():
 
         data = re.sub('<link rel="stylesheet" type="text/css" href="([^"]+)"/>', partial(link_repl, dir=dir), data)
         data = re.sub('<script src="([^"]+)"( data-compress="no")?></script>', partial(script_repl, dir=dir), data)
+        data = re.sub('<script type="text/x-build-hogan">(.+?)</script>', partial(hogan_repl, dir=dir), data, 0, re.DOTALL)
 
         log('{0} - replaces done'.format(file))
 
