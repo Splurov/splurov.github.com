@@ -2,12 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta property="fb:admins" content="splurov"/>
     <title>$coc_title</title>
     <link rel="stylesheet" type="text/css" href="../css/design.css"/>
     <link rel="stylesheet" type="text/css" href="css/calculator.css"/>
     <script src="js/favicon.js"></script>
     <link rel="icon" href="/clash-of-clans/i/favicon.png"/>
+    <link rel="apple-touch-icon-precomposed" href="/clash-of-clans/i/app-icons/57x57.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/clash-of-clans/i/app-icons/72x72.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/clash-of-clans/i/app-icons/114x114.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/clash-of-clans/i/app-icons/144x144.png"/>
+    <meta name="apple-mobile-web-app-title" content="$coc_title_web_clip" />
+    <meta property="fb:admins" content="splurov"/>
     $ga_code
 </head>
 <body>
@@ -15,7 +20,7 @@
 <h1>$coc_title</h1>
 
 <div class="intro">
-    <p>Helps to plan the composition of your army and calculate the cost of the attack in order to remain in plus, after the battle.</p>
+    <p>Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.</p>
 
     <p>All entered data will be saved in your browser and pre-filled in next time you visit this page.</p>
 </div>
@@ -221,99 +226,13 @@
     </div>
 </div>
 
-<script type="text/x-hogan-template" id="hogan-item-row-template">
-    <tr id="{{rowId}}">
-        <td>
-            <label for="{{id}}">{{title}}</label>
-        </td>
-        <td>
-            <select id="{{levelId}}" class="field">
-                {{#levelContent}}
-                    <option value="{{value}}">{{text}}</option>
-                {{/levelContent}}
-            </select>
-        </td>
-        <td id="{{costId}}" class="number">
-        </td>
-        <td>
-            {{#spells}}
-                <select id="{{id}}" class="field">
-                    {{#options}}
-                        <option value="{{value}}">{{text}}</option>
-                    {{/options}}
-                </select>
-            {{/spells}}
-            {{^spells}}
-                <input class="js-number field" id="{{id}}" size="4"/>
-            {{/spells}}
-        </td>
-        <td id="{{summaryId}}" class="number">
-        </td>
-        {{#barracksTimes}}
-            <td id="{{barrackQuantityId}}" class="number"></td>
-            <td id="{{barrackTimeId}}" class="number"></td>
-        {{/barracksTimes}}
-    </tr>
-</script>
-
-<script type="text/x-hogan-template" id="hogan-saved-list-item-template">
-    <div class="saved-list__item" id="saved-list-item-{{index}}">
-        {{#hasUnits}}
-            <div class="saved-list__item-title"><span class="cost-elixir-small">{{totalCost}}</span>Units</div>
-            <table class="saved-list__table">
-                {{#units}}
-                    <tr>
-                        <td class="number">{{quantity}}</td>
-                        <td>{{name}}</td>
-                        <td class="saved-list__level">{{level}}</td>
-                    </tr>
-                {{/units}}
-            </table>
-        {{/hasUnits}}
-
-        {{#hasDark}}
-            <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-dark-elixir-small">{{darkCost}}</span>&nbsp;</div>
-            <table class="saved-list__table">
-                {{#dark}}
-                    <tr>
-                        <td class="number">{{quantity}}</td>
-                        <td>{{name}}</td>
-                        <td class="saved-list__level">{{level}}</td>
-                    </tr>
-                {{/dark}}
-            </table>
-        {{/hasDark}}
-
-        {{#hasCapacity}}
-            <div class="saved-list__item-result">
-                {{totalCapacity}}/{{armyCamps}}
-            </div>
-        {{/hasCapacity}}
-
-        {{#hasSpells}}
-            <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-gold-small">{{spellsCost}}</span>Spells</div>
-            <table class="saved-list__table">
-                {{#spells}}
-                    <tr>
-                        <td class="number">{{quantity}}</td>
-                        <td>{{name}}</td>
-                        <td class="saved-list__level">{{level}}</td>
-                    </tr>
-                {{/spells}}
-            </table>
-            <div class="saved-list__item-result">
-                {{spellsCapacity}}/{{spellsFactoryLevel}}
-            </div>
-        {{/hasSpells}}
-
-        <div class="saved-list__actions">
-            <span class="like-button like-button_lonely js-saved-load" data-num="{{index}}" title="Current calculation will be lost">Load</span>
-            <span class="like-button like-button_lonely js-saved-delete" data-num="{{index}}">Delete</span>
-        </div>
-    </div>
-</script>
-
 <script src="js/hogan-2.0.0.min.js" data-compress="no"></script>
+
+<script type="text/x-build-hogan">
+    mustache/item_row.mustache
+    mustache/saved_list_item.mustache
+</script>
+
 <script src="js/calculator.js"></script>
 
 <!-- Yandex.Metrika counter -->
@@ -453,6 +372,9 @@ $ya_metrika_noscript
 
 <h2>To-do</h2>
 <div class="todo">
+    <p>Retina icons.</p>
+    <p>Apple touch icon.</p>
+    <!--<p>Form validation.</p>-->
     <p>Production time in saved calculations.</p>
     <p>Sometimes I don't use all my troops, so would be nice if I could have an option to write down the troops I saved and let it automatically adjust the required numbers to what I've predefined. (From <a href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator?p=219572&amp;viewfull=1#post219572">Supercell forums</a>.)</p>
     <p>(?) Gem costs.</p>

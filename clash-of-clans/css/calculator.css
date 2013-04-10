@@ -77,18 +77,21 @@ body {
 
 .cost-elixir {
     background: url(/clash-of-clans/i/elixir.png) no-repeat 100% 50%;
+    background-size: 21px 24px;
     padding-right: 28px;
     line-height: 24px;
     display: inline-block;
 }
 .cost-dark-elixir {
     background: url(/clash-of-clans/i/dark-elixir.png) no-repeat 100% 50%;
+    background-size: 21px 24px;
     padding-right: 28px;
     line-height: 24px;
     display: inline-block;
 }
 .cost-gold {
     background: url(/clash-of-clans/i/gold.png) no-repeat 100% 50%;
+    background-size: 23px 24px;
     padding-right: 28px;
     line-height: 24px;
     display: inline-block;
@@ -96,14 +99,17 @@ body {
 
 .cost-elixir-small {
     background: url(/clash-of-clans/i/elixir-small.png) no-repeat 100% 50%;
+    background-size: 14px 16px;
     padding-right: 19px;
 }
 .cost-dark-elixir-small {
     background: url(/clash-of-clans/i/dark-elixir-small.png) no-repeat 100% 50%;
+    background-size: 14px 16px;
     padding-right: 19px;
 }
 .cost-gold-small {
     background: url(/clash-of-clans/i/gold-small.png) no-repeat 100% 50%;
+    background-size: 15px 16px;
     padding-right: 19px;
 }
 
