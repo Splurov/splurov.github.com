@@ -1,19 +1,5 @@
 # coding=utf-8
 
-ga_code = """<script type="text/javascript">
-
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-37991363-1']);
-_gaq.push(['_trackPageview']);
-
-(function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-
-</script>"""
-
 ya_metrika_noscript = """<noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>"""
 
 clash_of_clans = 'Clash of Clans'
@@ -62,7 +48,6 @@ translations = {
     'family_name': ('Калашник', 'Kalashnik'),
     'locality': ('Москва', 'Moscow'),
     'country_name': ('Россия', 'Russia'),
-    'ga_code': (ga_code, ga_code),
     'ya_metrika_noscript': (ya_metrika_noscript, ya_metrika_noscript),
     'clash_of_clans': ('Калькулятор стоимости армии и заклинаний  для {0}'.format(clash_of_clans), '{0} for {1}'.format(coc_calc_title, clash_of_clans)),
     'miscellaneous': ('Разное', 'Miscellaneous'),
