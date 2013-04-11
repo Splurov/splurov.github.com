@@ -307,7 +307,6 @@
                 var i;
                 for (i = 1; i <= allBarracks[type].getMaxCount(); i++) {
                     ids.get('quantity-' + name + '-' + i).innerHTML = '';
-                    ids.get('time-' + name + '-' + i).innerHTML = '';
                 }
 
                 if (quantity > 0) {
@@ -451,7 +450,6 @@
                     var barrackNum = k.slice(-1);
                     objectIterate(v.units, function(unitName, unitData) {
                         if (unitData.time > 0) {
-                            ids.get('time-' + unitName + '-' + barrackNum).innerHTML = getFormattedTime(unitData.time);
                             ids.get('quantity-' + unitName + '-' + barrackNum).innerHTML = '×' + unitData.quantity;
                         }
                     });
@@ -643,7 +641,6 @@
                 for (i = 1; i <= allBarracks[type].getMaxCount(); i++) {
                     barracksTimes.push({
                         'barrackQuantityId': 'quantity-' + name + '-' + i,
-                        'barrackTimeId': 'time-' + name + '-' + i
                     });
                 }
                 templateVars.barracksTimes = barracksTimes;

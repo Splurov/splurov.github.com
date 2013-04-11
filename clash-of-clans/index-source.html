@@ -138,14 +138,14 @@
             <th><span class="cost-elixir">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="units-quantity"></span></th>
             <th><span class="cost-elixir">Total</span></th>
-            <th colspan="8">Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="units-barracks-exceeded">(too many units)</span></th>
+            <th colspan="4">Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="units-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
             <td colspan="5"></td>
-            <td colspan="2" id="units-barrack-header-1"></td>
-            <td colspan="2" id="units-barrack-header-2"></td>
-            <td colspan="2" id="units-barrack-header-3"></td>
-            <td colspan="2" id="units-barrack-header-4"></td>
+            <td id="units-barrack-header-1"></td>
+            <td id="units-barrack-header-2"></td>
+            <td id="units-barrack-header-3"></td>
+            <td id="units-barrack-header-4"></td>
         </tr>
     </thead>
     <tbody id="units-body">
@@ -155,10 +155,10 @@
             <td colspan="3"></td>
             <td id="units-space" class="result"></td>
             <td id="units-cost" class="number result"></td>
-            <td id="units-time-barrack-1" colspan="2" class="number"></td>
-            <td id="units-time-barrack-2" colspan="2" class="number"></td>
-            <td id="units-time-barrack-3" colspan="2" class="number"></td>
-            <td id="units-time-barrack-4" colspan="2" class="number"></td>
+            <td id="units-time-barrack-1" class="number"></td>
+            <td id="units-time-barrack-2" class="number"></td>
+            <td id="units-time-barrack-3" class="number"></td>
+            <td id="units-time-barrack-4" class="number"></td>
         </tr>
     </tfoot>
 </table>
@@ -171,12 +171,12 @@
             <th><span class="cost-dark-elixir">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="dark-quantity"></span></th>
             <th><span class="cost-dark-elixir">Total</span></th>
-            <th colspan="4">Dark Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="dark-barracks-exceeded">(too many units)</span></th>
+            <th colspan="2">Dark Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="dark-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
             <td colspan="5"></td>
-            <td colspan="2" id="dark-barrack-header-1"></td>
-            <td colspan="2" id="dark-barrack-header-2"></td>
+            <td id="dark-barrack-header-1"></td>
+            <td id="dark-barrack-header-2"></td>
         </tr>
     </thead>
     <tbody id="dark-body">
@@ -186,8 +186,8 @@
             <td colspan="3"></td>
             <td id="dark-space" class="result"></td>
             <td id="dark-cost" class="number result"></td>
-            <td id="dark-time-barrack-1" colspan="2" class="number"></td>
-            <td id="dark-time-barrack-2" colspan="2" class="number"></td>
+            <td id="dark-time-barrack-1" class="number"></td>
+            <td id="dark-time-barrack-2" class="number"></td>
         </tr>
     </tfoot>
 </table>
@@ -252,6 +252,13 @@ $ya_metrika_noscript
 
 <h2>Changelog</h2>
 <table class="changelog">
+    <tr>
+        <td>2.3.1</td>
+        <td>12 April, 2013</td>
+        <td>
+            Production time for each unit separately are no longer displayed — it’s useless information.<br/>
+        </td>
+    </tr>
     <tr>
         <td>2.3</td>
         <td>11 April, 2013</td>

@@ -1,6 +1,6 @@
 <div class="saved-list__item" id="saved-list-item-{{index}}">
     {{#hasUnits}}
-        <div class="saved-list__item-title"><span class="cost-elixir-small">{{totalCost}}</span>Units</div>
+        <div class="saved-list__item-title"><span class="cost-elixir">{{totalCost}}</span>Units</div>
         <table class="saved-list__table">
             {{#units}}
                 <tr>
@@ -13,7 +13,7 @@
     {{/hasUnits}}
 
     {{#hasDark}}
-        <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-dark-elixir-small">{{darkCost}}</span>&nbsp;</div>
+        <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-dark-elixir">{{darkCost}}</span>&nbsp;</div>
         <table class="saved-list__table">
             {{#dark}}
                 <tr>
@@ -32,7 +32,7 @@
     {{/hasCapacity}}
 
     {{#hasSpells}}
-        <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-gold-small">{{spellsCost}}</span>Spells</div>
+        <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-gold">{{spellsCost}}</span>Spells</div>
         <table class="saved-list__table">
             {{#spells}}
                 <tr>
