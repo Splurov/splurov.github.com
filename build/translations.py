@@ -17,7 +17,7 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 ya_metrika_noscript = """<noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>"""
 
 clash_of_clans = 'Clash of Clans'
-coc_calc_title = 'Troops and Spells Cost Calculator and Time Planner'
+coc_calc_title = 'Troops and Spells Cost Calculator/Time Planner'
 
 translations = {
     'lang': ('ru', 'en'),
@@ -70,5 +70,6 @@ translations = {
     'minimum_font_size_addon': ('Дополнение для Фаерфокса — Minimum Font Size Hotkey', 'Firefox Add-on — Minimum Font Size Hotkey'),
 
     'coc_title': ('', '{0} — {1}'.format(clash_of_clans, coc_calc_title)),
-    'coc_title_web_clip': ('', 'CoC Calc')
+    'coc_title_web_clip': ('', 'CoC Calc'),
+    'coc_description': ('', 'Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.')
 }
