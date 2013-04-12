@@ -31,7 +31,7 @@
             <label for="barracks-levels-1">Barracks Levels</label>
         </td>
         <td>
-            <select id="barracks-levels-1" class="field">
+            <select id="barracks-levels-1" class="field" tabindex="1">
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -43,7 +43,7 @@
                 <option value="9">9</option>
                 <option value="10" selected="selected">10</option>
             </select>
-            <select id="barracks-levels-2" class="field">
+            <select id="barracks-levels-2" class="field" tabindex="5">
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -56,7 +56,7 @@
                 <option value="9">9</option>
                 <option value="10" selected="selected">10</option>
             </select>
-            <select id="barracks-levels-3" class="field">
+            <select id="barracks-levels-3" class="field" tabindex="10">
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -69,7 +69,7 @@
                 <option value="9">9</option>
                 <option value="10" selected="selected">10</option>
             </select>
-            <select id="barracks-levels-4" class="field">
+            <select id="barracks-levels-4" class="field" tabindex="15">
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -90,13 +90,13 @@
             <label for="dark-barracks-levels-1">Dark Barracks Level</label>
         </td>
         <td>
-            <select id="dark-barracks-levels-1" class="field">
+            <select id="dark-barracks-levels-1" class="field" tabindex="20">
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3" selected="selected">3</option>
             </select>
-            <select id="dark-barracks-levels-2" class="field">
+            <select id="dark-barracks-levels-2" class="field" tabindex="25">
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -110,7 +110,7 @@
             <label for="army-camps">Army Camps Capacity</label>
         </td>
         <td>
-            <input class="js-number field" data-multiplier="5" value="220" id="army-camps" size="4"/>
+            <input class="js-number field" data-multiplier="5" value="220" id="army-camps" size="4" tabindex="30"/>
         </td>
     </tr>
 
@@ -119,7 +119,7 @@
             <label for="spell-factory-level">Spell Factory Level</label>
         </td>
         <td>
-            <select id="spell-factory-level" class="field">
+            <select id="spell-factory-level" class="field" tabindex="35">
                 <option value="0">0</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -218,7 +218,7 @@
 </table>
 
 <p>
-    <span id="save" class="like-button like-button_lonely">Save Calculation</span>
+    <span id="save" class="like-button like-button_lonely" tabindex="2000">Save Calculation</span>
 </p>
 
 <div id="saved-list" class="saved-list">
@@ -256,7 +256,8 @@ $ya_metrika_noscript
         <td>2.3.1</td>
         <td>12 April, 2013</td>
         <td>
-            Production time for each unit separately are no longer displayed — it’s useless information.<br/>
+            The correct order for keyboard navigation through <kbd>TAB</kbd> key;<br/>
+            Production time for each unit separately are no longer displayed (useless information).<br/>
         </td>
     </tr>
     <tr>

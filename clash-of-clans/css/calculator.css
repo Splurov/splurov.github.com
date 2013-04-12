@@ -3,6 +3,14 @@ body {
     line-height: 1.4;
 }
 
+kbd {
+    font-family: inherit;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0 4px;
+}
+
 .field {
     font-family: inherit;
     font-size: inherit;

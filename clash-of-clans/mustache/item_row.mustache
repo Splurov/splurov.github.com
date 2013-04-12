@@ -3,7 +3,7 @@
             <label for="{{id}}">{{title}}</label>
         </td>
         <td>
-            <select id="{{levelId}}" class="field">
+            <select id="{{levelId}}" class="field" tabindex="{{tabIndexLevel}}">
                 {{#levelContent}}
                     <option value="{{value}}">{{text}}</option>
                 {{/levelContent}}
@@ -13,14 +13,14 @@
         </td>
         <td>
             {{#spells}}
-                <select id="{{id}}" class="field">
+                <select id="{{id}}" class="field" tabindex="{{tabIndexValue}}">
                     {{#options}}
                         <option value="{{value}}">{{text}}</option>
                     {{/options}}
                 </select>
             {{/spells}}
             {{^spells}}
-                <input class="js-number field" id="{{id}}" size="4"/>
+                <input class="js-number field" id="{{id}}" size="4"tabindex="{{tabIndexValue}}"/>
             {{/spells}}
         </td>
         <td id="{{summaryId}}" class="number">

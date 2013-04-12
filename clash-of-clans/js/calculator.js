@@ -605,7 +605,7 @@
 
     var rowTemplate = templates.item_row;
 
-    var createRows = function(items, type) {
+    var createRows = function(items, type, tabIndexMultiplier) {
         var createLevelOption = function(value, index) {
             return {'value': value, 'text': (index + 1)};
         };
@@ -627,7 +627,9 @@
                 'levelContent': value[1].map(createLevelOption),
                 'costId': name + '-cost',
                 'summaryId': name + '-summary',
-                'rowId': type + '-building-level-' + value[3]
+                'rowId': type + '-building-level-' + value[3],
+                'tabIndexLevel': tabIndexMultiplier + value[3],
+                'tabIndexValue': tabIndexMultiplier + 1000 + value[3]
             };
             if (type === 'spells') {
                 templateVars.spells = {
@@ -659,9 +661,9 @@
         });
     };
 
-    createRows(units, 'units');
-    createRows(dark, 'dark');
-    createRows(spells, 'spells');
+    createRows(units, 'units', 100);
+    createRows(dark, 'dark', 200);
+    createRows(spells, 'spells', 300);
 
     var selectAll = function(e) {
         if (e.target.tagName.toLowerCase() === 'input') {
@@ -687,7 +689,9 @@
         var content = [];
         savedCalculations.forEach(function(data, index) {
             var templateVars = {
-                'index': index
+                'index': index,
+                'tabIndexLoad': index + 3000 + 1,
+                'tabIndexDelete': index + 3000 + 2
             };
 
             var unitsItems = [];
