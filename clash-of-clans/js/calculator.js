@@ -309,16 +309,28 @@
                     ids.get('quantity-' + name + '-' + i).innerHTML = '';
                 }
 
+                var subtractId = name + '-subtract';
+                var subtract = ids.get(subtractId);
+                var subtractQuantity = parseInt(subtract.value, 10) || 0;
+                if (subtractQuantity < 0) {
+                    subtractQuantity = 0;
+                }
+                if (subtract.value !== '') {
+                    subtract.value = subtractQuantity;
+                }
+
                 if (quantity > 0) {
                     distribution.push({
                         'name': name,
-                        'quantity': quantity,
+                        'quantity': quantity - subtractQuantity,
                         'time': value[0],
                         'level': value[3],
-                        'space': value[2]
+                        'space': value[2],
                     });
 
                 }
+
+                savedData.set(subtractId, subtractQuantity);
             }
 
             savedData.set(name, quantity);
@@ -534,6 +546,9 @@
                     valueEl.options[savedData.get(name, valueEl.selectedIndex)].selected = true;
                 } else {
                     valueEl.value = savedData.get(name) || 0;
+
+                    var subtractId = name + '-subtract';
+                    ids.get(subtractId).value = savedData.get(subtractId) || 0;
                 }
             });
         };
@@ -646,6 +661,9 @@
                     });
                 }
                 templateVars.barracksTimes = barracksTimes;
+
+                templateVars.subtractId = name + '-subtract';
+                templateVars.tabIndexSubtract = tabIndexMultiplier + 4000 + value[3];
             }
 
             var rowHTML = rowTemplate.render(templateVars);
@@ -658,6 +676,10 @@
 
             ids.get(templateVars.levelId).addEventListener('change', calculate, false);
             ids.get(templateVars.id).addEventListener((type === 'spells' ? 'change' : 'input'), calculate, false);
+
+            if (type === 'units' || type === 'dark') {
+                ids.get(templateVars.subtractId).addEventListener('input', calculate, false);
+            }
         });
     };
 

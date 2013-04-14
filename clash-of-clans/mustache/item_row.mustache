@@ -20,11 +20,16 @@
                 </select>
             {{/spells}}
             {{^spells}}
-                <input class="js-number field" id="{{id}}" size="4"tabindex="{{tabIndexValue}}"/>
+                <input class="js-number field" id="{{id}}" size="3" tabindex="{{tabIndexValue}}"/>
             {{/spells}}
         </td>
         <td id="{{summaryId}}" class="number">
         </td>
+        {{#subtractId}}
+            <td>
+               <input class="js-number field" id="{{subtractId}}" size="3" tabindex="{{tabIndexSubtract}}"/>
+            </td>
+        {{/subtractId}}
         {{#barracksTimes}}
             <td id="{{barrackQuantityId}}" class="number"></td>
         {{/barracksTimes}}

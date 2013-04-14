@@ -138,10 +138,11 @@
             <th><span class="cost-elixir">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="units-quantity"></span></th>
             <th><span class="cost-elixir">Total</span></th>
+            <th>Subtract (<a href="#subtract">?</a>)</th>
             <th colspan="4">Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="units-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
-            <td colspan="5"></td>
+            <td colspan="6"></td>
             <td id="units-barrack-header-1"></td>
             <td id="units-barrack-header-2"></td>
             <td id="units-barrack-header-3"></td>
@@ -155,6 +156,7 @@
             <td colspan="3"></td>
             <td id="units-space" class="result"></td>
             <td id="units-cost" class="number result"></td>
+            <td></td>
             <td id="units-time-barrack-1" class="number"></td>
             <td id="units-time-barrack-2" class="number"></td>
             <td id="units-time-barrack-3" class="number"></td>
@@ -171,10 +173,11 @@
             <th><span class="cost-dark-elixir">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="dark-quantity"></span></th>
             <th><span class="cost-dark-elixir">Total</span></th>
+            <th>Subtract (<a href="#subtract">?</a>)</th>
             <th colspan="2">Dark Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="dark-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
-            <td colspan="5"></td>
+            <td colspan="6"></td>
             <td id="dark-barrack-header-1"></td>
             <td id="dark-barrack-header-2"></td>
         </tr>
@@ -186,6 +189,7 @@
             <td colspan="3"></td>
             <td id="dark-space" class="result"></td>
             <td id="dark-cost" class="number result"></td>
+            <td></td>
             <td id="dark-time-barrack-1" class="number"></td>
             <td id="dark-time-barrack-2" class="number"></td>
         </tr>
@@ -253,8 +257,19 @@ $ya_metrika_noscript
 <h2>Changelog</h2>
 <table class="changelog">
     <tr>
+        <td>2.4</td>
+        <td class="changelog__date">14 April, 2013</td>
+        <td id="subtract">
+            Added awesome feature to “subtract” units, which you already have. For example, you want to get
+            100 Barbarians and 100 Archers. And you already have 20 Barbarians. In the column “Quantity”, as usual,
+            make 100 Barbarians and 100 Archers. And in the column “Subtract” 20 Barbarians. Now the distribution
+            between the barracks are considered to be only for 80 Barbarians and 100 Archers. This is very useful,
+            when after the battle you have remained part of the army.
+        </td>
+    </tr>
+    <tr>
         <td>2.3.1</td>
-        <td>12 April, 2013</td>
+        <td class="changelog__date">12 April, 2013</td>
         <td>
             The correct order for keyboard navigation through <kbd>TAB</kbd> key;<br/>
             Production time for each unit separately are no longer displayed (useless information).<br/>
@@ -262,7 +277,7 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>2.3</td>
-        <td>11 April, 2013</td>
+        <td class="changelog__date">11 April, 2013</td>
         <td>
             Added lovely icon for iOS <a href="http://www.apple.com/ios/add-to-home-screen/">“Add to Home Screen”</a> feature;<br/>
             New favicon for easy identification of the site among many open tabs;<br/>
@@ -272,7 +287,7 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>2.2</td>
-        <td>8 April, 2013</td>
+        <td class="changelog__date">8 April, 2013</td>
         <td>
             Dark Barracks troops distribution;<br/>
             Removed embedded font, font changed to PT Sans/Helvetica Neue/Arial, it greatly reduced the speed of page loading;<br/>
@@ -281,14 +296,14 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>2.1</td>
-        <td>13 March, 2013</td>
+        <td class="changelog__date">13 March, 2013</td>
         <td>
             Dark Barracks troops calculation.<br/>
         </td>
     </tr>
     <tr>
         <td>2.0.2</td>
-        <td>12 March, 2013</td>
+        <td class="changelog__date">12 March, 2013</td>
         <td>
             3.54 updates:<br/>
             Wall Breaker capacity increased from 1 to 2;<br/>
@@ -298,7 +313,7 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>2.0.1</td>
-        <td>5 March, 2013</td>
+        <td class="changelog__date">5 March, 2013</td>
         <td>
             Fixed a bug in which the units were distributed in barracks without accounting maximum barracks queue;<br/>
             Fixed bug with negative number of units.<br/>
@@ -306,7 +321,7 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>2.0</td>
-        <td>28 February, 2013</td>
+        <td class="changelog__date">28 February, 2013</td>
         <td>
             Added distribution of troops between barracks for optimal training speed;<br/>
             The previous values of the maximum level and number of barracks, unfortunately, have not saved;<br/>
@@ -316,7 +331,7 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>1.5</td>
-        <td>26 February, 2013</td>
+        <td class="changelog__date">26 February, 2013</td>
         <td>
             Reduced indents and font sizes;<br/>
             The list of saved calculations is always shown;<br/>
@@ -325,14 +340,14 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>1.4</td>
-        <td>17 February, 2013</td>
+        <td class="changelog__date">17 February, 2013</td>
         <td>
             Added saving of calculations.<br/>
         </td>
     </tr>
     <tr>
         <td>1.3.2</td>
-        <td>10 February, 2013</td>
+        <td class="changelog__date">10 February, 2013</td>
         <td>
             Added description of the calculator;<br/>
             Default values changed to maximum allowed in game.<br/>
@@ -340,7 +355,7 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>1.3.1</td>
-        <td>9 February, 2013</td>
+        <td class="changelog__date">9 February, 2013</td>
         <td>
             Added auto-select of text in fields for simplify edit in iOS;<br/>
             Fixed NaN in results and null in fields bug.<br/>
@@ -348,7 +363,7 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>1.3</td>
-        <td>8 February, 2013</td>
+        <td class="changelog__date">8 February, 2013</td>
         <td>
             The title is replaced by the more similar to the contents of the page;<br/>
             Added description for auto-save feature;<br/>
@@ -359,7 +374,7 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>1.2</td>
-        <td>6 February, 2013</td>
+        <td class="changelog__date">6 February, 2013</td>
         <td>
             Added plus/minus buttons;<br/>
             Fixed IE 9+ support;<br/>
@@ -370,7 +385,7 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>1.1</td>
-        <td>5 February, 2013</td>
+        <td class="changelog__date">5 February, 2013</td>
         <td>
             Added sixth level for Barbarian, Archer, Giant and Balloon;<br/>
             Fixed Healer 1st level cost;<br/>
@@ -379,16 +394,17 @@ $ya_metrika_noscript
     </tr>
     <tr>
         <td>1.0</td>
-        <td>4 February, 2013</td>
+        <td class="changelog__date">4 February, 2013</td>
         <td>Initial release.</td>
     </tr>
 </table>
 
 <h2>To-do</h2>
 <div class="todo">
+    <p>Saving data between browsers.</p>
+    <p>The distribution of units in the case when the barracks can produce less than accommodating the army camps.</p>
     <!--<p>Form validation.</p>-->
     <p>Production time in saved calculations.</p>
-    <p>Sometimes I don't use all my troops, so would be nice if I could have an option to write down the troops I saved and let it automatically adjust the required numbers to what I've predefined. (From <a href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator?p=219572&amp;viewfull=1#post219572">Supercell forums</a>.)</p>
     <p>(?) Gem costs.</p>
     <p>(?) Clan Castle troops.</p>
 </div>
