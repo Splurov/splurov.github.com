@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>$coc_title</title>
-    <meta name="description" content="$coc_description"/>
+    <title>{{coc_title}}</title>
+    <meta name="description" content="{{coc_description}}"/>
     <link rel="stylesheet" type="text/css" href="../css/design.css"/>
     <link rel="stylesheet" type="text/css" href="css/calculator.css"/>
     <script src="js/favicon.js"></script>
@@ -12,15 +12,15 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/clash-of-clans/i/app-icons/72x72.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/clash-of-clans/i/app-icons/114x114.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/clash-of-clans/i/app-icons/144x144.png"/>
-    <meta name="apple-mobile-web-app-title" content="$coc_title_web_clip" />
+    <meta name="apple-mobile-web-app-title" content="{{coc_title_web_clip}}" />
     <meta property="fb:admins" content="splurov"/>
 </head>
 <body>
 
-<h1>$coc_title</h1>
+<h1>{{coc_title}}</h1>
 
 <div class="intro">
-    <p>$coc_description</p>
+    <p>{{coc_description}}</p>
 
     <p>All entered data will be saved in your browser and pre-filled in next time you visit this page.</p>
 </div>
@@ -232,16 +232,14 @@
 
 <script src="js/hogan-2.0.0.min.js" data-compress="no"></script>
 
-<script type="text/x-build-hogan">
-    mustache/item_row.mustache
-    mustache/saved_list_item.mustache
-</script>
+<script type="text/x-build-hogan" src="mustache/item_row.mustache"></script>
+<script type="text/x-build-hogan" src="mustache/saved_list_item.mustache"></script>
 
 <script src="js/calculator.js"></script>
 
 <!-- Yandex.Metrika counter -->
 <script src="../js/ya-metrika.js"></script>
-$ya_metrika_noscript
+{{& ya_metrika_noscript}}
 <!-- /Yandex.Metrika counter -->
 
 <script src="../js/ga.js"></script>
