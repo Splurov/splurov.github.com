@@ -205,37 +205,38 @@
     var spellFactoryLevel = ids.get('spell-factory-level');
 
 
-    var units = {
-        'Barbarian': [20, [25, 40, 60, 80, 100, 150], 1, 1],
-        'Archer': [25, [50, 80, 120, 160, 200, 300], 1, 2],
-        'Goblin': [30, [25, 40, 60, 80, 100], 1, 3],
-        'Giant': [120, [500, 1000, 1500, 2000, 2500, 3000], 5, 4],
-        'Wall_Breaker': [120, [1000, 1500, 2000, 2500, 3000], 2, 5],
-        'Balloon': [600, [2000, 2500, 3000, 3500, 4000, 4500], 5, 6],
-        'Wizard': [600, [1500, 2000, 2500, 3000, 3500], 4, 7],
-        'Healer': [1200, [7000, 10000, 13000], 20, 8],
-        'Dragon': [1800, [25000, 30000, 36000], 20, 9],
-        'P-E-K-K-A-': [2700, [30000, 35000, 42000], 25, 10]
+    var types = {
+        'units': {
+            'Barbarian': [20, [25, 40, 60, 80, 100, 150], 1, 1],
+            'Archer': [25, [50, 80, 120, 160, 200, 300], 1, 2],
+            'Goblin': [30, [25, 40, 60, 80, 100], 1, 3],
+            'Giant': [120, [500, 1000, 1500, 2000, 2500, 3000], 5, 4],
+            'Wall_Breaker': [120, [1000, 1500, 2000, 2500, 3000], 2, 5],
+            'Balloon': [600, [2000, 2500, 3000, 3500, 4000, 4500], 5, 6],
+            'Wizard': [600, [1500, 2000, 2500, 3000, 3500], 4, 7],
+            'Healer': [1200, [7000, 10000, 13000], 20, 8],
+            'Dragon': [1800, [25000, 30000, 36000], 20, 9],
+            'P-E-K-K-A-': [2700, [30000, 35000, 42000], 25, 10]
+        },
+        'spells': {
+            'Lightning': [3600, [15000, 16500, 18000, 20000, 22000], 1, 1],
+            'Healing': [5400, [20000, 22000, 24000, 26500, 29000], 1, 2],
+            'Rage': [7200, [30000, 33000, 36000, 40000, 44000], 1, 3],
+            'Jump': [5400, [30000, 38000], 1, 4]
+        },
+        'dark': {
+            'Minion': [45, [6, 7, 8, 9, 10], 2, 1],
+            'Hog Rider': [300, [30, 35, 40, 45, 50], 6, 2],
+            'Valkyrie': [900, [100, 120, 140, 160], 8, 3]
+        }
     };
     var unitsTable = ids.get('units');
 
-    var spells = {
-        'Lightning': [3600, [15000, 16500, 18000, 20000, 22000], 1, 1],
-        'Healing': [5400, [20000, 22000, 24000, 26500, 29000], 1, 2],
-        'Rage': [7200, [30000, 33000, 36000, 40000, 44000], 1, 3],
-        'Jump': [5400, [30000, 38000], 1, 4]
-    };
     var spellsTable = ids.get('spells');
 
     var barracksQueueLength = {
         'units': [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75],
         'dark': [0, 40, 50, 60]
-    };
-
-    var dark = {
-        'Minion': [45, [6, 7, 8, 9, 10], 2, 1],
-        'Hog Rider': [300, [30, 35, 40, 45, 50], 6, 2],
-        'Valkyrie': [900, [100, 120, 140, 160], 8, 3]
     };
 
     var darkTable = ids.get('dark');
@@ -325,7 +326,7 @@
                         'quantity': quantity - subtractQuantity,
                         'time': value[0],
                         'level': value[3],
-                        'space': value[2],
+                        'space': value[2]
                     });
 
                 }
@@ -497,21 +498,21 @@
             armyCampsSpace = 0;
         }
         armyCamps.value = armyCampsSpace;
-        calculateItems(units, 'units', {
+        calculateItems(types.units, 'units', {
             'table': unitsTable,
-            'levelValue': allBarracks['units'].getMaxLevel(),
+            'levelValue': allBarracks.units.getMaxLevel(),
             'space': armyCampsSpace,
             'capLevel': 10
         });
-        calculateItems(spells, 'spells', {
+        calculateItems(types.spells, 'spells', {
             'table': spellsTable,
             'levelValue': parseInt(spellFactoryLevel.value, 10),
             'space': spellFactoryLevel.value,
             'capLevel': 4
         });
-        calculateItems(dark, 'dark', {
+        calculateItems(types.dark, 'dark', {
             'table': darkTable,
-            'levelValue': allBarracks['dark'].getMaxLevel(),
+            'levelValue': allBarracks.dark.getMaxLevel(),
             'space': armyCampsSpace,
             'capLevel': 3
         });
@@ -553,9 +554,9 @@
             });
         };
 
-        setItems(units, 'units');
-        setItems(spells, 'spells');
-        setItems(dark, 'dark');
+        setItems(types.units, 'units');
+        setItems(types.spells, 'spells');
+        setItems(types.dark, 'dark');
     };
 
 
@@ -657,7 +658,7 @@
                 var barracksTimes = [];
                 for (i = 1; i <= allBarracks[type].getMaxCount(); i++) {
                     barracksTimes.push({
-                        'barrackQuantityId': 'quantity-' + name + '-' + i,
+                        'barrackQuantityId': 'quantity-' + name + '-' + i
                     });
                 }
                 templateVars.barracksTimes = barracksTimes;
@@ -683,9 +684,9 @@
         });
     };
 
-    createRows(units, 'units', 100);
-    createRows(dark, 'dark', 200);
-    createRows(spells, 'spells', 300);
+    createRows(types.units, 'units', 100);
+    createRows(types.dark, 'dark', 200);
+    createRows(types.spells, 'spells', 300);
 
     var selectAll = function(e) {
         if (e.target.tagName.toLowerCase() === 'input') {
@@ -697,6 +698,20 @@
     Array.prototype.slice.call(document.getElementsByClassName('js-number')).forEach(function(el) {
         el.addEventListener('focus', selectAll, false);
         setSpinner(el);
+    });
+
+    Array.prototype.slice.call(document.getElementsByClassName('js-reset')).forEach(function(el) {
+        el.addEventListener('click', function() {
+            objectIterate(types[el.getAttribute('data-type')], function(k) {
+                var key = k;
+                var scope = el.getAttribute('data-scope');
+                if (scope !== 'quantity') {
+                    key += '-' + scope;
+                }
+                ids.get(key).value = '0';
+            });
+            calculate();
+        }, false);
     });
 
     setDefaults();
@@ -720,7 +735,7 @@
             var totalCost = 0;
             var totalCapacity = 0;
             var barracksLevels = data.get('barracksLevels', [10, 10, 10, 10]);
-            objectIterate(units, function(name, unitValue) {
+            objectIterate(types.units, function(name, unitValue) {
                 var quantity = parseInt(data.get(name), 10) || 0;
                 var barracksLevel = Math.max.apply(null, barracksLevels.map(function(barrackIndex, arrayIndex) {
                     return (arrayIndex === 0 ? barrackIndex + 1 : barrackIndex);
@@ -738,7 +753,7 @@
             if (unitsItems.length) {
                 templateVars.hasUnits = {
                     'units': unitsItems,
-                    'totalCost': numberFormat(totalCost),
+                    'totalCost': numberFormat(totalCost)
                 };
             }
 
@@ -747,7 +762,7 @@
             if (darkBarracksLevel > 0) {
                 var darkItems = [];
                 var darkCost = 0;
-                objectIterate(dark, function(name, unitValue) {
+                objectIterate(types.dark, function(name, unitValue) {
                     var quantity = parseInt(data.get(name), 10) || 0;
                     if (quantity > 0 && unitValue[3] <= darkBarracksLevel) {
                         darkItems.push({
@@ -778,7 +793,7 @@
                 var spellsItems = [];
                 var spellsCost = 0;
                 var spellsCapacity = 0;
-                objectIterate(spells, function(spellName, spellValue) {
+                objectIterate(types.spells, function(spellName, spellValue) {
                     var spellQuantity = parseInt(data.get(spellName), 10) || 0;
                     if (spellQuantity > 0 && spellValue[3] <= data.get('spellFactoryLevel')) {
                         spellsItems.push({

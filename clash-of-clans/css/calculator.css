@@ -110,13 +110,22 @@ kbd {
 }
 
 .like-button {
-    color: #222;
+    color: #444;
     cursor: pointer;
     display: inline-block;
-    border: 1px outset #777;
-    border-radius: 8px;
-    padding: 0 7px;
+    padding: 1px 6px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: #fcfcfc;
+    background-image: linear-gradient(to bottom, #fcfcfc, #ececec);
+    line-height: 1.2em;
 }
+    .like-button:hover {
+        background-image: linear-gradient(to bottom, #fcfcfc, #e3e3e3);
+    }
+    .like-button:active {
+        background: #e3e3e3;
+    }
     .like-button_after {
         margin-left: 5px;
     }
