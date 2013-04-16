@@ -6,6 +6,7 @@ var translations = require('./translations').translations;
 var hogan = require('hogan.js');
 var csso = require('csso');
 var uglifyjs = require('uglify-js');
+var autoprefixer = require('autoprefixer');
 
 require('buffer');
 
@@ -32,6 +33,8 @@ for (var file in sources) {
     var dataSource = fs.readFileSync(file, 'utf8');
     dataSource = dataSource.replace(/<link rel="stylesheet" type="text\/css" href="([^"]+)"\/>/g, function(match, p1) {
         var styleData = fs.readFileSync(dir + p1, 'utf8');
+        styleData = autoprefixer.compile(styleData);
+        console.log('autoprefixer: ' + p1);
         styleData = csso.justDoIt(styleData);
         console.log('csso: ' + p1);
 
