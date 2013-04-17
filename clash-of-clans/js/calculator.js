@@ -841,7 +841,13 @@
     };
 
     ids.get('save').addEventListener('click', function() {
-        savedCalculations.insert(objectCopy(savedData.getAll()));
+        var dataToSave = objectCopy(savedData.getAll());
+        objectIterate(dataToSave, function(k) {
+            if (k.indexOf('subtract') !== -1) {
+                delete dataToSave[k];
+            }
+        });
+        savedCalculations.insert(dataToSave);
         savedCalculationsStorage.save(savedCalculations.getAll());
         savedListCreateItems();
     }, false);
