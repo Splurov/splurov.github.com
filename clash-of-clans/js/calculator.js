@@ -303,9 +303,8 @@
             totalCost += summaryCost;
 
             totalSpace += (value[2] * quantity);
-            if (type === 'spells') {
-                totalTime += (value[0] * quantity);
-            } else {
+            totalTime += (value[0] * quantity);
+            if (type !== 'spells') {
                 var i;
                 for (i = 1; i <= allBarracks[type].getMaxCount(); i++) {
                     ids.get('quantity-' + name + '-' + i).innerHTML = '';
@@ -357,8 +356,11 @@
             });
 
             var queue = {};
-            allBarracks[type].getAll().forEach(function(barrack) {
-                queue[barrack.getAttribute('id')] = {
+            var allBarracksList = allBarracks[type].getAll();
+            allBarracksList.forEach(function(barrack) {
+                var barrackId = barrack.getAttribute('id');
+                queue[barrackId] = {
+                    'id': barrackId,
                     'time': 0,
                     'space': 0,
                     'maxSpace': barracksQueueLength[type][barrack.value],
@@ -366,6 +368,8 @@
                     'level': barrack.value
                 };
             });
+
+            var avgTime = Math.ceil(totalTime / allBarracksList.length);
 
             distribution.sort(function(a, b) {
                 if (a.time < b.time) {
@@ -383,10 +387,12 @@
                 return 0;
             });
 
-            var getSuitableQueueItem = function(queue, requiredLevel, requiredSpace) {
+            var previousBarrack = null;
+            var getSuitableQueueItem = function(queue, requiredLevel, requiredSpace, requiredTime, currentName, previousName) {
                 var item = null;
                 var i;
                 var suitable = [];
+                var lowest = null;
                 for (i in queue) {
                     var current = queue[i];
                     if (current.level < requiredLevel) {
@@ -395,7 +401,17 @@
                     if ((current.space + requiredSpace) > current.maxSpace) {
                         continue;
                     }
+
+                    if ((!previousBarrack || previousBarrack.id !== current.id) && (!lowest || lowest.level > current.level)) {
+                        lowest = current;
+                    }
+
                     suitable.push(current);
+                }
+
+                if (lowest && (lowest.time + requiredTime) < (avgTime / 2)) {
+                    previousBarrack = lowest;
+                    return lowest;
                 }
 
                 if (suitable.length > 1) {
@@ -419,17 +435,20 @@
                     item = suitable[0];
                 }
 
+                previousBarrack = item;
                 return item;
             };
 
             var j;
             var distributionLength;
             var stopDistribution = false;
+            var previous = null;
             for (j = 0, distributionLength = distribution.length; j < distributionLength; j++) {
                 var kit = distribution[j];
                 var k;
                 for (k = 0; k < kit.quantity; k++) {
-                    var item = getSuitableQueueItem(queue, kit.level, kit.space);
+                    var item = getSuitableQueueItem(queue, kit.level, kit.space, kit.time, kit.name, previous);
+                    previous = kit.name;
 
                     if (item === null) {
                         stopDistribution = true;
