@@ -113,15 +113,15 @@ kbd {
     color: #444;
     cursor: pointer;
     display: inline-block;
-    padding: 1px 6px;
+    padding: 2px 6px;
     border: 1px solid #aaa;
     border-radius: 5px;
     background-color: #fcfcfc;
-    background-image: linear-gradient(to bottom, #fcfcfc, #ececec);
-    line-height: 1.2em;
+    background-image: linear-gradient(#fcfcfc, #ececec);
+    line-height: 1em;
 }
     .like-button:hover {
-        background-image: linear-gradient(to bottom, #fcfcfc, #e3e3e3);
+        background-image: linear-gradient(#fcfcfc, #e3e3e3);
     }
     .like-button:active {
         background: #e3e3e3;
