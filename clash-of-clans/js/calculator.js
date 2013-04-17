@@ -219,15 +219,16 @@
             'P-E-K-K-A-': [2700, [30000, 35000, 42000], 25, 10]
         },
         'spells': {
-            'Lightning': [3600, [15000, 16500, 18000, 20000, 22000], 1, 1],
-            'Healing': [5400, [20000, 22000, 24000, 26500, 29000], 1, 2],
-            'Rage': [7200, [30000, 33000, 36000, 40000, 44000], 1, 3],
-            'Jump': [5400, [30000, 38000], 1, 4]
+            'Lightning': [1800, [15000, 16500, 18000, 20000, 22000], 1, 1],
+            'Healing': [1800, [20000, 22000, 24000, 26500, 29000], 1, 2],
+            'Rage': [2700, [30000, 33000, 36000, 40000, 44000], 1, 3],
+            'Jump': [2700, [30000, 38000], 1, 4]
         },
         'dark': {
             'Minion': [45, [6, 7, 8, 9, 10], 2, 1],
             'Hog Rider': [300, [30, 35, 40, 45, 50], 6, 2],
-            'Valkyrie': [900, [100, 120, 140, 160], 8, 3]
+            'Valkyrie': [900, [100, 120, 140, 160], 8, 3],
+            'Golem': [2700, [450, 500, 550, 600], 30, 4]
         }
     };
     var unitsTable = ids.get('units');
@@ -236,7 +237,7 @@
 
     var barracksQueueLength = {
         'units': [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75],
-        'dark': [0, 40, 50, 60]
+        'dark': [0, 40, 50, 60, 70]
     };
 
     var darkTable = ids.get('dark');
@@ -514,7 +515,7 @@
             'table': darkTable,
             'levelValue': allBarracks.dark.getMaxLevel(),
             'space': armyCampsSpace,
-            'capLevel': 3
+            'capLevel': 4
         });
 
         setQuantityAndSpace(armyCamps.value, currentUnitsSpace, 'units');
