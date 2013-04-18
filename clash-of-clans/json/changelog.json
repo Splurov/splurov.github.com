@@ -38,7 +38,7 @@
         "2.3.1",
         "12 April, 2013",
         [
-            "The correct order for keyboard navigation through TAB key",
+            "The correct order for keyboard navigation through <kbd>TAB</kbd> key",
             "Production time for each unit separately are no longer displayed (useless information)"
         ]
     ],

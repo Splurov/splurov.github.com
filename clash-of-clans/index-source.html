@@ -265,18 +265,21 @@
 <h2>Comments</h2>
 <p>Feel free to post bugs and feature suggestions.</p>
 
-<div class="fb-comments" data-href="http://mkln.ru/clash-of-clans/" data-width="470" data-num-posts="10"></div>
+<div class="fb-comments" data-href="http://mkln.ru/clash-of-clans/" data-width="470" data-num-posts="5"></div>
 
 <h2>Changelog</h2>
 <div class="minor">
     {{#changelog}}
-        <h3>{{version}} ({{date}})</h3>
+        <h3>
+            {{version}}<br/>
+            <span class="minor__date">{{date}}</span>
+        </h3>
         {{#ch_title}}
             <p>{{ch_title}}</p>
         {{/ch_title}}
         <ul>
             {{#changes}}
-                <li>{{& change}}</li>
+                <li>{{& change}}.</li>
             {{/changes}}
         </ul>
     {{/changelog}}
@@ -285,6 +288,7 @@
 <h2>To-do</h2>
 <div class="minor">
     <ul>
+        <li>Optimize performance.</li>
         <li>Grouping units of the same type in distribution between barracks (<a href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator?p=357752&viewfull=1#post357752">link</a>).</li>
         <li>Saving data between browsers.</li>
         <li>The distribution of units in the case when the barracks can produce less than accommodating the army camps.</li>
