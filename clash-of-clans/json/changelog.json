@@ -1,0 +1,169 @@
+[
+    [
+        "2.4.3",
+        "17 April, 2013",
+        [
+            "Subtract values does not saved with “Save Calculation” feature anymore",
+            "Fixed iOS/Windows buttons height",
+            "Fixed buttons gradient on Safari/Chrome/iOS",
+            "Font for iOS changed to Arial"
+        ]
+    ],
+    [
+        "2.4.2",
+        "17 April, 2013",
+        [
+            "Dark Barracks max level increased to 4",
+            "Added Golem to Dark Barracks",
+            "Production time for spells decreased: Lighting/Healing — 30m, Rage/Jump — 45m"
+        ],
+        "3.124 updates:"
+    ],
+    [
+        "2.4.1",
+        "16 April, 2013",
+        [
+            "Added reset buttons",
+            "New appearance for buttons"
+        ]
+    ],
+    [
+        "2.4",
+        "14 April, 2013",
+        [
+            "<span id=\"subtract\">Added awesome feature to “subtract” units, which you already have. For example, you want to get 100 Barbarians and 100 Archers. And you already have 20 Barbarians. In the column “Quantity”, as usual, make 100 Barbarians and 100 Archers. And in the column “Subtract” 20 Barbarians. Now the distribution between the barracks are considered to be only for 80 Barbarians and 100 Archers. This is very useful, when after the battle you have remained part of the army</span>"
+        ]
+    ],
+    [
+        "2.3.1",
+        "12 April, 2013",
+        [
+            "The correct order for keyboard navigation through TAB key",
+            "Production time for each unit separately are no longer displayed (useless information)"
+        ]
+    ],
+    [
+        "2.3",
+        "11 April, 2013",
+        [
+            "Added lovely icon for iOS “Add to Home Screen” feature",
+            "New favicon for easy identification of the site among many open tabs",
+            "Retina graphics",
+            "Internal optimizations for better performance"
+        ]
+    ],
+    [
+        "2.2",
+        "8 April, 2013",
+        [
+            "Dark Barracks troops distribution",
+            "Removed embedded font, font changed to PT Sans/Helvetica Neue/Arial, it greatly reduced the speed of page loading",
+            "Army camps capacity increment/decrement in five points"
+        ]
+    ],
+    [
+        "2.1",
+        "13 March, 2013",
+        [
+            "Dark Barracks troops calculation"
+        ]
+    ],
+    [
+        "2.0.2",
+        "12 March, 2013",
+        [
+            "Wall Breaker capacity increased from 1 to 2",
+            "P.E.K.K.A. training time reduced from 1 hour to 45 minutes",
+            "P.E.K.K.A. and Dragon costs reduced"
+        ],
+        "3.54 updates:"
+    ],
+    [
+        "2.0.1",
+        "5 March, 2013",
+        [
+            "Fixed a bug in which the units were distributed in barracks without accounting maximum barracks queue",
+            "Fixed bug with negative number of units"
+        ]
+    ],
+    [
+        "2.0",
+        "28 February, 2013",
+        [
+            "Added distribution of troops between barracks for optimal training speed",
+            "The previous values of the maximum level and number of barracks, unfortunately, have not saved",
+            "Production Time removed from saved calculations list",
+            "Simplified tables layouts"
+        ]
+    ],
+    [
+        "1.5",
+        "26 February, 2013",
+        [
+            "Reduced indents and font sizes",
+            "The list of saved calculations is always shown",
+            "Redesigned saved calculations layout"
+        ]
+    ],
+    [
+        "1.4",
+        "17 February, 2013",
+        [
+            "Added saving of calculations"
+        ]
+    ],
+    [
+        "1.3.2",
+        "10 February, 2013",
+        [
+            "Added description of the calculator",
+            "Default values changed to maximum allowed in game"
+        ]
+    ],
+    [
+        "1.3.1",
+        "9 February, 2013",
+        [
+            "Added auto-select of text in fields for simplify edit in iOS",
+            "Fixed NaN in results and null in fields bug"
+        ]
+    ],
+    [
+        "1.3",
+        "8 February, 2013",
+        [
+            "The title is replaced by the more similar to the contents of the page",
+            "Added description for auto-save feature",
+            "Added army camps capacity — allows to show free capacity",
+            "Added maximum barracks level — allows show/hide unavailable units",
+            "Added spells calculation"
+        ]
+    ],
+    [
+        "1.2",
+        "6 February, 2013",
+        [
+            "Added plus/minus buttons",
+            "Fixed IE 9+ support",
+            "Changed favicon to app store game icon",
+            "Added elixir icon to costs",
+            "Added intermediate results of the calculations to the units table"
+        ]
+    ],
+    [
+        "1.1",
+        "5 February, 2013",
+        [
+            "Added sixth level for Barbarian, Archer, Giant and Balloon",
+            "Fixed Healer 1st level cost",
+            "Number of barracks field replaced by the select"
+        ]
+    ],
+    [
+        "1.0",
+        "4 February, 2013",
+        [
+            "Initial release"
+        ]
+    ]
+]

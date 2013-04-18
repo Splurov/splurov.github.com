@@ -12,7 +12,7 @@ require('buffer');
 
 var sources = {
     'index-source.html': {'ru': [false, 0], 'en': [true, 1]},
-    'clash-of-clans/index-source.html': {'en': [false, 1]},
+    'clash-of-clans/index-source.html': {'en': [false, 1, true]},
     '404-source.html': {'en': [false, 1]}
 };
 
@@ -83,6 +83,26 @@ for (var file in sources) {
         var translationsCurrent = {};
         for (var trName in translations) {
             translationsCurrent[trName] = translations[trName][options[1]];
+        }
+
+        if (options[2]) {
+            var changelog = require('../clash-of-clans/json/changelog.json');
+            var changelogParsed = [];
+            changelog.forEach(function(v) {
+                var entry = {
+                    'version': v[0],
+                    'date': v[1],
+                    'changes': []
+                };
+                if (v[3]) {
+                    entry.ch_title = v[3];
+                }
+                v[2].forEach(function(sv) {
+                    entry.changes.push({'change': sv});
+                });
+                changelogParsed.push(entry);
+            });
+            translationsCurrent.changelog = changelogParsed;
         }
 
         var dataDest = currentTemplate.render(translationsCurrent);

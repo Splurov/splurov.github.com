@@ -69,23 +69,23 @@ kbd {
         font-size: 14px;
     }
 
-.changelog {
-    border-spacing: 0;
+.minor {
     margin-bottom: 12px;
     font-size: 14px;
     max-width: 800px;
 }
-    .changelog td {
-        padding: 2px 24px 3px 0;
-        vertical-align: top;
+    .minor ul {
+        padding: 0;
+        margin: 0 0 3px 15px;
     }
-    .changelog__date {
-        white-space: nowrap;
+    .minor p {
+        margin: 0 0 1px 0;
+    }
+    .minor h3 {
+        font-size: 14px;
+        margin: 12px 0 2px;
     }
 
-.todo {
-    font-size: 14px;
-}
 
 .cost-elixir {
     background-position: 100% 50%;
