@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
+    {{#web_only}}
     <title>{{coc_title}}</title>
     <meta name="description" content="{{coc_description}}"/>
+    {{/web_only}}
     <link rel="stylesheet" type="text/css" href="../css/design.css"/>
     <link rel="stylesheet" type="text/css" href="css/calculator.css"/>
+    {{#web_only}}
     <script src="js/favicon.js"></script>
     <link rel="icon" href="/clash-of-clans/i/favicon-v2.png"/>
     <link rel="apple-touch-icon-precomposed" href="/clash-of-clans/i/app-icons/57x57.png"/>
@@ -14,9 +17,11 @@
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/clash-of-clans/i/app-icons/144x144.png"/>
     <meta name="apple-mobile-web-app-title" content="{{coc_title_web_clip}}" />
     <meta property="fb:admins" content="splurov"/>
+    {{/web_only}}
 </head>
 <body>
 
+{{#web_only}}
 <h1>{{coc_title}}</h1>
 
 <div class="intro">
@@ -24,6 +29,7 @@
 
     <p>All entered data will be saved in your browser and pre-filled in next time you visit this page.</p>
 </div>
+{{/web_only}}
 
 <table class="units units_common">
     <tr>
@@ -245,6 +251,7 @@
 
 <script src="js/calculator.js"></script>
 
+{{#web_only}}
 <!-- Yandex.Metrika counter -->
 <script src="../js/ya-metrika.js"></script>
 {{& ya_metrika_noscript}}
@@ -292,6 +299,7 @@
 <div class="footer">
     Developed by <a href="/en/">Mikhail Kalashnik</a>
 </div>
+{{/web_only}}
 
 </body>
 </html>

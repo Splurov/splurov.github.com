@@ -12,7 +12,7 @@ require('buffer');
 
 var sources = {
     'index-source.html': {'ru': [false, 0], 'en': [true, 1]},
-    'clash-of-clans/index-source.html': {'en': [false, 1, true]},
+    'clash-of-clans/index-source.html': {'en': [false, 1, true], 'json': [false, 1, true]},
     '404-source.html': {'en': [false, 1]}
 };
 
@@ -79,16 +79,25 @@ for (var file in sources) {
     var currentTemplate = hogan.compile(dataSource);
 
     for (var lang in sources[file]) {
+        var jsonOutput = false;
+        if (lang === 'json') {
+            jsonOutput = true;
+            lang = 'en';
+        }
         var options = sources[file][lang];
         var translationsCurrent = {};
         for (var trName in translations) {
             translationsCurrent[trName] = translations[trName][options[1]];
         }
 
+        var latestVersion;
         if (options[2]) {
             var changelog = require('../clash-of-clans/json/changelog.json');
             var changelogParsed = [];
-            changelog.forEach(function(v) {
+            changelog.forEach(function(v, k) {
+                if (k === 0) {
+                    latestVersion = v[0];
+                }
                 var entry = {
                     'version': v[0],
                     'date': v[1],
@@ -105,16 +114,33 @@ for (var file in sources) {
             translationsCurrent.changelog = changelogParsed;
         }
 
-        var dataDest = currentTemplate.render(translationsCurrent);
+        if (jsonOutput) {
+            var dataForJson = currentTemplate.render(translationsCurrent);
+            var jsonData = {
+                'clash_of_clans': {
+                    'code': {
+                        'html': dataForJson,
+                        'version': latestVersion
+                    }
+                },
+                'error': 0
+            };
 
-        var currentDir = dir;
-        if (options[0]) {
-            currentDir += lang + '/';
+            fs.writeFileSync(currentDir + 'api/getUpdates.json', JSON.stringify(jsonData));
+            console.log('json coc done');
+        } else {
+            translationsCurrent.web_only = true;
+            var dataDest = currentTemplate.render(translationsCurrent);
+
+            var currentDir = dir;
+            if (options[0]) {
+                currentDir += lang + '/';
+            }
+
+            var destName = path.basename(file).replace('-source', '');
+            fs.writeFileSync(currentDir + destName, dataDest);
+            console.log('done: ' + lang + ' ' + file);
         }
-
-        var destName = path.basename(file).replace('-source', '');
-        fs.writeFileSync(currentDir + destName, dataDest);
-        console.log('done: ' + lang + ' ' + file);
     }
 
 }
