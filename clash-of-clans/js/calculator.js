@@ -572,7 +572,6 @@
         });
     });
     armyCamps.addEventListener('input', calculate, false);
-    armyCamps.addEventListener('touchstart', calculate, false);
     spellFactoryLevel.addEventListener('change', calculate, false);
 
 
