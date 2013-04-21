@@ -5,6 +5,7 @@
         [
             "Removed “Cost” column",
             "Removed background highlighting on table rows",
+            "Removed help link for subtract",
             "Form controls optimized for touch-devices",
             "Wikia links",
             "Fixed a bug in which a long press on the plus/minus led to the selection of the text",
@@ -43,7 +44,7 @@
         "2.4",
         "14 April, 2013",
         [
-            "<span id=\"subtract\">Added awesome feature to “subtract” units, which you already have. For example, you want to get 100 Barbarians and 100 Archers. And you already have 20 Barbarians. In the column “Quantity”, as usual, make 100 Barbarians and 100 Archers. And in the column “Subtract” 20 Barbarians. Now the distribution between the barracks are considered to be only for 80 Barbarians and 100 Archers. This is very useful, when after the battle you have remained part of the army</span>"
+            "Added awesome feature to “subtract” units, which you already have. For example, you want to get 100 Barbarians and 100 Archers. And you already have 20 Barbarians. In the column “Quantity”, as usual, make 100 Barbarians and 100 Archers. And in the column “Subtract” 20 Barbarians. Now the distribution between the barracks are considered to be only for 80 Barbarians and 100 Archers. This is very useful, when after the battle you have remained part of the army"
         ]
     ],
     [

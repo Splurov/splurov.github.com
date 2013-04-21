@@ -722,6 +722,7 @@
 
     var resetColumn = function(e) {
         e.preventDefault();
+        e.stopPropagation();
         objectIterate(types[e.target.getAttribute('data-type')], function(k) {
             var key = k;
             var scope = e.target.getAttribute('data-scope');
@@ -847,6 +848,7 @@
 
         var loadSaved = function(e) {
             e.preventDefault();
+            e.stopPropagation();
             savedData = new Dict(objectCopy(savedCalculations.retrieve(e.target.getAttribute('data-num')).getAll()));
             setDefaults();
             calculate();
@@ -860,6 +862,7 @@
 
         var deleteSaved = function(e) {
             e.preventDefault();
+            e.stopPropagation();
             savedCalculations.remove(e.target.getAttribute('data-num'));
             savedCalculationsStorage.save(savedCalculations.getAll());
             savedListCreateItems();
@@ -873,6 +876,7 @@
 
     var save = function(e) {
         e.preventDefault();
+        e.stopPropagation();
         var dataToSave = objectCopy(savedData.getAll());
         objectIterate(dataToSave, function(k) {
             if (k.indexOf('subtract') !== -1) {

@@ -140,7 +140,7 @@ input[type=number]::-webkit-inner-spin-button {
     user-select: none;
 }
     .like-button:hover {
-        background-image: linear-gradient(#fcfcfc, #e3e3e3);
+        background-image: linear-gradient(#fcfcfc, #e0e0e0);
     }
     .like-button:active {
         background: #e3e3e3;
