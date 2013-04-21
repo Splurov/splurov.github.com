@@ -742,7 +742,7 @@
     setDefaults();
     calculate();
 
-    if (window.device && window.device.phonegap) {
+    if (window.device && window.device.cordova) {
         Array.prototype.slice.call(document.getElementsByClassName('js-link')).forEach(function(el) {
             var href = el.getAttribute('href');
             el.removeAttribute('target');
