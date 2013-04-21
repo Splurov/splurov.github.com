@@ -611,9 +611,7 @@
                 e.preventDefault();
                 e.stopPropagation();
                 click = true;
-                console.log('pre test');
                 timeout = window.setTimeout(function() {
-                    console.log('test');
                     click = false;
                     interval = window.setInterval((type === 'plus' ? plus : minus), 100);
                 }, 500);
@@ -621,7 +619,6 @@
             var release = function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log(click);
                 if (click) {
                     (type === 'plus' ? plus : minus)();
                 }
