@@ -609,6 +609,7 @@
             var click = false;
             var hold = function(e) {
                 e.preventDefault();
+                e.stopPropagation();
                 click = true;
                 console.log('pre test');
                 timeout = window.setTimeout(function() {
@@ -619,6 +620,7 @@
             };
             var release = function(e) {
                 e.preventDefault();
+                e.stopPropagation();
                 console.log(click);
                 if (click) {
                     (type === 'plus' ? plus : minus)();
@@ -626,10 +628,10 @@
                 clearTimeout(timeout);
                 clearInterval(interval);
             };
-            span.addEventListener('mousedown', hold);
-            span.addEventListener('mouseup', release);
             span.addEventListener('touchstart', hold);
             span.addEventListener('touchend', release);
+            span.addEventListener('mousedown', hold);
+            span.addEventListener('mouseup', release);
             el.parentNode.appendChild(span);
         };
 
