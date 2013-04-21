@@ -34,7 +34,7 @@
 <table class="units units_common">
     <tr>
         <td>
-            <label for="barracks-levels-1">Barracks Levels</label>
+            <label for="barracks-levels-1"><a href="http://clashofclans.wikia.com/wiki/Barracks" class="wikia-link" target="_blank">Barracks</a> Levels</label>
         </td>
         <td>
             <select id="barracks-levels-1" class="field" tabindex="1">
@@ -93,7 +93,7 @@
 
     <tr>
         <td>
-            <label for="dark-barracks-levels-1">Dark Barracks Level</label>
+            <label for="dark-barracks-levels-1"><a href="http://clashofclans.wikia.com/wiki/Dark_Barracks" class="wikia-link" target="_blank">Dark Barracks</a> Levels</label>
         </td>
         <td>
             <select id="dark-barracks-levels-1" class="field" tabindex="20">
@@ -115,16 +115,16 @@
 
     <tr>
         <td>
-            <label for="army-camps">Army Camps Capacity</label>
+            <label for="army-camps"><a href="http://clashofclans.wikia.com/wiki/Army_Camp" class="wikia-link" target="_blank">Army Camps</a> Capacity</label>
         </td>
         <td>
-            <input class="js-number field" data-multiplier="5" value="220" id="army-camps" size="4" tabindex="30"/>
+            <input type="number" step="5" min="20" max="220" class="js-number field" data-multiplier="5" value="220" id="army-camps" size="3" tabindex="30"/>
         </td>
     </tr>
 
     <tr>
         <td>
-            <label for="spell-factory-level">Spell Factory Level</label>
+            <label for="spell-factory-level"><a href="http://clashofclans.wikia.com/wiki/Spell_Factory" class="wikia-link" target="_blank">Spell Factory</a> Level</label>
         </td>
         <td>
             <select id="spell-factory-level" class="field" tabindex="35">
@@ -143,14 +143,13 @@
         <tr>
             <th>Unit</th>
             <th>Level</th>
-            <th><span class="cost-elixir">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="units-quantity"></span></th>
             <th><span class="cost-elixir">Total</span></th>
             <th>Subtract (<a href="#subtract">?</a>)</th>
             <th colspan="4">Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="units-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="2"></td>
             <td><span class="like-button js-reset" data-type="units" data-scope="quantity">Reset</span></td>
             <td></td>
             <td><span class="like-button js-reset" data-type="units" data-scope="subtract">Reset</span></td>
@@ -164,7 +163,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="2"></td>
             <td id="units-space" class="result"></td>
             <td id="units-cost" class="number result"></td>
             <td></td>
@@ -181,14 +180,13 @@
         <tr>
             <th>Unit</th>
             <th>Level</th>
-            <th><span class="cost-dark-elixir">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="dark-quantity"></span></th>
             <th><span class="cost-dark-elixir">Total</span></th>
             <th>Subtract (<a href="#subtract">?</a>)</th>
             <th colspan="2">Dark Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="dark-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="2"></td>
             <td><span class="like-button js-reset" data-type="dark" data-scope="quantity">Reset</span></td>
             <td></td>
             <td><span class="like-button js-reset" data-type="dark" data-scope="subtract">Reset</span></td>
@@ -200,7 +198,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="2"></td>
             <td id="dark-space" class="result"></td>
             <td id="dark-cost" class="number result"></td>
             <td></td>
@@ -215,7 +213,6 @@
         <tr>
             <th>Spell</th>
             <th>Level</th>
-            <th><span class="cost-gold">Cost</span></th>
             <th>Quantity <span class="units-quantity" title="Free Capacity" id="spells-quantity"></span></th>
             <th><span class="cost-gold">Total</span></th>
         </tr>
@@ -224,7 +221,7 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="2"></td>
             <td class="result">
                 <span id="spells-space"></span>
                 —

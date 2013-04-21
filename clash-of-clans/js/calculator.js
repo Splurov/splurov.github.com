@@ -45,6 +45,11 @@
     };
 
 
+    var getWikiaLink = function(s, isSpell) {
+        return 'http://clashofclans.wikia.com/wiki/' + s.replace(' ', '_') + (isSpell ? '_Spell' : '');
+    };
+
+
     var getFormattedTime = function(time, hideSeconds) {
         var formattedTime = '';
         var remainingTime = time;
@@ -567,6 +572,7 @@
         });
     });
     armyCamps.addEventListener('input', calculate, false);
+    armyCamps.addEventListener('touchstart', calculate, false);
     spellFactoryLevel.addEventListener('change', calculate, false);
 
 
@@ -574,7 +580,7 @@
 
         var multiplier = parseInt(el.getAttribute('data-multiplier'), 10) || 1;
 
-        var plus = function() {
+        var plus = function(e) {
             var current = parseInt(el.value, 10);
             if (isNaN(current)) {
                 el.value = multiplier;
@@ -584,7 +590,7 @@
             calculate();
         };
 
-        var minus = function() {
+        var minus = function(e) {
             var current = parseInt(el.value, 10);
             if (isNaN(current) || current < 2) {
                 el.value = 0;
@@ -599,19 +605,32 @@
             span.className = 'like-button like-button_after';
             span.innerHTML = (type === 'plus' ? '+' : '−');
 
-            span.addEventListener('click', (type === 'plus' ? plus : minus), false);
-
             var interval = null;
             var timeout = null;
-            span.addEventListener('mousedown', function() {
+            var click = false;
+            var hold = function(e) {
+                e.preventDefault();
+                click = true;
+                console.log('pre test');
                 timeout = window.setTimeout(function() {
+                    console.log('test');
+                    click = false;
                     interval = window.setInterval((type === 'plus' ? plus : minus), 100);
                 }, 500);
-            });
-            span.addEventListener('mouseup', function() {
+            };
+            var release = function(e) {
+                e.preventDefault();
+                console.log(click);
+                if (click) {
+                    (type === 'plus' ? plus : minus)();
+                }
                 clearTimeout(timeout);
                 clearInterval(interval);
-            });
+            };
+            span.addEventListener('mousedown', hold);
+            span.addEventListener('mouseup', release);
+            span.addEventListener('touchstart', hold);
+            span.addEventListener('touchend', release);
             el.parentNode.appendChild(span);
         };
 
@@ -637,9 +656,11 @@
 
         var itemsBody = ids.get(type + '-body');
         objectIterate(items, function(name, value) {
+            var convertedName = convertToTitle(name);
             var templateVars = {
                 'id': name,
-                'title': convertToTitle(name),
+                'title': convertedName,
+                'titleLink': getWikiaLink(convertedName, (type === 'spells')),
                 'levelId': name + '-level',
                 'levelContent': value[1].map(createLevelOption),
                 'costId': name + '-cost',

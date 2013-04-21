@@ -11,6 +11,17 @@ kbd {
     padding: 0 4px;
 }
 
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.wikia-link:link, .wikia-link:visited {
+    color: inherit;
+    background: url(/clash-of-clans/i/external-link.png) no-repeat 100% 4px;
+    background-size: 10px 10px;
+    padding-right: 15px;
+}
+
 .field {
     font-family: inherit;
     font-size: inherit;
@@ -30,7 +41,7 @@ kbd {
     }
     .units th {
         text-align: left;
-        padding: 1px 10px 2px;
+        padding: 1px 9px 2px;
         white-space: nowrap;
         border-bottom: 1px solid #ddd;
         border-right: 1px solid #ddd;
@@ -44,7 +55,7 @@ kbd {
     }
 
     .units td {
-        padding: 2px 10px 3px;
+        padding: 2px 9px 3px;
         white-space: nowrap;
         border-bottom: 1px solid #ddd;
         border-right: 1px solid #ddd;
@@ -131,6 +142,7 @@ kbd {
     background-color: #fcfcfc;
     background-image: linear-gradient(#fcfcfc, #ececec);
     line-height: 1em;
+    user-select: none;
 }
     .like-button:hover {
         background-image: linear-gradient(#fcfcfc, #e3e3e3);

@@ -1,6 +1,6 @@
     <tr id="{{rowId}}">
         <td>
-            <label for="{{id}}">{{title}}</label>
+            <a href="{{titleLink}}" class="wikia-link" target="_blank">{{title}}</a>
         </td>
         <td>
             <select id="{{levelId}}" class="field" tabindex="{{tabIndexLevel}}">
@@ -8,8 +8,7 @@
                     <option value="{{value}}">{{text}}</option>
                 {{/levelContent}}
             </select>
-        </td>
-        <td id="{{costId}}" class="number">
+            <span class="hidden" id="{{costId}}"></span>
         </td>
         <td>
             {{#spells}}
@@ -20,14 +19,14 @@
                 </select>
             {{/spells}}
             {{^spells}}
-                <input class="js-number field" id="{{id}}" size="3" tabindex="{{tabIndexValue}}"/>
+                <input type="number" min="0" max="220" class="js-number field" id="{{id}}" size="3" tabindex="{{tabIndexValue}}"/>
             {{/spells}}
         </td>
         <td id="{{summaryId}}" class="number">
         </td>
         {{#subtractId}}
             <td>
-               <input class="js-number field" id="{{subtractId}}" size="3" tabindex="{{tabIndexSubtract}}"/>
+               <input type="number" min="0" max="220" class="js-number field" id="{{subtractId}}" size="3" tabindex="{{tabIndexSubtract}}"/>
             </td>
         {{/subtractId}}
         {{#barracksTimes}}

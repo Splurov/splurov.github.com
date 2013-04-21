@@ -1,5 +1,16 @@
 [
     [
+        "2.4.4",
+        "21 April, 2013",
+        [
+            "Removed “Cost” column",
+            "Form controls optimized for touch-devices",
+            "Wikia links",
+            "Fixed a bug in which a long press on the plus/minus led to the selection of the text",
+            "Reduced internal indent in the tables"
+        ]
+    ],
+    [
         "2.4.3",
         "17 April, 2013",
         [
