@@ -112,6 +112,8 @@ for (var file in sources) {
 
         if (jsonOutput) {
             var dataForJson = currentTemplate.render(translationsCurrent);
+            dataForJson = dataForJson.replace(/^\s+/gm, '');
+            dataForJson = dataForJson.replace(/\n+/g, ' ');
             var jsonData = {
                 'clash_of_clans': {
                     'code': {
