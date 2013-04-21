@@ -32,7 +32,30 @@
 {{/web_only}}
 
 {{^web_only}}
-<p>Last Update: <span id="app_version" style="font-weight: bold;"></span></p>
+<style>
+    .app-version-updated {
+        display: none;
+    }
+    #app_version.updated + .app-version-updated {
+        position: absolute;
+        top: 30px;
+        left: -12px;
+        border: 2px solid #900;
+        border-radius: 10px;
+        padding: 10px;
+        display: block;
+        background: #ffeeee;
+        font-weight: bold;
+    }
+</style>
+<p style="position: relative;">Last Update: <span id="app_version" class="updated"></span> <span id="app-updated" class="app-version-updated">Version updated!</span></p>
+<script>
+    document.getElementById('app-updated').ontouchend = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        document.getElementById('app_version').className = '';
+    };
+</script>
 {{/web_only}}
 
 <table class="units units_common">
