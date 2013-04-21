@@ -721,18 +721,22 @@
         setSpinner(el);
     });
 
+    var resetColumn = function(e) {
+        e.preventDefault();
+        objectIterate(types[e.target.getAttribute('data-type')], function(k) {
+            var key = k;
+            var scope = e.target.getAttribute('data-scope');
+            if (scope !== 'quantity') {
+                key += '-' + scope;
+            }
+            ids.get(key).value = '0';
+        });
+        calculate();
+    };
+
     Array.prototype.slice.call(document.getElementsByClassName('js-reset')).forEach(function(el) {
-        el.addEventListener('click', function() {
-            objectIterate(types[el.getAttribute('data-type')], function(k) {
-                var key = k;
-                var scope = el.getAttribute('data-scope');
-                if (scope !== 'quantity') {
-                    key += '-' + scope;
-                }
-                ids.get(key).value = '0';
-            });
-            calculate();
-        }, false);
+        el.addEventListener('click', resetColumn, false);
+        el.addEventListener('touchend', resetColumn, false);
     });
 
     setDefaults();
@@ -842,25 +846,34 @@
         var savedListContent = ids.get('saved-list-content');
         savedListContent.innerHTML = content.join('');
 
+        var loadSaved = function(e) {
+            e.preventDefault();
+            savedData = new Dict(objectCopy(savedCalculations.retrieve(e.target.getAttribute('data-num')).getAll()));
+            setDefaults();
+            calculate();
+            savedListCreateItems();
+        };
+
         Array.prototype.slice.call(savedListContent.getElementsByClassName('js-saved-load')).forEach(function(el) {
-            el.addEventListener('click', function() {
-                savedData = new Dict(objectCopy(savedCalculations.retrieve(el.getAttribute('data-num')).getAll()));
-                setDefaults();
-                calculate();
-                savedListCreateItems();
-            }, false);
+            el.addEventListener('click', loadSaved, false);
+            el.addEventListener('touchend', loadSaved, false);
         });
 
+        var deleteSaved = function(e) {
+            e.preventDefault();
+            savedCalculations.remove(e.target.getAttribute('data-num'));
+            savedCalculationsStorage.save(savedCalculations.getAll());
+            savedListCreateItems();
+        };
+
         Array.prototype.slice.call(savedListContent.getElementsByClassName('js-saved-delete')).forEach(function(el) {
-            el.addEventListener('click', function() {
-                savedCalculations.remove(el.getAttribute('data-num'));
-                savedCalculationsStorage.save(savedCalculations.getAll());
-                savedListCreateItems();
-            }, false);
+            el.addEventListener('click', deleteSaved, false);
+            el.addEventListener('touchend', deleteSaved, false);
         });
     };
 
-    ids.get('save').addEventListener('click', function() {
+    var save = function(e) {
+        e.preventDefault();
         var dataToSave = objectCopy(savedData.getAll());
         objectIterate(dataToSave, function(k) {
             if (k.indexOf('subtract') !== -1) {
@@ -870,7 +883,10 @@
         savedCalculations.insert(dataToSave);
         savedCalculationsStorage.save(savedCalculations.getAll());
         savedListCreateItems();
-    }, false);
+    };
+
+    ids.get('save').addEventListener('click', save, false);
+    ids.get('save').addEventListener('touchend', save, false);
 
     savedListCreateItems();
 

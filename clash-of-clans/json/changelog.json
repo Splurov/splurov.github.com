@@ -4,6 +4,7 @@
         "21 April, 2013",
         [
             "Removed “Cost” column",
+            "Removed background highlighting on table rows",
             "Form controls optimized for touch-devices",
             "Wikia links",
             "Fixed a bug in which a long press on the plus/minus led to the selection of the text",

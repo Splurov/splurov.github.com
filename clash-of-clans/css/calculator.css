@@ -71,11 +71,6 @@ input[type=number]::-webkit-inner-spin-button {
         border-bottom-right-radius: 10px;
     }
 
-    .units tbody tr:hover td {
-        background: #f9f9f9;
-    }
-
-
     .units-quantity {
         font-size: 14px;
     }
