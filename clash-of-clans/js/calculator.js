@@ -742,6 +742,19 @@
     setDefaults();
     calculate();
 
+    if (window.device && window.device.phonegap) {
+        Array.prototype.slice.call(document.getElementsByClassName('js-link')).forEach(function(el) {
+            var href = el.getAttribute('href');
+            el.removeAttribute('target');
+            el.setAttribute('href', '#');
+            el.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                app.open_browser(href);
+            });
+        });
+    }
+
 
     var savedCalculationsStorage = new DataStorage('savedCalculations', []);
     var savedCalculations = new MultiDict(savedCalculationsStorage.load());
