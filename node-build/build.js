@@ -90,14 +90,10 @@ for (var file in sources) {
             translationsCurrent[trName] = translations[trName][options[1]];
         }
 
-        var latestVersion;
         if (options[2]) {
             var changelog = require('../clash-of-clans/json/changelog.json');
             var changelogParsed = [];
             changelog.forEach(function(v, k) {
-                if (k === 0) {
-                    latestVersion = v[0];
-                }
                 var entry = {
                     'version': v[0],
                     'date': v[1],
@@ -120,7 +116,7 @@ for (var file in sources) {
                 'clash_of_clans': {
                     'code': {
                         'html': dataForJson,
-                        'version': latestVersion
+                        'version': (new Date()).getTime()
                     }
                 },
                 'error': 0
