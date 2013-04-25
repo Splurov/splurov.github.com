@@ -145,7 +145,7 @@
             <label for="army-camps"><a href="http://clashofclans.wikia.com/wiki/Army_Camp" class="wikia-link js-link" target="_blank">Army Camps</a> Capacity</label>
         </td>
         <td>
-            <input type="number" step="5" min="20" max="220" class="js-number field" data-multiplier="5" value="220" id="army-camps" size="3" tabindex="30"/>
+            <input type="number" data-object-type="all" step="5" min="20" max="220" class="js-number field" data-multiplier="5" value="220" id="army-camps" size="3" tabindex="30"/>
         </td>
     </tr>
 
@@ -177,9 +177,9 @@
         </tr>
         <tr>
             <td colspan="2"></td>
-            <td><span class="like-button js-reset" data-type="units" data-scope="quantity">Reset</span></td>
+            <td><span class="like-button js-reset" data-reset-type="units" data-scope="quantity">Reset</span></td>
             <td></td>
-            <td><span class="like-button js-reset" data-type="units" data-scope="subtract">Reset</span></td>
+            <td><span class="like-button js-reset" data-reset-type="units" data-scope="subtract">Reset</span></td>
             <td id="units-barrack-header-1"></td>
             <td id="units-barrack-header-2"></td>
             <td id="units-barrack-header-3"></td>
@@ -214,9 +214,9 @@
         </tr>
         <tr>
             <td colspan="2"></td>
-            <td><span class="like-button js-reset" data-type="dark" data-scope="quantity">Reset</span></td>
+            <td><span class="like-button js-reset" data-reset-type="dark" data-scope="quantity">Reset</span></td>
             <td></td>
-            <td><span class="like-button js-reset" data-type="dark" data-scope="subtract">Reset</span></td>
+            <td><span class="like-button js-reset" data-reset-type="dark" data-scope="subtract">Reset</span></td>
             <td id="dark-barrack-header-1"></td>
             <td id="dark-barrack-header-2"></td>
         </tr>
@@ -312,7 +312,6 @@
 <h2>To-do</h2>
 <div class="minor">
     <ul>
-        <li>Optimize performance.</li>
         <li>Grouping units of the same type in distribution between barracks (<a href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator?p=357752&viewfull=1#post357752">link</a>).</li>
         <li>Saving data between browsers.</li>
         <li>The distribution of units in the case when the barracks can produce less than accommodating the army camps.</li>

@@ -3,12 +3,23 @@
     'use strict';
 
 
+    var toArray = function(likeArrayObject) {
+        var resultArray = [];
+        var i;
+        var l;
+        for (i = 0, l = likeArrayObject.length; i < l; i++) {
+            resultArray.push(likeArrayObject[i]);
+        }
+        return resultArray;
+    };
+
+
     if (!Function.prototype.bind) {
         Function.prototype.bind = function(context) {
             var self = this;
-            var args = Array.prototype.slice.call(arguments, 1);
+            var args = toArray(arguments).slice(1);
             return function() {
-                return self.apply(context, args.concat(Array.prototype.slice.call(arguments)));
+                return self.apply(context, args.concat(toArray(arguments)));
             };
         };
     }
@@ -139,12 +150,12 @@
 
 
     var IdsCacher = function() {
-        var elements = {};
+        this.elements = {};
         this.get = function(id) {
-            if (!elements.hasOwnProperty(id)) {
-                elements[id] = document.getElementById(id);
+            if (!this.elements.hasOwnProperty(id)) {
+                this.elements[id] = document.getElementById(id);
             }
-            return elements[id];
+            return this.elements[id];
         };
     };
 
@@ -155,17 +166,20 @@
     var savedDataStorage = new DataStorage('savedData', {});
     var savedData = new Dict(savedDataStorage.load());
 
-    var BarracksContainer = function(maxCount, selectName, saveName) {
+    var BarracksContainer = function(maxCount, selectName, saveName, queueLengths) {
         this.barracks = [];
+        this.maxCount = maxCount;
+        this.saveName = saveName;
+        this.queueLengths = queueLengths;
 
         var i;
-        for (i = 1; i <= maxCount; i++) {
+        for (i = 1; i <= this.maxCount; i++) {
             var barrack = ids.get(selectName + '-' + i);
             this.barracks.push(barrack);
         }
 
         this.setDefaults = function() {
-            var saved = savedData.get(saveName);
+            var saved = savedData.get(this.saveName);
             if (saved) {
                 this.barracks.forEach(function(el, i) {
                     el.options[saved[i]].selected = true;
@@ -174,7 +188,7 @@
         };
 
         this.updateSavedData = function() {
-            savedData.set(saveName, this.barracks.map(function(el) {
+            savedData.set(this.saveName, this.barracks.map(function(el) {
                 return el.selectedIndex;
             }));
         };
@@ -185,25 +199,42 @@
             }));
         };
 
-        this.getAll = function() {
+        this.getAllNormalized = function() {
+            return this.barracks.map(function(el) {
+                return {
+                    'id': el.getAttribute('id'),
+                    'level': el.value,
+                    'queueLength': this.queueLengths[el.value]
+                };
+            }, this);
+        };
+
+        this.getElements = function() {
             return this.barracks;
         };
 
-        this.getLevels = function() {
-            return this.barracks.map(function(el) {
-                return el.value;
-            });
-        };
-
         this.getMaxCount = function() {
-            return maxCount;
+            return this.maxCount;
         };
 
+        this.getCapLevel = function() {
+            return this.barracks[0].options[this.barracks[0].options.length - 1].value;
+        };
     };
 
     var allBarracks = {
-        'units': new BarracksContainer(4, 'barracks-levels', 'barracksLevels'),
-        'dark': new BarracksContainer(2, 'dark-barracks-levels', 'darkBarracksLevels')
+        'units': new BarracksContainer(
+            4,
+            'barracks-levels',
+            'barracksLevels',
+            [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75]
+        ),
+        'dark': new BarracksContainer(
+            2,
+            'dark-barracks-levels',
+            'darkBarracksLevels',
+            [0, 40, 50, 60, 70]
+        )
     };
 
     var armyCamps = ids.get('army-camps');
@@ -236,18 +267,12 @@
             'Golem': [2700, [450, 500, 550, 600], 30, 4]
         }
     };
-    var unitsTable = ids.get('units');
 
-    var spellsTable = ids.get('spells');
 
-    var barracksQueueLength = {
-        'units': [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75],
-        'dark': [0, 40, 50, 60, 70]
+    var currentSpace = {
+        'units': 0,
+        'dark': 0
     };
-
-    var darkTable = ids.get('dark');
-
-    var currentUnitsSpace = 0;
 
 
     var setQuantityAndSpace = function(maxSpace, totalSpace, type) {
@@ -257,16 +282,103 @@
         }
         ids.get(type + '-quantity').innerHTML = '(' + spaceDiff + ')';
 
+        var space = totalSpace;
         if (totalSpace > maxSpace) {
-            totalSpace = '<span class="limit-exceeded">' + totalSpace + '</span>';
+            space = '<span class="limit-exceeded">' + totalSpace + '</span>';
         }
-        totalSpace = totalSpace + ' / ' + maxSpace;
-        ids.get(type + '-space').innerHTML = totalSpace;
+        space = space + ' / ' + maxSpace;
+        ids.get(type + '-space').innerHTML = space;
     };
 
 
-    var calculateItems = function(items, type, params) {
-        params.table.style.display = (params.levelValue === 0 ? 'none' : '');
+    var suitableBarracksSort = function(a, b) {
+        if (a.time < b.time) {
+            return -1;
+        }
+        if (a.time > b.time) {
+            return 1;
+        }
+        if (a.space < b.space) {
+            return -1;
+        }
+        if (a.space > b.space) {
+            return 1;
+        }
+        return 0;
+    };
+
+
+    var getSuitableBarrack = function(barracks, requiredLevel, requiredSpace) {
+        var i;
+        var suitable = [];
+        objectIterate(barracks, function(key, barrack) {
+            if (barrack.level >= requiredLevel && (barrack.space + requiredSpace) <= barrack.maxSpace) {
+                suitable.push(barrack);
+            }
+        });
+
+        if (!suitable.length) {
+            return null;
+        }
+
+        if (suitable.length > 1) {
+            suitable.sort(suitableBarracksSort);
+        }
+
+        return suitable[0];
+    };
+
+
+    var unitsDistributionSort = function(a, b) {
+        if (a.time < b.time) {
+            return 1;
+        }
+        if (a.time > b.time) {
+            return -1;
+        }
+        if (a.quantity > b.quantity) {
+            return -1;
+        }
+        if (a.quantity < b.quantity) {
+            return 1;
+        }
+        return 0;
+    };
+
+
+    var fillBarracks = function(barracksQueue, unitsDistribution) {
+        var distributionLength;
+        var stopDistribution = false;
+        unitsDistribution.forEach(function(kit) {
+            var i;
+            for (i = 0; i < kit.quantity; i++) {
+                var barrack = getSuitableBarrack(barracksQueue, kit.level, kit.space);
+
+                if (barrack === null) {
+                    stopDistribution = true;
+                    break;
+                }
+
+                if (!barrack.units[kit.name]) {
+                    barrack.units[kit.name] = {
+                        'time': 0,
+                        'quantity': 0
+                    };
+                }
+
+                barrack.units[kit.name].time += kit.time;
+                barrack.units[kit.name].quantity += 1;
+                barrack.time += kit.time;
+                barrack.space += kit.space;
+            }
+        });
+
+        return !stopDistribution;
+    };
+
+
+    var calculateItems = function(type, params) {
+        ids.get(type).style.display = (params.levelValue === 0 ? 'none' : '');
 
         var i;
         for (
@@ -281,7 +393,7 @@
         var totalSpace = 0;
         var totalTime = 0;
         var distribution = [];
-        objectIterate(items, function(name, value) {
+        objectIterate(types[type], function(name, value) {
             if (value[3] > params.levelValue) {
                 return;
             }
@@ -345,127 +457,39 @@
         });
 
         if (type === 'units' || type === 'dark') {
-            var barracksLevels = allBarracks[type].getLevels();
-            barracksLevels.forEach(function(barrackLevel, barrackIndex) {
+            distribution.sort(unitsDistributionSort);
+
+            var barracksQueue = {};
+            allBarracks[type].getAllNormalized().forEach(function(barrackData, barrackIndex) {
                 var header;
-                if (parseInt(barrackLevel, 10) === 0) {
+                if (parseInt(barrackData.level, 10) === 0) {
                     header = '';
                 } else {
-                    header = barrackLevel +
+                    header = barrackData.level +
                              ' lvl <span class="' +
                              type +
                              '-quantity" title="Maximum Unit Queue Length">(' +
-                             barracksQueueLength[type][barrackLevel] +
+                             barrackData.queueLength +
                              ')</span>';
                 }
                 ids.get(type + '-barrack-header-' + (barrackIndex + 1)).innerHTML = header;
-            });
 
-            var queue = {};
-            allBarracks[type].getAll().forEach(function(barrack) {
-                queue[barrack.getAttribute('id')] = {
+                barracksQueue[barrackData.id] = {
                     'time': 0,
                     'space': 0,
-                    'maxSpace': barracksQueueLength[type][barrack.value],
+                    'maxSpace': barrackData.queueLength,
                     'units': {},
-                    'level': barrack.value
+                    'level': barrackData.level
                 };
             });
 
-            distribution.sort(function(a, b) {
-                if (a.time < b.time) {
-                    return 1;
-                }
-                if (a.time > b.time) {
-                    return -1;
-                }
-                if (a.quantity > b.quantity) {
-                    return -1;
-                }
-                if (a.quantity < b.quantity) {
-                    return 1;
-                }
-                return 0;
-            });
+            var fillSuccess = fillBarracks(barracksQueue, distribution);
 
-            var getSuitableQueueItem = function(queue, requiredLevel, requiredSpace) {
-                var item = null;
-                var i;
-                var suitable = [];
-                for (i in queue) {
-                    var current = queue[i];
-                    if (current.level < requiredLevel) {
-                        continue;
-                    }
-                    if ((current.space + requiredSpace) > current.maxSpace) {
-                        continue;
-                    }
-                    suitable.push(current);
-                }
-
-                if (suitable.length > 1) {
-                    suitable.sort(function(a, b) {
-                        if (a.time < b.time) {
-                            return -1;
-                        }
-                        if (a.time > b.time) {
-                            return 1;
-                        }
-                        if (a.space < b.space) {
-                            return -1;
-                        }
-                        if (a.space > b.space) {
-                            return 1;
-                        }
-                        return 0;
-                    });
-                    item = suitable[0];
-                } else if (suitable.length) {
-                    item = suitable[0];
-                }
-
-                return item;
-            };
-
-            var j;
-            var distributionLength;
-            var stopDistribution = false;
-            for (j = 0, distributionLength = distribution.length; j < distributionLength; j++) {
-                var kit = distribution[j];
-                var k;
-                for (k = 0; k < kit.quantity; k++) {
-                    var item = getSuitableQueueItem(queue, kit.level, kit.space);
-
-                    if (item === null) {
-                        stopDistribution = true;
-                        break;
-                    }
-
-                    if (!item.units[kit.name]) {
-                        item.units[kit.name] = {
-                            'time': 0,
-                            'quantity': 0
-                        };
-                    }
-
-                    item.units[kit.name].time += kit.time;
-                    item.units[kit.name].quantity += 1;
-                    item.time += kit.time;
-                    item.space += kit.space;
-                }
-            }
-
-            if (stopDistribution) {
-                ids.get(type + '-barracks-exceeded').style.display = '';
-                objectIterate(queue, function(k) {
-                    var barrackNum = k.slice(-1);
-                    ids.get(type + '-time-barrack-' + barrackNum).innerHTML = '';
-                });
-            } else {
+            if (fillSuccess) {
                 ids.get(type + '-barracks-exceeded').style.display = 'none';
                 var maxTime = 0;
                 var maxNum = 1;
-                objectIterate(queue, function(k, v) {
+                objectIterate(barracksQueue, function(k, v) {
                     var barrackNum = k.slice(-1);
                     objectIterate(v.units, function(unitName, unitData) {
                         if (unitData.time > 0) {
@@ -480,57 +504,72 @@
                 });
                 var maxBarrack = ids.get(type + '-time-barrack-' + maxNum);
                 maxBarrack.innerHTML = '<span class="result">' + maxBarrack.innerHTML + '</span>';
+            } else {
+                ids.get(type + '-barracks-exceeded').style.display = '';
+                objectIterate(barracksQueue, function(k) {
+                    var barrackNum = k.slice(-1);
+                    ids.get(type + '-time-barrack-' + barrackNum).innerHTML = '';
+                });
             }
+
+            currentSpace[type] += totalSpace;
         }
 
         ids.get(type + '-cost').innerHTML = numberFormat(totalCost);
 
         if (type === 'spells') {
             setQuantityAndSpace(params.space, totalSpace, type);
-        } else {
-            currentUnitsSpace += totalSpace;
-        }
-
-        if (type === 'spells') {
-            ids.get(type + '-time').innerHTML = getFormattedTime(totalTime, (type === 'spells'));
+            ids.get(type + '-time').innerHTML = getFormattedTime(totalTime, true);
         }
     };
 
 
-    var calculate = function() {
-        currentUnitsSpace = 0;
-        var armyCampsSpace = parseInt(armyCamps.value, 10);
-        if (isNaN(armyCampsSpace) || armyCampsSpace < 0) {
-            armyCampsSpace = 0;
+    var calculate = function(type) {
+        if (type === 'all' || type !== 'spells') {
+
+            var armyCampsSpace = parseInt(armyCamps.value, 10);
+            if (isNaN(armyCampsSpace) || armyCampsSpace < 0) {
+                armyCampsSpace = 0;
+            }
+            armyCamps.value = armyCampsSpace;
+
+            if (type === 'all' || type === 'units') {
+                currentSpace.units = 0;
+                calculateItems('units', {
+                    'levelValue': allBarracks.units.getMaxLevel(),
+                    'space': armyCampsSpace,
+                    'capLevel': allBarracks.units.getCapLevel()
+                });
+            }
+
+            if (type === 'all' || type === 'dark') {
+                currentSpace.dark = 0;
+                calculateItems('dark', {
+                    'levelValue': allBarracks.dark.getMaxLevel(),
+                    'space': armyCampsSpace,
+                    'capLevel': allBarracks.dark.getCapLevel()
+                });
+            }
+
+            var togetherSpace = currentSpace.units + currentSpace.dark;
+            setQuantityAndSpace(armyCamps.value, togetherSpace, 'units');
+            setQuantityAndSpace(armyCamps.value, togetherSpace, 'dark');
+
+            savedData.set('armyCamps', armyCamps.value);
+
+            allBarracks.units.updateSavedData();
+            allBarracks.dark.updateSavedData();
         }
-        armyCamps.value = armyCampsSpace;
-        calculateItems(types.units, 'units', {
-            'table': unitsTable,
-            'levelValue': allBarracks.units.getMaxLevel(),
-            'space': armyCampsSpace,
-            'capLevel': 10
-        });
-        calculateItems(types.spells, 'spells', {
-            'table': spellsTable,
-            'levelValue': parseInt(spellFactoryLevel.value, 10),
-            'space': spellFactoryLevel.value,
-            'capLevel': 4
-        });
-        calculateItems(types.dark, 'dark', {
-            'table': darkTable,
-            'levelValue': allBarracks.dark.getMaxLevel(),
-            'space': armyCampsSpace,
-            'capLevel': 4
-        });
 
-        setQuantityAndSpace(armyCamps.value, currentUnitsSpace, 'units');
-        setQuantityAndSpace(armyCamps.value, currentUnitsSpace, 'dark');
+        if (type === 'all' || type === 'spells') {
+            calculateItems('spells', {
+                'levelValue': parseInt(spellFactoryLevel.value, 10),
+                'space': spellFactoryLevel.value,
+                'capLevel': spellFactoryLevel.options[spellFactoryLevel.options.length - 1].value
+            });
 
-        allBarracks.units.updateSavedData();
-        allBarracks.dark.updateSavedData();
-
-        savedData.set('armyCamps', armyCamps.value);
-        savedData.set('spellFactoryLevel', spellFactoryLevel.selectedIndex);
+            savedData.set('spellFactoryLevel', spellFactoryLevel.selectedIndex);
+        }
 
         savedDataStorage.save(savedData.getAll());
     };
@@ -542,8 +581,8 @@
         armyCamps.value = savedData.get('armyCamps', armyCamps.value);
         spellFactoryLevel.options[savedData.get('spellFactoryLevel', spellFactoryLevel.selectedIndex)].selected = true;
 
-        var setItems = function(items, type) {
-            objectIterate(items, function(name) {
+        var setItems = function(type) {
+            objectIterate(types[type], function(name) {
                 var levelId = name + '-level';
                 var levelEl = ids.get(levelId);
                 levelEl.options[savedData.get(levelId, levelEl.selectedIndex)].selected = true;
@@ -560,86 +599,83 @@
             });
         };
 
-        setItems(types.units, 'units');
-        setItems(types.spells, 'spells');
-        setItems(types.dark, 'dark');
+        setItems('units');
+        setItems('spells');
+        setItems('dark');
     };
 
 
     objectIterate(allBarracks, function(k, v) {
-        v.getAll().forEach(function(el) {
-            el.addEventListener('change', calculate, false);
+        v.getElements().forEach(function(el) {
+            el.addEventListener('change', calculate.bind(null, k), false);
         });
     });
-    armyCamps.addEventListener('input', calculate, false);
-    spellFactoryLevel.addEventListener('change', calculate, false);
+    armyCamps.addEventListener('input', calculate.bind(null, 'all'), false);
+    spellFactoryLevel.addEventListener('change', calculate.bind(null, 'spells'), false);
 
 
-    var setSpinner = function(el) {
-
-        var multiplier = parseInt(el.getAttribute('data-multiplier'), 10) || 1;
-
-        var plus = function(e) {
-            var current = parseInt(el.value, 10);
+    var spinnerAction = function(eventElement) {
+        var targetElement = ids.get(eventElement.getAttribute('data-target'));
+        var multiplier = parseInt(targetElement.getAttribute('data-multiplier'), 10) || 1;
+        var current = parseInt(targetElement.value, 10);
+        if (eventElement.getAttribute('data-spinner-type') === 'plus') {
             if (isNaN(current)) {
-                el.value = multiplier;
+                targetElement.value = multiplier;
             } else {
-                el.value = current + multiplier;
+                targetElement.value = current + multiplier;
             }
-            calculate();
-        };
-
-        var minus = function(e) {
-            var current = parseInt(el.value, 10);
+        } else {
             if (isNaN(current) || current < 2) {
-                el.value = 0;
+                targetElement.value = 0;
             } else {
-                el.value = current - multiplier;
+                targetElement.value = current - multiplier;
             }
-            calculate();
+        }
+        calculate(targetElement.getAttribute('data-object-type'));
+    };
+
+
+    var setSpinner = function(type, el) {
+        var span = document.createElement('span');
+        span.className = 'like-button like-button_after';
+        span.innerHTML = (type === 'plus' ? '+' : '−');
+        span.setAttribute('data-spinner-type', type);
+        span.setAttribute('data-target', el.getAttribute('id'));
+
+        var interval = null;
+        var timeout = null;
+        var hold = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.target.setAttribute('data-clicked', '1');
+            timeout = window.setTimeout(function(eventElement) {
+                eventElement.removeAttribute('data-clicked');
+                interval = window.setInterval(
+                    spinnerAction.bind(null, eventElement),
+                    100
+                );
+            }.bind(null, e.target), 500);
         };
-
-        var create = function(type) {
-            var span = document.createElement('span');
-            span.className = 'like-button like-button_after';
-            span.innerHTML = (type === 'plus' ? '+' : '−');
-
-            var interval = null;
-            var timeout = null;
-            var click = false;
-            var hold = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                click = true;
-                timeout = window.setTimeout(function() {
-                    click = false;
-                    interval = window.setInterval((type === 'plus' ? plus : minus), 100);
-                }, 500);
-            };
-            var release = function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if (click) {
-                    (type === 'plus' ? plus : minus)();
-                }
-                clearTimeout(timeout);
-                clearInterval(interval);
-            };
-            span.addEventListener('touchstart', hold);
-            span.addEventListener('touchend', release);
-            span.addEventListener('mousedown', hold);
-            span.addEventListener('mouseup', release);
-            el.parentNode.appendChild(span);
+        var release = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (e.target.getAttribute('data-clicked') === '1') {
+                spinnerAction(e.target);
+            }
+            clearTimeout(timeout);
+            clearInterval(interval);
         };
+        span.addEventListener('touchstart', hold);
+        span.addEventListener('touchend', release);
+        span.addEventListener('mousedown', hold);
+        span.addEventListener('mouseup', release);
 
-        create('plus');
-        create('minus');
-
+        el.parentNode.appendChild(span);
     };
 
     var rowTemplate = templates.item_row;
 
-    var createRows = function(items, type, tabIndexMultiplier) {
+    var createRows = function(type, tabIndexMultiplier) {
         var createLevelOption = function(value, index) {
             return {'value': value, 'text': (index + 1)};
         };
@@ -653,7 +689,7 @@
         }
 
         var itemsBody = ids.get(type + '-body');
-        objectIterate(items, function(name, value) {
+        objectIterate(types[type], function(name, value) {
             var convertedName = convertToTitle(name);
             var templateVars = {
                 'id': name,
@@ -665,7 +701,8 @@
                 'summaryId': name + '-summary',
                 'rowId': type + '-building-level-' + value[3],
                 'tabIndexLevel': tabIndexMultiplier + value[3],
-                'tabIndexValue': tabIndexMultiplier + 1000 + value[3]
+                'tabIndexValue': tabIndexMultiplier + 1000 + value[3],
+                'objectType': type
             };
             if (type === 'spells') {
                 templateVars.spells = {
@@ -695,18 +732,22 @@
             var itemRow = tempDiv.querySelector('tr');
             itemsBody.appendChild(itemRow);
 
-            ids.get(templateVars.levelId).addEventListener('change', calculate, false);
-            ids.get(templateVars.id).addEventListener((type === 'spells' ? 'change' : 'input'), calculate, false);
+            ids.get(templateVars.levelId).addEventListener('change', calculate.bind(null, type), false);
+            ids.get(templateVars.id).addEventListener(
+                (type === 'spells' ? 'change' : 'input'),
+                calculate.bind(null, type),
+                false
+            );
 
             if (type === 'units' || type === 'dark') {
-                ids.get(templateVars.subtractId).addEventListener('input', calculate, false);
+                ids.get(templateVars.subtractId).addEventListener('input', calculate.bind(null, type), false);
             }
         });
     };
 
-    createRows(types.units, 'units', 100);
-    createRows(types.dark, 'dark', 200);
-    createRows(types.spells, 'spells', 300);
+    createRows('units', 100);
+    createRows('dark', 200);
+    createRows('spells', 300);
 
     var selectAll = function(e) {
         if (e.target.tagName.toLowerCase() === 'input') {
@@ -715,15 +756,17 @@
             }.bind(null, e.target), 10);
         }
     };
-    Array.prototype.slice.call(document.getElementsByClassName('js-number')).forEach(function(el) {
+    toArray(document.getElementsByClassName('js-number')).forEach(function(el) {
         el.addEventListener('focus', selectAll, false);
-        setSpinner(el);
+        setSpinner('plus', el);
+        setSpinner('minus', el);
     });
 
     var resetColumn = function(e) {
         e.preventDefault();
         e.stopPropagation();
-        objectIterate(types[e.target.getAttribute('data-type')], function(k) {
+        var resetType = e.target.getAttribute('data-reset-type');
+        objectIterate(types[resetType], function(k) {
             var key = k;
             var scope = e.target.getAttribute('data-scope');
             if (scope !== 'quantity') {
@@ -731,19 +774,19 @@
             }
             ids.get(key).value = '0';
         });
-        calculate();
+        calculate(resetType);
     };
 
-    Array.prototype.slice.call(document.getElementsByClassName('js-reset')).forEach(function(el) {
+    toArray(document.getElementsByClassName('js-reset')).forEach(function(el) {
         el.addEventListener('click', resetColumn, false);
         el.addEventListener('touchend', resetColumn, false);
     });
 
     setDefaults();
-    calculate();
+    calculate('all');
 
     if (window.device && window.device.cordova) {
-        Array.prototype.slice.call(document.getElementsByClassName('js-link')).forEach(function(el) {
+        toArray(document.getElementsByClassName('js-link')).forEach(function(el) {
             var href = el.getAttribute('href');
             el.removeAttribute('target');
             el.setAttribute('href', 'javascript:void(0)');
@@ -864,11 +907,11 @@
             e.stopPropagation();
             savedData = new Dict(objectCopy(savedCalculations.retrieve(e.target.getAttribute('data-num')).getAll()));
             setDefaults();
-            calculate();
+            calculate('all');
             savedListCreateItems();
         };
 
-        Array.prototype.slice.call(savedListContent.getElementsByClassName('js-saved-load')).forEach(function(el) {
+        toArray(savedListContent.getElementsByClassName('js-saved-load')).forEach(function(el) {
             el.addEventListener('click', loadSaved, false);
             el.addEventListener('touchend', loadSaved, false);
         });
@@ -881,7 +924,7 @@
             savedListCreateItems();
         };
 
-        Array.prototype.slice.call(savedListContent.getElementsByClassName('js-saved-delete')).forEach(function(el) {
+        toArray(savedListContent.getElementsByClassName('js-saved-delete')).forEach(function(el) {
             el.addEventListener('click', deleteSaved, false);
             el.addEventListener('touchend', deleteSaved, false);
         });

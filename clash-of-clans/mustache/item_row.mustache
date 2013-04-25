@@ -19,14 +19,14 @@
                 </select>
             {{/spells}}
             {{^spells}}
-                <input type="number" min="0" max="220" class="js-number field" id="{{id}}" size="3" tabindex="{{tabIndexValue}}"/>
+                <input type="number" data-object-type="{{objectType}}" min="0" max="220" class="js-number field" id="{{id}}" size="3" tabindex="{{tabIndexValue}}"/>
             {{/spells}}
         </td>
         <td id="{{summaryId}}" class="number">
         </td>
         {{#subtractId}}
             <td>
-               <input type="number" min="0" max="220" class="js-number field" id="{{subtractId}}" size="3" tabindex="{{tabIndexSubtract}}"/>
+               <input type="number" data-object-type="{{objectType}}" min="0" max="220" class="js-number field" id="{{subtractId}}" size="3" tabindex="{{tabIndexSubtract}}"/>
             </td>
         {{/subtractId}}
         {{#barracksTimes}}
