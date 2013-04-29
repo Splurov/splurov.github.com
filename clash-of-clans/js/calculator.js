@@ -531,6 +531,10 @@
             if (isNaN(armyCampsSpace) || armyCampsSpace < 0) {
                 armyCampsSpace = 0;
             }
+            var armyCampsMaxSpace = armyCamps.getAttribute('max');
+            if (armyCampsSpace > armyCampsMaxSpace) {
+                armyCampsSpace = armyCampsMaxSpace;
+            }
             armyCamps.value = armyCampsSpace;
 
             if (type === 'all' || type === 'units') {
