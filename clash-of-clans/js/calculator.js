@@ -203,7 +203,7 @@
             return this.barracks.map(function(el) {
                 return {
                     'id': el.getAttribute('id'),
-                    'level': el.value,
+                    'level': parseInt(el.value, 10),
                     'queueLength': this.queueLengths[el.value]
                 };
             }, this);
@@ -291,44 +291,6 @@
     };
 
 
-    var suitableBarracksSort = function(a, b) {
-        if (a.time < b.time) {
-            return -1;
-        }
-        if (a.time > b.time) {
-            return 1;
-        }
-        if (a.space < b.space) {
-            return -1;
-        }
-        if (a.space > b.space) {
-            return 1;
-        }
-        return 0;
-    };
-
-
-    var getSuitableBarrack = function(barracks, requiredLevel, requiredSpace) {
-        var i;
-        var suitable = [];
-        objectIterate(barracks, function(key, barrack) {
-            if (barrack.level >= requiredLevel && (barrack.space + requiredSpace) <= barrack.maxSpace) {
-                suitable.push(barrack);
-            }
-        });
-
-        if (!suitable.length) {
-            return null;
-        }
-
-        if (suitable.length > 1) {
-            suitable.sort(suitableBarracksSort);
-        }
-
-        return suitable[0];
-    };
-
-
     var unitsDistributionSort = function(a, b) {
         if (a.time < b.time) {
             return 1;
@@ -346,37 +308,6 @@
     };
 
 
-    var fillBarracks = function(barracksQueue, unitsDistribution) {
-        var distributionLength;
-        var stopDistribution = false;
-        unitsDistribution.forEach(function(kit) {
-            var i;
-            for (i = 0; i < kit.quantity; i++) {
-                var barrack = getSuitableBarrack(barracksQueue, kit.level, kit.space);
-
-                if (barrack === null) {
-                    stopDistribution = true;
-                    break;
-                }
-
-                if (!barrack.units[kit.name]) {
-                    barrack.units[kit.name] = {
-                        'time': 0,
-                        'quantity': 0
-                    };
-                }
-
-                barrack.units[kit.name].time += kit.time;
-                barrack.units[kit.name].quantity += 1;
-                barrack.time += kit.time;
-                barrack.space += kit.space;
-            }
-        });
-
-        return !stopDistribution;
-    };
-
-
     var calculateItems = function(type, params) {
         ids.get(type).style.display = (params.levelValue === 0 ? 'none' : '');
 
@@ -385,7 +316,7 @@
             i = params.capLevel;
             i >= 1;
             i--
-        ) {
+            ) {
             ids.get(type + '-building-level-' + i).style.display = (i > params.levelValue ? 'none' : '');
         }
 
@@ -420,9 +351,8 @@
             totalCost += summaryCost;
 
             totalSpace += (value[2] * quantity);
-            if (type === 'spells') {
-                totalTime += (value[0] * quantity);
-            } else {
+            totalTime += (value[0] * quantity);
+            if (type !== 'spells') {
                 var i;
                 for (i = 1; i <= allBarracks[type].getMaxCount(); i++) {
                     ids.get('quantity-' + name + '-' + i).innerHTML = '';
@@ -440,12 +370,12 @@
 
                 if (quantity > 0) {
                     distribution.push({
-                        'name': name,
-                        'quantity': quantity - subtractQuantity,
-                        'time': value[0],
-                        'level': value[3],
-                        'space': value[2]
-                    });
+                                          'name': name,
+                                          'quantity': quantity - subtractQuantity,
+                                          'time': value[0],
+                                          'level': value[3],
+                                          'space': value[2]
+                                      });
 
                 }
 
@@ -459,7 +389,177 @@
         if (type === 'units' || type === 'dark') {
             distribution.sort(unitsDistributionSort);
 
-            var barracksQueue = {};
+            var linearUnits = [];
+            var maxKitTime = 0;
+            distribution.forEach(function(kit) {
+                var i;
+                for (i = 0; i < kit.quantity; i++) {
+                    linearUnits.push({
+                        'name': kit.name,
+                        'time': kit.time,
+                        'space': kit.space,
+                        'level': kit.level,
+                        'used': false
+                    });
+                }
+                maxKitTime = Math.max(maxKitTime, kit.time);
+            });
+
+            var avgTime = Math.max(Math.ceil(totalTime / allBarracks[type].getElements().length), maxKitTime);
+
+            var linearBarracks = [];
+            allBarracks[type].getAllNormalized().forEach(function(barrack) {
+                if (barrack.level === 0) {
+                    return;
+                }
+                linearBarracks.push({
+                    'time': 0,
+                    'space': 0,
+                    'id': barrack.id,
+                    'level': barrack.level,
+                    'maxSpace': barrack.queueLength,
+                    'units': []
+                });
+            });
+
+            linearBarracks.sort(function(a, b) {
+                if (a.maxSpace > b.maxSpace) {
+                    return 1;
+                }
+                if (a.maxSpace < b.maxSpace) {
+                    return -1;
+                }
+                return 0;
+            });
+
+            var luIndex;
+            var luLength;
+
+            var barrackIndex;
+            var barracksLength;
+            for (barrackIndex = 0, barracksLength = linearBarracks.length;
+                 barrackIndex < barracksLength;
+                 barrackIndex++) {
+
+                var barrack = linearBarracks[barrackIndex];
+
+                for (luIndex = 0, luLength = linearUnits.length;
+                     luIndex < luLength;
+                     luIndex++) {
+
+                    if (linearUnits[luIndex].used ||
+                        linearUnits[luIndex].level > barrack.level ||
+                        (linearUnits[luIndex].space + barrack.space) > barrack.maxSpace) {
+                        continue;
+                    }
+
+                    linearUnits[luIndex].used = true;
+                    barrack.time += linearUnits[luIndex].time;
+                    barrack.space += linearUnits[luIndex].space;
+                    barrack.units.push(luIndex);
+                }
+
+                while (barrack.time < avgTime &&
+                       linearUnits[linearUnits.length - 1].name !== barrack.units[0].name) {
+                    var oldUnitIndex = barrack.units.shift();
+                    barrack.time -= linearUnits[oldUnitIndex].time;
+                    barrack.space -= linearUnits[oldUnitIndex].space;
+
+                    var added = false;
+                    for (luIndex = 0, luLength = linearUnits.length; luIndex < luLength && barrack.time < avgTime; luIndex++) {
+                        if (linearUnits[luIndex].used ||
+                            linearUnits[luIndex].level > barrack.level ||
+                            linearUnits[luIndex].space >= linearUnits[oldUnitIndex].space ||
+                            (linearUnits[luIndex].space + barrack.space) > barrack.maxSpace) {
+                            continue;
+                        }
+
+                        barrack.time += linearUnits[luIndex].time;
+                        barrack.space += linearUnits[luIndex].space;
+                        barrack.units.push(luIndex);
+                        linearUnits[luIndex].used = true;
+                        added = true;
+                    }
+
+                    if (added) {
+                        linearUnits[oldUnitIndex].used = false;
+                    } else {
+                        barrack.units.unshift(oldUnitIndex);
+                        barrack.time += linearUnits[oldUnitIndex].time;
+                        barrack.space += linearUnits[oldUnitIndex].space;
+                        break;
+                    }
+                }
+
+                while (barrack.time > avgTime) {
+                    var extraUnitIndex = barrack.units.shift();
+                    barrack.time -= linearUnits[extraUnitIndex].time;
+                    barrack.space -= linearUnits[extraUnitIndex].space;
+                    linearUnits[extraUnitIndex].used = false;
+
+                    if (barrack.units[0].name === linearUnits[linearUnits.length - 1].name) {
+                        continue;
+                    }
+
+                    for (luIndex = 0, luLength = linearUnits.length; i < luLength; i++) {
+                        if (linearUnits[luIndex].used ||
+                            linearUnits[luIndex].level >= linearUnits[extraUnitIndex].level ||
+                            (linearUnits[luIndex].space + barrack.space) > barrack.maxSpace ||
+                            (linearUnits[luIndex].time + barrack.time) > avgTime) {
+                            continue;
+                        }
+
+                        barrack.time += linearUnits[luIndex].time;
+                        barrack.space += linearUnits[luIndex].space;
+                        barrack.units.push(linearUnits[luIndex]);
+                        linearUnits[luIndex].used = true;
+                    }
+                }
+            }
+
+            var sortBarracks = function() {
+                linearBarracks.sort(function(a, b) {
+                    if (a.time > b.time) {
+                        return 1;
+                    }
+                    if (a.time < b.time) {
+                        return -1;
+                    }
+
+                    if (a.space < b.space) {
+                        return -1;
+                    }
+                    if (a.space > b.space) {
+                        return 1;
+                    }
+                    return 0;
+                });
+            };
+
+            for (luIndex = 0, luLength = linearUnits.length; luIndex < luLength; luIndex++) {
+                if (linearUnits[luIndex].used) {
+                    continue;
+                }
+                sortBarracks();
+                for (var lbIndex = 0, lbLength = linearBarracks.length; lbIndex < lbLength; lbIndex++) {
+                    var currentBarrack = linearBarracks[lbIndex];
+                    if (linearUnits[luIndex].level > currentBarrack.level ||
+                        (linearUnits[luIndex].space + currentBarrack.space) > currentBarrack.maxSpace) {
+                        continue;
+                    }
+                    linearUnits[luIndex].used = true;
+                    currentBarrack.time += linearUnits[luIndex].time;
+                    currentBarrack.space += linearUnits[luIndex].space;
+                    currentBarrack.units.push(luIndex);
+                    break;
+                }
+            }
+
+            var fillSuccess = true;
+            if (linearUnits.some(function(u){return u.used === false;})) {
+                fillSuccess = false;
+            }
+
             allBarracks[type].getAllNormalized().forEach(function(barrackData, barrackIndex) {
                 var header;
                 if (parseInt(barrackData.level, 10) === 0) {
@@ -473,42 +573,41 @@
                              ')</span>';
                 }
                 ids.get(type + '-barrack-header-' + (barrackIndex + 1)).innerHTML = header;
-
-                barracksQueue[barrackData.id] = {
-                    'time': 0,
-                    'space': 0,
-                    'maxSpace': barrackData.queueLength,
-                    'units': {},
-                    'level': barrackData.level
-                };
             });
-
-            var fillSuccess = fillBarracks(barracksQueue, distribution);
 
             if (fillSuccess) {
                 ids.get(type + '-barracks-exceeded').style.display = 'none';
                 var maxTime = 0;
-                var maxNum = 1;
-                objectIterate(barracksQueue, function(k, v) {
-                    var barrackNum = k.slice(-1);
-                    objectIterate(v.units, function(unitName, unitData) {
-                        if (unitData.time > 0) {
-                            ids.get('quantity-' + unitName + '-' + barrackNum).innerHTML = '×' + unitData.quantity;
+                var maxId = 1;
+                linearBarracks.forEach(function(barrack) {
+                    var barrackNum = barrack.id.slice(-1);
+                    var units = {};
+                    barrack.units.forEach(function(unitIndex) {
+                        var unit = linearUnits[unitIndex];
+                        if (!units[unit.name]) {
+                            units[unit.name] = 0;
+                        }
+                        units[unit.name] += 1;
+                    });
+                    objectIterate(units, function(name, quantity) {
+                        if (quantity > 0) {
+                            ids.get('quantity-' + name + '-' + barrackNum).innerHTML = '×' + quantity;
                         }
                     });
-                    if (v.time > maxTime) {
-                        maxTime = v.time;
-                        maxNum = barrackNum;
+                    if (barrack.time > maxTime) {
+                        maxTime = barrack.time;
+                        maxId = barrackNum;
                     }
-                    ids.get(type + '-time-barrack-' + barrackNum).innerHTML = (v.time ? getFormattedTime(v.time) : '');
+                    ids.get(type + '-time-barrack-' + barrackNum).innerHTML = (barrack.time ?
+                                                                               getFormattedTime(barrack.time) :
+                                                                               '');
                 });
-                var maxBarrack = ids.get(type + '-time-barrack-' + maxNum);
+                var maxBarrack = ids.get(type + '-time-barrack-' + maxId);
                 maxBarrack.innerHTML = '<span class="result">' + maxBarrack.innerHTML + '</span>';
             } else {
                 ids.get(type + '-barracks-exceeded').style.display = '';
-                objectIterate(barracksQueue, function(k) {
-                    var barrackNum = k.slice(-1);
-                    ids.get(type + '-time-barrack-' + barrackNum).innerHTML = '';
+                linearBarracks.forEach(function(barrack) {
+                    ids.get(type + '-time-barrack-' + barrack.id.slice(-1)).innerHTML = '';
                 });
             }
 
@@ -715,8 +814,8 @@
                 var barracksTimes = [];
                 for (i = 1; i <= allBarracks[type].getMaxCount(); i++) {
                     barracksTimes.push({
-                        'barrackQuantityId': 'quantity-' + name + '-' + i
-                    });
+                                           'barrackQuantityId': 'quantity-' + name + '-' + i
+                                       });
                 }
                 templateVars.barracksTimes = barracksTimes;
 
@@ -823,10 +922,10 @@
                 }));
                 if (quantity > 0 && unitValue[3] <= barracksLevel) {
                     unitsItems.push({
-                        'name': convertToTitle(name),
-                        'level': (new Array(data.get(name + '-level') + 2)).join('*'),
-                        'quantity': quantity
-                    });
+                                        'name': convertToTitle(name),
+                                        'level': (new Array(data.get(name + '-level') + 2)).join('*'),
+                                        'quantity': quantity
+                                    });
                     totalCost += unitValue[1][data.get(name + '-level')] * quantity;
                     totalCapacity += unitValue[2] * quantity;
                 }
@@ -847,10 +946,10 @@
                     var quantity = parseInt(data.get(name), 10) || 0;
                     if (quantity > 0 && unitValue[3] <= darkBarracksLevel) {
                         darkItems.push({
-                            'name': convertToTitle(name),
-                            'level': (new Array(data.get(name + '-level') + 2)).join('*'),
-                            'quantity': quantity
-                        });
+                                           'name': convertToTitle(name),
+                                           'level': (new Array(data.get(name + '-level') + 2)).join('*'),
+                                           'quantity': quantity
+                                       });
                         darkCost += unitValue[1][data.get(name + '-level')] * quantity;
                         totalCapacity += unitValue[2] * quantity;
                     }
@@ -878,10 +977,10 @@
                     var spellQuantity = parseInt(data.get(spellName), 10) || 0;
                     if (spellQuantity > 0 && spellValue[3] <= data.get('spellFactoryLevel')) {
                         spellsItems.push({
-                            'name': convertToTitle(spellName),
-                            'level': (new Array(data.get(spellName + '-level') + 2)).join('*'),
-                            'quantity': spellQuantity
-                        });
+                                             'name': convertToTitle(spellName),
+                                             'level': (new Array(data.get(spellName + '-level') + 2)).join('*'),
+                                             'quantity': spellQuantity
+                                         });
                         spellsCost += spellValue[1][data.get(spellName + '-level')] * spellQuantity;
                         spellsCapacity += spellValue[2] * spellQuantity;
                     }
