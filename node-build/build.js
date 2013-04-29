@@ -90,6 +90,7 @@ for (var file in sources) {
             translationsCurrent[trName] = translations[trName][options[1]];
         }
 
+        var changelogForJson = {};
         if (options[2]) {
             var changelog = require('../clash-of-clans/json/changelog.json');
             var changelogParsed = [];
@@ -99,13 +100,18 @@ for (var file in sources) {
                     'date': v[1],
                     'changes': []
                 };
+
                 if (v[3]) {
                     entry.ch_title = v[3];
                 }
+
                 v[2].forEach(function(sv) {
                     entry.changes.push({'change': sv});
                 });
+
                 changelogParsed.push(entry);
+
+                changelogForJson[(new Date(v[1]).getTime())] = v[2];
             });
             translationsCurrent.changelog = changelogParsed;
         }
@@ -119,7 +125,8 @@ for (var file in sources) {
                     'code': {
                         'html': dataForJson,
                         'version': (new Date()).getTime()
-                    }
+                    },
+                    'changelog': changelogForJson
                 },
                 'error': 0
             };
