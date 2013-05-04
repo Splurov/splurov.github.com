@@ -608,7 +608,36 @@ var Hogan={};(function(a,b){function i(a){return String(a===null||a===undefined?
     };
 
 
-    var getSuitableBarrack = function(barracks, requiredLevel, requiredSpace) {
+    var timeSuitableBarracksSort = function(a, b) {
+        // least level first
+        if (a.level < b.level) {
+            return -1;
+        }
+        if (a.level > b.level) {
+            return 1;
+        }
+
+        // least time first
+        if (a.time < b.time) {
+            return -1;
+        }
+        if (a.time > b.time) {
+            return 1;
+        }
+
+        // least space first
+        if (a.space < b.space) {
+            return -1;
+        }
+        if (a.space > b.space) {
+            return 1;
+        }
+
+        return 0;
+    };
+
+
+    var getSuitableBarrack = function(barracks, requiredLevel, requiredSpace, requiredTime, avgTime) {
         var suitable = barracks.filter(function(barrack) {
             return barrack.level >= requiredLevel && (barrack.space + requiredSpace) <= barrack.maxSpace;
         });
@@ -618,6 +647,18 @@ var Hogan={};(function(a,b){function i(a){return String(a===null||a===undefined?
         }
 
         if (suitable.length > 1) {
+            if (requiredSpace === 1) {
+                var timeSuitable = suitable.filter(function(barrack) {
+                    return (barrack.time + requiredTime) <= avgTime;
+                });
+                if (timeSuitable.length) {
+                    if (timeSuitable.length > 1) {
+                        timeSuitable.sort(timeSuitableBarracksSort);
+                    }
+                    return timeSuitable[0];
+                }
+            }
+
             suitable.sort(suitableBarracksSort);
         }
 
@@ -649,7 +690,7 @@ var Hogan={};(function(a,b){function i(a){return String(a===null||a===undefined?
                 }
 
                 if (isGetBarrack) {
-                    barrack = getSuitableBarrack(barracksQueue, kit[2], kitSpace);
+                    barrack = getSuitableBarrack(barracksQueue, kit[2], kitSpace, kitTime, avgTime);
                 }
 
                 if (barrack === null) {
