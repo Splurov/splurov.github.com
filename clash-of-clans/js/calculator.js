@@ -566,8 +566,9 @@
             totalCost += summaryCost;
 
             totalSpace += (value[2] * quantity);
-            totalTime += (value[0] * quantity);
-            if (type !== 'spells') {
+            if (type === 'spells') {
+                totalTime += (value[0] * quantity);
+            } else {
                 var mcIndex; // mc - max count
                 for (mcIndex = 1; mcIndex <= barracksMaxCount; mcIndex++) {
                     document.getElementById('quantity-' + name + '-' + mcIndex).textContent = '';
@@ -583,13 +584,15 @@
                     subtract.value = subtractQuantity;
                 }
 
-                if (quantity > 0) {
+                var totalQuantity = quantity - subtractQuantity;
+                if (totalQuantity > 0) {
                     distribution.push([
                         tsIndex,
                         quantity - subtractQuantity,
                         value[3] // level
                     ]);
                     maxUnitTime = Math.max(maxUnitTime, value[0]);
+                    totalTime += (value[0] * totalQuantity);
                 }
 
                 savedData.set(subtractId, subtractQuantity);
