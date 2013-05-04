@@ -11,21 +11,21 @@
         </td>
         <td>
             {{#spells}}
-                <select id="{{id}}" class="field" tabindex="{{tabIndexValue}}">
+                <select id="{{id}}" class="field" tabindex="{{tabIndexValue}}" data-field-type="quantity">
                     {{#options}}
                         <option value="{{value}}">{{text}}</option>
                     {{/options}}
                 </select>
             {{/spells}}
             {{^spells}}
-                <input type="number" data-object-type="{{objectType}}" min="0" max="999" class="js-number field" id="{{id}}" size="3" tabindex="{{tabIndexValue}}"/>
+                <input type="number" data-object-type="{{objectType}}" min="0" max="999" class="js-number field" id="{{id}}" size="3" tabindex="{{tabIndexValue}}" data-field-type="quantity"/>
             {{/spells}}
         </td>
         <td id="{{summaryId}}" class="number">
         </td>
         {{#subtractId}}
             <td>
-               <input type="number" data-object-type="{{objectType}}" min="0" max="999" class="js-number field" id="{{subtractId}}" size="3" tabindex="{{tabIndexSubtract}}"/>
+               <input type="number" data-object-type="{{objectType}}" min="0" max="999" class="js-number field" id="{{subtractId}}" size="3" tabindex="{{tabIndexSubtract}}" data-field-type="subtract"/>
             </td>
         {{/subtractId}}
         {{#barracksTimes}}

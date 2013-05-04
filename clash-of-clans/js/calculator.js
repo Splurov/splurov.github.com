@@ -47,7 +47,7 @@
 
 
     var numberFormat = function(n) {
-        return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+        return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     };
 
 
@@ -64,10 +64,12 @@
     var getFormattedTime = function(time, hideSeconds) {
         var formattedTime = '';
         var remainingTime = time;
+
         if (remainingTime > 3599) {
             formattedTime += Math.floor(remainingTime / 3600) + 'h ';
             remainingTime %= 3600;
         }
+
         if (remainingTime > 59) {
             var minutes = Math.floor(remainingTime / 60);
             remainingTime %= 60;
@@ -78,9 +80,11 @@
         } else {
             formattedTime += '0m ';
         }
+
         if (formattedTime === '' || !hideSeconds) {
             formattedTime += remainingTime + 's';
         }
+
         return formattedTime;
     };
 
@@ -120,6 +124,7 @@
         };
     };
 
+
     var MultiDict = function(entries) {
         this.entries = [];
 
@@ -149,22 +154,9 @@
     };
 
 
-    var IdsCacher = function() {
-        this.elements = {};
-        this.get = function(id) {
-            if (!this.elements.hasOwnProperty(id)) {
-                this.elements[id] = document.getElementById(id);
-            }
-            return this.elements[id];
-        };
-    };
-
-
-    var ids = new IdsCacher();
-
-
     var savedDataStorage = new DataStorage('savedData', {});
     var savedData = new Dict(savedDataStorage.load());
+
 
     var BarracksContainer = function(maxCount, selectName, saveName, queueLengths) {
         this.barracks = [];
@@ -174,7 +166,7 @@
 
         var i;
         for (i = 1; i <= this.maxCount; i++) {
-            var barrack = ids.get(selectName + '-' + i);
+            var barrack = document.getElementById(selectName + '-' + i);
             this.barracks.push(barrack);
         }
 
@@ -202,9 +194,21 @@
         this.getAllNormalized = function() {
             return this.barracks.map(function(el) {
                 return {
-                    'id': el.getAttribute('id'),
                     'level': el.value,
                     'queueLength': this.queueLengths[el.value]
+                };
+            }, this);
+        };
+
+        this.getQueue = function() {
+            return this.barracks.map(function(el) {
+                return {
+                    'num': el.getAttribute('id').slice(-1),
+                    'time': 0,
+                    'space': 0,
+                    'maxSpace': this.queueLengths[el.value],
+                    'units': {},
+                    'level': el.value
                 };
             }, this);
         };
@@ -228,6 +232,7 @@
         };
     };
 
+
     var allBarracks = {
         'units': new BarracksContainer(
             4,
@@ -243,8 +248,9 @@
         )
     };
 
-    var armyCamps = ids.get('army-camps');
-    var spellFactoryLevel = ids.get('spell-factory-level');
+
+    var armyCamps = document.getElementById('army-camps');
+    var spellFactoryLevel = document.getElementById('spell-factory-level');
 
 
     var types = {
@@ -275,6 +281,35 @@
     };
 
 
+    var thingsSort = function(a, b) {
+        if (a[0] < b[0]) {
+            return 1;
+        }
+        if (a[0] > b[0]) {
+            return -1;
+        }
+
+        if (a[2] < b[2]) {
+            return 1;
+        }
+        if (a[2] > b[2]) {
+            return -1;
+        }
+
+        return 0;
+    };
+
+
+    var typesSorted = {};
+    objectIterate(types, function(type, items) {
+        typesSorted[type] = [];
+        objectIterate(items, function(name, objects) {
+            typesSorted[type].push(objects.concat(name));
+        });
+        typesSorted[type].sort(thingsSort);
+    });
+
+
     var currentSpace = {
         'units': 0,
         'dark': 0
@@ -286,14 +321,14 @@
         if (spaceDiff < 0) {
             spaceDiff = '<span class="limit-exceeded">' + spaceDiff + '</span>';
         }
-        ids.get(type + '-quantity').innerHTML = '(' + spaceDiff + ')';
+        document.getElementById(type + '-quantity').innerHTML = '(' + spaceDiff + ')';
 
         var space = totalSpace;
         if (totalSpace > maxSpace) {
             space = '<span class="limit-exceeded">' + totalSpace + '</span>';
         }
         space = space + ' / ' + maxSpace;
-        ids.get(type + '-space').innerHTML = space;
+        document.getElementById(type + '-space').innerHTML = space;
     };
 
 
@@ -343,55 +378,31 @@
     };
 
 
-    var unitsDistributionSort = function(a, b) {
-        if (a.time < b.time) {
-            return 1;
-        }
-        if (a.time > b.time) {
-            return -1;
-        }
-
-        if (a.quantity < b.quantity) {
-            return 1;
-        }
-        if (a.quantity > b.quantity) {
-            return -1;
-        }
-
-        if (a.level < b.level) {
-            return 1;
-        }
-        if (a.level > b.level) {
-            return -1;
-        }
-
-        return 0;
-    };
-
-
-    var fillBarracks = function(barracksQueue, unitsDistribution, avgTime) {
+    var fillBarracks = function(barracksQueue, unitsDistribution, avgTime, type) {
         var stopDistribution = false;
 
-        var udIndex;
+        var udIndex; // ud - units distribution
         var udLength;
         for (udIndex = 0, udLength = unitsDistribution.length; udIndex < udLength; udIndex++) {
             var kit = unitsDistribution[udIndex];
+            var kitTime = typesSorted[type][kit[0]][0];
+            var kitSpace = typesSorted[type][kit[0]][2];
             var i;
             var barrack = null;
-            for (i = 0; i < kit.quantity; i++) {
+            for (i = 0; i < kit[1]; i++) {
                 var isGetBarrack = true;
                 if (barrack) {
-                    var newTime = barrack.time + kit.time;
-                    var newSpace = barrack.space + kit.space;
+                    var newTime = barrack.time + kitTime;
+                    var newSpace = barrack.space + kitSpace;
                     if (newTime < (avgTime / 3) ||
                         newSpace < (barrack.maxSpace / 4) ||
-                        (kit.space === 1 && newTime < avgTime && newSpace < barrack.maxSpace)) {
+                        (kitSpace === 1 && newTime < avgTime && newSpace < barrack.maxSpace)) {
                         isGetBarrack = false;
                     }
                 }
 
                 if (isGetBarrack) {
-                    barrack = getSuitableBarrack(barracksQueue, kit.level, kit.space);
+                    barrack = getSuitableBarrack(barracksQueue, kit[2], kitSpace);
                 }
 
                 if (barrack === null) {
@@ -399,13 +410,14 @@
                     break;
                 }
 
-                if (!barrack.units[kit.name]) {
-                    barrack.units[kit.name] = 0;
+                if (barrack.units[kit[0]]) {
+                    barrack.units[kit[0]]++;
+                } else {
+                    barrack.units[kit[0]] = 1;
                 }
 
-                barrack.units[kit.name]++;
-                barrack.time += kit.time;
-                barrack.space += kit.space;
+                barrack.time += kitTime;
+                barrack.space += kitSpace;
             }
         }
 
@@ -413,27 +425,86 @@
     };
 
 
-    var calculateItems = function(type, params) {
-        ids.get(type).style.display = (params.levelValue === 0 ? 'none' : '');
+    var populateDistribution = function(fillSuccess, type, barracksQueue) {
+        var bqIndex;
+        var bqLength = barracksQueue.length;
+        if (fillSuccess) {
+            document.getElementById(type + '-barracks-exceeded').style.display = 'none';
+            var maxTime = 0;
+            var maxNum = 1;
+            for (bqIndex = 0; bqIndex < bqLength; bqIndex++) {
+                var barrack = barracksQueue[bqIndex];
 
-        var i;
+                var unitIndex;
+                for (unitIndex in barrack.units) {
+                    if (barrack.units[unitIndex] > 0) {
+                        document.getElementById(
+                            'quantity-' +
+                            typesSorted[type][unitIndex][4] +
+                            '-' +
+                            barrack.num
+                        ).textContent = '×' + barrack.units[unitIndex];
+                    }
+                }
+
+                if (barrack.time > maxTime) {
+                    maxTime = barrack.time;
+                    maxNum = barrack.num;
+                }
+
+                document.getElementById(
+                    type +
+                    '-time-barrack-' +
+                    barrack.num
+                ).textContent = (barrack.time ? getFormattedTime(barrack.time) : '');
+            }
+            var maxBarrack = document.getElementById(type + '-time-barrack-' + maxNum);
+            maxBarrack.innerHTML = '<span class="result">' + maxBarrack.textContent + '</span>';
+        } else {
+            document.getElementById(type + '-barracks-exceeded').style.display = '';
+            for (bqIndex = 0; bqIndex < bqLength; bqIndex++) {
+                document.getElementById(type + '-time-barrack-' + barracksQueue[bqIndex].num).textContent = '';
+            }
+        }
+    };
+
+
+    var calculateItems = function(type, params) {
+        document.getElementById(type).style.display = (params.levelValue === 0 ? 'none' : '');
+
+        var clIndex; // cl - cap level
         for (
-            i = params.capLevel;
-            i >= 1;
-            i--
+            clIndex = params.capLevel;
+            clIndex >= 1;
+            clIndex--
         ) {
-            ids.get(type + '-building-level-' + i).style.display = (i > params.levelValue ? 'none' : '');
+            document.getElementById(
+                type +
+                '-building-level-' +
+                clIndex
+            ).style.display = (clIndex > params.levelValue ? 'none' : '');
+        }
+
+        if (type !== 'spells') {
+            var barracksMaxCount = allBarracks[type].getMaxCount();
         }
 
         var totalCost = 0;
         var totalSpace = 0;
         var totalTime = 0;
+        var maxUnitTime = 0;
         var distribution = [];
-        objectIterate(types[type], function(name, value) {
+
+        var tsIndex; // ts - types sorted
+        var tsLength;
+        for (tsIndex = 0, tsLength = typesSorted[type].length; tsIndex < tsLength; tsIndex++) {
+            var value = typesSorted[type][tsIndex];
             if (value[3] > params.levelValue) {
-                return;
+                continue;
             }
-            var item = ids.get(name);
+
+            var name = value[4];
+            var item = document.getElementById(name);
 
             var quantity = parseInt(item.value, 10) || 0;
             if (quantity < 0) {
@@ -444,25 +515,25 @@
             }
 
             var levelId = name + '-level';
-            var levelEl = ids.get(levelId);
-            var summaryEl = ids.get(name + '-summary');
+            var levelEl = document.getElementById(levelId);
+            var summaryEl = document.getElementById(name + '-summary');
             var costPerItem = levelEl.value;
             var summaryCost = (costPerItem * quantity);
 
-            summaryEl.innerHTML = (summaryCost ? numberFormat(summaryCost) : 0);
+            summaryEl.textContent = (summaryCost ? numberFormat(summaryCost) : 0);
 
             totalCost += summaryCost;
 
             totalSpace += (value[2] * quantity);
             totalTime += (value[0] * quantity);
             if (type !== 'spells') {
-                var i;
-                for (i = 1; i <= allBarracks[type].getMaxCount(); i++) {
-                    ids.get('quantity-' + name + '-' + i).innerHTML = '';
+                var mcIndex; // mc - max count
+                for (mcIndex = 1; mcIndex <= barracksMaxCount; mcIndex++) {
+                    document.getElementById('quantity-' + name + '-' + mcIndex).textContent = '';
                 }
 
                 var subtractId = name + '-subtract';
-                var subtract = ids.get(subtractId);
+                var subtract = document.getElementById(subtractId);
                 var subtractQuantity = parseInt(subtract.value, 10) || 0;
                 if (subtractQuantity < 0) {
                     subtractQuantity = 0;
@@ -472,13 +543,12 @@
                 }
 
                 if (quantity > 0) {
-                    distribution.push({
-                        'name': name,
-                        'quantity': quantity - subtractQuantity,
-                        'level': value[3],
-                        'space': value[2],
-                        'time': value[0],
-                    });
+                    distribution.push([
+                        tsIndex,
+                        quantity - subtractQuantity,
+                        value[3] // level
+                    ]);
+                    maxUnitTime = Math.max(maxUnitTime, value[0]);
                 }
 
                 savedData.set(subtractId, subtractQuantity);
@@ -486,98 +556,61 @@
 
             savedData.set(name, quantity);
             savedData.set(levelId, levelEl.selectedIndex);
-        });
-
-        if (type === 'units' || type === 'dark') {
-            distribution.sort(unitsDistributionSort);
-
-            var barracksQueue = [];
-            allBarracks[type].getAllNormalized().forEach(function(barrackData, barrackIndex) {
-                var header;
-                if (parseInt(barrackData.level, 10) === 0) {
-                    header = '';
-                } else {
-                    header = barrackData.level +
-                             ' lvl <span class="' +
-                             type +
-                             '-quantity" title="Maximum Unit Queue Length">(' +
-                             barrackData.queueLength +
-                             ')</span>';
-                }
-                ids.get(type + '-barrack-header-' + (barrackIndex + 1)).innerHTML = header;
-
-                barracksQueue.push({
-                    'num': barrackIndex + 1,
-                    'time': 0,
-                    'space': 0,
-                    'maxSpace': barrackData.queueLength,
-                    'units': {},
-                    'level': barrackData.level
-                });
-            });
-
-            var maxUnitTime = Math.max.apply(null, distribution.map(function(distributionItem) {
-                return distributionItem.time;
-            }));
-
-            var avgTime = Math.max(Math.ceil(totalTime / allBarracks[type].getActiveCount()), maxUnitTime);
-            var fillSuccess = fillBarracks(barracksQueue, distribution, avgTime);
-
-            if (fillSuccess) {
-                ids.get(type + '-barracks-exceeded').style.display = 'none';
-                var maxTime = 0;
-                var maxNum = 1;
-                barracksQueue.forEach(function(v) {
-                    objectIterate(v.units, function(unitName, unitQuantity) {
-                        if (unitQuantity > 0) {
-                            ids.get('quantity-' + unitName + '-' + v.num).innerHTML = '×' + unitQuantity;
-                        }
-                    });
-                    if (v.time > maxTime) {
-                        maxTime = v.time;
-                        maxNum = v.num;
-                    }
-                    ids.get(type + '-time-barrack-' + v.num).innerHTML = (v.time ? getFormattedTime(v.time) : '');
-                });
-                var maxBarrack = ids.get(type + '-time-barrack-' + maxNum);
-                maxBarrack.innerHTML = '<span class="result">' + maxBarrack.innerHTML + '</span>';
-            } else {
-                ids.get(type + '-barracks-exceeded').style.display = '';
-                barracksQueue.forEach(function(v) {
-                    ids.get(type + '-time-barrack-' + v.num).innerHTML = '';
-                });
-            }
-
-            currentSpace[type] += totalSpace;
         }
 
-        ids.get(type + '-cost').innerHTML = numberFormat(totalCost);
+        document.getElementById(type + '-cost').textContent = numberFormat(totalCost);
 
         if (type === 'spells') {
             setQuantityAndSpace(params.space, totalSpace, type);
-            ids.get(type + '-time').innerHTML = getFormattedTime(totalTime, true);
+            document.getElementById(type + '-time').textContent = getFormattedTime(totalTime, true);
+        } else {
+            var barracksQueue = allBarracks[type].getQueue();
+            var avgTime = Math.max(Math.ceil(totalTime / allBarracks[type].getActiveCount()), maxUnitTime);
+            var fillSuccess = fillBarracks(barracksQueue, distribution, avgTime, type);
+
+            populateDistribution(fillSuccess, type, barracksQueue);
+
+            currentSpace[type] += totalSpace;
         }
     };
 
 
-    var calculateDelayedTimeoutLong = null;
-    var calculateDelayedTimeoutShort = null;
-    var calculateDelayed = function(type) {
-        var calculateFunc = calculate.bind(null, type);
-        if (!calculateDelayedTimeoutLong) {
-            calculateDelayedTimeoutLong = setTimeout(calculateFunc, 500);
-        }
-        clearTimeout(calculateDelayedTimeoutShort);
-        calculateDelayedTimeoutShort = setTimeout(calculateFunc, 150);
+    var updateBarracksHeaders = function(type) {
+        allBarracks[type].getAllNormalized().forEach(function(barrackData, barrackIndex) {
+            var header;
+            if (parseInt(barrackData.level, 10) === 0) {
+                header = '';
+            } else {
+                header = barrackData.level +
+                         ' lvl <span class="' +
+                         type +
+                         '-quantity" title="Maximum Unit Queue Length">(' +
+                         barrackData.queueLength +
+                         ')</span>';
+            }
+            document.getElementById(type + '-barrack-header-' + (barrackIndex + 1)).innerHTML = header;
+        });
     };
+
+
+    var calculateDelayLong = null;
+    var calculateDelayShort = null;
 
 
     var calculate = function(type) {
-        clearTimeout(calculateDelayedTimeoutLong);
-        clearTimeout(calculateDelayedTimeoutShort);
-        calculateDelayedTimeoutLong = null;
+        clearTimeout(calculateDelayLong);
+        clearTimeout(calculateDelayShort);
+        calculateDelayLong = null;
 
         if (type === 'all' || type !== 'spells') {
+
+            if (type === 'all' || type === 'barrack-units') {
+                updateBarracksHeaders('units');
+            }
+
+            if (type === 'all' || type === 'barrack-dark') {
+                updateBarracksHeaders('dark');
+            }
 
             var armyCampsSpace = parseInt(armyCamps.value, 10);
             if (isNaN(armyCampsSpace) || armyCampsSpace < 0) {
@@ -589,27 +622,25 @@
             }
             armyCamps.value = armyCampsSpace;
 
-            if (type === 'all' || type === 'units') {
+            if (type === 'all' || type === 'units' || type === 'barrack-units') {
                 currentSpace.units = 0;
                 calculateItems('units', {
                     'levelValue': allBarracks.units.getMaxLevel(),
-                    'space': armyCampsSpace,
                     'capLevel': allBarracks.units.getCapLevel()
                 });
             }
 
-            if (type === 'all' || type === 'dark') {
+            if (type === 'all' || type === 'dark' || type === 'barrack-dark') {
                 currentSpace.dark = 0;
                 calculateItems('dark', {
                     'levelValue': allBarracks.dark.getMaxLevel(),
-                    'space': armyCampsSpace,
                     'capLevel': allBarracks.dark.getCapLevel()
                 });
             }
 
             var togetherSpace = currentSpace.units + currentSpace.dark;
-            setQuantityAndSpace(armyCamps.value, togetherSpace, 'units');
-            setQuantityAndSpace(armyCamps.value, togetherSpace, 'dark');
+            setQuantityAndSpace(armyCampsSpace, togetherSpace, 'units');
+            setQuantityAndSpace(armyCampsSpace, togetherSpace, 'dark');
 
             savedData.set('armyCamps', armyCamps.value);
 
@@ -640,17 +671,17 @@
         var setItems = function(type) {
             objectIterate(types[type], function(name) {
                 var levelId = name + '-level';
-                var levelEl = ids.get(levelId);
+                var levelEl = document.getElementById(levelId);
                 levelEl.options[savedData.get(levelId, levelEl.selectedIndex)].selected = true;
 
-                var valueEl = ids.get(name);
+                var valueEl = document.getElementById(name);
                 if (type === 'spells') {
                     valueEl.options[savedData.get(name, valueEl.selectedIndex)].selected = true;
                 } else {
                     valueEl.value = savedData.get(name) || 0;
 
                     var subtractId = name + '-subtract';
-                    ids.get(subtractId).value = savedData.get(subtractId) || 0;
+                    document.getElementById(subtractId).value = savedData.get(subtractId) || 0;
                 }
             });
         };
@@ -663,7 +694,7 @@
 
     objectIterate(allBarracks, function(k, v) {
         v.getElements().forEach(function(el) {
-            el.addEventListener('change', calculate.bind(null, k), false);
+            el.addEventListener('change', calculate.bind(null, 'barrack-' + k), false);
         });
     });
     armyCamps.addEventListener('input', calculate.bind(null, 'all'), false);
@@ -671,10 +702,10 @@
 
 
     var spinnerAction = function(eventElement) {
-        var targetElement = ids.get(eventElement.getAttribute('data-target'));
+        var targetElement = eventElement.spinnerTarget;
         var multiplier = parseInt(targetElement.getAttribute('data-multiplier'), 10) || 1;
         var current = parseInt(targetElement.value, 10);
-        if (eventElement.getAttribute('data-spinner-type') === 'plus') {
+        if (eventElement.textContent === '+') {
             if (isNaN(current)) {
                 targetElement.value = multiplier;
             } else {
@@ -687,49 +718,58 @@
                 targetElement.value = current - multiplier;
             }
         }
-        calculateDelayed(targetElement.getAttribute('data-object-type'));
+        calculate(targetElement.getAttribute('data-object-type'));
+    };
+
+
+    var spinnerInterval = null;
+    var spinnerTimeout = null;
+
+
+    var spinnerHold = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.target.spinnerClicked = true;
+        spinnerTimeout = window.setTimeout(function(eventElement) {
+            eventElement.spinnerClicked = false;
+            (function fakeInterval() {
+                spinnerInterval = window.setTimeout(function() {
+                    spinnerAction(eventElement);
+                    fakeInterval();
+                }, 100);
+            }());
+        }.bind(null, e.target), 500);
+    };
+
+
+    var spinnerRelease = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.target.spinnerClicked) {
+            spinnerAction(e.target);
+        }
+        clearTimeout(spinnerTimeout);
+        clearInterval(spinnerInterval);
     };
 
 
     var setSpinner = function(type, el) {
         var span = document.createElement('span');
         span.className = 'like-button like-button_after';
-        span.innerHTML = (type === 'plus' ? '+' : '−');
-        span.setAttribute('data-spinner-type', type);
-        span.setAttribute('data-target', el.getAttribute('id'));
+        span.textContent = (type === 'plus' ? '+' : '−');
+        span.spinnerTarget = el;
 
-        var interval = null;
-        var timeout = null;
-        var hold = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            e.target.setAttribute('data-clicked', '1');
-            timeout = window.setTimeout(function(eventElement) {
-                eventElement.removeAttribute('data-clicked');
-                interval = window.setInterval(
-                    spinnerAction.bind(null, eventElement),
-                    100
-                );
-            }.bind(null, e.target), 500);
-        };
-        var release = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (e.target.getAttribute('data-clicked') === '1') {
-                spinnerAction(e.target);
-            }
-            clearTimeout(timeout);
-            clearInterval(interval);
-        };
-        span.addEventListener('touchstart', hold);
-        span.addEventListener('touchend', release);
-        span.addEventListener('mousedown', hold);
-        span.addEventListener('mouseup', release);
+        span.addEventListener('touchstart', spinnerHold);
+        span.addEventListener('touchend', spinnerRelease);
+        span.addEventListener('mousedown', spinnerHold);
+        span.addEventListener('mouseup', spinnerRelease);
 
         el.parentNode.appendChild(span);
     };
 
+
     var rowTemplate = templates.item_row;
+
 
     var createRows = function(type, tabIndexMultiplier) {
         var createLevelOption = function(value, index) {
@@ -744,7 +784,7 @@
             }
         }
 
-        var itemsBody = ids.get(type + '-body');
+        var itemsBody = document.getElementById(type + '-body');
         objectIterate(types[type], function(name, value) {
             var convertedName = convertToTitle(name);
             var templateVars = {
@@ -787,35 +827,48 @@
             var itemRow = tempDiv.querySelector('tr');
             itemsBody.appendChild(itemRow);
 
-            ids.get(templateVars.levelId).addEventListener('change', calculate.bind(null, type), false);
-            ids.get(templateVars.id).addEventListener(
+            document.getElementById(templateVars.levelId).addEventListener(
+                'change',
+                calculate.bind(null, type),
+                false
+            );
+            document.getElementById(templateVars.id).addEventListener(
                 (type === 'spells' ? 'change' : 'input'),
                 calculate.bind(null, type),
                 false
             );
 
             if (type === 'units' || type === 'dark') {
-                ids.get(templateVars.subtractId).addEventListener('input', calculate.bind(null, type), false);
+                document.getElementById(templateVars.subtractId).addEventListener(
+                    'input',
+                    calculate.bind(null, type),
+                    false
+                );
             }
         });
     };
+
 
     createRows('units', 100);
     createRows('dark', 200);
     createRows('spells', 300);
 
+
     var selectAll = function(e) {
         if (e.target.tagName.toLowerCase() === 'input') {
-            setTimeout(function(el) {
+            window.setTimeout(function(el) {
                 el.setSelectionRange(0, 9999);
             }.bind(null, e.target), 10);
         }
     };
+
+
     toArray(document.getElementsByClassName('js-number')).forEach(function(el) {
         el.addEventListener('focus', selectAll, false);
         setSpinner('plus', el);
         setSpinner('minus', el);
     });
+
 
     var resetColumn = function(e) {
         e.preventDefault();
@@ -827,18 +880,21 @@
             if (scope !== 'quantity') {
                 key += '-' + scope;
             }
-            ids.get(key).value = '0';
+            document.getElementById(key).value = '0';
         });
         calculate(resetType);
     };
+
 
     toArray(document.getElementsByClassName('js-reset')).forEach(function(el) {
         el.addEventListener('click', resetColumn, false);
         el.addEventListener('touchend', resetColumn, false);
     });
 
+
     setDefaults();
     calculate('all');
+
 
     if (window.device && window.device.cordova) {
         toArray(document.getElementsByClassName('js-link')).forEach(function(el) {
@@ -856,6 +912,7 @@
 
     var savedCalculationsStorage = new DataStorage('savedCalculations', []);
     var savedCalculations = new MultiDict(savedCalculationsStorage.load());
+
 
     var savedListItemTemplate = templates.saved_list_item;
     var savedListCreateItems = function() {
@@ -954,7 +1011,7 @@
             content.push(savedListItemTemplate.render(templateVars));
         });
 
-        var savedListContent = ids.get('saved-list-content');
+        var savedListContent = document.getElementById('saved-list-content');
         savedListContent.innerHTML = content.join('');
 
         var loadSaved = function(e) {
@@ -985,6 +1042,7 @@
         });
     };
 
+
     var save = function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -999,8 +1057,8 @@
         savedListCreateItems();
     };
 
-    ids.get('save').addEventListener('click', save, false);
-    ids.get('save').addEventListener('touchend', save, false);
+    document.getElementById('save').addEventListener('click', save, false);
+    document.getElementById('save').addEventListener('touchend', save, false);
 
     savedListCreateItems();
 
