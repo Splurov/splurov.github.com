@@ -220,6 +220,12 @@
         this.getCapLevel = function() {
             return this.barracks[0].options[this.barracks[0].options.length - 1].value;
         };
+
+        this.getActiveCount = function() {
+            return this.barracks.filter(function(b){
+                return b.value > 0;
+            }).length;
+        };
     };
 
     var allBarracks = {
@@ -292,29 +298,37 @@
 
 
     var suitableBarracksSort = function(a, b) {
+        // least time first
         if (a.time < b.time) {
             return -1;
         }
         if (a.time > b.time) {
             return 1;
         }
+
+        // least space first
         if (a.space < b.space) {
             return -1;
         }
         if (a.space > b.space) {
             return 1;
         }
+
+        // least max space first
+        if (a.maxSpace < b.maxSpace) {
+            return -1;
+        }
+        if (a.maxSpace > b.maxSpace) {
+            return 1;
+        }
+
         return 0;
     };
 
 
     var getSuitableBarrack = function(barracks, requiredLevel, requiredSpace) {
-        var i;
-        var suitable = [];
-        objectIterate(barracks, function(key, barrack) {
-            if (barrack.level >= requiredLevel && (barrack.space + requiredSpace) <= barrack.maxSpace) {
-                suitable.push(barrack);
-            }
+        var suitable = barracks.filter(function(barrack) {
+            return barrack.level >= requiredLevel && (barrack.space + requiredSpace) <= barrack.maxSpace;
         });
 
         if (!suitable.length) {
@@ -336,23 +350,49 @@
         if (a.time > b.time) {
             return -1;
         }
-        if (a.quantity > b.quantity) {
-            return -1;
-        }
+
         if (a.quantity < b.quantity) {
             return 1;
         }
+        if (a.quantity > b.quantity) {
+            return -1;
+        }
+
+        if (a.level < b.level) {
+            return 1;
+        }
+        if (a.level > b.level) {
+            return -1;
+        }
+
         return 0;
     };
 
 
-    var fillBarracks = function(barracksQueue, unitsDistribution) {
-        var distributionLength;
+    var fillBarracks = function(barracksQueue, unitsDistribution, avgTime) {
         var stopDistribution = false;
-        unitsDistribution.forEach(function(kit) {
+
+        var udIndex;
+        var udLength;
+        for (udIndex = 0, udLength = unitsDistribution.length; udIndex < udLength; udIndex++) {
+            var kit = unitsDistribution[udIndex];
             var i;
+            var barrack = null;
             for (i = 0; i < kit.quantity; i++) {
-                var barrack = getSuitableBarrack(barracksQueue, kit.level, kit.space);
+                var isGetBarrack = true;
+                if (barrack) {
+                    var newTime = barrack.time + kit.time;
+                    var newSpace = barrack.space + kit.space;
+                    if (newTime < (avgTime / 3) ||
+                        newSpace < (barrack.maxSpace / 4) ||
+                        (kit.space === 1 && newTime < avgTime && newSpace < barrack.maxSpace)) {
+                        isGetBarrack = false;
+                    }
+                }
+
+                if (isGetBarrack) {
+                    barrack = getSuitableBarrack(barracksQueue, kit.level, kit.space);
+                }
 
                 if (barrack === null) {
                     stopDistribution = true;
@@ -360,18 +400,14 @@
                 }
 
                 if (!barrack.units[kit.name]) {
-                    barrack.units[kit.name] = {
-                        'time': 0,
-                        'quantity': 0
-                    };
+                    barrack.units[kit.name] = 0;
                 }
 
-                barrack.units[kit.name].time += kit.time;
-                barrack.units[kit.name].quantity += 1;
+                barrack.units[kit.name]++;
                 barrack.time += kit.time;
                 barrack.space += kit.space;
             }
-        });
+        }
 
         return !stopDistribution;
     };
@@ -409,20 +445,17 @@
 
             var levelId = name + '-level';
             var levelEl = ids.get(levelId);
-            var costEl = ids.get(name + '-cost');
             var summaryEl = ids.get(name + '-summary');
             var costPerItem = levelEl.value;
             var summaryCost = (costPerItem * quantity);
 
-            costEl.innerHTML = numberFormat(costPerItem);
             summaryEl.innerHTML = (summaryCost ? numberFormat(summaryCost) : 0);
 
             totalCost += summaryCost;
 
             totalSpace += (value[2] * quantity);
-            if (type === 'spells') {
-                totalTime += (value[0] * quantity);
-            } else {
+            totalTime += (value[0] * quantity);
+            if (type !== 'spells') {
                 var i;
                 for (i = 1; i <= allBarracks[type].getMaxCount(); i++) {
                     ids.get('quantity-' + name + '-' + i).innerHTML = '';
@@ -442,11 +475,10 @@
                     distribution.push({
                         'name': name,
                         'quantity': quantity - subtractQuantity,
-                        'time': value[0],
                         'level': value[3],
-                        'space': value[2]
+                        'space': value[2],
+                        'time': value[0],
                     });
-
                 }
 
                 savedData.set(subtractId, subtractQuantity);
@@ -459,7 +491,7 @@
         if (type === 'units' || type === 'dark') {
             distribution.sort(unitsDistributionSort);
 
-            var barracksQueue = {};
+            var barracksQueue = [];
             allBarracks[type].getAllNormalized().forEach(function(barrackData, barrackIndex) {
                 var header;
                 if (parseInt(barrackData.level, 10) === 0) {
@@ -474,41 +506,45 @@
                 }
                 ids.get(type + '-barrack-header-' + (barrackIndex + 1)).innerHTML = header;
 
-                barracksQueue[barrackData.id] = {
+                barracksQueue.push({
+                    'num': barrackIndex + 1,
                     'time': 0,
                     'space': 0,
                     'maxSpace': barrackData.queueLength,
                     'units': {},
                     'level': barrackData.level
-                };
+                });
             });
 
-            var fillSuccess = fillBarracks(barracksQueue, distribution);
+            var maxUnitTime = Math.max.apply(null, distribution.map(function(distributionItem) {
+                return distributionItem.time;
+            }));
+
+            var avgTime = Math.max(Math.ceil(totalTime / allBarracks[type].getActiveCount()), maxUnitTime);
+            var fillSuccess = fillBarracks(barracksQueue, distribution, avgTime);
 
             if (fillSuccess) {
                 ids.get(type + '-barracks-exceeded').style.display = 'none';
                 var maxTime = 0;
                 var maxNum = 1;
-                objectIterate(barracksQueue, function(k, v) {
-                    var barrackNum = k.slice(-1);
-                    objectIterate(v.units, function(unitName, unitData) {
-                        if (unitData.time > 0) {
-                            ids.get('quantity-' + unitName + '-' + barrackNum).innerHTML = '×' + unitData.quantity;
+                barracksQueue.forEach(function(v) {
+                    objectIterate(v.units, function(unitName, unitQuantity) {
+                        if (unitQuantity > 0) {
+                            ids.get('quantity-' + unitName + '-' + v.num).innerHTML = '×' + unitQuantity;
                         }
                     });
                     if (v.time > maxTime) {
                         maxTime = v.time;
-                        maxNum = barrackNum;
+                        maxNum = v.num;
                     }
-                    ids.get(type + '-time-barrack-' + barrackNum).innerHTML = (v.time ? getFormattedTime(v.time) : '');
+                    ids.get(type + '-time-barrack-' + v.num).innerHTML = (v.time ? getFormattedTime(v.time) : '');
                 });
                 var maxBarrack = ids.get(type + '-time-barrack-' + maxNum);
                 maxBarrack.innerHTML = '<span class="result">' + maxBarrack.innerHTML + '</span>';
             } else {
                 ids.get(type + '-barracks-exceeded').style.display = '';
-                objectIterate(barracksQueue, function(k) {
-                    var barrackNum = k.slice(-1);
-                    ids.get(type + '-time-barrack-' + barrackNum).innerHTML = '';
+                barracksQueue.forEach(function(v) {
+                    ids.get(type + '-time-barrack-' + v.num).innerHTML = '';
                 });
             }
 
@@ -524,7 +560,23 @@
     };
 
 
+    var calculateDelayedTimeoutLong = null;
+    var calculateDelayedTimeoutShort = null;
+    var calculateDelayed = function(type) {
+        var calculateFunc = calculate.bind(null, type);
+        if (!calculateDelayedTimeoutLong) {
+            calculateDelayedTimeoutLong = setTimeout(calculateFunc, 500);
+        }
+        clearTimeout(calculateDelayedTimeoutShort);
+        calculateDelayedTimeoutShort = setTimeout(calculateFunc, 150);
+    };
+
+
     var calculate = function(type) {
+        clearTimeout(calculateDelayedTimeoutLong);
+        clearTimeout(calculateDelayedTimeoutShort);
+        calculateDelayedTimeoutLong = null;
+
         if (type === 'all' || type !== 'spells') {
 
             var armyCampsSpace = parseInt(armyCamps.value, 10);
@@ -635,7 +687,7 @@
                 targetElement.value = current - multiplier;
             }
         }
-        calculate(targetElement.getAttribute('data-object-type'));
+        calculateDelayed(targetElement.getAttribute('data-object-type'));
     };
 
 
@@ -701,7 +753,6 @@
                 'titleLink': getWikiaLink(convertedName, (type === 'spells')),
                 'levelId': name + '-level',
                 'levelContent': value[1].map(createLevelOption),
-                'costId': name + '-cost',
                 'summaryId': name + '-summary',
                 'rowId': type + '-building-level-' + value[3],
                 'tabIndexLevel': tabIndexMultiplier + value[3],
