@@ -1,5 +1,14 @@
 [
     [
+        "2.6",
+        "5 May, 2013",
+        [
+            "Grouping units of the same type in distribution between the barracks (as much as possible)",
+            "Improved distribution between the barracks to reduce the time of production",
+            "Performance optimizations (primarily on iPhone/iPad)"
+        ]
+    ],
+    [
         "2.5.1",
         "29 April, 2013",
         [
