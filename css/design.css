@@ -25,15 +25,15 @@ a:hover, a:active {
 }
 
 h1 {
-    font-size: 28px;
-    margin: 0 0 12px;
+    font-size: 1.55em;
+    margin: 0 0 .42em;
 }
 h2 {
-    font-size: 22px;
-    margin: 18px 0 4px;
+    font-size: 1.22em;
+    margin: .81em 0 .18em;
 }
 p {
-    margin: 0 0 12px;
+    margin: 0 0 .66em;
 }
 
 

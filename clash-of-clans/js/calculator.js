@@ -808,7 +808,11 @@
         span.addEventListener('mousedown', spinnerHold);
         span.addEventListener('mouseup', spinnerRelease);
 
-        el.parentNode.appendChild(span);
+        if (el.nextSibling) {
+            el.parentNode.insertBefore(span, el.nextSibling);
+        } else {
+            el.parentNode.appendChild(span);
+        }
     };
 
 
@@ -909,8 +913,8 @@
 
     toArray(document.getElementsByClassName('js-number')).forEach(function(el) {
         el.addEventListener('focus', selectAll, false);
-        setSpinner('plus', el);
         setSpinner('minus', el);
+        setSpinner('plus', el);
     });
 
 
