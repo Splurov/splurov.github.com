@@ -1,5 +1,13 @@
 [
     [
+        "2.6.1",
+        "6 May, 2013",
+        [
+            "Fixed a bug on iPhone/iPad when many units cause lags",
+            "Bigger buttons to simplify tapping on iPhone/iPad (and other minor improvements: reduced indents, reduced font size of the headers, width set to fit the content)"
+        ]
+    ],
+    [
         "2.6",
         "5 May, 2013",
         [

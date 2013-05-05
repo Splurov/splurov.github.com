@@ -36,6 +36,8 @@ input[type=number]::-webkit-inner-spin-button {
     border-top: 1px solid #ddd;
     margin-left: -10px;
     border-radius: 10px;
+    -webkit-transform: translateZ(0);
+    -webkit-font-smoothing: subpixel-antialiased;
 }
     .units_common {
         margin-bottom: 12px;
