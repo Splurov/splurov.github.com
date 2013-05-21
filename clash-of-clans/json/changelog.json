@@ -1,5 +1,12 @@
 [
     [
+        "2.6.2",
+        "21 May, 2013",
+        [
+            "Fixed several bugs regarding the distribution of units between barracks"
+        ]
+    ],
+    [
         "2.6.1",
         "6 May, 2013",
         [

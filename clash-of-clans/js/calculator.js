@@ -194,7 +194,7 @@
         this.getAllNormalized = function() {
             return this.barracks.map(function(el) {
                 return {
-                    'level': el.value,
+                    'level': parseInt(el.value, 10),
                     'queueLength': this.queueLengths[el.value]
                 };
             }, this);
@@ -208,7 +208,7 @@
                     'space': 0,
                     'maxSpace': this.queueLengths[el.value],
                     'units': {},
-                    'level': el.value
+                    'level': parseInt(el.value, 10)
                 };
             }, this);
         };
@@ -281,32 +281,12 @@
     };
 
 
-    var thingsSort = function(a, b) {
-        if (a[0] < b[0]) {
-            return 1;
-        }
-        if (a[0] > b[0]) {
-            return -1;
-        }
-
-        if (a[2] < b[2]) {
-            return 1;
-        }
-        if (a[2] > b[2]) {
-            return -1;
-        }
-
-        return 0;
-    };
-
-
     var typesSorted = {};
     objectIterate(types, function(type, items) {
         typesSorted[type] = [];
         objectIterate(items, function(name, objects) {
-            typesSorted[type].push(objects.concat(name));
+            typesSorted[type].unshift(objects.concat(name));
         });
-        typesSorted[type].sort(thingsSort);
     });
 
 
@@ -570,7 +550,7 @@
                 totalTime += (value[0] * quantity);
             } else {
                 var mcIndex; // mc - max count
-                for (mcIndex = 1; mcIndex <= barracksMaxCount; mcIndex++) {
+                for (mcIndex = 1; mcIndex <= allBarracks[type].getMaxCount(); mcIndex++) {
                     document.getElementById('quantity-' + name + '-' + mcIndex).textContent = '';
                 }
 
