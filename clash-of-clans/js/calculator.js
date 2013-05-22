@@ -191,6 +191,13 @@
             }));
         };
 
+        this.getMinLevel = function() {
+            return Math.min.apply(null, this.barracks.map(function(el) {
+                // Infinity for zero values
+                return parseInt(el.value, 10) || Infinity;
+            }));
+        };
+
         this.getAllNormalized = function() {
             return this.barracks.map(function(el) {
                 return {
@@ -281,11 +288,11 @@
     };
 
 
-    var typesSorted = {};
+    var typesSortedLevel = {};
     objectIterate(types, function(type, items) {
-        typesSorted[type] = [];
+        typesSortedLevel[type] = [];
         objectIterate(items, function(name, objects) {
-            typesSorted[type].unshift(objects.concat(name));
+            typesSortedLevel[type].unshift(objects.concat(name));
         });
     });
 
@@ -313,7 +320,7 @@
 
 
     var suitableBarracksSort = function(a, b) {
-        // least time first
+        // minimum time first
         if (a.time < b.time) {
             return -1;
         }
@@ -321,7 +328,7 @@
             return 1;
         }
 
-        // least space first
+        // minimum space first
         if (a.space < b.space) {
             return -1;
         }
@@ -329,7 +336,7 @@
             return 1;
         }
 
-        // least max space first
+        // minimum max space first
         if (a.maxSpace < b.maxSpace) {
             return -1;
         }
@@ -342,7 +349,7 @@
 
 
     var timeSuitableBarracksSort = function(a, b) {
-        // least level first
+        // minimum level first
         if (a.level < b.level) {
             return -1;
         }
@@ -350,7 +357,7 @@
             return 1;
         }
 
-        // least time first
+        // minimum time first
         if (a.time < b.time) {
             return -1;
         }
@@ -358,7 +365,7 @@
             return 1;
         }
 
-        // least space first
+        // minimum space first
         if (a.space < b.space) {
             return -1;
         }
@@ -399,15 +406,15 @@
     };
 
 
-    var fillBarracks = function(barracksQueue, unitsDistribution, avgTime, type) {
+    var fillBarracks = function(barracksQueue, unitsDistribution, avgTime) {
         var stopDistribution = false;
 
         var udIndex; // ud - units distribution
         var udLength;
         for (udIndex = 0, udLength = unitsDistribution.length; udIndex < udLength; udIndex++) {
             var kit = unitsDistribution[udIndex];
-            var kitTime = typesSorted[type][kit[0]][0];
-            var kitSpace = typesSorted[type][kit[0]][2];
+            var kitTime = kit[3];
+            var kitSpace = kit[4];
             var i;
             var barrack = null;
             for (i = 0; i < kit[1]; i++) {
@@ -461,7 +468,7 @@
                     if (barrack.units[unitIndex] > 0) {
                         document.getElementById(
                             'quantity-' +
-                            typesSorted[type][unitIndex][4] +
+                            typesSortedLevel[type][unitIndex][4] +
                             '-' +
                             barrack.num
                         ).textContent = '×' + barrack.units[unitIndex];
@@ -487,6 +494,27 @@
                 document.getElementById(type + '-time-barrack-' + barracksQueue[bqIndex].num).textContent = '';
             }
         }
+    };
+
+
+    var distributionNoLevelSort = function(a, b) {
+        // maximum space first
+        if (a[3] < b[3]) {
+            return 1;
+        }
+        if (a[3] > b[3]) {
+            return -1;
+        }
+
+        // maximum time first
+        if (a[4] < b[4]) {
+            return 1;
+        }
+        if (a[4] > b[4]) {
+            return -1;
+        }
+
+        return 0;
     };
 
 
@@ -518,8 +546,8 @@
 
         var tsIndex; // ts - types sorted
         var tsLength;
-        for (tsIndex = 0, tsLength = typesSorted[type].length; tsIndex < tsLength; tsIndex++) {
-            var value = typesSorted[type][tsIndex];
+        for (tsIndex = 0, tsLength = typesSortedLevel[type].length; tsIndex < tsLength; tsIndex++) {
+            var value = typesSortedLevel[type][tsIndex];
             if (value[3] > params.levelValue) {
                 continue;
             }
@@ -569,7 +597,9 @@
                     distribution.push([
                         tsIndex,
                         quantity - subtractQuantity,
-                        value[3] // level
+                        value[3], // level
+                        value[0], // time
+                        value[2] // space
                     ]);
                     maxUnitTime = Math.max(maxUnitTime, value[0]);
                     totalTime += (value[0] * totalQuantity);
@@ -590,7 +620,15 @@
         } else {
             var barracksQueue = allBarracks[type].getQueue();
             var avgTime = Math.max(Math.ceil(totalTime / allBarracks[type].getActiveCount()), maxUnitTime);
-            var fillSuccess = fillBarracks(barracksQueue, distribution, avgTime, type);
+
+            var unitMaxLevel = Math.max.apply(null, distribution.map(function(item) {
+                return item[2];
+            }));
+            if (unitMaxLevel < allBarracks[type].getMinLevel()) {
+                distribution.sort(distributionNoLevelSort);
+            }
+
+            var fillSuccess = fillBarracks(barracksQueue, distribution, avgTime);
 
             populateDistribution(fillSuccess, type, barracksQueue);
 
