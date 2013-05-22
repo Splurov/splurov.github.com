@@ -114,6 +114,7 @@ for (var file in sources) {
                 changelogForJson[(new Date(v[1]).getTime())] = v[2];
             });
             translationsCurrent.changelog = changelogParsed;
+            translationsCurrent.firstChangelog = changelogParsed[0];
         }
 
         if (jsonOutput) {

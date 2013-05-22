@@ -1,9 +1,10 @@
 [
     [
-        "2.6.2",
-        "21 May, 2013",
+        "2.7",
+        "22 May, 2013",
         [
-            "Fixed several bugs regarding the distribution of units between barracks"
+            "Fixed several bugs regarding the distribution of units between barracks",
+            "What’s New block and Version History box"
         ]
     ],
     [
