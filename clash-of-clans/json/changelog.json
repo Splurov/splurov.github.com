@@ -1,5 +1,16 @@
 [
     [
+        "2.8",
+        "23 May, 2013",
+        [
+            "Added Healer level 4",
+            "Healer training time decreased from 20 to 15 minutes, housing space requirement decreased from 20 to 14 and training cost decreased for all levels",
+            "Added Dragon level 4",
+            "Added Golem level 5"
+        ],
+        "4.14 updates:"
+    ],
+    [
         "2.7",
         "22 May, 2013",
         [
