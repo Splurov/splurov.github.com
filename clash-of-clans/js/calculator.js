@@ -659,9 +659,7 @@
                 header = '';
             } else {
                 header = barrackData.level +
-                         ' lvl <span class="' +
-                         type +
-                         '-quantity" title="Maximum Unit Queue Length">(' +
+                         ' lvl <span class="data-quantity" title="Maximum Queue Length">(' +
                          barrackData.queueLength +
                          ')</span>';
             }
@@ -832,7 +830,7 @@
 
     var setSpinner = function(type, el) {
         var span = document.createElement('span');
-        span.className = 'like-button like-button_after';
+        span.className = 'button button_after';
         span.textContent = (type === 'plus' ? '+' : '−');
         span.spinnerTarget = el;
 

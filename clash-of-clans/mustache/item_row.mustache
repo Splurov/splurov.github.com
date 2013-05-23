@@ -3,7 +3,7 @@
             <a href="{{titleLink}}" class="wikia-link js-link" target="_blank">{{title}}</a>
         </td>
         <td>
-            <select id="{{levelId}}" class="field" tabindex="{{tabIndexLevel}}">
+            <select id="{{levelId}}" tabindex="{{tabIndexLevel}}">
                 {{#levelContent}}
                     <option value="{{value}}">{{text}}</option>
                 {{/levelContent}}
@@ -11,21 +11,21 @@
         </td>
         <td>
             {{#spells}}
-                <select id="{{id}}" class="field" tabindex="{{tabIndexValue}}" data-field-type="quantity">
+                <select id="{{id}}" tabindex="{{tabIndexValue}}" data-field-type="quantity">
                     {{#options}}
                         <option value="{{value}}">{{text}}</option>
                     {{/options}}
                 </select>
             {{/spells}}
             {{^spells}}
-                <input type="number" data-object-type="{{objectType}}" min="0" max="999" class="js-number field" id="{{id}}" size="3" tabindex="{{tabIndexValue}}" data-field-type="quantity"/>
+                <input type="number" data-object-type="{{objectType}}" min="0" max="999" class="js-number" id="{{id}}" size="3" tabindex="{{tabIndexValue}}" data-field-type="quantity"/>
             {{/spells}}
         </td>
         <td id="{{summaryId}}" class="number">
         </td>
         {{#subtractId}}
             <td>
-               <input type="number" data-object-type="{{objectType}}" min="0" max="999" class="js-number field" id="{{subtractId}}" size="3" tabindex="{{tabIndexSubtract}}" data-field-type="subtract"/>
+               <input type="number" data-object-type="{{objectType}}" min="0" max="999" class="js-number" id="{{subtractId}}" size="3" tabindex="{{tabIndexSubtract}}" data-field-type="subtract"/>
             </td>
         {{/subtractId}}
         {{#barracksTimes}}

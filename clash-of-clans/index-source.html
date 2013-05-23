@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <meta class="js-viewport" name="viewport" content="width=900"/>
+    <meta name="viewport" content="width=900"/>
     {{#web_only}}
     <title>{{coc_title}}</title>
     <meta name="description" content="{{coc_description}}"/>
@@ -26,7 +26,7 @@
 {{#web_only}}
 <h1>{{coc_title}}</h1>
 
-<div class="intro">
+<div class="fixed-content">
     <p>{{coc_description}}</p>
 
     <p>All entered data will be saved in your browser and pre-filled in next time you visit this page.</p>
@@ -61,16 +61,16 @@
 </script>
 {{/web_only}}
 
-<table class="two-cols intro">
+<table class="fixed-content">
     <tr>
         <td>
-            <table class="units units_common">
+            <table class="data data_common">
                 <tr>
                     <td>
                         <label for="barracks-levels-1"><a href="http://clashofclans.wikia.com/wiki/Barracks" class="wikia-link js-link" target="_blank">Barracks</a> Levels</label>
                     </td>
                     <td>
-                        <select id="barracks-levels-1" class="field" tabindex="1">
+                        <select id="barracks-levels-1" tabindex="1">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -82,7 +82,7 @@
                             <option value="9">9</option>
                             <option value="10" selected="selected">10</option>
                         </select>
-                        <select id="barracks-levels-2" class="field" tabindex="5">
+                        <select id="barracks-levels-2" tabindex="5">
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -95,7 +95,7 @@
                             <option value="9">9</option>
                             <option value="10" selected="selected">10</option>
                         </select>
-                        <select id="barracks-levels-3" class="field" tabindex="10">
+                        <select id="barracks-levels-3" tabindex="10">
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -108,7 +108,7 @@
                             <option value="9">9</option>
                             <option value="10" selected="selected">10</option>
                         </select>
-                        <select id="barracks-levels-4" class="field" tabindex="15">
+                        <select id="barracks-levels-4" tabindex="15">
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -129,14 +129,14 @@
                         <label for="dark-barracks-levels-1"><a href="http://clashofclans.wikia.com/wiki/Dark_Barracks" class="wikia-link js-link" target="_blank">Dark Barracks</a> Levels</label>
                     </td>
                     <td>
-                        <select id="dark-barracks-levels-1" class="field" tabindex="20">
+                        <select id="dark-barracks-levels-1" tabindex="20">
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4" selected="selected">4</option>
                         </select>
-                        <select id="dark-barracks-levels-2" class="field" tabindex="25">
+                        <select id="dark-barracks-levels-2" tabindex="25">
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -151,7 +151,7 @@
                         <label for="army-camps"><a href="http://clashofclans.wikia.com/wiki/Army_Camp" class="wikia-link js-link" target="_blank">Army Camps</a> Capacity</label>
                     </td>
                     <td>
-                        <input type="number" data-object-type="all" step="5" min="20" max="220" class="js-number field" data-multiplier="5" value="220" id="army-camps" size="3" tabindex="30"/>
+                        <input type="number" data-object-type="all" step="5" min="20" max="220" class="js-number" data-multiplier="5" value="220" id="army-camps" size="3" tabindex="30"/>
                     </td>
                 </tr>
 
@@ -160,7 +160,7 @@
                         <label for="spell-factory-level"><a href="http://clashofclans.wikia.com/wiki/Spell_Factory" class="wikia-link js-link" target="_blank">Spell Factory</a> Level</label>
                     </td>
                     <td>
-                        <select id="spell-factory-level" class="field" tabindex="35">
+                        <select id="spell-factory-level" tabindex="35">
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -171,38 +171,40 @@
                 </tr>
             </table>
         </td>
-        <td class="list-content list-content_small list-content_indented">
-            {{#firstChangelog}}
-                <h3>What's New in Version {{version}}</h3>
-                {{#ch_title}}
-                <p>{{ch_title}}</p>
-                {{/ch_title}}
-                <ul>
-                    {{#changes}}
-                    <li>{{& change}}.</li>
-                    {{/changes}}
-                </ul>
-            {{/firstChangelog}}
-            <span id="view-changelog" class="like-button like-button_lonely">Version History</span>
+        <td class="right-column">
+            <div class="list-content list-content_small">
+                {{#firstChangelog}}
+                    <h3>What's New in Version {{version}}</h3>
+                    {{#ch_title}}
+                    <p>{{ch_title}}</p>
+                    {{/ch_title}}
+                    <ul>
+                        {{#changes}}
+                        <li>{{& change}}.</li>
+                        {{/changes}}
+                    </ul>
+                {{/firstChangelog}}
+                <span id="view-changelog" class="button button_lonely">Version History</span>
+            </div>
         </td>
     </tr>
 </table>
 
-<table id="units" class="units">
+<table id="units" class="data">
     <thead>
         <tr>
             <th>Unit</th>
             <th>Level</th>
-            <th>Quantity <span class="units-quantity" title="Free Capacity" id="units-quantity"></span></th>
+            <th>Quantity <span class="data-quantity" title="Free Capacity" id="units-quantity"></span></th>
             <th><span class="cost-elixir">Total</span></th>
             <th>Subtract</th>
-            <th colspan="4">Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="units-barracks-exceeded">(too many units)</span></th>
+            <th colspan="4">Barracks <span class="limit-exceeded data-quantity" style="display: none;" id="units-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
             <td colspan="2"></td>
-            <td><span class="like-button js-reset" data-reset-type="units" data-scope="quantity">Reset</span></td>
+            <td><span class="button js-reset" data-reset-type="units" data-scope="quantity">Reset</span></td>
             <td></td>
-            <td><span class="like-button js-reset" data-reset-type="units" data-scope="subtract">Reset</span></td>
+            <td><span class="button js-reset" data-reset-type="units" data-scope="subtract">Reset</span></td>
             <td id="units-barrack-header-1"></td>
             <td id="units-barrack-header-2"></td>
             <td id="units-barrack-header-3"></td>
@@ -225,21 +227,21 @@
     </tfoot>
 </table>
 
-<table id="dark" class="units">
+<table id="dark" class="data">
     <thead>
         <tr>
             <th>Unit</th>
             <th>Level</th>
-            <th>Quantity <span class="units-quantity" title="Free Capacity" id="dark-quantity"></span></th>
+            <th>Quantity <span class="data-quantity" title="Free Capacity" id="dark-quantity"></span></th>
             <th><span class="cost-dark-elixir">Total</span></th>
             <th>Subtract</th>
-            <th colspan="2">Dark Barracks <span class="limit-exceeded units-quantity" style="display: none;" id="dark-barracks-exceeded">(too many units)</span></th>
+            <th colspan="2">Dark Barracks <span class="limit-exceeded data-quantity" style="display: none;" id="dark-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
             <td colspan="2"></td>
-            <td><span class="like-button js-reset" data-reset-type="dark" data-scope="quantity">Reset</span></td>
+            <td><span class="button js-reset" data-reset-type="dark" data-scope="quantity">Reset</span></td>
             <td></td>
-            <td><span class="like-button js-reset" data-reset-type="dark" data-scope="subtract">Reset</span></td>
+            <td><span class="button js-reset" data-reset-type="dark" data-scope="subtract">Reset</span></td>
             <td id="dark-barrack-header-1"></td>
             <td id="dark-barrack-header-2"></td>
         </tr>
@@ -258,12 +260,12 @@
     </tfoot>
 </table>
 
-<table id="spells" class="units">
+<table id="spells" class="data">
     <thead>
         <tr>
             <th>Spell</th>
             <th>Level</th>
-            <th>Quantity <span class="units-quantity" title="Free Capacity" id="spells-quantity"></span></th>
+            <th>Quantity <span class="data-quantity" title="Free Capacity" id="spells-quantity"></span></th>
             <th><span class="cost-gold">Total</span></th>
         </tr>
     </thead>
@@ -283,7 +285,7 @@
 </table>
 
 <p>
-    <span id="save" class="like-button like-button_lonely" tabindex="2000">Save Calculation</span>
+    <span id="save" class="button button_lonely" tabindex="2000">Save Calculation</span>
 </p>
 
 <div id="saved-list" class="saved-list">
@@ -300,7 +302,7 @@
 
 <div id="changelog-overlay" class="changelog-overlay hidden">
     <div class="changelog-close">
-        <span id="changelog-close" class="like-button">
+        <span id="changelog-close" class="button">
             <span class="changelog-close__all">Close</span>
             <span class="changelog-close__iphone">Back</span>
         </span>
@@ -347,8 +349,9 @@
 <div class="fb-comments" data-href="http://mkln.ru/clash-of-clans/" data-width="470" data-num-posts="5"></div>
 
 <h2>To-do</h2>
-<div class="list-content list-content_small">
+<div class="list-content list-content_small fixed-content">
     <ul>
+        <li>Possibility to make a unique link to the calculation.</li>
         <li>The distribution of units in the case when the barracks can produce less than accommodating the army camps.</li>
         <li>Production time in saved calculations.</li>
         <li>Saving data between browsers.</li>
