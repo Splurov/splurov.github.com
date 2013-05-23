@@ -1,5 +1,12 @@
 [
     [
+        "2.8.1",
+        "23 May, 2013",
+        [
+            "Optimized distribution of units between the barracks when the maximum unit level less than the minimum barrack level"
+        ]
+    ],
+    [
         "2.8",
         "23 May, 2013",
         [
