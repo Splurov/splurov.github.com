@@ -361,25 +361,11 @@
     };
 
 
-    var barracksMaxLevelSort = function(a, b) {
-        // maximum level first
-        if (a.level > b.level) {
-            return -1;
-        }
-        if (a.level < b.level) {
-            return 1;
-        }
-
-        return suitableBarracksSort(a, b);
-    };
-
-
     var getSuitableBarrack = function(barracks,
                                       requiredLevel,
                                       requiredSpace,
                                       requiredTime,
-                                      avgTime,
-                                      isAllBarracksSuitable) {
+                                      avgTime) {
         var suitable = barracks.filter(function(barrack) {
             return barrack.level >= requiredLevel && (barrack.space + requiredSpace) <= barrack.maxSpace;
         });
@@ -395,11 +381,7 @@
                 });
                 if (timeSuitable.length) {
                     if (timeSuitable.length > 1) {
-                        if (isAllBarracksSuitable) {
-                            timeSuitable.sort(barracksMaxLevelSort);
-                        } else {
-                            timeSuitable.sort(barracksMinLevelSort);
-                        }
+                        timeSuitable.sort(barracksMinLevelSort);
                     }
                     return timeSuitable[0];
                 }
@@ -412,7 +394,7 @@
     };
 
 
-    var fillBarracks = function(barracksQueue, unitsDistribution, avgTime, isAllBarracksSuitable) {
+    var fillBarracks = function(barracksQueue, unitsDistribution, avgTime) {
         var stopDistribution = false;
 
         var udIndex; // ud - units distribution
@@ -429,9 +411,7 @@
                 if (barrack) {
                     var newTime = barrack.time + kitTime;
                     var newSpace = barrack.space + kitSpace;
-                    if (newTime < (avgTime / 3) ||
-                        (newSpace < (barrack.maxSpace / 4) && newTime <= avgTime) ||
-                        (kitSpace === 1 && newTime <= avgTime && newSpace <= barrack.maxSpace)) {
+                    if (kitSpace === 1 && newTime <= avgTime && newSpace <= (barrack.maxSpace / 1.7)) {
                         isGetBarrack = false;
                     }
                 }
@@ -442,8 +422,7 @@
                         kitLevel,
                         kitSpace,
                         kitTime,
-                        avgTime,
-                        isAllBarracksSuitable
+                        avgTime
                     );
                 }
 
@@ -508,27 +487,6 @@
                 document.getElementById(type + '-time-barrack-' + barracksQueue[bqIndex].num).textContent = '';
             }
         }
-    };
-
-
-    var distributionNoLevelSort = function(a, b) {
-        // maximum space first
-        if (a[3] < b[3]) {
-            return 1;
-        }
-        if (a[3] > b[3]) {
-            return -1;
-        }
-
-        // maximum time first
-        if (a[4] < b[4]) {
-            return 1;
-        }
-        if (a[4] > b[4]) {
-            return -1;
-        }
-
-        return 0;
     };
 
 
@@ -638,12 +596,8 @@
             var unitMaxLevel = Math.max.apply(null, distribution.map(function(item) {
                 return item[2];
             }));
-            var isAllBarracksSuitable = (unitMaxLevel < allBarracks[type].getMinLevel());
-            if (isAllBarracksSuitable) {
-                distribution.sort(distributionNoLevelSort);
-            }
 
-            var fillSuccess = fillBarracks(barracksQueue, distribution, avgTime, isAllBarracksSuitable);
+            var fillSuccess = fillBarracks(barracksQueue, distribution, avgTime);
 
             populateDistribution(fillSuccess, type, barracksQueue);
 

@@ -64,15 +64,15 @@ a.title {
 .footer {
     margin-top: 30px;
     font-size: 14px;
-    color: #ccc;
+    color: #aaa;
 }
     .footer a:link {
         text-decoration: underline;
-        color: #ccc;
+        color: #aaa;
     }
     .footer a:visited {
         text-decoration: underline;
-        color: #ccc;
+        color: #aaa;
     }
     .footer a:hover, .footer a:active {
         text-decoration: none;

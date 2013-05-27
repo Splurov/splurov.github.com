@@ -1,7 +1,7 @@
 var ya_metrika_noscript = '<noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>';
 
 var clash_of_clans = 'Clash of Clans';
-var coc_calc_title = 'Troops and Spells Cost Calculator/Time Planner';
+var coc_calc_title = 'Clash Calc — Troops and Spells Cost Calculator/Time Planner for ' + clash_of_clans;
 
 exports.translations = {
     'lang': ['ru', 'en'],
@@ -47,12 +47,12 @@ exports.translations = {
     'locality': ['Москва', 'Moscow'],
     'country_name': ['Россия', 'Russia'],
     'ya_metrika_noscript': [ya_metrika_noscript, ya_metrika_noscript],
-    'clash_of_clans': ['Калькулятор стоимости армии и заклинаний  для ' + clash_of_clans, coc_calc_title + ' for ' + clash_of_clans],
+    'clash_of_clans': ['Калькулятор стоимости армии и заклинаний  для ' + clash_of_clans, coc_calc_title],
     'miscellaneous': ['Разное', 'Miscellaneous'],
     'userscripts': ['Юзерскрипты для Фаерфокса', 'Userscripts for Firefox'],
     'minimum_font_size_addon': ['Дополнение для Фаерфокса — Minimum Font Size Hotkey', 'Firefox Add-on — Minimum Font Size Hotkey'],
 
-    'coc_title': ['', clash_of_clans + ' — ' + coc_calc_title],
+    'coc_title': ['', coc_calc_title],
     'coc_title_web_clip': ['', 'CoC Calc'],
     'coc_description': ['', 'Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.']
 };
