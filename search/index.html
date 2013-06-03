@@ -1,4 +1,8 @@
 <meta charset="UTF-8"/>
+<meta http-equiv="cache-control" content="no-store, no-cache, must-revalidate, max-age=0" />
+<meta http-equiv="expires" content="Tue, 31 July 1986 3:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+<link rel="search" type="application/opensearchdescription+xml" title="All Search Engines" href="/search/opensearch.xml">
 <div id="output"></div>
 <script>
 var DATABASE = {
@@ -174,7 +178,7 @@ var transliterate = function(input, toEn) {
     return output;
 };
 
-var q = decodeURIComponent(document.location.search.replace('?q=', '')).trim();
+var q = decodeURIComponent(document.location.search.replace('?q=', '').replace(/\+/g, '%20')).trim();
 if (q && q != '_') {
     var firstSpace = q.indexOf(' ');
     var key = DEFAULT;
