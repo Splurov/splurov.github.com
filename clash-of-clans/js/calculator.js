@@ -511,6 +511,7 @@
         }
 
         var totalCost = 0;
+        var subtractedCost = 0;
         var totalSpace = 0;
         var totalTime = 0;
         var maxUnitTime = 0;
@@ -565,6 +566,9 @@
                 }
 
                 var totalQuantity = quantity - subtractQuantity;
+                if (totalQuantity < 0) {
+                    totalQuantity = 0;
+                }
                 if (totalQuantity > 0) {
                     distribution.push([
                         tsIndex,
@@ -576,6 +580,8 @@
                     maxUnitTime = Math.max(maxUnitTime, value[0]);
                     totalTime += (value[0] * totalQuantity);
                 }
+
+                subtractedCost += (costPerItem * totalQuantity);
 
                 savedData.set(subtractId, subtractQuantity);
             }
@@ -602,6 +608,13 @@
             populateDistribution(fillSuccess, type, barracksQueue);
 
             currentSpace[type] += totalSpace;
+
+            var subtractedCostEl = document.getElementById(type + '-subtracted-cost');
+            if (subtractedCost === totalCost) {
+                subtractedCostEl.textContent = '';
+            } else {
+                subtractedCostEl.innerHTML = '− ' + numberFormat(totalCost - subtractedCost) + ' = <span class="result">' + numberFormat(subtractedCost) + '</span>';
+            }
         }
     };
 
@@ -613,7 +626,7 @@
                 header = '';
             } else {
                 header = barrackData.level +
-                         ' lvl <span class="data-quantity" title="Maximum Queue Length">(' +
+                         ' lvl <span class="data-secondary" title="Maximum Queue Length">(' +
                          barrackData.queueLength +
                          ')</span>';
             }

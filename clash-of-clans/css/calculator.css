@@ -66,6 +66,7 @@ table {
         white-space: nowrap;
         border-bottom: 1px solid #ddd;
         border-right: 1px solid #ddd;
+        vertical-align: middle;
     }
         .data td > input {
             text-align: right;
@@ -78,8 +79,8 @@ table {
         border-bottom-right-radius: 10px;
     }
 
-    .data-quantity {
-        font-size: 14px;
+    .data-secondary {
+        font-size: 13px;
     }
 
 .list-content {

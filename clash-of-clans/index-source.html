@@ -197,10 +197,10 @@
         <tr>
             <th>Unit</th>
             <th>Level</th>
-            <th>Quantity <span class="data-quantity" title="Free Capacity" id="units-quantity"></span></th>
+            <th>Quantity <span class="data-secondary" title="Free Capacity" id="units-quantity"></span></th>
             <th><span class="cost-elixir">Total</span></th>
             <th>Subtract</th>
-            <th colspan="4">Barracks <span class="limit-exceeded data-quantity" style="display: none;" id="units-barracks-exceeded">(too many units)</span></th>
+            <th colspan="4">Barracks <span class="limit-exceeded data-secondary" style="display: none;" id="units-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
             <td colspan="2"></td>
@@ -220,7 +220,7 @@
             <td colspan="2"></td>
             <td id="units-space" class="result"></td>
             <td id="units-cost" class="number result"></td>
-            <td></td>
+            <td id="units-subtracted-cost" class="data-secondary"></td>
             <td id="units-time-barrack-1" class="number"></td>
             <td id="units-time-barrack-2" class="number"></td>
             <td id="units-time-barrack-3" class="number"></td>
@@ -234,10 +234,10 @@
         <tr>
             <th>Unit</th>
             <th>Level</th>
-            <th>Quantity <span class="data-quantity" title="Free Capacity" id="dark-quantity"></span></th>
+            <th>Quantity <span class="data-secondary" title="Free Capacity" id="dark-quantity"></span></th>
             <th><span class="cost-dark-elixir">Total</span></th>
             <th>Subtract</th>
-            <th colspan="2">Dark Barracks <span class="limit-exceeded data-quantity" style="display: none;" id="dark-barracks-exceeded">(too many units)</span></th>
+            <th colspan="2">Dark Barracks <span class="limit-exceeded data-secondary" style="display: none;" id="dark-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
             <td colspan="2"></td>
@@ -255,7 +255,7 @@
             <td colspan="2"></td>
             <td id="dark-space" class="result"></td>
             <td id="dark-cost" class="number result"></td>
-            <td></td>
+            <td id="dark-subtracted-cost" class="data-secondary"></td>
             <td id="dark-time-barrack-1" class="number"></td>
             <td id="dark-time-barrack-2" class="number"></td>
         </tr>
@@ -267,7 +267,7 @@
         <tr>
             <th>Spell</th>
             <th>Level</th>
-            <th>Quantity <span class="data-quantity" title="Free Capacity" id="spells-quantity"></span></th>
+            <th>Quantity <span class="data-secondary" title="Free Capacity" id="spells-quantity"></span></th>
             <th><span class="cost-gold">Total</span></th>
         </tr>
     </thead>
@@ -353,12 +353,13 @@
 <h2>To-do</h2>
 <div class="list-content list-content_small fixed-content">
     <ul>
+        <li>Possibility to specify a title for the saved calculation.</li>
         <li>Possibility to make a unique link to the calculation.</li>
         <li>The distribution of units in the case when the barracks can produce less than accommodating the army camps.</li>
         <li>Production time in saved calculations.</li>
         <li>Saving data between browsers.</li>
         <li>“Gem-boosted” barracks time (from <a href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator?p=357652&viewfull=1#post357652">forums</a> and comments).</li>
-        <li>(?) Gem costs.</li>
+        <li>Gem costs.</li>
         <li>(?) Clan Castle troops.</li>
     </ul>
 </div>
