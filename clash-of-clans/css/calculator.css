@@ -140,7 +140,7 @@ table {
     padding-right: 19px;
 }
 
-.button {
+.button, .button:link, .button:visited {
     color: #444;
     cursor: pointer;
     display: inline-block;
@@ -154,16 +154,29 @@ table {
 }
     .button:hover {
         background-image: linear-gradient(#fcfcfc, #e0e0e0);
+        text-decoration: none;
     }
     .button:active {
+        color: #444;
         background: #e3e3e3;
+        text-decoration: none;
     }
     .button_after {
         margin-left: 6px;
     }
-    .button_lonely {
+    .button_hanging {
         margin-left: -8px;
-        margin-right: 15px;
+    }
+    .button_social:link, .button_social:visited {
+        background-color: #fcfcff;
+        background-image: linear-gradient(#fcfcff, #ececff);
+        font-size: 14px;
+    }
+    .button_social:hover {
+        background-image: linear-gradient(#fcfcff, #e0e0ff);
+    }
+    .button_social:active {
+        background: #e3e3ff;
     }
 
 .number {
@@ -176,6 +189,10 @@ table {
 
 .fixed-content {
     max-width: 800px;
+}
+
+.indented {
+    margin-bottom: 20px;
 }
 
 .result {

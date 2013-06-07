@@ -19,6 +19,16 @@
     <meta name="apple-mobile-web-app-title" content="{{coc_title_web_clip}}"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta property="fb:admins" content="splurov"/>
+
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:site" content="@ClashCalc"/>
+    <meta name="twitter:creator" content="@Splurov"/>
+    <meta name="twitter:title" content="{{coc_title}}"/>
+    <meta name="twitter:description" content="{{coc_description}}"/>
+
+    <meta property="og:url" content="http://mkln.ru/clash-of-clans/" />
+    <meta property="og:title" content="{{coc_title}}" />
+    <meta property="og:description" content="{{coc_description}}" />
     {{/web_only}}
 </head>
 <body>
@@ -26,12 +36,21 @@
 {{#web_only}}
 <h1>{{coc_title}}</h1>
 
-<div class="fixed-content">
+<div class="fixed-content indented">
     <p>{{coc_description}}</p>
-
-    <p>All entered data will be saved in your browser and pre-filled in next time you visit this page.</p>
-
-    <p>Please note this calculator is only available at http://mkln.ru/clash-of-clans/. If you've seen it on other sites or in the iTunes App Store or anywhere else — is the result of the actions of fraudsters and thieves that have nothing to do with me and use my work without my permission, violating copyright.</p>
+    <p>
+        <a href="https://twitter.com/share?url=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;via=ClashCalc&amp;hashtags=ClashOfClans"
+           target="_blank"
+           class="button button_hanging button_social">Share on Twitter</a>
+        <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F"
+           target="_blank"
+           class="button button_after button_social">Share on Facebook</a>
+    </p>
+    <p>
+        <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;screen_name=ClashCalc"
+           target="_blank"
+           class="button button_hanging button_social">Follow @ClashCalc on Twitter</a>
+    </p>
 </div>
 {{/web_only}}
 
@@ -53,7 +72,11 @@
         z-index: 100;
     }
 </style>
-<p style="position: relative;">Last Update: <span id="app_version" class="updated"></span> <span id="app-updated" class="app-version-updated">Version updated!</span></p>
+<p style="position: relative;">
+    Last Update:
+    <span id="app_version" class="updated"></span>
+    <span id="app-updated" class="app-version-updated">Version updated!</span>
+</p>
 <script>
     document.getElementById('app-updated').ontouchend = function(e) {
         e.preventDefault();
@@ -69,7 +92,9 @@
             <table class="data data_common">
                 <tr>
                     <td>
-                        <label for="barracks-levels-1"><a href="http://clashofclans.wikia.com/wiki/Barracks" class="wikia-link js-link" target="_blank">Barracks</a> Levels</label>
+                        <label for="barracks-levels-1"><a href="http://clashofclans.wikia.com/wiki/Barracks"
+                                                          class="wikia-link js-link"
+                                                          target="_blank">Barracks</a> Levels</label>
                     </td>
                     <td>
                         <select id="barracks-levels-1" tabindex="1">
@@ -128,7 +153,9 @@
 
                 <tr>
                     <td>
-                        <label for="dark-barracks-levels-1"><a href="http://clashofclans.wikia.com/wiki/Dark_Barracks" class="wikia-link js-link" target="_blank">Dark Barracks</a> Levels</label>
+                        <label for="dark-barracks-levels-1"><a href="http://clashofclans.wikia.com/wiki/Dark_Barracks"
+                                                               class="wikia-link js-link"
+                                                               target="_blank">Dark Barracks</a> Levels</label>
                     </td>
                     <td>
                         <select id="dark-barracks-levels-1" tabindex="20">
@@ -150,16 +177,30 @@
 
                 <tr>
                     <td>
-                        <label for="army-camps"><a href="http://clashofclans.wikia.com/wiki/Army_Camp" class="wikia-link js-link" target="_blank">Army Camps</a> Capacity</label>
+                        <label for="army-camps"><a href="http://clashofclans.wikia.com/wiki/Army_Camp"
+                                                   class="wikia-link js-link"
+                                                   target="_blank">Army Camps</a> Capacity</label>
                     </td>
                     <td>
-                        <input type="number" data-object-type="all" step="5" min="20" max="220" class="js-number" data-multiplier="5" value="220" id="army-camps" size="3" tabindex="30"/>
+                        <input type="number"
+                               data-object-type="all"
+                               step="5"
+                               min="20"
+                               max="220"
+                               class="js-number"
+                               data-multiplier="5"
+                               value="220"
+                               id="army-camps"
+                               size="3"
+                               tabindex="30"/>
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        <label for="spell-factory-level"><a href="http://clashofclans.wikia.com/wiki/Spell_Factory" class="wikia-link js-link" target="_blank">Spell Factory</a> Level</label>
+                        <label for="spell-factory-level"><a href="http://clashofclans.wikia.com/wiki/Spell_Factory"
+                                                            class="wikia-link js-link"
+                                                            target="_blank">Spell Factory</a> Level</label>
                     </td>
                     <td>
                         <select id="spell-factory-level" tabindex="35">
@@ -186,7 +227,7 @@
                         {{/changes}}
                     </ul>
                 {{/firstChangelog}}
-                <span id="view-changelog" class="button button_lonely">Version History</span>
+                <span id="view-changelog" class="button button_hanging">Version History</span>
             </div>
         </td>
     </tr>
@@ -200,7 +241,9 @@
             <th>Quantity <span class="data-secondary" title="Free Capacity" id="units-quantity"></span></th>
             <th><span class="cost-elixir">Total</span></th>
             <th>Subtract</th>
-            <th colspan="4">Barracks <span class="limit-exceeded data-secondary" style="display: none;" id="units-barracks-exceeded">(too many units)</span></th>
+            <th colspan="4">Barracks <span class="limit-exceeded data-secondary"
+                                           style="display: none;"
+                                           id="units-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
             <td colspan="2"></td>
@@ -237,7 +280,9 @@
             <th>Quantity <span class="data-secondary" title="Free Capacity" id="dark-quantity"></span></th>
             <th><span class="cost-dark-elixir">Total</span></th>
             <th>Subtract</th>
-            <th colspan="2">Dark Barracks <span class="limit-exceeded data-secondary" style="display: none;" id="dark-barracks-exceeded">(too many units)</span></th>
+            <th colspan="2">Dark Barracks <span class="limit-exceeded data-secondary"
+                                                style="display: none;"
+                                                id="dark-barracks-exceeded">(too many units)</span></th>
         </tr>
         <tr>
             <td colspan="2"></td>
@@ -287,7 +332,7 @@
 </table>
 
 <p>
-    <span id="save" class="button button_lonely" tabindex="2000">Save Calculation</span>
+    <span id="save" class="button button_hanging" tabindex="2000">Save Calculation</span>
 </p>
 
 <div id="saved-list" class="saved-list">
@@ -341,12 +386,30 @@
 
 <script src="../js/ga.js"></script>
 
+
+<h2>Additional Info</h2>
+<div class="fixed-content">
+    <p>All entered data will be saved in your browser and pre-filled in next time you visit this page.</p>
+    <p>
+        Please note this calculator is only available at http://mkln.ru/clash-of-clans/.
+        If you've seen it on other sites or in the iTunes App Store or anywhere else —
+        is the result of the actions of fraudsters and thieves that have nothing to do with me
+        and use my work without my permission, violating copyright.
+    </p>
+</div>
+
+
 <div id="fb-root"></div>
 <script src="js/facebook.js"></script>
 
 <h2>Comments</h2>
 <p>Feel free to post bugs and feature suggestions.</p>
-<p>You can also contact me directly via <a href="mailto:splurov@gmail.com">email</a> or leave a message in the <a href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator">thread</a> on a Supercell forums.</p>
+<p>
+    You can also contact me directly via <a href="mailto:splurov@gmail.com">email</a>
+    or leave a message in the
+    <a href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator">thread</a>
+    on a Supercell forums.
+</p>
 
 <div class="fb-comments" data-href="http://mkln.ru/clash-of-clans/" data-width="470" data-num-posts="5"></div>
 
@@ -358,14 +421,24 @@
         <li>The distribution of units in the case when the barracks can produce less than accommodating the army camps.</li>
         <li>Production time in saved calculations.</li>
         <li>Saving data between browsers.</li>
-        <li>“Gem-boosted” barracks time (from <a href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator?p=357652&viewfull=1#post357652">forums</a> and comments).</li>
+        <li>
+            “Gem-boosted” barracks time
+            (from
+            <a href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator?p=357652&viewfull=1#post357652">forums</a>
+            and comments).
+        </li>
         <li>Gem costs.</li>
         <li>(?) Clan Castle troops.</li>
     </ul>
 </div>
 
 <div class="footer">
-    <p>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a></p>
+    <p>
+        This work is licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+            Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
+        </a>
+    </p>
     <p>&copy; 2013 <a href="/en/">Mikhail Kalashnik</a></p>
 </div>
 <script>if(navigator.userAgent.search(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i)!==-1){document.getElementsByTagName('body')[0].innerHTML='';}</script>
