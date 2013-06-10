@@ -89,16 +89,131 @@
     };
 
 
-    var DataStorage = function(key, defaultData) {
+    var types = {
+        'units': {
+            'Barbarian': [20, [25, 40, 60, 80, 100, 150], 1, 1],
+            'Archer': [25, [50, 80, 120, 160, 200, 300], 1, 2],
+            'Goblin': [30, [25, 40, 60, 80, 100], 1, 3],
+            'Giant': [120, [500, 1000, 1500, 2000, 2500, 3000], 5, 4],
+            'Wall_Breaker': [120, [1000, 1500, 2000, 2500, 3000], 2, 5],
+            'Balloon': [600, [2000, 2500, 3000, 3500, 4000, 4500], 5, 6],
+            'Wizard': [600, [1500, 2000, 2500, 3000, 3500], 4, 7],
+            'Healer': [900, [5000, 6000, 8000, 10000], 14, 8],
+            'Dragon': [1800, [25000, 30000, 36000, 42000], 20, 9],
+            'P-E-K-K-A-': [2700, [30000, 35000, 42000], 25, 10]
+        },
+        'spells': {
+            'Lightning': [1800, [15000, 16500, 18000, 20000, 22000], 1, 1],
+            'Healing': [1800, [20000, 22000, 24000, 26500, 29000], 1, 2],
+            'Rage': [2700, [30000, 33000, 36000, 40000, 44000], 1, 3],
+            'Jump': [2700, [30000, 38000], 1, 4]
+        },
+        'dark': {
+            'Minion': [45, [6, 7, 8, 9, 10], 2, 1],
+            'Hog Rider': [300, [30, 35, 40, 45, 50], 6, 2],
+            'Valkyrie': [900, [100, 120, 140, 160], 8, 3],
+            'Golem': [2700, [450, 525, 600, 675, 750], 30, 4]
+        }
+    };
+
+
+    var saveMappingKeys = [
+        'barracksLevels',
+        'darkBarracksLevels',
+        'armyCamps',
+        'spellFactoryLevel'
+    ];
+    objectIterate(types, function(type, items) {
+        objectIterate(items, function(name) {
+            saveMappingKeys.push(name);
+            saveMappingKeys.push(name + '-level');
+            saveMappingKeys.push(name + '-subtract');
+        });
+    });
+
+
+    var typesSortedLevel = {};
+    objectIterate(types, function(type, items) {
+        typesSortedLevel[type] = [];
+        objectIterate(items, function(name, objects) {
+            typesSortedLevel[type].unshift(objects.concat(name));
+        });
+    });
+
+
+    var currentSpace = {
+        'units': 0,
+        'dark': 0
+    };
+
+
+    (function(){
+        if (window.localStorage && window.localStorage.getItem('savedData') && !window.localStorage.getItem('data')) {
+            var oldData = window.localStorage.getItem('savedData');
+            oldData = (oldData && JSON.parse(oldData)) || {};
+
+            var dataObjectToArray = function(data) {
+                var newData = [];
+                saveMappingKeys.forEach(function(key) {
+                    var newValue;
+                    if (data.hasOwnProperty(key)) {
+                        newValue = data[key];
+                    } else {
+                        newValue = null;
+                    }
+                    newData.push(newValue);
+                });
+
+                return newData;
+            };
+
+            var oldSaved = window.localStorage.getItem('savedCalculations');
+            oldSaved = (oldSaved && JSON.parse(oldSaved)) || [];
+
+            var newAll = [dataObjectToArray(oldData)];
+            oldSaved.forEach(function(oldSavedData) {
+                newAll.push(dataObjectToArray(oldSavedData));
+            });
+
+            window.localStorage.setItem('data', JSON.stringify(newAll));
+            //window.localStorage.removeItem('savedData');
+            //window.localStorage.removeItem('savedCalculations');
+        }
+    }());
+
+
+    var DataStorage = function(key) {
         this.key = key;
-        this.defaultData = defaultData;
 
         this.load = function() {
             var data = window.localStorage.getItem(this.key);
-            return (data && JSON.parse(data)) || this.defaultData;
+            data = (data && JSON.parse(data)) || [];
+            data = data.map(function(dataArray) {
+                var dataObject = {};
+                saveMappingKeys.forEach(function(key, index) {
+                    if (dataArray[index] !== undefined) {
+                        dataObject[key] = dataArray[index];
+                    } else {
+                        dataObject[key] = null;
+                    }
+                });
+                return dataObject;
+            });
+            return data;
         };
 
         this.save = function(data) {
+            data = data.map(function(dataObject) {
+                var dataArray = [];
+                saveMappingKeys.forEach(function(key) {
+                    if (dataObject.hasOwnProperty(key)) {
+                        dataArray.push(dataObject[key]);
+                    } else {
+                        dataArray.push(null);
+                    }
+                });
+                return dataArray;
+            });
             window.localStorage.setItem(this.key, JSON.stringify(data));
         };
     };
@@ -109,7 +224,7 @@
 
         this.get = function(key, defaultValue) {
             var value = this.data[key];
-            if (defaultValue !== undefined && value === undefined) {
+            if (defaultValue !== undefined && (value === undefined || value === null)) {
                 return defaultValue;
             }
             return value;
@@ -130,6 +245,10 @@
 
         this.retrieve = function(i) {
             return this.entries[i];
+        };
+
+        this.update = function(i, data) {
+            this.entries[i] = data;
         };
 
         this.insert = function(data) {
@@ -154,8 +273,9 @@
     };
 
 
-    var savedDataStorage = new DataStorage('savedData', {});
-    var savedData = new Dict(savedDataStorage.load());
+    var savedDataStorage = new DataStorage('data');
+    var savedDataAll = new MultiDict(savedDataStorage.load());
+    var savedData = savedDataAll.retrieve(0);
 
 
     var BarracksContainer = function(maxCount, selectName, saveName, queueLengths) {
@@ -258,49 +378,6 @@
 
     var armyCamps = document.getElementById('army-camps');
     var spellFactoryLevel = document.getElementById('spell-factory-level');
-
-
-    var types = {
-        'units': {
-            'Barbarian': [20, [25, 40, 60, 80, 100, 150], 1, 1],
-            'Archer': [25, [50, 80, 120, 160, 200, 300], 1, 2],
-            'Goblin': [30, [25, 40, 60, 80, 100], 1, 3],
-            'Giant': [120, [500, 1000, 1500, 2000, 2500, 3000], 5, 4],
-            'Wall_Breaker': [120, [1000, 1500, 2000, 2500, 3000], 2, 5],
-            'Balloon': [600, [2000, 2500, 3000, 3500, 4000, 4500], 5, 6],
-            'Wizard': [600, [1500, 2000, 2500, 3000, 3500], 4, 7],
-            'Healer': [900, [5000, 6000, 8000, 10000], 14, 8],
-            'Dragon': [1800, [25000, 30000, 36000, 42000], 20, 9],
-            'P-E-K-K-A-': [2700, [30000, 35000, 42000], 25, 10]
-        },
-        'spells': {
-            'Lightning': [1800, [15000, 16500, 18000, 20000, 22000], 1, 1],
-            'Healing': [1800, [20000, 22000, 24000, 26500, 29000], 1, 2],
-            'Rage': [2700, [30000, 33000, 36000, 40000, 44000], 1, 3],
-            'Jump': [2700, [30000, 38000], 1, 4]
-        },
-        'dark': {
-            'Minion': [45, [6, 7, 8, 9, 10], 2, 1],
-            'Hog Rider': [300, [30, 35, 40, 45, 50], 6, 2],
-            'Valkyrie': [900, [100, 120, 140, 160], 8, 3],
-            'Golem': [2700, [450, 525, 600, 675, 750], 30, 4]
-        }
-    };
-
-
-    var typesSortedLevel = {};
-    objectIterate(types, function(type, items) {
-        typesSortedLevel[type] = [];
-        objectIterate(items, function(name, objects) {
-            typesSortedLevel[type].unshift(objects.concat(name));
-        });
-    });
-
-
-    var currentSpace = {
-        'units': 0,
-        'dark': 0
-    };
 
 
     var setQuantityAndSpace = function(maxSpace, totalSpace, type) {
@@ -684,7 +761,7 @@
             setQuantityAndSpace(armyCampsSpace, togetherSpace, 'units');
             setQuantityAndSpace(armyCampsSpace, togetherSpace, 'dark');
 
-            savedData.set('armyCamps', armyCamps.value);
+            savedData.set('armyCamps', armyCampsSpace);
 
             allBarracks.units.updateSavedData();
             allBarracks.dark.updateSavedData();
@@ -700,7 +777,8 @@
             savedData.set('spellFactoryLevel', spellFactoryLevel.selectedIndex);
         }
 
-        savedDataStorage.save(savedData.getAll());
+        savedDataAll.update(0, savedData);
+        savedDataStorage.save(savedDataAll.getAll());
     };
 
 
@@ -956,14 +1034,13 @@
     }
 
 
-    var savedCalculationsStorage = new DataStorage('savedCalculations', []);
-    var savedCalculations = new MultiDict(savedCalculationsStorage.load());
-
-
     var savedListItemTemplate = templates.saved_list_item;
     var savedListCreateItems = function() {
         var content = [];
-        savedCalculations.forEach(function(data, index) {
+        savedDataAll.forEach(function(data, index) {
+            if (index === 0) {
+                return;
+            }
             var templateVars = {
                 'index': index,
                 'tabIndexLoad': index + 3000 + 1,
@@ -1063,7 +1140,7 @@
         var loadSaved = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            savedData = new Dict(objectCopy(savedCalculations.retrieve(e.target.getAttribute('data-num')).getAll()));
+            savedData = new Dict(objectCopy(savedDataAll.retrieve(e.target.getAttribute('data-num')).getAll()));
             setDefaults();
             calculate('all');
             savedListCreateItems();
@@ -1077,8 +1154,8 @@
         var deleteSaved = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            savedCalculations.remove(e.target.getAttribute('data-num'));
-            savedCalculationsStorage.save(savedCalculations.getAll());
+            savedDataAll.remove(e.target.getAttribute('data-num'));
+            savedDataStorage.save(savedDataAll.getAll());
             savedListCreateItems();
         };
 
@@ -1098,8 +1175,8 @@
                 delete dataToSave[k];
             }
         });
-        savedCalculations.insert(dataToSave);
-        savedCalculationsStorage.save(savedCalculations.getAll());
+        savedDataAll.insert(dataToSave);
+        savedDataStorage.save(savedDataAll.getAll());
         savedListCreateItems();
     };
 
