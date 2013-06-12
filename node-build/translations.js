@@ -53,6 +53,6 @@ exports.translations = {
     'minimum_font_size_addon': ['Дополнение для Фаерфокса — Minimum Font Size Hotkey', 'Firefox Add-on — Minimum Font Size Hotkey'],
 
     'coc_title': ['', coc_calc_title],
-    'coc_title_web_clip': ['', 'CoC Calc'],
+    'coc_title_web_clip': ['', 'Clash Calc'],
     'coc_description': ['', 'Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.']
 };

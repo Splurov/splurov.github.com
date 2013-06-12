@@ -1,9 +1,19 @@
 [
     [
+        "2.9",
+        "12 June, 2013",
+        [
+            "Added “Share Composition” feature, now you can quickly and easily share your army composition with friends",
+            "The word “calculation” as the name for the combination of the army, spells and buildings replaced by the word “composition”",
+            "Repeated composition now are not saved when you press “Save Composition”",
+            "Fixed iOS Home Screen shortcut bug (when was shown only a white screen)"
+        ]
+    ],
+    [
         "2.8.4",
         "7 June, 2013",
         [
-            "Created <a href=\"https://twitter.com/ClashCalc\">Twitter account</a> to post updates and other useful information",
+            "Created <a href=\"https://twitter.com/ClashCalc\" target=\"_blank\">Twitter account</a> to post updates and other useful information",
             "Added share buttons and Twitter follow link",
             "Some text info from the top is placed above the comments section"
         ]

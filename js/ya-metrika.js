@@ -6,6 +6,10 @@
                                                      clickmap:true,
                                                      trackLinks:true,
                                                      accurateTrackBounce:true});
+
+            if (mk && mk.calc && mk.calc.sharedLink) {
+                w.yaCounter19642528.reachGoal('SHARE');
+            }
         } catch(e) { }
     });
 
