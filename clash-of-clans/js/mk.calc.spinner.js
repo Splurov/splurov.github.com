@@ -52,7 +52,7 @@
 
     var setSpinner = function(type, el) {
         var span = document.createElement('span');
-        span.className = 'button button_after';
+        span.className = 'button button_after button_middle';
         span.textContent = (type === 'plus' ? '+' : '−');
         span.spinnerTarget = el;
 

@@ -1,5 +1,16 @@
 [
     [
+        "2.10",
+        "16 June, 2013",
+        [
+            "Fixed iOS third-party browsers bug (when was shown only a white screen)",
+            "Buildings settings moved to the main tables",
+            "Army camps capacity is now selected from the list of predefined values",
+            "Slightly changed appearance",
+            "Fixed a bug when repeated composition saved again due to subtract values"
+        ]
+    ],
+    [
         "2.9",
         "12 June, 2013",
         [

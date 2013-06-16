@@ -16,15 +16,33 @@ kbd {
 input, select {
     font-family: inherit;
     font-size: inherit;
+    vertical-align: middle;
 }
+    .field-long {
+        width: 100%;
+    }
+    .near-field {
+        vertical-align: middle;
+    }
 
+h1 {
+    font-size: 24px;
+    margin: 0 0 6px;
+}
+h2 {
+    font-size: 20px;
+    margin: 13px 0 8px;
+}
+h2 + table {
+    margin-top: 1px;
+}
 h3 {
     font-size: 14px;
-    margin: 0 0 2px;
+    margin: 17px 0 2px;
 }
 
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+p {
+    margin: 0 0 10px;
 }
 
 table {
@@ -34,76 +52,65 @@ table {
         vertical-align: top;
         padding: 0;
     }
-
-.field-long {
-    width: 100%;
-}
+    .number {
+        text-align: right;
+    }
 
 .wikia-link:link, .wikia-link:visited {
     color: inherit;
-    background: url(/clash-of-clans/i/external-link.png) no-repeat 100% 4px;
+    background: url(/clash-of-clans/i/external-link.png) no-repeat 100% .25em;
     background-size: 10px 10px;
     padding-right: 15px;
 }
 
 .data {
-    margin-bottom: 20px;
-    border-left: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    border-radius: 10px;
     -webkit-transform: translateZ(0);
     -webkit-font-smoothing: subpixel-antialiased;
 }
+    .data th, .data td {
+        padding-left: 7px;
+        padding-right: 7px;
+        white-space: nowrap;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+    }
     .data th {
         text-align: left;
-        padding: 1px 7px 2px;
-        white-space: nowrap;
-        border-bottom: 1px solid #ddd;
-        border-right: 1px solid #ddd;
+        padding-bottom: 1px;
+        line-height: 20px;
     }
-
-    .data thead tr:first-child th:first-child, .data_common tr:first-child td:first-child {
-        border-top-left-radius: 10px;
-    }
-    .data thead tr:first-child th:last-child, .data_common tr:first-child td:last-child {
-        border-top-right-radius: 10px;
-    }
-
     .data td {
-        padding: 2px 7px 3px;
-        white-space: nowrap;
-        border-bottom: 1px solid #ddd;
-        border-right: 1px solid #ddd;
+        padding-top: 2px;
+        padding-bottom: 2px;
         vertical-align: middle;
     }
         .data td > input {
             text-align: right;
         }
-
-    .data tfoot td:first-child, .data_common tr:last-child td:first-child {
-        border-bottom-left-radius: 10px;
-    }
-    .data tfoot td:last-child, .data_common tr:last-child td:last-child {
-        border-bottom-right-radius: 10px;
-    }
+        .data tfoot tr:last-child td {
+            border-bottom: 0;
+        }
+        .data th:last-child, .data td:last-child {
+            border-right: 0;
+        }
+        .data th:first-child, .data td:first-child {
+            padding-left: 0;
+        }
 
     .data-secondary {
         font-size: 13px;
     }
 
 .list-content {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
     .list-content_small {
         font-size: 14px;
     }
     .list-content ul {
         padding: 0;
-        margin: 0 0 15px;
+        margin: 0;
         list-style: none;
-    }
-    .list-content_small ul {
-        margin-bottom: 10px;
     }
         .list-content li {
             padding-left: 12px;
@@ -153,8 +160,9 @@ table {
     border-radius: 5px;
     background-color: #fcfcfc;
     background-image: linear-gradient(#fcfcfc, #ececec);
-    line-height: 1em;
+    line-height: 1;
     user-select: none;
+    font-weight: normal;
 }
     .button:hover {
         background-image: linear-gradient(#fcfcfc, #e0e0e0);
@@ -168,6 +176,10 @@ table {
     .button_after {
         margin-left: 7px;
     }
+    .button_middle {
+        vertical-align: middle;
+    }
+
     .button_social:link, .button_social:visited {
         background-color: #fcfcff;
         background-image: linear-gradient(#fcfcff, #ececff);
@@ -180,10 +192,6 @@ table {
         background: #e3e3ff;
     }
 
-.number {
-    text-align: right;
-}
-
 .limit-exceeded {
     color: #d00;
 }
@@ -192,16 +200,12 @@ table {
     max-width: 800px;
 }
 
-.indented {
-    margin-bottom: 20px;
-}
-
 .result {
     font-weight: bold;
 }
 
-.right-column {
-    padding-left: 20px;
+.tooltip {
+    cursor: help;
 }
 
 .inline-message {
@@ -210,12 +214,19 @@ table {
     border: 1px solid #8f8;
     border-radius: 5px;
     padding: 3px 7px;
-    line-height: 1em;
+    line-height: 1;
     vertical-align: middle;
-    cursor: pointer;
+    font-weight: normal;
 }
-    .inline-message__indented {
-        margin-left: 20px;
+    .inline-message_closeable {
+        cursor: pointer;
+    }
+    .inline-message_after {
+        margin-left: 15px;
+    }
+    .inline-message_negative {
+        background: #fdd;
+        border: 1px solid #f88;
     }
 
 .saved-list {
@@ -223,7 +234,7 @@ table {
 }
     .saved-list__item {
         display: inline-block;
-        margin: 0 15px 17px 0;
+        margin: 0 13px 13px 0;
         border: 1px solid #ddd;
         border-radius: 10px;
         padding: 10px 7px;

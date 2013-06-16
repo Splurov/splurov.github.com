@@ -62,7 +62,7 @@
         var remainingTime = time;
 
         if (remainingTime > 3599) {
-            formattedTime += Math.floor(remainingTime / 3600) + 'h ';
+            formattedTime += Math.floor(remainingTime / 3600) + 'h ';
             remainingTime %= 3600;
         }
 
@@ -72,9 +72,9 @@
             if (hideSeconds && remainingTime > 0) {
                 minutes++;
             }
-            formattedTime += minutes + 'm ';
+            formattedTime += minutes + 'm ';
         } else {
-            formattedTime += '0m ';
+            formattedTime += '0m ';
         }
 
         if (formattedTime === '' || !hideSeconds) {

@@ -108,15 +108,10 @@
         var loadSaved = function(e) {
             e.preventDefault();
             e.stopPropagation();
+
             var dataToLoad = mk.objectCopy(mk.calc.savedDataAll.retrieve(e.target.getAttribute('data-num')).getAll());
-
-            mk.objectIterate(dataToLoad, function(k) {
-                if (k.indexOf('subtract') !== -1) {
-                    delete dataToLoad[k];
-                }
-            });
-
             mk.calc.savedData = new mk.Dict(dataToLoad);
+
             mk.calc.setDefaults();
             mk.calc.calculate('all');
             savedListCreateItems();
@@ -153,24 +148,31 @@
         alreadySavedMessage.hide();
 
         var sourceData = mk.calc.savedDataStorage.load(true);
-        var currentJSON = JSON.stringify(sourceData[0]);
-        var sdIndex;
-        var sdLength;
-        for (sdIndex = 1, sdLength = sourceData.length; sdIndex < sdLength; sdIndex++) {
-            var savedJSON = JSON.stringify(sourceData[sdIndex]);
-            if (currentJSON === savedJSON) {
-                if (isShowMessage !== false) {
-                    alreadySavedMessage.show();
+        if (sourceData[0]) {
+            mk.calc.saveMappingKeys.forEach(function(key, index) {
+                if (key.indexOf('subtract') !== -1) {
+                    sourceData[0][index] = 0;
                 }
-                return false;
+            });
+            var currentJSON = JSON.stringify(sourceData[0]);
+            var sdIndex;
+            var sdLength;
+            for (sdIndex = 1, sdLength = sourceData.length; sdIndex < sdLength; sdIndex++) {
+                var savedJSON = JSON.stringify(sourceData[sdIndex]);
+                if (currentJSON === savedJSON) {
+                    if (isShowMessage !== false) {
+                        alreadySavedMessage.show();
+                    }
+                    return false;
+                }
             }
-        }
 
-        var dataToSave = mk.objectCopy(mk.calc.savedData.getAll());
-        mk.calc.savedDataAll.insert(dataToSave);
-        mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
-        savedListCreateItems();
-        return true;
+            var dataToSave = mk.objectCopy(mk.calc.savedData.getAll());
+            mk.calc.savedDataAll.insert(dataToSave);
+            mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
+            savedListCreateItems();
+            return true;
+        }
     };
 
     var saveEl = document.getElementById('save');

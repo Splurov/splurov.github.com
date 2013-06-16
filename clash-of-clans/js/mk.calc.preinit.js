@@ -2,7 +2,7 @@
 
     'use strict';
 
-    mk.calc.savedDataStorage = new mk.calc.DataStorage('data');
+    mk.calc.savedDataStorage = new mk.calc.DataStorage('data2');
     mk.calc.savedDataAll = new mk.MultiDict(mk.calc.savedDataStorage.load());
     mk.calc.savedData = mk.calc.savedDataAll.retrieve(0);
 
@@ -41,8 +41,7 @@
             if (parseInt(barrackData.level, 10) === 0) {
                 header = '';
             } else {
-                header = barrackData.level +
-                         ' lvl <span class="data-secondary" title="Maximum Queue Length">(' +
+                header = '<span class="data-secondary tooltip" title="Maximum Queue Length">(max ' +
                          barrackData.queueLength +
                          ')</span>';
             }
@@ -55,13 +54,13 @@
         if (spaceDiff < 0) {
             spaceDiff = '<span class="limit-exceeded">' + spaceDiff + '</span>';
         }
-        document.getElementById(type + '-quantity').innerHTML = '(' + spaceDiff + ')';
+        document.getElementById(type + '-quantity').innerHTML = '(' + spaceDiff + ' free)';
 
         var space = totalSpace;
         if (totalSpace > maxSpace) {
             space = '<span class="limit-exceeded">' + totalSpace + '</span>';
         }
-        space = space + ' / ' + maxSpace;
+        space = space + ' / ' + (type !== 'units' ? maxSpace : '');
         document.getElementById(type + '-space').innerHTML = space;
     };
 
@@ -233,8 +232,6 @@
     };
 
     var calculateItems = function(type, params) {
-        document.getElementById(type).style.display = (params.levelValue === 0 ? 'none' : '');
-
         var clIndex; // cl - cap level
         for (
             clIndex = params.capLevel;
@@ -332,7 +329,9 @@
 
         if (type === 'spells') {
             setQuantityAndSpace(params.space, totalSpace, type);
-            document.getElementById(type + '-time').textContent = mk.getFormattedTime(totalTime, true);
+            if (totalTime > 0) {
+                document.getElementById(type + '-time').textContent = mk.getFormattedTime(totalTime, true);
+            }
         } else {
             var barracksQueue = mk.calc.allBarracks[type].getQueue();
             var avgTime = Math.max(Math.ceil(totalTime / mk.calc.allBarracks[type].getActiveCount()), maxUnitTime);
@@ -372,14 +371,6 @@
             }
 
             var armyCampsSpace = parseInt(mk.calc.armyCamps.value, 10);
-            if (isNaN(armyCampsSpace) || armyCampsSpace < 0) {
-                armyCampsSpace = 0;
-            }
-            var armyCampsMaxSpace = mk.calc.armyCamps.getAttribute('max');
-            if (armyCampsSpace > armyCampsMaxSpace) {
-                armyCampsSpace = armyCampsMaxSpace;
-            }
-            mk.calc.armyCamps.value = armyCampsSpace;
 
             if (type === 'all' || type === 'units' || type === 'barrack-units') {
                 currentSpace.units = 0;

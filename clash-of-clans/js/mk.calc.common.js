@@ -31,7 +31,7 @@
         }
     };
 
-    var saveMappingKeys = [
+    mk.calc.saveMappingKeys = [
         'barracks-levels-1',
         'barracks-levels-2',
         'barracks-levels-3',
@@ -43,20 +43,20 @@
     ];
     mk.objectIterate(mk.calc.types, function(type, items) {
         mk.objectIterate(items, function(name) {
-            saveMappingKeys.push(name);
+            mk.calc.saveMappingKeys.push(name);
         });
         mk.objectIterate(items, function(name) {
-            saveMappingKeys.push(name + '-level');
+            mk.calc.saveMappingKeys.push(name + '-level');
         });
         mk.objectIterate(items, function(name) {
-            saveMappingKeys.push(name + '-subtract');
+            mk.calc.saveMappingKeys.push(name + '-subtract');
         });
     });
 
     mk.calc.dataObjectToArray = function(dataObject) {
         var dataArray = [];
 
-        saveMappingKeys.forEach(function(key) {
+        mk.calc.saveMappingKeys.forEach(function(key) {
             var value;
             if (dataObject.hasOwnProperty(key)) {
                 value = dataObject[key];
@@ -72,7 +72,7 @@
     mk.calc.dataArrayToObject = function(dataArray) {
         var dataObject = {};
 
-        saveMappingKeys.forEach(function(key, index) {
+        mk.calc.saveMappingKeys.forEach(function(key, index) {
             if (dataArray[index] === undefined) {
                 dataObject[key] = 0;
             } else {

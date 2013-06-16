@@ -6,7 +6,11 @@
         mk.calc.allBarracks.units.setDefaults();
         mk.calc.allBarracks.dark.setDefaults();
 
-        mk.calc.armyCamps.value = mk.calc.savedData.get('armyCamps', mk.calc.armyCamps.value);
+        var armyCampsSaved = mk.calc.savedData.get('armyCamps', mk.calc.armyCamps.value);
+        var armyCampsOption = mk.calc.armyCamps.querySelector('option[value="' + armyCampsSaved + '"]');
+        if (armyCampsOption) {
+            armyCampsOption.selected = true;
+        }
 
         var spellFactoryIndex = mk.calc.savedData.get('spellFactoryLevel', mk.calc.spellFactoryLevel.selectedIndex);
         mk.calc.spellFactoryLevel.options[spellFactoryIndex].selected = true;
@@ -39,7 +43,7 @@
             el.addEventListener('change', mk.calc.calculate.bind(null, 'barrack-' + k), false);
         });
     });
-    mk.calc.armyCamps.addEventListener('input', mk.calc.calculate.bind(null, 'all'), false);
+    mk.calc.armyCamps.addEventListener('change', mk.calc.calculate.bind(null, 'all'), false);
     mk.calc.spellFactoryLevel.addEventListener('change', mk.calc.calculate.bind(null, 'spells'), false);
 
     var rowTemplate = templates.item_row;

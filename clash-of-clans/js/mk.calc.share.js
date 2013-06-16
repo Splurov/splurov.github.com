@@ -2,25 +2,25 @@
 
     'use strict';
 
-    var getCurrentCleanUrl = function() {
-        return window.location.protocol + '//' + window.location.host + window.location.pathname;
-    };
-
     var checkShare = function() {
         if (window.location.search.indexOf('?l=') !== -1) {
             var viewSharedMessage = mk.infoMessage('view-shared');
 
             var urlData = window.location.search.substr(3);
             urlData = decodeURIComponent(urlData);
+            mk.calc.sharedLink = urlData;
             urlData = urlData.replace(/[a-z]/g, ',');
             urlData = urlData.replace(/,(?=,)/g, ',0');
             urlData = '[' + urlData + ']';
             urlData = JSON.parse(urlData);
             urlData = mk.calc.dataArrayToObject(urlData);
 
-            var cleanUrl = getCurrentCleanUrl();
             if (window.history.replaceState) {
-                window.history.replaceState({}, '', cleanUrl);
+                window.history.replaceState(
+                    {},
+                    '',
+                    window.location.protocol + '//' + window.location.host + window.location.pathname
+                );
             }/* else {
                 window.location = cleanUrl;
             }*/
@@ -29,7 +29,6 @@
             mk.calc.savedData = new mk.Dict(urlData);
 
             viewSharedMessage.show();
-            mk.calc.sharedLink = true;
         }
     };
     checkShare();
@@ -39,7 +38,7 @@
     var permalink = document.getElementById('share-permalink');
     permalink.addEventListener('click', mk.selectAll, false);
     mk.calc.makePermalink = function() {
-        var url = getCurrentCleanUrl() + '?l=';
+        var url = 'http://mkln.ru/clash-of-clans/?l=';
         var data = mk.calc.savedData.getAll();
         data = mk.calc.dataObjectToArray(data);
         data = JSON.stringify(data);

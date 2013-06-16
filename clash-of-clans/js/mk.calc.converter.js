@@ -54,8 +54,42 @@
         });
 
         window.localStorage.setItem('data', JSON.stringify(newAll));
-        //window.localStorage.removeItem('savedData');
-        //window.localStorage.removeItem('savedCalculations');
+    }
+
+    if (window.localStorage.getItem('savedData')) {
+        window.localStorage.removeItem('savedData');
+        window.localStorage.removeItem('savedCalculations');
+    }
+
+    if (window.localStorage.getItem('data') && !window.localStorage.getItem('data2')) {
+        var currentData = JSON.parse(window.localStorage.getItem('data'));
+        var cdIndex;
+        var cdLength;
+        for (cdIndex = 1, cdLength = currentData.length; cdIndex < cdLength; cdIndex++) {
+            mk.calc.saveMappingKeys.forEach(function(key, index) {
+                if (key.indexOf('subtract') !== -1) {
+                    currentData[cdIndex][index] = 0;
+                }
+            });
+        }
+
+        for (cdIndex = 1, cdLength = currentData.length; cdIndex < cdLength; cdIndex++) {
+            var itemJSON = JSON.stringify(currentData[cdIndex]);
+            var innerIndex;
+            var innerLength;
+            for (innerIndex = cdIndex + 1, innerLength = currentData.length; innerIndex < innerLength; innerIndex++) {
+                var innerJSON = JSON.stringify(currentData[innerIndex]);
+                if (itemJSON === innerJSON) {
+                    currentData.splice(innerIndex, 1);
+                    innerIndex--;
+                    cdLength--;
+                    innerLength--;
+                }
+            }
+        }
+
+        window.localStorage.setItem('data2', JSON.stringify(currentData));
+        window.localStorage.removeItem('data');
     }
 
 }(window, window.mk));
