@@ -92,4 +92,19 @@
         window.localStorage.removeItem('data');
     }
 
+    if (window.localStorage.getItem('data2') && !window.localStorage.getItem('data3')) {
+        var currentData2 = JSON.parse(window.localStorage.getItem('data2'));
+
+        currentData2 = currentData2.map(function(dataset) {
+            dataset.splice(46, 4);
+            if (dataset[64]) {
+                dataset.splice(64, 1);
+            }
+            return dataset;
+        });
+
+        window.localStorage.setItem('data3', JSON.stringify(currentData2));
+        window.localStorage.removeItem('data2');
+    }
+
 }(window, window.mk));

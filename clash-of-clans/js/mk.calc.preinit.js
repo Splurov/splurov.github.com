@@ -2,7 +2,7 @@
 
     'use strict';
 
-    mk.calc.savedDataStorage = new mk.calc.DataStorage('data2');
+    mk.calc.savedDataStorage = new mk.calc.DataStorage('data3');
     mk.calc.savedDataAll = new mk.MultiDict(mk.calc.savedDataStorage.load());
     mk.calc.savedData = mk.calc.savedDataAll.retrieve(0);
 

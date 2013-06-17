@@ -15,13 +15,14 @@
             'Wizard': [600, [1500, 2000, 2500, 3000, 3500], 4, 7],
             'Healer': [900, [5000, 6000, 8000, 10000], 14, 8],
             'Dragon': [1800, [25000, 30000, 36000, 42000], 20, 9],
-            'P-E-K-K-A-': [2700, [30000, 35000, 42000], 25, 10]
+            'P-E-K-K-A-': [2700, [30000, 35000, 42000, 50000], 25, 10]
         },
         'spells': {
-            'Lightning': [1800, [15000, 16500, 18000, 20000, 22000], 1, 1],
-            'Healing': [1800, [20000, 22000, 24000, 26500, 29000], 1, 2],
+            'Lightning': [1800, [15000, 16500, 18000, 20000, 22000, 24000], 1, 1],
+            'Healing': [1800, [20000, 22000, 24000, 26500, 29000, 32000], 1, 2],
             'Rage': [2700, [30000, 33000, 36000, 40000, 44000], 1, 3],
-            'Jump': [2700, [30000, 38000], 1, 4]
+            'Jump': [2700, [30000, 38000], 1, 4],
+            'Freeze': [2700, [35000, 40000, 45000], 1, 5]
         },
         'dark': {
             'Minion': [45, [6, 7, 8, 9, 10], 2, 1],
@@ -39,19 +40,60 @@
         'dark-barracks-levels-1',
         'dark-barracks-levels-2',
         'armyCamps',
-        'spellFactoryLevel'
+        'spellFactoryLevel',
+        'Barbarian',
+        'Archer',
+        'Goblin',
+        'Giant',
+        'Wall_Breaker',
+        'Balloon',
+        'Wizard',
+        'Healer',
+        'Dragon',
+        'P-E-K-K-A-',
+        'Barbarian-level',
+        'Archer-level',
+        'Goblin-level',
+        'Giant-level',
+        'Wall_Breaker-level',
+        'Balloon-level',
+        'Wizard-level',
+        'Healer-level',
+        'Dragon-level',
+        'P-E-K-K-A--level',
+        'Barbarian-subtract',
+        'Archer-subtract',
+        'Goblin-subtract',
+        'Giant-subtract',
+        'Wall_Breaker-subtract',
+        'Balloon-subtract',
+        'Wizard-subtract',
+        'Healer-subtract',
+        'Dragon-subtract',
+        'P-E-K-K-A--subtract',
+        'Lightning',
+        'Healing',
+        'Rage',
+        'Jump',
+        'Lightning-level',
+        'Healing-level',
+        'Rage-level',
+        'Jump-level',
+        'Minion',
+        'Hog Rider',
+        'Valkyrie',
+        'Golem',
+        'Minion-level',
+        'Hog Rider-level',
+        'Valkyrie-level',
+        'Golem-level',
+        'Minion-subtract',
+        'Hog Rider-subtract',
+        'Valkyrie-subtract',
+        'Golem-subtract',
+        'Freeze',
+        'Freeze-level'
     ];
-    mk.objectIterate(mk.calc.types, function(type, items) {
-        mk.objectIterate(items, function(name) {
-            mk.calc.saveMappingKeys.push(name);
-        });
-        mk.objectIterate(items, function(name) {
-            mk.calc.saveMappingKeys.push(name + '-level');
-        });
-        mk.objectIterate(items, function(name) {
-            mk.calc.saveMappingKeys.push(name + '-subtract');
-        });
-    });
 
     mk.calc.dataObjectToArray = function(dataObject) {
         var dataArray = [];
