@@ -191,6 +191,9 @@ if (q && q != '_') {
             key = ALIASES[alias];
             q = q.substr(firstSpace + 1);
         }
+    } else if (ALIASES[q]) {
+        key = ALIASES[q];
+        q = '';
     }
 
     if (q.endsWith(' -')) {
