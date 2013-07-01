@@ -1,50 +1,38 @@
 <div class="saved-list__item" id="saved-list-item-{{index}}">
     {{#hasUnits}}
-        <div class="saved-list__item-title"><span class="cost-elixir">{{totalCost}}</span>Units</div>
         <table class="saved-list__table">
             {{#units}}
                 <tr>
                     <td class="number">{{quantity}}</td>
                     <td>{{name}}</td>
-                    <td class="saved-list__level">{{level}}</td>
                 </tr>
             {{/units}}
         </table>
+        <div class="saved-list__item-title"><span class="cost-elixir">{{totalCost}}</span></div>
     {{/hasUnits}}
 
     {{#hasDark}}
-        <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-dark-elixir">{{darkCost}}</span>&nbsp;</div>
         <table class="saved-list__table">
             {{#dark}}
                 <tr>
                     <td class="number">{{quantity}}</td>
                     <td>{{name}}</td>
-                    <td class="saved-list__level">{{level}}</td>
                 </tr>
             {{/dark}}
         </table>
+        <div class="saved-list__item-title"><span class="cost-dark-elixir">{{darkCost}}</span>&nbsp;</div>
     {{/hasDark}}
 
-    {{#hasCapacity}}
-        <div class="saved-list__item-result">
-            {{totalCapacity}} / {{armyCamps}}
-        </div>
-    {{/hasCapacity}}
-
     {{#hasSpells}}
-        <div class="saved-list__item-title saved-list__item-title_next"><span class="cost-gold">{{spellsCost}}</span>Spells</div>
         <table class="saved-list__table">
             {{#spells}}
                 <tr>
                     <td class="number">{{quantity}}</td>
                     <td>{{name}}</td>
-                    <td class="saved-list__level">{{level}}</td>
                 </tr>
             {{/spells}}
         </table>
-        <div class="saved-list__item-result">
-            {{spellsCapacity}} / {{spellsFactoryLevel}}
-        </div>
+        <div class="saved-list__item-title"><span class="cost-gold">{{spellsCost}}</span></div>
     {{/hasSpells}}
 
     <div class="saved-list__actions">

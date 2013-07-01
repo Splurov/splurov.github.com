@@ -2,21 +2,19 @@
 
     'use strict';
 
-    var spinnerAction = function(eventElement) {
-        var targetElement = eventElement.spinnerTarget;
-        var multiplier = parseInt(targetElement.getAttribute('step'), 10) || 1;
+    var spinnerAction = function(targetElement, type) {
         var current = parseInt(targetElement.value, 10);
-        if (eventElement.textContent === '+') {
+        if (type === '+') {
             if (isNaN(current)) {
-                targetElement.value = multiplier;
+                targetElement.value = 1;
             } else {
-                targetElement.value = current + multiplier;
+                targetElement.value = current + 1;
             }
         } else {
             if (isNaN(current) || current < 2) {
                 targetElement.value = 0;
             } else {
-                targetElement.value = current - multiplier;
+                targetElement.value = current - 1;
             }
         }
         mk.calc.calculate(targetElement.getAttribute('data-object-type'));
@@ -33,7 +31,7 @@
             eventElement.spinnerClicked = false;
             (function fakeInterval() {
                 spinnerInterval = window.setTimeout(function() {
-                    spinnerAction(eventElement);
+                    spinnerAction(eventElement.spinnerTarget, eventElement.textContent);
                     fakeInterval();
                 }, 100);
             }());
@@ -44,7 +42,7 @@
         e.preventDefault();
         e.stopPropagation();
         if (e.target.spinnerClicked) {
-            spinnerAction(e.target);
+            spinnerAction(e.target.spinnerTarget, e.target.textContent);
         }
         clearTimeout(spinnerTimeout);
         clearInterval(spinnerInterval);
@@ -56,10 +54,10 @@
         span.textContent = (type === 'plus' ? '+' : '−');
         span.spinnerTarget = el;
 
-        span.addEventListener('touchstart', spinnerHold);
-        span.addEventListener('touchend', spinnerRelease);
-        span.addEventListener('mousedown', spinnerHold);
-        span.addEventListener('mouseup', spinnerRelease);
+        span.addEventListener('touchstart', spinnerHold, false);
+        span.addEventListener('touchend', spinnerRelease, false);
+        span.addEventListener('mousedown', spinnerHold, false);
+        span.addEventListener('mouseup', spinnerRelease, false);
 
         if (el.nextSibling) {
             el.parentNode.insertBefore(span, el.nextSibling);
@@ -72,6 +70,17 @@
         el.addEventListener('focus', mk.selectAll, false);
         setSpinner('minus', el);
         setSpinner('plus', el);
+
+        el.addEventListener('keydown', function(e) {
+            var code = e.keyCode || e.which;
+            if (code === 38) {
+                spinnerAction(e.target, '+');
+                e.preventDefault();
+            } else if (code === 40) {
+                spinnerAction(e.target, '-');
+                e.preventDefault();
+            }
+        }, false);
     });
 
 }(window, document, window.mk));

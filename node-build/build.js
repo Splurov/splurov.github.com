@@ -13,6 +13,7 @@ require('buffer');
 var sources = {
     'index-source.html': {'ru': [false, 0], 'en': [true, 1]},
     'clash-of-clans/index-source.html': {'en': [false, 1, true], 'json': [false, 1, true]},
+    'clash-of-clans/comments-source.html': {'en': [false, 1, true]},
     '404-source.html': {'en': [false, 1]}
 };
 

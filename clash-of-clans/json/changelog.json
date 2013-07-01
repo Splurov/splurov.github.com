@@ -1,5 +1,15 @@
 [
     [
+        "2.12",
+        "1 July, 2013",
+        [
+            "Now you can increase or decrease the values in the text fields using the up and down arrow keys on the keyboard",
+            "Fixed inability to choose five spells",
+            "Display of units/spells level and Amry Camps/Spell Factory capacity removed from the saved compositions",
+            "Comments moved to a separate page, added “Contact Me” section, share buttons removed from the top"
+        ]
+    ],
+    [
         "2.11",
         "17 June, 2013",
         [

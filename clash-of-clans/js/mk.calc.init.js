@@ -56,7 +56,7 @@
         var spellsValuesContent = [];
         if (type === 'spells') {
             var i;
-            for (i = 0; i < 5; i++) {
+            for (i = 0; i < 6; i++) {
                 spellsValuesContent.push({'value': i, 'text': i});
             }
         }
