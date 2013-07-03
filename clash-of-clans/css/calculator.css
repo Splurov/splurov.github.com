@@ -180,7 +180,10 @@ table {
         vertical-align: middle;
     }
 
-    .button_social:link, .button_social:visited {
+    .button_social, .button_social:link, .button_social:visited {
+        border-color: #99b;
+        padding-top: 4px;
+        padding-bottom: 4px;
         background-color: #fcfcff;
         background-image: linear-gradient(#fcfcff, #ececff);
         font-size: 14px;
@@ -191,6 +194,22 @@ table {
     .button_social:active {
         background: #e3e3ff;
     }
+
+.icon-twitter {
+    background-image: url(/clash-of-clans/i/icon-twitter.png);
+    background-size: 16px 13px;
+    background-position: 0 50%;
+    padding-left: 19px;
+    background-repeat: no-repeat;
+}
+
+.icon-facebook {
+    background-image: url(/clash-of-clans/i/icon-facebook.png);
+    background-size: 16px 16px;
+    background-position: 0 50%;
+    padding-left: 21px;
+    background-repeat: no-repeat;
+}
 
 .limit-exceeded {
     color: #d00;
@@ -256,84 +275,3 @@ table {
         .saved-list__table td {
             padding-right: 8px;
         }
-
-.changelog-overlay {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(200, 200, 200, .75);
-    z-index: 99;
-    -webkit-font-smoothing: subpixel-antialiased;
-}
-    .changelog-popup {
-        margin: 40px auto 0;
-        width: 60%;
-        max-width: 800px;
-        height: 80%;
-        background: #fefefe;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        box-shadow: 0 0 30px #000;
-        overflow: auto;
-    }
-    .changelog-content {
-        padding: 0 20px 20px;
-    }
-    .changelog-close {
-        position: absolute;
-        top: 50px;
-        left: 71%;
-        z-index: 199;
-        padding: 10px;
-        background-color: #fefefe;
-    }
-        .changelog-close__iphone {
-            display: none;
-        }
-
-@media all and (max-device-width: 480px) {
-    body.changelog > * {
-        display: none;
-    }
-    .changelog-overlay {
-        position: static;
-        width: auto;
-        height: auto;
-        background: none;
-    }
-    body.changelog > .changelog-overlay {
-        display: block;
-    }
-    .changelog-popup {
-        overflow: visible;
-        margin: 0;
-        width: auto;
-        max-width: none;
-        height: auto;
-        background: none;
-        border: 0;
-        border-radius: 0;
-        box-shadow: none;
-    }
-    .changelog-content {
-        padding: 0;
-    }
-    .changelog-close {
-        position: fixed;
-        top: 10px;
-        right: 20px;
-    }
-        .changelog-close__iphone {
-            display: inline;
-        }
-        .changelog-close__all {
-            display: none;
-        }
-}
-@media all and (max-device-width: 1024px) {
-    .changelog-popup {
-        -webkit-overflow-scrolling: touch;
-    }
-}

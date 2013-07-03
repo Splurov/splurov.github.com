@@ -12,8 +12,10 @@ require('buffer');
 
 var sources = {
     'index-source.html': {'ru': [false, 0], 'en': [true, 1]},
-    'clash-of-clans/index-source.html': {'en': [false, 1, true], 'json': [false, 1, true]},
-    'clash-of-clans/comments-source.html': {'en': [false, 1, true]},
+    'clash-of-clans/index-source.html': {'en': [false, 1, 'first'], 'json': [false, 1, true]},
+    'clash-of-clans/comments-source.html': {'en': [false, 1]},
+    'clash-of-clans/version-history-source.html': {'en': [false, 1, 'all']},
+    'clash-of-clans/to-do-list-source.html': {'en': [false, 1]},
     '404-source.html': {'en': [false, 1]}
 };
 
@@ -95,7 +97,10 @@ for (var file in sources) {
         if (options[2]) {
             var changelog = require('../clash-of-clans/json/changelog.json');
             var changelogParsed = [];
-            changelog.forEach(function(v, k) {
+            var clIndex;
+            var clLength;
+            for (clIndex = 0, clLength = changelog.length; clIndex < clLength; clIndex++) {
+                var v = changelog[clIndex];
                 var entry = {
                     'version': v[0],
                     'date': v[1],
@@ -112,10 +117,18 @@ for (var file in sources) {
 
                 changelogParsed.push(entry);
 
-                changelogForJson[(new Date(v[1]).getTime())] = v[2];
-            });
-            translationsCurrent.changelog = changelogParsed;
-            translationsCurrent.firstChangelog = changelogParsed[0];
+                if (jsonOutput) {
+                    changelogForJson[(new Date(v[1]).getTime())] = v[2];
+                }
+                if (options[2] === 'first') {
+                    break;
+                }
+            }
+            if (options[2] === 'first') {
+                translationsCurrent.firstChangelog = changelogParsed[0];
+            } else {
+                translationsCurrent.changelog = changelogParsed;
+            }
         }
 
         if (jsonOutput) {

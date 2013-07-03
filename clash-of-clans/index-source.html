@@ -43,7 +43,7 @@
     <p>
         <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;screen_name=ClashCalc"
            target="_blank"
-           class="button button_social">Follow @ClashCalc on Twitter</a>
+           class="button button_social"><span class="icon-twitter">Follow @ClashCalc on Twitter</span></a>
     </p>
 </div>
 {{/web_only}}
@@ -82,7 +82,7 @@
 
 <div class="list-content list-content_small fixed-content">
     {{#firstChangelog}}
-    <h3>What's New in Version {{version}} <span id="view-changelog" class="button button_after">Version History</span></h3>
+    <h3>What's New in Version {{version}} <a href="version-history.html" class="button button_after" target="_blank">Version History</a></h3>
     {{#ch_title}}
     <p>{{ch_title}}</p>
     {{/ch_title}}
@@ -345,10 +345,10 @@
 </p>
 <p>
     <a href="" target="_blank" id="share-twitter" class="button button_social" tabindex="1902">
-        Share Composition on Twitter
+        <span class="icon-twitter">Share Composition on Twitter</span>
     </a>
     <a href="" target="_blank" id="share-facebook" class="button button_after button_social" tabindex="1903">
-        Share Composition on Facebook
+        <span class="icon-facebook">Share Composition on Facebook</span>
     </a>
 </p>
 
@@ -382,37 +382,6 @@
 <script src="js/mk.calc.spinner.js"></script>
 <script src="js/mk.calc.reset.js"></script>
 
-<div id="changelog-overlay" class="changelog-overlay hidden">
-    <div class="changelog-close">
-        <span id="changelog-close" class="button">
-            <span class="changelog-close__all">Close</span>
-            <span class="changelog-close__iphone">Back</span>
-        </span>
-    </div>
-    <div id="changelog-popup" class="changelog-popup">
-        <div class="changelog-content">
-            <h2>Version History</h2>
-            <div class="list-content">
-                {{#changelog}}
-                <h3>
-                    {{version}}<br/>
-                    <span class="list-content__date">{{date}}</span>
-                </h3>
-                {{#ch_title}}
-                <p>{{ch_title}}</p>
-                {{/ch_title}}
-                <ul>
-                    {{#changes}}
-                    <li>{{& change}}.</li>
-                    {{/changes}}
-                </ul>
-                {{/changelog}}
-            </div>
-        </div>
-    </div>
-</div>
-<script src="js/view-changelog.js"></script>
-
 {{#web_only}}
 <script src="../js/ya-metrika.js"></script>
 {{& ya_metrika_noscript}}
@@ -421,28 +390,9 @@
 
 <h2>Contact Me</h2>
 <div class="fixed-content">
-    <p>If you find a bug, have questions or feature suggestions or just need support please feel free to send me an email to <a href="mailto:clash-of-clans@mkln.ru">clash-of-clans@mkln.ru</a>.</p>
+    <p>If you find a bug, have questions or feature suggestions (<a href="to-do-list.html" target="_blank">current to-do list</a>) or just need support please feel free to send me an email to <a href="mailto:clash-of-clans@mkln.ru">clash-of-clans@mkln.ru</a>.</p>
     <p>You can also <a target="_blank" href="https://twitter.com/intent/tweet?text=@ClashCalc%20">mention @ClashCalc</a> on Twitter or leave a message in the <a target="_blank" href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator">thread</a> on a Supercell forums.</p>
     <p><a target="_blank" href="comments.html">Old comments</a> still available.</p>
-</div>
-
-<h2>To-do List</h2>
-<div class="list-content list-content_small fixed-content">
-    <ul>
-        <li>Possibility not to change the levels when loading saved compositions.</li>
-        <li>Possibility to specify a title for the saved compositions.</li>
-        <li>The distribution of units in the case when the barracks can produce less than accommodating the army camps.</li>
-        <li>Saving data between browsers.</li>
-        <li>
-            “Gem-boosted” barracks time
-            (from
-            <a target="_blank" href="http://forum.supercell.net/showthread.php/17238-Troops-and-Spells-Cost-Calculator?p=357652&amp;viewfull=1#post357652">forums</a>
-            and comments).
-        </li>
-        <li>Gem costs.</li>
-        <li>(?) Production time in saved compositions.</li>
-        <li>(?) Clan Castle troops.</li>
-    </ul>
 </div>
 
 <div class="footer fixed-content">

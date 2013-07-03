@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=950"/>
-    <title>Comments — {{coc_title_web_clip}}</title>
+    <title>Version History — {{coc_title_web_clip}}</title>
     <link rel="stylesheet" type="text/css" href="../css/design.css"/>
     <link rel="stylesheet" type="text/css" href="css/calculator.css"/>
     <script src="js/favicon.js"></script>
@@ -11,12 +11,24 @@
 </head>
 <body>
 
-<h1>Comments — <a href="/clash-of-clans/">{{coc_title_web_clip}}</a></h1>
+<h1>Version History — <a href="/clash-of-clans/">{{coc_title_web_clip}}</a></h1>
 
-<div id="fb-root"></div>
-<script src="js/facebook.js"></script>
-
-<div class="fb-comments" data-href="http://mkln.ru/clash-of-clans/" data-width="470" data-num-posts="150"></div>
+<div class="list-content fixed-content">
+    {{#changelog}}
+    <h3>
+        {{version}}<br/>
+        <span class="list-content__date">{{date}}</span>
+    </h3>
+    {{#ch_title}}
+    <p>{{ch_title}}</p>
+    {{/ch_title}}
+    <ul>
+        {{#changes}}
+        <li>{{& change}}.</li>
+        {{/changes}}
+    </ul>
+    {{/changelog}}
+</div>
 
 <script src="../js/ya-metrika.js"></script>
 {{& ya_metrika_noscript}}
