@@ -46,6 +46,6 @@
                    ', ' +
                    lastChangeDate.getFullYear();
     }
-    lastChange.appendChild(document.createTextNode(fullDate));
+    lastChange.setAttribute('title', lastChange.getAttribute('title') + fullDate);
     lastChange.style.visibility = 'visible';
 })();

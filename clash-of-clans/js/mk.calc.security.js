@@ -13,7 +13,9 @@
     }
 
     var host = ['m', 'k', 'l', 'n', '.', 'r', 'u'].join('');
-    if (window.location.host !== host && window.location.host.indexOf('192.168.1.') !== 0) {
+    if (window.location.host !== host &&
+        window.location.host.indexOf('192.168.1.') !== 0 &&
+        window.location.host.indexOf('localhost') !== 0) {
         window.location.replace('http://' + host + '/clash-of-clans/');
     }
 
