@@ -1,4 +1,10 @@
 <div class="saved-list__item" id="saved-list-item-{{index}}">
+    {{#hasCapacity}}
+        <div class="saved-list__item-result">
+            {{totalCapacity}} / {{armyCamps}}
+        </div>
+    {{/hasCapacity}}
+
     {{#hasUnits}}
         <table class="saved-list__table">
             {{#units}}
@@ -24,6 +30,9 @@
     {{/hasDark}}
 
     {{#hasSpells}}
+        <div class="saved-list__item-result">
+            {{spellsCapacity}} / {{spellsFactoryLevel}}
+        </div>
         <table class="saved-list__table">
             {{#spells}}
                 <tr>

@@ -17,6 +17,7 @@
 
             var unitsItems = [];
             var totalCost = 0;
+            var totalCapacity = 0;
             var barracksLevels = data.get('barracksLevels', [10, 10, 10, 10]);
             mk.objectIterate(mk.calc.types.units, function(name, unitValue) {
                 var quantity = parseInt(data.get(name), 10) || 0;
@@ -29,6 +30,7 @@
                         'quantity': quantity
                     });
                     totalCost += unitValue[1][data.get(name + '-level')] * quantity;
+                    totalCapacity += unitValue[2] * quantity;
                 }
             });
             if (unitsItems.length) {
@@ -51,6 +53,7 @@
                             'quantity': quantity
                         });
                         darkCost += unitValue[1][data.get(name + '-level')] * quantity;
+                        totalCapacity += unitValue[2] * quantity;
                     }
                 });
                 if (darkItems.length) {
@@ -61,9 +64,17 @@
                 }
             }
 
+            if (totalCapacity > 0) {
+                templateVars.hasCapacity = {
+                    'totalCapacity': totalCapacity,
+                    'armyCamps': data.get('armyCamps')
+                };
+            }
+
             if (data.get('spellFactoryLevel') > 0) {
                 var spellsItems = [];
                 var spellsCost = 0;
+                var spellsCapacity = 0;
                 mk.objectIterate(mk.calc.types.spells, function(spellName, spellValue) {
                     var spellQuantity = parseInt(data.get(spellName), 10) || 0;
                     if (spellQuantity > 0 && spellValue[3] <= data.get('spellFactoryLevel')) {
@@ -72,12 +83,15 @@
                             'quantity': spellQuantity
                         });
                         spellsCost += spellValue[1][data.get(spellName + '-level')] * spellQuantity;
+                        spellsCapacity += spellValue[2] * spellQuantity;
                     }
                 });
                 if (spellsItems.length) {
                     templateVars.hasSpells = {
                         'spells': spellsItems,
                         'spellsCost': mk.numberFormat(spellsCost),
+                        'spellsCapacity': spellsCapacity,
+                        'spellsFactoryLevel': data.get('spellFactoryLevel')
                     };
                 }
             }
