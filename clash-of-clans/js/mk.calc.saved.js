@@ -102,6 +102,8 @@
         var savedListContent = document.getElementById('saved-list-content');
         savedListContent.innerHTML = content.join('');
 
+        var barracksAnchor = document.getElementById('barracks-anchor');
+
         var loadSaved = function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -112,6 +114,8 @@
             mk.calc.setDefaults();
             mk.calc.calculate('all');
             savedListCreateItems();
+
+            barracksAnchor.scrollIntoView();
         };
 
         mk.toArray(savedListContent.getElementsByClassName('js-saved-load')).forEach(function(el) {

@@ -26,8 +26,8 @@ input, select {
     }
 
 h1 {
-    font-size: 24px;
-    margin: 0 0 6px;
+    font-size: 22px;
+    margin: 0 0 3px;
 }
 h2 {
     font-size: 20px;
@@ -227,6 +227,10 @@ table {
     cursor: help;
 }
 
+.title-indented {
+    margin-top: 30px;
+}
+
 .inline-message {
     font-size: 14px;
     background: #cfc;
@@ -280,3 +284,8 @@ table {
         color: #999;
         font-weight: bold;
     }
+
+.footer {
+    border-top: 1px solid #ddd;
+    padding-top: 12px;
+}

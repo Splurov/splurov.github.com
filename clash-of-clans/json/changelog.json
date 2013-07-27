@@ -1,5 +1,12 @@
 [
     [
+        "2.13",
+        "27 July, 2013",
+        [
+            "When loading a saved composition the page scrolls to the Barracks table"
+        ]
+    ],
+    [
         "2.12",
         "1 July, 2013",
         [

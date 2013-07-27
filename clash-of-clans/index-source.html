@@ -80,27 +80,13 @@
 </script>
 {{/web_only}}
 
-<div class="list-content list-content_small fixed-content">
-    {{#firstChangelog}}
-    <h3>What's New in Version {{version}} <a href="version-history.html" class="button button_after" target="_blank">Version History</a></h3>
-    {{#ch_title}}
-    <p>{{ch_title}}</p>
-    {{/ch_title}}
-    <ul>
-        {{#changes}}
-        <li>{{& change}}.</li>
-        {{/changes}}
-    </ul>
-    {{/firstChangelog}}
-</div>
-
 <p>
     <span id="view-shared" class="inline-message inline-message_closeable" style="display: none;" title="Click to hide">
         You are viewing shared composition (you can find previous one in the saved compositions)
     </span>
 </p>
 
-<h2>
+<h2 id="barracks-anchor">
     <a href="http://clashofclans.wikia.com/wiki/Barracks" class="wikia-link" target="_blank">Barracks</a>
     <span class="inline-message inline-message_negative inline-message_after"
           style="display: none;"
@@ -339,7 +325,7 @@
     </tfoot>
 </table>
 
-<h2>Share Composition</h2>
+<h2 class="title-indented">Share Composition</h2>
 <p class="fixed-content">
     <input id="share-permalink" class="field-long" tabindex="1901"/>
 </p>
@@ -352,7 +338,7 @@
     </a>
 </p>
 
-<h2>Saved Compositions</h2>
+<h2 class="title-indented">Saved Compositions</h2>
 <p>Values from the “Subtract” columns not saved.</p>
 <p>
     <span id="save" class="button" tabindex="2000">Save Composition</span>
@@ -388,17 +374,24 @@
 
 <script src="../js/ga.js"></script>
 
-<h2>Contact Me</h2>
-<div class="fixed-content">
-    <p>
-        If you find a bug, have questions or feature suggestions
-        (<a href="to-do-list.html" target="_blank">current to-do list</a>)
-        or just need support please feel free to
-        <a target="_blank" href="https://twitter.com/intent/tweet?text=@ClashCalc%20">mention @ClashCalc on Twitter</a>.
-    </p>
+<div class="list-content list-content_small fixed-content">
+    {{#firstChangelog}}
+    <h3>What's New in Version {{version}} <a href="version-history.html" class="button button_after" target="_blank">Version History</a></h3>
+    {{#ch_title}}
+    <p>{{ch_title}}</p>
+    {{/ch_title}}
+    <ul>
+        {{#changes}}
+        <li>{{& change}}.</li>
+        {{/changes}}
+    </ul>
+    {{/firstChangelog}}
 </div>
 
 <div class="footer fixed-content">
+    <p>
+        If you find a bug please send an e-mail to <a href="mailto:clash-of-clans@mkln.ru">clash-of-clans@mkln.ru</a>.
+    </p>
     <p>
         Please note this tool is only available at http://mkln.ru/clash-of-clans/.
         If you've seen it on other sites or in the iTunes App Store or anywhere else —
@@ -408,8 +401,7 @@
     <p>
         This work is licensed under a
         <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
-            Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License
-        </a>
+            Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
     </p>
     <p>&copy; 2013 <a href="/en/">Mikhail Kalashnik</a></p>
 </div>
