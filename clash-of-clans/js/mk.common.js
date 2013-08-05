@@ -137,7 +137,7 @@
     };
 
     mk.selectAll = function(e) {
-        if (e.target.tagName.toLowerCase() === 'input') {
+        if (['input', 'textarea'].indexOf(e.target.tagName.toLowerCase()) !== -1) {
             window.setTimeout(function(el) {
                 el.setSelectionRange(0, el.value.length);
             }.bind(null, e.target), 10);

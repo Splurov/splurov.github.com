@@ -13,7 +13,7 @@ kbd {
     padding: 0 4px;
 }
 
-input, select {
+input, select, textarea {
     font-family: inherit;
     font-size: inherit;
     vertical-align: middle;
@@ -227,7 +227,7 @@ table {
     cursor: help;
 }
 
-.title-indented {
+.block-indented {
     margin-top: 30px;
 }
 

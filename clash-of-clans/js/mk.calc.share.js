@@ -37,7 +37,7 @@
     var shareFacebook = document.getElementById('share-facebook');
     var permalink = document.getElementById('share-permalink');
     permalink.addEventListener('click', mk.selectAll, false);
-    mk.calc.makePermalink = function() {
+    var makePermalink = function() {
         var url = 'http://mkln.ru/clash-of-clans/?l=';
         var data = mk.calc.savedData.getAll();
         data = mk.calc.dataObjectToArray(data);
@@ -68,6 +68,70 @@
             'href',
             'https://www.facebook.com/sharer/sharer.php?u=' + shareUrl
         );
+    };
+
+    var text = document.getElementById('share-text');
+    text.addEventListener('click', mk.selectAll, false);
+
+    var superscriptNumbers = {
+        '1': '¹',
+        '2': '²',
+        '3': '³',
+        '4': '⁴',
+        '5': '⁵',
+        '6': '⁶',
+        '7': '⁷',
+        '8': '⁸',
+        '9': '⁹'
+    };
+
+    var currencies = {
+        'units': 'Elixir',
+        'dark': 'Dark Elixir',
+        'spells': 'Gold'
+    };
+
+    var makeShareText = function() {
+        var data = mk.calc.savedData.getAll();
+        var output = [];
+        var prices = [];
+        mk.objectIterate(mk.calc.types, function(type, items) {
+            var maxLevel;
+            if (type === 'spells') {
+                maxLevel = parseInt(mk.calc.spellFactoryLevel.value, 10);
+            } else {
+                maxLevel = mk.calc.allBarracks[type].getMaxLevel();
+            }
+            mk.objectIterate(items, function(itemName, itemData) {
+                if (data[itemName] > 0 && itemData[3] <= maxLevel) {
+                    output.push(
+                        mk.convertToTitle(itemName) +
+                        superscriptNumbers[data[itemName + '-level'] + 1] +
+                        ' ×' +
+                        data[itemName]
+                    );
+                }
+            });
+            var price = document.getElementById(type + '-cost').textContent;
+            if (price !== '0') {
+                prices.push(price + ' ' + currencies[type]);
+            }
+        });
+        if (output.length) {
+            text.value = output.join(', ') + ' — ' + prices.join(', ');
+            return true;
+        }
+        return false;
+    };
+
+    var shareContent = document.getElementById('share-content');
+    mk.calc.placeShareContent = function() {
+        if (makeShareText()) {
+            makePermalink();
+            shareContent.style.display = '';
+        } else {
+            shareContent.style.display = 'none';
+        }
     };
 
 }(window, document, window.mk));

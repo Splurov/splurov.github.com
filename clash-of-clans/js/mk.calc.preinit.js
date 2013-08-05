@@ -411,7 +411,7 @@
         mk.calc.savedDataAll.update(0, mk.calc.savedData);
         mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
 
-        mk.calc.makePermalink();
+        mk.calc.placeShareContent();
     };
 
 }(window, document, window.mk));

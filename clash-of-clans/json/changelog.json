@@ -1,5 +1,13 @@
 [
     [
+        "2.15",
+        "5 August, 2013",
+        [
+            "Added a field with a textual representation of the current composition",
+            "“Share Composition” block does not displayed if no units or spells are selected"
+        ]
+    ],
+    [
         "2.14",
         "31 July, 2013",
         [
