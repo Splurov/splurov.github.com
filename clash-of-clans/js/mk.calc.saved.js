@@ -18,7 +18,12 @@
             var unitsItems = [];
             var totalCost = 0;
             var totalCapacity = 0;
-            var barracksLevels = data.get('barracksLevels', [10, 10, 10, 10]);
+            var barracksLevels = [];
+            var barracksIndex;
+            var barracksCount;
+            for (barracksIndex = 1, barracksCount = 4; barracksIndex <= barracksCount; barracksIndex++) {
+                barracksLevels.push(data.get('barracks-levels-' + barracksIndex, 10));
+            }
             mk.objectIterate(mk.calc.types.units, function(name, unitValue) {
                 var quantity = parseInt(data.get(name), 10) || 0;
                 var barracksLevel = Math.max.apply(null, barracksLevels.map(function(barrackIndex, arrayIndex) {
@@ -40,7 +45,12 @@
                 };
             }
 
-            var darkBarracksLevels = data.get('darkBarracksLevels', [4, 4]);
+            var darkBarracksLevels = [];
+            var darkBarracksIndex;
+            var darkBarracksCount;
+            for (darkBarracksIndex = 1, darkBarracksCount = 2; darkBarracksIndex <= darkBarracksCount; darkBarracksIndex++) {
+                darkBarracksLevels.push(data.get('dark-barracks-levels-' + darkBarracksIndex, 5));
+            }
             var darkBarracksLevel = Math.max.apply(null, darkBarracksLevels);
             if (darkBarracksLevel > 0) {
                 var darkItems = [];

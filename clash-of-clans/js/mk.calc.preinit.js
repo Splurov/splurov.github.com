@@ -15,7 +15,7 @@
         'dark': new mk.calc.BarracksContainer(
             2,
             'dark-barracks-levels',
-            [0, 40, 50, 60, 70, 70]
+            [0, 40, 50, 60, 70, 80]
         )
     };
 
