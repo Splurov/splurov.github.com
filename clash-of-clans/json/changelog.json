@@ -1,7 +1,14 @@
 [
     [
+        "2.16",
+        "15 August, 2013",
+        [
+            "Added menu for easier navigation"
+        ]
+    ],
+    [
         "2.15",
-        "5 August, 2013",
+        "13 August, 2013",
         [
             "Dark Barracks level 5 queue capacity increased to 80",
             "Witch is now displayed in the saved compositions",

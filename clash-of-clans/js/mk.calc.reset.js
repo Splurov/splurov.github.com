@@ -5,10 +5,10 @@
     var resetColumn = function(e) {
         e.preventDefault();
         e.stopPropagation();
-        var resetType = e.target.getAttribute('data-reset-type');
+        var resetType = e.currentTarget.getAttribute('data-reset-type');
         mk.objectIterate(mk.calc.types[resetType], function(k) {
             var key = k;
-            var scope = e.target.getAttribute('data-scope');
+            var scope = e.currentTarget.getAttribute('data-scope');
             if (scope !== 'quantity') {
                 key += '-' + scope;
             }
@@ -17,9 +17,8 @@
         mk.calc.calculate(resetType);
     };
 
-    mk.toArray(document.getElementsByClassName('js-reset')).forEach(function(el) {
-        el.addEventListener('click', resetColumn, false);
-        el.addEventListener('touchend', resetColumn, false);
+    mk.getAllByClass('js-reset').forEach(function(el) {
+        mk.addEvents(el, ['click', 'touchend'], resetColumn);
     });
 
 }(window, document, window.mk));

@@ -6,6 +6,8 @@
 
     window.mk = mk;
 
+    mk.ios = !!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i);
+
     mk.toArray = function(likeArrayObject) {
         var resultArray = [];
         var i;
@@ -43,6 +45,23 @@
             newObj[key] = value;
         });
         return newObj;
+    };
+
+    mk.objectExtend = function(target, object) {
+        if (!object) {
+            return target;
+        }
+
+        var finalObject = target;
+        mk.objectIterate(object, function(key, value) {
+            if (Object.prototype.toString.call(value) === '[object Object]') {
+                finalObject[key] = mk.objectCopy(value);
+            } else {
+                finalObject[key] = value;
+            }
+        });
+
+        return finalObject;
     };
 
     mk.numberFormat = function(n) {
@@ -136,39 +155,61 @@
         entries.forEach(this.insert.bind(this));
     };
 
+    mk.addEvents = function(el, eventNames, handler) {
+        eventNames.forEach(function(eventName) {
+            el.addEventListener(eventName, handler, false);
+        });
+    };
+
+    mk.getAllByClass = function(cssClass, customContext) {
+        var context = customContext || document;
+        return mk.toArray(context.getElementsByClassName(cssClass));
+    };
+
     mk.selectAll = function(e) {
-        if (['input', 'textarea'].indexOf(e.target.tagName.toLowerCase()) !== -1) {
+        if (['input', 'textarea'].indexOf(e.currentTarget.tagName.toLowerCase()) !== -1) {
             window.setTimeout(function(el) {
                 el.setSelectionRange(0, el.value.length);
-            }.bind(null, e.target), 10);
+            }.bind(null, e.currentTarget), 10);
         }
     };
 
     mk.infoMessage = function(id, isAutoHide) {
         var el = document.getElementById(id);
 
+        var timeout;
+
         var hide = function(e) {
             if (e) {
                 e.preventDefault();
                 e.stopPropagation();
             }
+            clearTimeout(timeout);
             el.style.display = 'none';
         };
 
-        el.addEventListener('click', hide, false);
-        el.addEventListener('touchend', hide, false);
+        mk.addEvents(el, ['click', 'touchend'], hide);
 
         return {
             'show': function() {
                 el.style.display = 'inline-block';
                 if (isAutoHide) {
-                    window.setTimeout(function() {
+                    timeout = window.setTimeout(function() {
                         el.style.display = 'none';
                     }, 2000);
                 }
             },
             'hide': hide
         };
+    };
+
+    mk.getTopPosition = function(el) {
+        var position = 0;
+        do {
+            position += el.offsetTop;
+        } while (el = el.offsetParent);
+
+        return position;
     };
 
 }(window));

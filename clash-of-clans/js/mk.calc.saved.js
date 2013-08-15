@@ -118,44 +118,41 @@
             e.preventDefault();
             e.stopPropagation();
 
-            var dataToLoad = mk.objectCopy(mk.calc.savedDataAll.retrieve(e.target.getAttribute('data-num')).getAll());
+            var dataToLoad = mk.objectCopy(mk.calc.savedDataAll.retrieve(e.currentTarget.getAttribute('data-num')).getAll());
             mk.calc.savedData = new mk.Dict(dataToLoad);
 
             mk.calc.setDefaults();
             mk.calc.calculate('all');
             savedListCreateItems();
 
-            barracksAnchor.scrollIntoView();
+            mk.calc.smoothScroll(barracksAnchor);
         };
 
-        mk.toArray(savedListContent.getElementsByClassName('js-saved-load')).forEach(function(el) {
-            el.addEventListener('click', loadSaved, false);
-            el.addEventListener('touchend', loadSaved, false);
+        mk.getAllByClass('js-saved-load', savedListContent).forEach(function(el) {
+            mk.addEvents(el, ['click', 'touchend'], loadSaved);
         });
 
         var deleteSaved = function(e) {
             e.preventDefault();
             e.stopPropagation();
-            mk.calc.savedDataAll.remove(e.target.getAttribute('data-num'));
+            mk.calc.savedDataAll.remove(e.currentTarget.getAttribute('data-num'));
             mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
             savedListCreateItems();
         };
 
-        mk.toArray(savedListContent.getElementsByClassName('js-saved-delete')).forEach(function(el) {
-            el.addEventListener('click', deleteSaved, false);
-            el.addEventListener('touchend', deleteSaved, false);
+        mk.getAllByClass('js-saved-delete', savedListContent).forEach(function(el) {
+            mk.addEvents(el, ['click', 'touchend'], deleteSaved);
         });
     };
 
     var alreadySavedMessage = mk.infoMessage('already-saved', true);
+    var savedCalculationAnchor = document.getElementById('saved-anchor');
 
-    mk.calc.save = function(e, isShowMessage) {
-        if (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            e.target.blur();
-        }
+    mk.calc.save = function(customParams) {
+        var defaultParams = {
+            'showMessage': true
+        };
+        var params = mk.objectExtend(defaultParams, customParams);
         alreadySavedMessage.hide();
 
         var sourceData = mk.calc.savedDataStorage.load(true);
@@ -171,7 +168,7 @@
             for (sdIndex = 1, sdLength = sourceData.length; sdIndex < sdLength; sdIndex++) {
                 var savedJSON = JSON.stringify(sourceData[sdIndex]);
                 if (currentJSON === savedJSON) {
-                    if (isShowMessage !== false) {
+                    if (params.showMessage) {
                         alreadySavedMessage.show();
                     }
                     return false;
@@ -186,15 +183,20 @@
         }
     };
 
-    var saveEl = document.getElementById('save');
-    saveEl.addEventListener('click', mk.calc.save, false);
-    saveEl.addEventListener('touchend', mk.calc.save, false);
-    saveEl.addEventListener('keydown', function(e) {
-        var code = e.keyCode || e.which;
-        if (code === 13) {
-            mk.calc.save();
+    var saveHandler = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (e.currentTarget.getAttribute('data-scroll') === 'yes') {
+            mk.calc.smoothScroll(savedCalculationAnchor);
         }
-    }, false);
+
+        mk.calc.save(true);
+    };
+
+    mk.getAllByClass('js-save-composition').forEach(function(saveEl) {
+        mk.addEvents(saveEl, ['click', 'touchend'], saveHandler);
+    });
 
     savedListCreateItems();
 

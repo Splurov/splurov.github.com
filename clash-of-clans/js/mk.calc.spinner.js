@@ -26,7 +26,7 @@
     var spinnerHold = function(e) {
         e.preventDefault();
         e.stopPropagation();
-        e.target.spinnerClicked = true;
+        e.currentTarget.spinnerClicked = true;
         spinnerTimeout = window.setTimeout(function(eventElement) {
             eventElement.spinnerClicked = false;
             (function fakeInterval() {
@@ -35,14 +35,14 @@
                     fakeInterval();
                 }, 100);
             }());
-        }.bind(null, e.target), 500);
+        }.bind(null, e.currentTarget), 500);
     };
 
     var spinnerRelease = function(e) {
         e.preventDefault();
         e.stopPropagation();
-        if (e.target.spinnerClicked) {
-            spinnerAction(e.target.spinnerTarget, e.target.textContent);
+        if (e.currentTarget.spinnerClicked) {
+            spinnerAction(e.currentTarget.spinnerTarget, e.currentTarget.textContent);
         }
         clearTimeout(spinnerTimeout);
         clearInterval(spinnerInterval);
@@ -54,10 +54,8 @@
         span.textContent = (type === 'plus' ? '+' : '−');
         span.spinnerTarget = el;
 
-        span.addEventListener('touchstart', spinnerHold, false);
-        span.addEventListener('touchend', spinnerRelease, false);
-        span.addEventListener('mousedown', spinnerHold, false);
-        span.addEventListener('mouseup', spinnerRelease, false);
+        mk.addEvents(span, ['touchstart', 'mousedown'], spinnerHold);
+        mk.addEvents(span, ['touchend', 'mouseup'], spinnerRelease);
 
         if (el.nextSibling) {
             el.parentNode.insertBefore(span, el.nextSibling);
@@ -66,21 +64,23 @@
         }
     };
 
-    mk.toArray(document.getElementsByClassName('js-number')).forEach(function(el) {
+    var spinnerKeyboard = function(e) {
+        var code = e.keyCode || e.which;
+        if (code === 38) {
+            spinnerAction(e.currentTarget, '+');
+            e.preventDefault();
+        } else if (code === 40) {
+            spinnerAction(e.currentTarget, '-');
+            e.preventDefault();
+        }
+    };
+
+    mk.getAllByClass('js-number').forEach(function(el) {
         el.addEventListener('focus', mk.selectAll, false);
         setSpinner('minus', el);
         setSpinner('plus', el);
 
-        el.addEventListener('keydown', function(e) {
-            var code = e.keyCode || e.which;
-            if (code === 38) {
-                spinnerAction(e.target, '+');
-                e.preventDefault();
-            } else if (code === 40) {
-                spinnerAction(e.target, '-');
-                e.preventDefault();
-            }
-        }, false);
+        el.addEventListener('keydown', spinnerKeyboard, false);
     });
 
 }(window, document, window.mk));

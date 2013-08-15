@@ -80,6 +80,17 @@
 </script>
 {{/web_only}}
 
+<div class="menu-wrapper js-menu-wrapper">
+    <ul class="menu js-menu">
+        <li><span class="menu__item js-anchor" data-anchor-target="barracks-anchor">Barracks</span></li><!--
+        --><li><span class="menu__item js-anchor" data-anchor-target="dark-anchor">Dark Barracks</span></li><!--
+        --><li><span class="menu__item js-anchor" data-anchor-target="spell-anchor">Spell Factory</span></li><!--
+        --><li><span class="menu__item js-anchor js-share" data-anchor-target="share-anchor">Share Composition</span></li><!--
+        --><li><span class="menu__item js-save-composition" data-scroll="yes"><span class="icon-save">Save Composition</span></span></li><!--
+        --><li><span class="menu__item js-anchor" data-anchor-target="saved-anchor">Saved Compositions</span></li>
+    </ul>
+</div>
+
 <p>
     <span id="view-shared" class="inline-message inline-message_closeable" style="display: none;" title="Click to hide">
         You are viewing shared composition (you can find previous one in the saved compositions)
@@ -235,7 +246,7 @@
     </tfoot>
 </table>
 
-<h2>
+<h2 id="dark-anchor">
     <a href="http://clashofclans.wikia.com/wiki/Dark_Barracks" class="wikia-link" target="_blank">Dark Barracks</a>
     <span class="inline-message inline-message_negative inline-message_after"
           style="display: none;"
@@ -294,7 +305,7 @@
     </tfoot>
 </table>
 
-<h2><a href="http://clashofclans.wikia.com/wiki/Spell_Factory" class="wikia-link" target="_blank">Spell Factory</a></h2>
+<h2 id="spell-anchor"><a href="http://clashofclans.wikia.com/wiki/Spell_Factory" class="wikia-link" target="_blank">Spell Factory</a></h2>
 <table id="spells" class="data">
     <thead>
         <tr>
@@ -327,8 +338,8 @@
     </tfoot>
 </table>
 
-<div id="share-content">
-    <h2 class="block-indented">Share Composition</h2>
+<div class="js-share">
+    <h2 class="block-indented" id="share-anchor">Share Composition</h2>
     <p class="fixed-content">
         <input id="share-permalink" class="field-long" tabindex="1901"/>
     </p>
@@ -341,14 +352,14 @@
         </a>
     </p>
     <p class="fixed-content block-indented">
-        <textarea id="share-text" class="field-long" tabindex="1902" rows="2"></textarea>
+        <textarea id="share-text" class="field-long" tabindex="1905" rows="2"></textarea>
     </p>
 </div>
 
-<h2 class="block-indented">Saved Compositions</h2>
+<h2 class="block-indented" id="saved-anchor">Saved Compositions</h2>
 <p>Values from the “Subtract” columns not saved.</p>
 <p>
-    <span id="save" class="button" tabindex="2000">Save Composition</span>
+    <span class="js-save-composition button" tabindex="2000"><span class="icon-save">Save Composition</span></span>
 
     <span id="already-saved" class="inline-message inline-message_after inline-message_closeable" style="display: none;" title="Click to hide">
         Already in the saved compositions
@@ -367,6 +378,7 @@
 
 <script src="js/mk.common.js"></script>
 <script src="js/mk.calc.common.js"></script>{{#web_only}}<script src="js/mk.calc.security.js"></script>{{/web_only}}
+<script src="js/mk.calc.menu.js"></script>
 <script src="js/mk.calc.converter.js"></script>
 <script src="js/mk.calc.preinit.js"></script>
 <script src="js/mk.calc.saved.js"></script>
@@ -381,7 +393,7 @@
 
 <script src="../js/ga.js"></script>
 
-<div class="list-content list-content_small fixed-content">
+<div class="list-content list-content_small fixed-content" id="changelog-anchor">
     {{#firstChangelog}}
     <h3>What's New in Version {{version}} <a href="version-history.html" class="button button_after" target="_blank">Version History</a></h3>
     {{#ch_title}}
@@ -410,7 +422,13 @@
         <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
             Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
     </p>
-    <p>&copy; 2013 <a href="/en/">Mikhail Kalashnik</a></p>
+
+    <p>
+        Save Icon designed by <a href="http://www.endlessicons.com/" target="_blank">Min Kim</a>
+    </p>
+    <p>
+        &copy; 2013 <a href="/en/">Mikhail Kalashnik</a>
+    </p>
 </div>
 {{/web_only}}
 

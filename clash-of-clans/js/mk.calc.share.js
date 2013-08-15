@@ -25,7 +25,7 @@
                 window.location = cleanUrl;
             }*/
 
-            mk.calc.save(null, false);
+            mk.calc.save({'showMessage': false});
             mk.calc.savedData = new mk.Dict(urlData);
 
             viewSharedMessage.show();
@@ -124,13 +124,17 @@
         return false;
     };
 
-    var shareContent = document.getElementById('share-content');
+    var shareObjects = mk.getAllByClass('js-share');
     mk.calc.placeShareContent = function() {
         if (makeShareText()) {
             makePermalink();
-            shareContent.style.display = '';
+            shareObjects.forEach(function(el) {
+                el.style.display = '';
+            });
         } else {
-            shareContent.style.display = 'none';
+            shareObjects.forEach(function(el) {
+                el.style.display = 'none';
+            });
         }
     };
 
