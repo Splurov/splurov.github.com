@@ -7,7 +7,6 @@
     <title>{{coc_title}}</title>
     <meta name="description" content="{{coc_description}}"/>
     {{/web_only}}
-    <link rel="stylesheet" type="text/css" href="../css/design.css"/>
     <link rel="stylesheet" type="text/css" href="css/calculator.css"/>
     {{#web_only}}
     <script src="js/favicon.js"></script>
@@ -45,6 +44,13 @@
            target="_blank"
            class="button button_social"><span class="icon-twitter">Follow @ClashCalc on Twitter</span></a>
     </p>
+
+    <!--[if lte IE 8]>
+    <p class="message message_negative message_block">
+        You are using an old version of Internet Explorer which is not supported.<br />
+        Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
+    </p>
+    <![endif]-->
 </div>
 {{/web_only}}
 
@@ -92,14 +98,14 @@
 </div>
 
 <p>
-    <span id="view-shared" class="inline-message inline-message_closeable" style="display: none;" title="Click to hide">
+    <span id="view-shared" class="message message_closeable" style="display: none;" title="Click to hide">
         You are viewing shared composition (you can find previous one in the saved compositions)
     </span>
 </p>
 
 <h2 id="barracks-anchor">
     <a href="http://clashofclans.wikia.com/wiki/Barracks" class="wikia-link" target="_blank">Barracks</a>
-    <span class="inline-message inline-message_negative inline-message_after"
+    <span class="message message_negative message_after"
           style="display: none;"
           id="units-barracks-exceeded">Too many units</span>
 </h2>
@@ -248,7 +254,7 @@
 
 <h2 id="dark-anchor">
     <a href="http://clashofclans.wikia.com/wiki/Dark_Barracks" class="wikia-link" target="_blank">Dark Barracks</a>
-    <span class="inline-message inline-message_negative inline-message_after"
+    <span class="message message_negative message_after"
           style="display: none;"
           id="dark-barracks-exceeded">Too many units</span>
 </h2>
@@ -361,7 +367,7 @@
 <p>
     <span class="js-save-composition button" tabindex="2000"><span class="icon-save">Save Composition</span></span>
 
-    <span id="already-saved" class="inline-message inline-message_after inline-message_closeable" style="display: none;" title="Click to hide">
+    <span id="already-saved" class="message message_after message_closeable" style="display: none;" title="Click to hide">
         Already in the saved compositions
     </span>
 </p>
@@ -373,19 +379,7 @@
 
 <script src="js/hogan-2.0.0.min.js" data-compress="no"></script>
 
-<script type="text/x-build-hogan" src="mustache/item_row.mustache"></script>
-<script type="text/x-build-hogan" src="mustache/saved_list_item.mustache"></script>
-
-<script src="js/mk.common.js"></script>
-<script src="js/mk.calc.common.js"></script>{{#web_only}}<script src="js/mk.calc.security.js"></script>{{/web_only}}
-<script src="js/mk.calc.menu.js"></script>
-<script src="js/mk.calc.converter.js"></script>
-<script src="js/mk.calc.preinit.js"></script>
-<script src="js/mk.calc.saved.js"></script>
-<script src="js/mk.calc.share.js"></script>
-<script src="js/mk.calc.init.js"></script>
-<script src="js/mk.calc.spinner.js"></script>
-<script src="js/mk.calc.reset.js"></script>
+<script src="js/all.js"></script>{{#web_only}}<script src="js/mk.calc.security.js"></script>{{/web_only}}
 
 {{#web_only}}
 <script src="../js/ya-metrika.js"></script>

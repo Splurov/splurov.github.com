@@ -46,7 +46,8 @@
     mk.calc.armyCamps.addEventListener('change', mk.calc.calculate.bind(null, 'all'), false);
     mk.calc.spellFactoryLevel.addEventListener('change', mk.calc.calculate.bind(null, 'spells'), false);
 
-    var rowTemplate = templates.item_row;
+    //var rowTemplate = templates.item_row;
+    var rowTemplate = new Hogan.Template(/* build:hogan:mustache/item_row.mustache */);
 
     var createRows = function(type, tabIndexMultiplier) {
         var createLevelOption = function(value, index) {

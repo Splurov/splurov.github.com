@@ -2,7 +2,8 @@
 
     'use strict';
 
-    var savedListItemTemplate = templates.saved_list_item;
+    //var savedListItemTemplate = templates.saved_list_item;
+    var savedListItemTemplate = new Hogan.Template(/* build:hogan:mustache/saved_list_item.mustache */);
     var savedListCreateItems = function() {
         var content = [];
         mk.calc.savedDataAll.forEach(function(data, index) {

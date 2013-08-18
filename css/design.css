@@ -66,17 +66,6 @@ a.title {
     font-size: 14px;
     color: #999;
 }
-    .footer a:link {
-        text-decoration: underline;
-        color: #999;
-    }
-    .footer a:visited {
-        text-decoration: underline;
-        color: #999;
-    }
-    .footer a:hover, .footer a:active {
-        text-decoration: none;
-    }
 
 .hidden {
     display: none;

@@ -1,9 +1,30 @@
+html, body {
+    background: #fefefe;
+    color: #222;
+}
 body {
+    font-family: 'PT Sans', Arial, sans-serif;
     margin: 13px 17px;
     line-height: 1.4;
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
 }
+
+a {
+    white-space: nowrap;
+}
+    a:link {
+        color: #4100f1;
+        text-decoration: none;
+    }
+    a:visited {
+        color: #63008c;
+        text-decoration: none;
+    }
+    a:hover, a:active {
+        text-decoration: underline;
+    }
+
 
 kbd {
     font-family: inherit;
@@ -61,7 +82,11 @@ table {
     background: url(/clash-of-clans/i/external-link.png) no-repeat 100% .25em;
     background-size: 10px 10px;
     padding-right: 15px;
+    text-decoration: none;
 }
+    .wikia-link:hover, .wikia-link:active {
+        text-decoration: underline;
+    }
 
 .data {
     -webkit-transform: translateZ(0);
@@ -163,15 +188,14 @@ table {
     line-height: 1;
     user-select: none;
     font-weight: normal;
+    text-decoration: none;
 }
     .button:hover {
         background-image: linear-gradient(#fcfcfc, #e0e0e0);
-        text-decoration: none;
     }
     .button:active {
         color: #444;
         background: #e3e3e3;
-        text-decoration: none;
     }
     .button_after {
         margin-left: 7px;
@@ -239,7 +263,7 @@ table {
     margin-top: 30px;
 }
 
-.inline-message {
+.message {
     font-size: 14px;
     background: #cfc;
     border: 1px solid #8f8;
@@ -249,15 +273,18 @@ table {
     vertical-align: middle;
     font-weight: normal;
 }
-    .inline-message_closeable {
+    .message_closeable {
         cursor: pointer;
     }
-    .inline-message_after {
+    .message_after {
         margin-left: 15px;
     }
-    .inline-message_negative {
+    .message_negative {
         background: #fdd;
         border: 1px solid #f88;
+    }
+    .message_block {
+        display: block;
     }
 
 .saved-list {
@@ -296,7 +323,17 @@ table {
 .footer {
     border-top: 1px solid #ddd;
     padding-top: 12px;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #999;
 }
+    .footer a:link, .footer a:visited {
+        text-decoration: underline;
+        color: #999;
+    }
+    .footer a:hover, .footer a:active {
+        text-decoration: none;
+    }
 
 .menu-wrapper {
     position: relative;
@@ -341,5 +378,4 @@ table {
         }
         .menu .menu__item:hover {
             background: #efefef;
-            text-decoration: none;
         }

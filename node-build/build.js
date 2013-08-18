@@ -23,6 +23,8 @@ var hoganPrepare = function(input) {
     return '{{=<% %>=}}' + input + '<%={{ }}=%>';
 };
 
+var dataCache = {};
+
 for (var file in sources) {
     console.log('started: ' + file);
     var lastChangeTime = Math.round(fs.statSync(file).mtime.getTime() / 1000);
@@ -35,6 +37,10 @@ for (var file in sources) {
 
     var dataSource = fs.readFileSync(file, 'utf8');
     dataSource = dataSource.replace(/<link rel="stylesheet" type="text\/css" href="([^"]+)"\/>/g, function(match, p1) {
+        if (dataCache[p1]) {
+            console.log('cached: ' + p1);
+            return dataCache[p1];
+        }
         var styleData = fs.readFileSync(dir + p1, 'utf8');
         styleData = autoprefixer.compile(styleData);
         console.log('autoprefixer: ' + p1);
@@ -47,37 +53,41 @@ for (var file in sources) {
             return 'url(data:image/png;base64,' + (new Buffer(image, 'binary')).toString('base64') + ')';
         });
 
-        return hoganPrepare('<style>' + styleData + '</style>');
+        styleData = hoganPrepare('<style>' + styleData + '</style>')
+
+        dataCache[p1] = styleData;
+
+        return styleData;
     });
 
     dataSource = dataSource.replace(/<script src="([^"]+)"( data-compress="no")?><\/script>/g, function(match, p1, p2) {
+        if (dataCache[p1 + p2]) {
+            console.log('cached: ' + p1 + (p2 ? ' (no compress)' : ''));
+            return dataCache[p1 + p2];
+        }
+        console.log('js: ' + p1);
         var scriptData = fs.readFileSync(dir + p1, 'utf8');
+        scriptData = scriptData.replace(/\/\* build:js:([^ ]+) \*\//g, function(buildMatch, buildP1) {
+            console.log('js sub: ' + buildP1);
+            return fs.readFileSync(dir + buildP1, 'utf8');
+        });
+        scriptData = scriptData.replace(/\/\* build:hogan:([^ ]+) \*\//g, function(hoganMatch, hoganP1) {
+            var templatePath = dir + hoganP1;
+            var template = fs.readFileSync(templatePath, 'utf8');
+            var compiled = hogan.compile(template, {'asString': 1});
+            console.log('hogan: ' + hoganP1);
+            return compiled;
+        });
         if (!p2) {
             scriptData = uglifyjs.minify(scriptData, {'fromString': true}).code;
         }
-        console.log('js: ' + p1);
-        return hoganPrepare('<script>' + scriptData + '</script>');
-    });
 
-    var hoganTemplates = [];
-    var position = 0;
-    dataSource = dataSource.replace(/<script type="text\/x-build-hogan" src="([^"]+)"><\/script>/g, function(match, p1, offset) {
-        var templatePath = dir + p1;
-        var template = fs.readFileSync(templatePath, 'utf8');
-        var compiled = hogan.compile(template, {'asString': 1});
-        var compiledFull = 'templates.' + path.basename(templatePath).replace(/\..*$/, '') + ' = new Hogan.Template(' + compiled + ');';
-        hoganTemplates.push(compiledFull);
-        position = (position > 0 ? Math.min(offset, position) : offset);
-        console.log('hogan: ' + p1);
-        return '';
-    });
+        scriptData = hoganPrepare('<script>' + scriptData + '</script>');
 
-    if (hoganTemplates.length) {
-        var templates = 'var templates = {};\n' + hoganTemplates.join('\n');
-        dataSource = dataSource.substring(0, position) +
-                     hoganPrepare('<script>' + uglifyjs.minify(templates, {'fromString': true}).code + '</script>') +
-                     dataSource.substring(position);
-    }
+        dataCache[p1 + p2] = scriptData;
+
+        return scriptData;
+    });
 
     var currentTemplate = hogan.compile(dataSource);
 
