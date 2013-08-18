@@ -42,11 +42,17 @@
 
     mk.objectIterate(mk.calc.allBarracks, function(k, v) {
         v.getElements().forEach(function(el) {
-            el.addEventListener('change', mk.Events.trigger.bind(null, 'calculate', 'barrack-' + k), false);
+            el.addEventListener('change', function() {
+                mk.Events.trigger('calculate', 'barrack-' + k);
+            }, false);
         });
     });
-    mk.calc.armyCamps.addEventListener('change', mk.Events.trigger.bind(null, 'calculate', 'all'), false);
-    mk.calc.spellFactoryLevel.addEventListener('change', mk.Events.trigger.bind(null, 'calculate', 'spells'), false);
+    mk.calc.armyCamps.addEventListener('change', function() {
+        mk.Events.trigger('calculate', 'all');
+    }, false);
+    mk.calc.spellFactoryLevel.addEventListener('change', function() {
+        mk.Events.trigger('calculate', 'spells');
+    }, false);
 
     var rowTemplate = new Hogan.Template(/* build:hogan:mustache/item_row.mustache */);
 
@@ -109,19 +115,25 @@
 
             document.getElementById(templateVars.levelId).addEventListener(
                 'change',
-                mk.Events.trigger.bind(null, 'calculate', type),
+                function() {
+                    mk.Events.trigger('calculate', type);
+                },
                 false
             );
             document.getElementById(templateVars.id).addEventListener(
                 (type === 'spells' ? 'change' : 'input'),
-                mk.Events.trigger.bind(null, 'calculate', type),
+                function() {
+                    mk.Events.trigger('calculate', type);
+                },
                 false
             );
 
             if (type === 'units' || type === 'dark') {
                 document.getElementById(templateVars.subtractId).addEventListener(
                     'input',
-                    mk.Events.trigger.bind(null, 'calculate', type),
+                    function() {
+                        mk.Events.trigger('calculate', type);
+                    },
                     false
                 );
             }
