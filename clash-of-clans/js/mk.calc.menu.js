@@ -1,4 +1,4 @@
-(function(window, document, mk){
+(function(mk){
 
     'use strict';
 
@@ -29,7 +29,7 @@
         }, false);
     }
 
-    mk.calc.smoothScroll = function(el) {
+    var smoothScroll = function(el) {
         var currentScrollTop = window.pageYOffset;
         var elScrollTop = mk.getTopPosition(el) - globalScrollOffset;
 
@@ -40,7 +40,7 @@
         var delay = 16;
         var step = Math.round(diff / (duration / delay));
 
-        var interval = window.setInterval(function() {
+        var interval = setInterval(function() {
             if (toTop) {
                 currentScrollTop -= step;
                 if (currentScrollTop < elScrollTop) {
@@ -60,14 +60,16 @@
         }, delay);
     };
 
+    mk.Events.listen('scrollTo', smoothScroll);
+
     var goToAnchor = function(e) {
         e.preventDefault();
         e.stopPropagation();
-        mk.calc.smoothScroll(document.getElementById(e.currentTarget.getAttribute('data-anchor-target')));
+        smoothScroll(document.getElementById(e.currentTarget.getAttribute('data-anchor-target')));
     };
 
     mk.getAllByClass('js-anchor').forEach(function(el) {
         mk.addEvents(el, ['click', 'touchend'], goToAnchor);
     });
 
-}(window, document, window.mk));
+}(window.mk));

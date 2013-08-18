@@ -1,34 +1,36 @@
-(function(window, document, mk) {
+(function(mk) {
 
     'use strict';
 
     var checkShare = function() {
-        if (window.location.search.indexOf('?l=') !== -1) {
+        if (location.search.indexOf('?l=') !== -1) {
             var viewSharedMessage = mk.infoMessage('view-shared');
 
-            var urlData = window.location.search.substr(3);
+            var urlData = location.search.substr(3);
             urlData = decodeURIComponent(urlData);
-            mk.calc.sharedLink = urlData;
+            mk.__globalSharedLink = urlData;
             urlData = urlData.replace(/[a-z]/g, ',');
             urlData = urlData.replace(/,(?=,)/g, ',0');
             urlData = '[' + urlData + ']';
             urlData = JSON.parse(urlData);
             urlData = mk.calc.dataArrayToObject(urlData);
 
-            if (window.history.replaceState) {
-                window.history.replaceState(
+            if (history.replaceState) {
+                history.replaceState(
                     {},
                     '',
-                    window.location.protocol + '//' + window.location.host + window.location.pathname
+                    location.protocol + '//' + location.host + location.pathname
                 );
-            }/* else {
-                window.location = cleanUrl;
-            }*/
+            }
 
-            mk.calc.save({'showMessage': false});
+            mk.Events.trigger('save', {'showMessage': false});
             mk.calc.savedData = new mk.Dict(urlData);
 
             viewSharedMessage.show();
+
+            mk.Events.listen('loaded', function() {
+                viewSharedMessage.hide();
+            });
         }
     };
     checkShare();
@@ -125,7 +127,7 @@
     };
 
     var shareObjects = mk.getAllByClass('js-share');
-    mk.calc.placeShareContent = function() {
+    var placeShareContent = function() {
         if (makeShareText()) {
             makePermalink();
             shareObjects.forEach(function(el) {
@@ -138,4 +140,6 @@
         }
     };
 
-}(window, document, window.mk));
+    mk.Events.listen('calculated', placeShareContent);
+
+}(window.mk));

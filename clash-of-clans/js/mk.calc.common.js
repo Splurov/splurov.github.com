@@ -1,4 +1,4 @@
-(function(window, document, mk) {
+(function(mk) {
 
     'use strict';
 
@@ -133,7 +133,7 @@
         this.key = key;
 
         this.load = function(isLoadSource) {
-            var data = window.localStorage.getItem(this.key);
+            var data = localStorage.getItem(this.key);
             data = (data && JSON.parse(data)) || [];
             if (isLoadSource) {
                 return data;
@@ -148,7 +148,7 @@
             var dataArrays = dataObjects.map(function(dataObject) {
                 return mk.calc.dataObjectToArray(dataObject);
             });
-            window.localStorage.setItem(this.key, JSON.stringify(dataArrays));
+            localStorage.setItem(this.key, JSON.stringify(dataArrays));
         };
     };
 
@@ -225,4 +225,4 @@
         };
     };
 
-}(window, document, window.mk));
+}(window.mk));

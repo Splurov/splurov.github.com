@@ -1,8 +1,7 @@
-(function(window, document, mk){
+(function(mk, Hogan){
 
     'use strict';
 
-    //var savedListItemTemplate = templates.saved_list_item;
     var savedListItemTemplate = new Hogan.Template(/* build:hogan:mustache/saved_list_item.mustache */);
     var savedListCreateItems = function() {
         var content = [];
@@ -122,11 +121,12 @@
             var dataToLoad = mk.objectCopy(mk.calc.savedDataAll.retrieve(e.currentTarget.getAttribute('data-num')).getAll());
             mk.calc.savedData = new mk.Dict(dataToLoad);
 
-            mk.calc.setDefaults();
-            mk.calc.calculate('all');
+            mk.Events.trigger('setDefaults');
+            mk.Events.trigger('calculate', 'all');
             savedListCreateItems();
 
-            mk.calc.smoothScroll(barracksAnchor);
+            mk.Events.trigger('loaded');
+            mk.Events.trigger('scrollTo', barracksAnchor);
         };
 
         mk.getAllByClass('js-saved-load', savedListContent).forEach(function(el) {
@@ -149,7 +149,7 @@
     var alreadySavedMessage = mk.infoMessage('already-saved', true);
     var savedCalculationAnchor = document.getElementById('saved-anchor');
 
-    mk.calc.save = function(customParams) {
+    var save = function(customParams) {
         var defaultParams = {
             'showMessage': true
         };
@@ -184,15 +184,17 @@
         }
     };
 
+    mk.Events.listen('save', save);
+
     var saveHandler = function(e) {
         e.preventDefault();
         e.stopPropagation();
 
         if (e.currentTarget.getAttribute('data-scroll') === 'yes') {
-            mk.calc.smoothScroll(savedCalculationAnchor);
+            mk.Events.trigger('scrollTo', savedCalculationAnchor);
         }
 
-        mk.calc.save(true);
+        save();
     };
 
     mk.getAllByClass('js-save-composition').forEach(function(saveEl) {
@@ -201,4 +203,4 @@
 
     savedListCreateItems();
 
-}(window, document, window.mk));
+}(window.mk, window.Hogan));

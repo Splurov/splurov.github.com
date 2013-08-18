@@ -1,4 +1,4 @@
-(function(window) {
+(function() {
 
     'use strict';
 
@@ -70,10 +70,6 @@
 
     mk.convertToTitle = function(s) {
         return s.replace('_', ' ').replace(/-/g, '.');
-    };
-
-    mk.getWikiaLink = function(s) {
-        return 'http://clashofclans.wikia.com/wiki/' + s.replace(' ', '_');
     };
 
     mk.getFormattedTime = function(time, hideSeconds) {
@@ -162,13 +158,16 @@
     };
 
     mk.getAllByClass = function(cssClass, customContext) {
-        var context = customContext || document;
-        return mk.toArray(context.getElementsByClassName(cssClass));
+        return mk.toArray((customContext || document).getElementsByClassName(cssClass));
+    };
+
+    mk.getAll = function(selector, customContext) {
+        return mk.toArray((customContext || document).querySelectorAll(selector));
     };
 
     mk.selectAll = function(e) {
         if (['input', 'textarea'].indexOf(e.currentTarget.tagName.toLowerCase()) !== -1) {
-            window.setTimeout(function(el) {
+            setTimeout(function(el) {
                 el.setSelectionRange(0, el.value.length);
             }.bind(null, e.currentTarget), 10);
         }
@@ -194,7 +193,7 @@
             'show': function() {
                 el.style.display = 'inline-block';
                 if (isAutoHide) {
-                    timeout = window.setTimeout(function() {
+                    timeout = setTimeout(function() {
                         el.style.display = 'none';
                     }, 2000);
                 }
@@ -212,4 +211,25 @@
         return position;
     };
 
-}(window));
+    mk.Events = {
+
+        events: {},
+
+        trigger: function(name, data) {
+            if (this.events[name]) {
+                this.events[name].forEach(function(event) {
+                    event(data);
+                });
+            }
+        },
+
+        listen: function(name, cb) {
+            if (!this.events[name]) {
+                this.events[name] = [];
+            }
+            this.events[name].push(cb);
+        }
+
+    };
+
+}());

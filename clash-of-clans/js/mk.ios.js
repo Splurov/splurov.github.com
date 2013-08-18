@@ -1,4 +1,4 @@
-(function(window, document, mk) {
+(function(mk) {
 
     'use strict';
 
@@ -15,4 +15,4 @@
         });
     }
 
-}(window, document, window.mk));
+}(window.mk));

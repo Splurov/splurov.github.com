@@ -1,4 +1,4 @@
-(function(window, document, mk){
+(function(mk){
 
     'use strict';
 
@@ -355,7 +355,7 @@
     var calculateDelayLong = null;
     var calculateDelayShort = null;
 
-    mk.calc.calculate = function(type) {
+    var calculate = function(type) {
         clearTimeout(calculateDelayLong);
         clearTimeout(calculateDelayShort);
         calculateDelayLong = null;
@@ -411,7 +411,9 @@
         mk.calc.savedDataAll.update(0, mk.calc.savedData);
         mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
 
-        mk.calc.placeShareContent();
+        mk.Events.trigger('calculated');
     };
 
-}(window, document, window.mk));
+    mk.Events.listen('calculate', calculate);
+
+}(window.mk));

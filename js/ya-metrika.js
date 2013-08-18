@@ -7,8 +7,8 @@
                                                      trackLinks:true,
                                                      accurateTrackBounce:true});
 
-            if (window.mk.calc.sharedLink) {
-                w.yaCounter19642528.reachGoal('SHARE', {'l': window.mk.calc.sharedLink});
+            if (mk.__globalSharedLink) {
+                w.yaCounter19642528.reachGoal('SHARE', {'l': mk.__globalSharedLink});
             }
         } catch(e) { }
     });

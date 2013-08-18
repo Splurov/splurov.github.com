@@ -1,4 +1,4 @@
-(function(window, document, mk){
+(function(mk){
 
     'use strict';
 
@@ -17,7 +17,7 @@
                 targetElement.value = current - 1;
             }
         }
-        mk.calc.calculate(targetElement.getAttribute('data-object-type'));
+        mk.Events.trigger('calculate', targetElement.getAttribute('data-object-type'));
     };
 
     var spinnerInterval = null;
@@ -27,10 +27,10 @@
         e.preventDefault();
         e.stopPropagation();
         e.currentTarget.spinnerClicked = true;
-        spinnerTimeout = window.setTimeout(function(eventElement) {
+        spinnerTimeout = setTimeout(function(eventElement) {
             eventElement.spinnerClicked = false;
             (function fakeInterval() {
-                spinnerInterval = window.setTimeout(function() {
+                spinnerInterval = setTimeout(function() {
                     spinnerAction(eventElement.spinnerTarget, eventElement.textContent);
                     fakeInterval();
                 }, 100);
@@ -83,4 +83,4 @@
         el.addEventListener('keydown', spinnerKeyboard, false);
     });
 
-}(window, document, window.mk));
+}(window.mk));

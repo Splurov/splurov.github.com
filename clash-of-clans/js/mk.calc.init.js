@@ -1,8 +1,8 @@
-(function(window, document, mk) {
+(function(mk, Hogan) {
 
     'use strict';
 
-    mk.calc.setDefaults = function() {
+    var setDefaults = function() {
         mk.calc.allBarracks.units.setDefaults();
         mk.calc.allBarracks.dark.setDefaults();
 
@@ -38,15 +38,16 @@
         setItems('dark');
     };
 
+    mk.Events.listen('setDefaults', setDefaults);
+
     mk.objectIterate(mk.calc.allBarracks, function(k, v) {
         v.getElements().forEach(function(el) {
-            el.addEventListener('change', mk.calc.calculate.bind(null, 'barrack-' + k), false);
+            el.addEventListener('change', mk.Events.trigger.bind(null, 'calculate', 'barrack-' + k), false);
         });
     });
-    mk.calc.armyCamps.addEventListener('change', mk.calc.calculate.bind(null, 'all'), false);
-    mk.calc.spellFactoryLevel.addEventListener('change', mk.calc.calculate.bind(null, 'spells'), false);
+    mk.calc.armyCamps.addEventListener('change', mk.Events.trigger.bind(null, 'calculate', 'all'), false);
+    mk.calc.spellFactoryLevel.addEventListener('change', mk.Events.trigger.bind(null, 'calculate', 'spells'), false);
 
-    //var rowTemplate = templates.item_row;
     var rowTemplate = new Hogan.Template(/* build:hogan:mustache/item_row.mustache */);
 
     var createRows = function(type, tabIndexMultiplier) {
@@ -68,7 +69,8 @@
             var templateVars = {
                 'id': name,
                 'title': convertedName,
-                'titleLink': mk.getWikiaLink(convertedName + (type === 'spells' ? '_Spell' : '')),
+                'titleLink': 'http://clashofclans.wikia.com/wiki/' +
+                             (convertedName + (type === 'spells' ? '_Spell' : '')).replace(' ', '_'),
                 'levelId': name + '-level',
                 'levelContent': value[1].map(createLevelOption),
                 'summaryId': name + '-summary',
@@ -107,19 +109,19 @@
 
             document.getElementById(templateVars.levelId).addEventListener(
                 'change',
-                mk.calc.calculate.bind(null, type),
+                mk.Events.trigger.bind(null, 'calculate', type),
                 false
             );
             document.getElementById(templateVars.id).addEventListener(
                 (type === 'spells' ? 'change' : 'input'),
-                mk.calc.calculate.bind(null, type),
+                mk.Events.trigger.bind(null, 'calculate', type),
                 false
             );
 
             if (type === 'units' || type === 'dark') {
                 document.getElementById(templateVars.subtractId).addEventListener(
                     'input',
-                    mk.calc.calculate.bind(null, type),
+                    mk.Events.trigger.bind(null, 'calculate', type),
                     false
                 );
             }
@@ -130,7 +132,8 @@
     createRows('dark', 200);
     createRows('spells', 300);
 
-    mk.calc.setDefaults();
-    mk.calc.calculate('all');
+    setDefaults();
 
-}(window, document, window.mk));
+    mk.Events.trigger('calculate', 'all');
+
+}(window.mk, window.Hogan));

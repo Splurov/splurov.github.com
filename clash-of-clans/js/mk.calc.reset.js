@@ -1,24 +1,23 @@
-(function(window, document, mk){
+(function(mk){
 
     'use strict';
 
     var resetColumn = function(e) {
         e.preventDefault();
         e.stopPropagation();
+
         var resetType = e.currentTarget.getAttribute('data-reset-type');
-        mk.objectIterate(mk.calc.types[resetType], function(k) {
-            var key = k;
-            var scope = e.currentTarget.getAttribute('data-scope');
-            if (scope !== 'quantity') {
-                key += '-' + scope;
-            }
-            document.getElementById(key).value = '0';
+        var scope = e.currentTarget.getAttribute('data-scope');
+
+        mk.getAll('input[data-field-type="' + scope + '"][data-object-type="' + resetType + '"]').forEach(function(el) {
+            el.value = '0';
         });
-        mk.calc.calculate(resetType);
+
+        mk.Events.trigger('calculate', resetType);
     };
 
     mk.getAllByClass('js-reset').forEach(function(el) {
         mk.addEvents(el, ['click', 'touchend'], resetColumn);
     });
 
-}(window, document, window.mk));
+}(window.mk));
