@@ -129,7 +129,7 @@
         return dataObject;
     };
 
-    mk.calc.DataStorage = function(key) {
+    var DataStorage = function(key) {
         this.key = key;
 
         this.load = function(isLoadSource) {
@@ -152,7 +152,7 @@
         };
     };
 
-    mk.calc.BarracksContainer = function(maxCount, selectName, queueLengths) {
+    var BarracksContainer = function(maxCount, selectName, queueLengths) {
         this.barracks = [];
         this.maxCount = maxCount;
         this.queueLengths = queueLengths;
@@ -224,5 +224,25 @@
             }).length;
         };
     };
+
+    mk.calc.savedDataStorage = new DataStorage('data3');
+    mk.calc.savedDataAll = new mk.MultiDict(mk.calc.savedDataStorage.load());
+    mk.calc.savedData = mk.calc.savedDataAll.retrieve(0);
+
+    mk.calc.allBarracks = {
+        'units': new BarracksContainer(
+            4,
+            'barracks-levels',
+            [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75]
+        ),
+        'dark': new BarracksContainer(
+            2,
+            'dark-barracks-levels',
+            [0, 40, 50, 60, 70, 80]
+        )
+    };
+
+    mk.calc.armyCamps = document.getElementById('army-camps');
+    mk.calc.spellFactoryLevel = document.getElementById('spell-factory-level');
 
 }(window.mk));

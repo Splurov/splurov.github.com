@@ -2,26 +2,6 @@
 
     'use strict';
 
-    mk.calc.savedDataStorage = new mk.calc.DataStorage('data3');
-    mk.calc.savedDataAll = new mk.MultiDict(mk.calc.savedDataStorage.load());
-    mk.calc.savedData = mk.calc.savedDataAll.retrieve(0);
-
-    mk.calc.allBarracks = {
-        'units': new mk.calc.BarracksContainer(
-            4,
-            'barracks-levels',
-            [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75]
-        ),
-        'dark': new mk.calc.BarracksContainer(
-            2,
-            'dark-barracks-levels',
-            [0, 40, 50, 60, 70, 80]
-        )
-    };
-
-    mk.calc.armyCamps = document.getElementById('army-camps');
-    mk.calc.spellFactoryLevel = document.getElementById('spell-factory-level');
-
     var typesSortedLevel = {};
     mk.objectIterate(mk.calc.types, function(type, items) {
         typesSortedLevel[type] = [];
