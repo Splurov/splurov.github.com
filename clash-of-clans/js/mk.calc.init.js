@@ -64,7 +64,7 @@
         var spellsValuesContent = [];
         if (type === 'spells') {
             var i;
-            for (i = 0; i < 6; i++) {
+            for (i = 0; i <= mk.calc.spellFactoryData.max; i++) {
                 spellsValuesContent.push({'value': i, 'text': i});
             }
         }

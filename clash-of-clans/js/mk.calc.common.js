@@ -33,6 +33,32 @@
         }
     };
 
+    var armyCampsData = {
+        'base': [20, 40, 50],
+        'step': 5,
+        'max': 240
+    };
+
+    mk.calc.barracksData = {
+        'units': {
+            'prefix': 'barracks',
+            'count': 4,
+            'queue': [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75],
+            'maxLevel': 10,
+            'firstRequired': true
+        },
+        'dark': {
+            'prefix': 'dark-barracks',
+            'count': 2,
+            'queue': [0, 40, 50, 60, 70, 80],
+            'maxLevel': 5
+        }
+    };
+
+    mk.calc.spellFactoryData = {
+        'max': 5
+    };
+
     mk.calc.saveMappingKeys = [
         'barracks-levels-1',
         'barracks-levels-2',
@@ -152,14 +178,33 @@
         };
     };
 
-    var BarracksContainer = function(maxCount, selectName, queueLengths) {
+    var createOption = function(el, value) {
+        var option = document.createElement('option');
+        option.text = value;
+        option.value = value;
+        el.appendChild(option);
+    };
+
+    var selectLastOption = function(el) {
+        el.options[el.options.length - 1].selected = true;
+    };
+
+    var BarracksContainer = function(data) {
         this.barracks = [];
-        this.maxCount = maxCount;
-        this.queueLengths = queueLengths;
+        this.data = data;
 
         var i;
-        for (i = 1; i <= this.maxCount; i++) {
-            var barrack = document.getElementById(selectName + '-' + i);
+        for (i = 1; i <= this.data.count; i++) {
+            var barrack = document.getElementById(this.data.prefix + '-levels-' + i);
+            var j;
+            var count;
+            for (j = 0, count = this.data.maxLevel; j <= count; j++) {
+                if (i === 1 && j === 0 && data.firstRequired) {
+                    continue;
+                }
+                createOption(barrack, j);
+            }
+            selectLastOption(barrack);
             this.barracks.push(barrack);
         }
 
@@ -188,7 +233,7 @@
             return this.barracks.map(function(el) {
                 return {
                     'level': parseInt(el.value, 10),
-                    'queueLength': this.queueLengths[el.value]
+                    'queueLength': this.data.queue[el.value]
                 };
             }, this);
         };
@@ -199,7 +244,7 @@
                     'num': el.getAttribute('id').slice(-1),
                     'time': 0,
                     'space': 0,
-                    'maxSpace': this.queueLengths[el.value],
+                    'maxSpace': this.data.queue[el.value],
                     'units': {},
                     'level': parseInt(el.value, 10)
                 };
@@ -211,11 +256,11 @@
         };
 
         this.getMaxCount = function() {
-            return this.maxCount;
+            return this.data.count;
         };
 
         this.getCapLevel = function() {
-            return this.barracks[0].options[this.barracks[0].options.length - 1].value;
+            return this.data.maxLevel;
         };
 
         this.getActiveCount = function() {
@@ -223,26 +268,40 @@
                 return b.value > 0;
             }).length;
         };
+
     };
 
     mk.calc.savedDataStorage = new DataStorage('data3');
     mk.calc.savedDataAll = new mk.MultiDict(mk.calc.savedDataStorage.load());
     mk.calc.savedData = mk.calc.savedDataAll.retrieve(0);
 
-    mk.calc.allBarracks = {
-        'units': new BarracksContainer(
-            4,
-            'barracks-levels',
-            [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75]
-        ),
-        'dark': new BarracksContainer(
-            2,
-            'dark-barracks-levels',
-            [0, 40, 50, 60, 70, 80]
-        )
-    };
+    mk.calc.allBarracks = {};
+    mk.objectIterate(mk.calc.barracksData, function(type, data) {
+        mk.calc.allBarracks[type] = new BarracksContainer(data);
+    });
 
     mk.calc.armyCamps = document.getElementById('army-camps');
+    (function() {
+        armyCampsData.base.forEach(createOption.bind(null, mk.calc.armyCamps));
+
+        var value;
+        for (value = armyCampsData.base[armyCampsData.base.length - 1];
+             value <= armyCampsData.max;
+             value += armyCampsData.step) {
+            createOption(mk.calc.armyCamps, value);
+        }
+
+        selectLastOption(mk.calc.armyCamps);
+    }());
+
     mk.calc.spellFactoryLevel = document.getElementById('spell-factory-level');
+    (function() {
+        var i;
+        for (i = 0; i <= mk.calc.spellFactoryData.max; i++) {
+            createOption(mk.calc.spellFactoryLevel, i);
+        }
+
+        selectLastOption(mk.calc.spellFactoryLevel);
+    }());
 
 }(window.mk));

@@ -40,7 +40,7 @@
         if (totalSpace > maxSpace) {
             space = '<span class="limit-exceeded">' + totalSpace + '</span>';
         }
-        space = space + ' / ' + (type !== 'units' ? maxSpace : '');
+        space = space + ' / ' + (type === 'units' ? '': maxSpace);
         document.getElementById(type + '-space').innerHTML = space;
     };
 
@@ -332,14 +332,7 @@
         }
     };
 
-    var calculateDelayLong = null;
-    var calculateDelayShort = null;
-
     var calculate = function(type) {
-        clearTimeout(calculateDelayLong);
-        clearTimeout(calculateDelayShort);
-        calculateDelayLong = null;
-
         if (type === 'all' || type !== 'spells') {
 
             if (type === 'all' || type === 'barrack-units') {
@@ -379,10 +372,11 @@
         }
 
         if (type === 'all' || type === 'spells') {
+            var spellFactoryLevel = parseInt(mk.calc.spellFactoryLevel.value, 10);
             calculateItems('spells', {
-                'levelValue': parseInt(mk.calc.spellFactoryLevel.value, 10),
-                'space': mk.calc.spellFactoryLevel.value,
-                'capLevel': mk.calc.spellFactoryLevel.options[mk.calc.spellFactoryLevel.options.length - 1].value
+                'levelValue': spellFactoryLevel,
+                'space': spellFactoryLevel,
+                'capLevel': mk.calc.spellFactoryData.max
             });
 
             mk.calc.savedData.set('spellFactoryLevel', mk.calc.spellFactoryLevel.selectedIndex);

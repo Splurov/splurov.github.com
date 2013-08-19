@@ -5,29 +5,29 @@
         </div>
     {{/hasCapacity}}
 
-    {{#hasUnits}}
+    {{#units}}
         <table class="saved-list__table">
-            {{#units}}
+            {{#items}}
                 <tr>
                     <td class="number">{{quantity}}</td>
                     <td>{{name}}</td>
                 </tr>
-            {{/units}}
+            {{/items}}
         </table>
-        <div class="saved-list__item-title"><span class="cost-elixir">{{totalCost}}</span></div>
-    {{/hasUnits}}
+        <div class="saved-list__item-title"><span class="cost-elixir">{{cost}}</span></div>
+    {{/units}}
 
-    {{#hasDark}}
+    {{#dark}}
         <table class="saved-list__table">
-            {{#dark}}
+            {{#items}}
                 <tr>
                     <td class="number">{{quantity}}</td>
                     <td>{{name}}</td>
                 </tr>
-            {{/dark}}
+            {{/items}}
         </table>
-        <div class="saved-list__item-title"><span class="cost-dark-elixir">{{darkCost}}</span>&nbsp;</div>
-    {{/hasDark}}
+        <div class="saved-list__item-title"><span class="cost-dark-elixir">{{cost}}</span></div>
+    {{/dark}}
 
     {{#hasSpells}}
         <div class="saved-list__item-result">

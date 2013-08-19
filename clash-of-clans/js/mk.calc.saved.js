@@ -2,6 +2,23 @@
 
     'use strict';
 
+    var barracksAnchor = document.getElementById('barracks-anchor');
+    var loadSaved = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var dataToLoad = mk.objectCopy(
+            mk.calc.savedDataAll.retrieve(e.currentTarget.getAttribute('data-num')).getAll()
+        );
+        mk.calc.savedData = new mk.Dict(dataToLoad);
+
+        mk.Events.trigger('setDefaults');
+        mk.Events.trigger('calculate', 'all');
+
+        mk.Events.trigger('loaded');
+        mk.Events.trigger('scrollTo', barracksAnchor);
+    };
+
     var savedListItemTemplate = new Hogan.Template(/* build:hogan:mustache/saved_list_item.mustache */);
     var savedListCreateItems = function() {
         var content = [];
@@ -15,64 +32,40 @@
                 'tabIndexDelete': index + 3000 + 2
             };
 
-            var unitsItems = [];
-            var totalCost = 0;
             var totalCapacity = 0;
-            var barracksLevels = [];
-            var barracksIndex;
-            var barracksCount;
-            for (barracksIndex = 1, barracksCount = 4; barracksIndex <= barracksCount; barracksIndex++) {
-                barracksLevels.push(data.get('barracks-levels-' + barracksIndex, 10));
-            }
-            mk.objectIterate(mk.calc.types.units, function(name, unitValue) {
-                var quantity = parseInt(data.get(name), 10) || 0;
-                var barracksLevel = Math.max.apply(null, barracksLevels.map(function(barrackIndex, arrayIndex) {
-                    return (arrayIndex === 0 ? barrackIndex + 1 : barrackIndex);
-                }));
-                if (quantity > 0 && unitValue[3] <= barracksLevel) {
-                    unitsItems.push({
-                        'name': mk.convertToTitle(name),
-                        'quantity': quantity
-                    });
-                    totalCost += unitValue[1][data.get(name + '-level')] * quantity;
-                    totalCapacity += unitValue[2] * quantity;
-                }
-            });
-            if (unitsItems.length) {
-                templateVars.hasUnits = {
-                    'units': unitsItems,
-                    'totalCost': mk.numberFormat(totalCost)
-                };
-            }
 
-            var darkBarracksLevels = [];
-            var darkBarracksIndex;
-            var darkBarracksCount;
-            for (darkBarracksIndex = 1, darkBarracksCount = 2; darkBarracksIndex <= darkBarracksCount; darkBarracksIndex++) {
-                darkBarracksLevels.push(data.get('dark-barracks-levels-' + darkBarracksIndex, 5));
-            }
-            var darkBarracksLevel = Math.max.apply(null, darkBarracksLevels);
-            if (darkBarracksLevel > 0) {
-                var darkItems = [];
-                var darkCost = 0;
-                mk.objectIterate(mk.calc.types.dark, function(name, unitValue) {
+            mk.objectIterate(mk.calc.barracksData, function(type, barracksData) {
+                var items = [];
+                var cost = 0;
+
+                var levels = [];
+                var i;
+                for (i = 1; i < barracksData.count; i++) {
+                    levels.push(data.get(barracksData.prefix + '-levels-' + i, barracksData.maxLevel));
+                }
+
+                mk.objectIterate(mk.calc.types[type], function(name, troopsData) {
                     var quantity = parseInt(data.get(name), 10) || 0;
-                    if (quantity > 0 && unitValue[3] <= darkBarracksLevel) {
-                        darkItems.push({
+                    var level = Math.max.apply(null, levels.map(function(barrackIndex, arrayIndex) {
+                        return (arrayIndex === 0 ? barrackIndex + 1 : barrackIndex);
+                    }));
+                    if (quantity > 0 && troopsData[3] <= level) {
+                        items.push({
                             'name': mk.convertToTitle(name),
                             'quantity': quantity
                         });
-                        darkCost += unitValue[1][data.get(name + '-level')] * quantity;
-                        totalCapacity += unitValue[2] * quantity;
+                        cost += troopsData[1][data.get(name + '-level')] * quantity;
+                        totalCapacity += troopsData[2] * quantity;
                     }
                 });
-                if (darkItems.length) {
-                    templateVars.hasDark = {
-                        'dark': darkItems,
-                        'darkCost': mk.numberFormat(darkCost)
+
+                if (items.length) {
+                    templateVars[type] = {
+                        'items': items,
+                        'cost': mk.numberFormat(cost)
                     };
                 }
-            }
+            });
 
             if (totalCapacity > 0) {
                 templateVars.hasCapacity = {
@@ -85,9 +78,10 @@
                 var spellsItems = [];
                 var spellsCost = 0;
                 var spellsCapacity = 0;
+                var spellFactoryLevel = data.get('spellFactoryLevel');
                 mk.objectIterate(mk.calc.types.spells, function(spellName, spellValue) {
                     var spellQuantity = parseInt(data.get(spellName), 10) || 0;
-                    if (spellQuantity > 0 && spellValue[3] <= data.get('spellFactoryLevel')) {
+                    if (spellQuantity > 0 && spellValue[3] <= spellFactoryLevel) {
                         spellsItems.push({
                             'name': mk.convertToTitle(spellName),
                             'quantity': spellQuantity
@@ -101,7 +95,7 @@
                         'spells': spellsItems,
                         'spellsCost': mk.numberFormat(spellsCost),
                         'spellsCapacity': spellsCapacity,
-                        'spellsFactoryLevel': data.get('spellFactoryLevel')
+                        'spellsFactoryLevel': spellFactoryLevel
                     };
                 }
             }
@@ -111,23 +105,6 @@
 
         var savedListContent = document.getElementById('saved-list-content');
         savedListContent.innerHTML = content.join('');
-
-        var barracksAnchor = document.getElementById('barracks-anchor');
-
-        var loadSaved = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            var dataToLoad = mk.objectCopy(mk.calc.savedDataAll.retrieve(e.currentTarget.getAttribute('data-num')).getAll());
-            mk.calc.savedData = new mk.Dict(dataToLoad);
-
-            mk.Events.trigger('setDefaults');
-            mk.Events.trigger('calculate', 'all');
-            savedListCreateItems();
-
-            mk.Events.trigger('loaded');
-            mk.Events.trigger('scrollTo', barracksAnchor);
-        };
 
         mk.getAllByClass('js-saved-load', savedListContent).forEach(function(el) {
             mk.addEvents(el, ['click', 'touchend'], loadSaved);
@@ -172,7 +149,7 @@
                     if (params.showMessage) {
                         alreadySavedMessage.show();
                     }
-                    return false;
+                    return;
                 }
             }
 
@@ -180,7 +157,6 @@
             mk.calc.savedDataAll.insert(dataToSave);
             mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
             savedListCreateItems();
-            return true;
         }
     };
 
