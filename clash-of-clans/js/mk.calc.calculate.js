@@ -134,7 +134,7 @@
                 if (barrack) {
                     var newTime = barrack.time + kitTime;
                     var newSpace = barrack.space + kitSpace;
-                    if (kitSpace === 1 && newTime <= avgTime) {
+                    if (kitSpace === 1 && newTime <= avgTime && newSpace <= barrack.maxSpace) {
                         isGetBarrack = false;
                     }
                 }
