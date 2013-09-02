@@ -5,7 +5,8 @@
         [
             "Decreased training time for Wizard, Balloon and Hog Rider",
             "Decreased price for Healing, Rage, Jump and Freeze spells",
-            "Added Wizard level 6 and Freeze spell level 4"
+            "Added Wizard level 6 and Freeze spell level 4",
+            "Also fixed bug when part of the army did not appear in the saved compositions in some cases"
         ],
         "4.120 updates:"
     ],

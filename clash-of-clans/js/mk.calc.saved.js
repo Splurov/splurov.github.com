@@ -38,17 +38,20 @@
                 var items = [];
                 var cost = 0;
 
-                var levels = [];
+                var level;
                 var i;
-                for (i = 1; i < barracksData.count; i++) {
-                    levels.push(data.get(barracksData.prefix + '-levels-' + i, barracksData.maxLevel));
+                for (i = 1; i <= barracksData.count; i++) {
+                    var barrackLevel = data.get(barracksData.prefix + '-levels-' + i, barracksData.maxLevel);
+                    if (i === 1) {
+                        barrackLevel++;
+                    }
+                    if (!level || barrackLevel > level) {
+                        level = barrackLevel;
+                    }
                 }
 
                 mk.objectIterate(mk.calc.types[type], function(name, troopsData) {
                     var quantity = parseInt(data.get(name), 10) || 0;
-                    var level = Math.max.apply(null, levels.map(function(barrackIndex, arrayIndex) {
-                        return (arrayIndex === 0 ? barrackIndex + 1 : barrackIndex);
-                    }));
                     if (quantity > 0 && troopsData[3] <= level) {
                         items.push({
                             'name': mk.convertToTitle(name),
