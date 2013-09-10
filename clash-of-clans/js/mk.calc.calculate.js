@@ -175,6 +175,25 @@
             document.getElementById(type + '-barracks-exceeded').style.display = 'none';
             var maxTime = 0;
             var maxNum = 1;
+
+            var firstBarrackLevel = barracksQueue[0].level;
+            var nums = [];
+            if (barracksQueue.every(function(barrack) {
+                if (barrack.level !== 0) {
+                    nums.push(barrack.num);
+                }
+                return (barrack.level === firstBarrackLevel || barrack.level === 0);
+            })) {
+                barracksQueue.sort(function(a, b) {
+                    return b.time - a.time;
+                });
+                barracksQueue.forEach(function(barrack, index) {
+                    if (barrack.level !== 0) {
+                        barrack.num = nums[index];
+                    }
+                });
+            }
+
             for (bqIndex = 0; bqIndex < bqLength; bqIndex++) {
                 var barrack = barracksQueue[bqIndex];
 
