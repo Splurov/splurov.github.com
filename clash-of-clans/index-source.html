@@ -88,12 +88,12 @@
 
 <div class="menu-wrapper js-menu-wrapper">
     <ul class="menu js-menu">
-        <li><span class="menu__item js-anchor" data-anchor-target="barracks-anchor">Barracks</span></li><!--
-        --><li><span class="menu__item js-anchor" data-anchor-target="dark-anchor">Dark Barracks</span></li><!--
-        --><li><span class="menu__item js-anchor" data-anchor-target="spell-anchor">Spell Factory</span></li><!--
-        --><li><span class="menu__item js-anchor js-share" data-anchor-target="share-anchor">Share Composition</span></li><!--
-        --><li><span class="menu__item js-save-composition" data-scroll="yes"><span class="icon-save">Save Composition</span></span></li><!--
-        --><li><span class="menu__item js-anchor" data-anchor-target="saved-anchor">Saved Compositions</span></li>
+        <li><button class="menu__item js-anchor" data-anchor-target="barracks-anchor">Barracks</button></li><!--
+        --><li><button class="menu__item js-anchor" data-anchor-target="dark-anchor">Dark Barracks</button></li><!--
+        --><li><button class="menu__item js-anchor" data-anchor-target="spell-anchor">Spell Factory</button></li><!--
+        --><li><button class="menu__item js-anchor js-share" data-anchor-target="share-anchor">Share Composition</button></li><!--
+        --><li><button class="menu__item js-save-composition" data-scroll="yes"><span class="icon-save">Save Composition</span></button></li><!--
+        --><li><button class="menu__item js-anchor" data-anchor-target="saved-anchor">Saved Compositions</button></li>
     </ul>
 </div>
 
@@ -116,12 +116,12 @@
             <th>Level</th>
             <th>
                 Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="units-quantity"></span>
-                <br/><span class="button data-secondary js-reset" data-reset-type="units" data-scope="quantity">Reset</span>
+                <br/><button class="button data-secondary js-reset" data-reset-type="units" data-scope="quantity">Reset</button>
             </th>
             <th><span class="cost-elixir">Total</span></th>
             <th>
                 Subtract
-                <br/><span class="button data-secondary js-reset" data-reset-type="units" data-scope="subtract">Reset</span>
+                <br/><button class="button data-secondary js-reset" data-reset-type="units" data-scope="subtract">Reset</button>
             </th>
             <th>
                 <select id="barracks-levels-1" tabindex="1">
@@ -181,12 +181,12 @@
             <th>Level</th>
             <th>
                 Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="dark-quantity"></span>
-                <br/><span class="button data-secondary js-reset" data-reset-type="dark" data-scope="quantity">Reset</span>
+                <br/><button class="button data-secondary js-reset" data-reset-type="dark" data-scope="quantity">Reset</button>
             </th>
             <th><span class="cost-dark-elixir">Total</span></th>
             <th>
                 Subtract
-                <br/><span class="button data-secondary js-reset" data-reset-type="dark" data-scope="subtract">Reset</span>
+                <br/><button class="button data-secondary js-reset" data-reset-type="dark" data-scope="subtract">Reset</button>
             </th>
             <th>
                 <select id="dark-barracks-levels-1" tabindex="20">
@@ -263,7 +263,7 @@
 <h2 class="block-indented" id="saved-anchor">Saved Compositions</h2>
 <p>Values from the “Subtract” columns not saved.</p>
 <p>
-    <span class="js-save-composition button" tabindex="2000"><span class="icon-save">Save Composition</span></span>
+    <button class="js-save-composition button" tabindex="2000"><span class="icon-save">Save Composition</span></button>
 
     <span id="already-saved" class="message message_after message_closeable" style="display: none;" title="Click to hide">
         Already in the saved compositions

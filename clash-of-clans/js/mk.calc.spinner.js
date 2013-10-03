@@ -49,18 +49,18 @@
     };
 
     var setSpinner = function(type, el) {
-        var span = document.createElement('span');
-        span.className = 'button button_after button_middle';
-        span.textContent = (type === 'plus' ? '+' : '−');
-        span.spinnerTarget = el;
+        var container = document.createElement('button');
+        container.className = 'button button_after button_middle';
+        container.textContent = (type === 'plus' ? '+' : '−');
+        container.spinnerTarget = el;
 
-        mk.addEvents(span, ['touchstart', 'mousedown'], spinnerHold);
-        mk.addEvents(span, ['touchend', 'mouseup'], spinnerRelease);
+        mk.addEvents(container, ['touchstart', 'mousedown'], spinnerHold);
+        mk.addEvents(container, ['touchend', 'mouseup'], spinnerRelease);
 
         if (el.nextSibling) {
-            el.parentNode.insertBefore(span, el.nextSibling);
+            el.parentNode.insertBefore(container, el.nextSibling);
         } else {
-            el.parentNode.appendChild(span);
+            el.parentNode.appendChild(container);
         }
     };
 
