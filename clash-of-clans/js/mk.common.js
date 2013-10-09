@@ -12,6 +12,9 @@
         window.mk = mk;
 
         mk.ios = !!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i);
+        if (mk.ios) {
+            document.documentElement.classList.add('ios');
+        }
     }
 
     mk.toArray = function(likeArrayObject) {

@@ -104,7 +104,7 @@ table {
         margin: 0 28px 0 17px;
     }
 
-.data {
+.ios .data {
     -webkit-transform: translateZ(0);
     -webkit-font-smoothing: subpixel-antialiased;
 }
@@ -206,8 +206,10 @@ table {
     user-select: none;
     font-weight: normal;
     text-decoration: none;
-    margin: 0;
 }
+    .button {
+        margin: 0;
+    }
     .button::-moz-focus-inner {
         border: 0;
         padding: 0;
@@ -219,7 +221,7 @@ table {
         color: #444;
         background: #e3e3e3;
     }
-    .button_after, .button_after:link, .button_after:visited {
+    .button_after {
         margin-left: 7px;
     }
     .button_middle {
@@ -241,6 +243,15 @@ table {
         background: #e3e3ff;
     }
 
+    .button_spinner {
+        margin-left: 7px;
+    }
+
+    .ios .button_spinner {
+        padding: 5px 9px 6px;
+        margin-left: 12px;
+    }
+
 .icon-twitter {
     background-image: url(/clash-of-clans/i/icon-twitter.png);
     background-size: 16px 13px;
@@ -260,7 +271,7 @@ table {
 .icon-save {
     background-image: url(/clash-of-clans/i/icon-save.png);
     background-size: 14px 14px;
-    background-position: 0 1px;
+    background-position: 0 50%;
     padding-left: 19px;
     background-repeat: no-repeat;
 }
