@@ -54,73 +54,16 @@
         mk.Events.trigger('calculate', 'spells');
     }, false);
 
-    var rowTemplate = new Hogan.Template(/* build:hogan:mustache/item_row.mustache */);
-
-    var createRows = function(type, tabIndexMultiplier) {
-        var createLevelOption = function(value, index) {
-            return {'value': value, 'text': (index + 1)};
-        };
-
-        var spellsValuesContent = [];
-        if (type === 'spells') {
-            var i;
-            for (i = 0; i <= mk.calc.spellFactoryData.max; i++) {
-                spellsValuesContent.push({'value': i, 'text': i});
-            }
-        }
-
-        var itemsBody = document.getElementById(type + '-body');
-        mk.objectIterate(mk.calc.types[type], function(name, value) {
-            var convertedName = mk.convertToTitle(name);
-            var templateVars = {
-                'id': name,
-                'title': convertedName,
-                'titleLink': 'http://clashofclans.wikia.com/wiki/' +
-                             (convertedName + (type === 'spells' ? '_Spell' : '')).replace(' ', '_'),
-                'levelId': name + '-level',
-                'levelContent': value[1].map(createLevelOption),
-                'summaryId': name + '-summary',
-                'rowId': type + '-building-level-' + value[3],
-                'tabIndexLevel': tabIndexMultiplier + value[3],
-                'tabIndexValue': tabIndexMultiplier + 1000 + value[3],
-                'objectType': type
-            };
-            if (type === 'spells') {
-                templateVars.spells = {
-                    'options': spellsValuesContent
-                };
-            }
-
-            if (type === 'units' || type === 'dark') {
-                var i;
-                var barracksTimes = [];
-                for (i = 1; i <= mk.calc.allBarracks[type].getMaxCount(); i++) {
-                    barracksTimes.push({
-                        'barrackQuantityId': 'quantity-' + name + '-' + i
-                    });
-                }
-                templateVars.barracksTimes = barracksTimes;
-
-                templateVars.subtractId = name + '-subtract';
-                templateVars.tabIndexSubtract = tabIndexMultiplier + 4000 + value[3];
-            }
-
-            var rowHTML = rowTemplate.render(templateVars);
-
-            var tempDiv = document.createElement('div');
-            tempDiv.innerHTML = '<table>' + rowHTML + '</table>';
-
-            var itemRow = tempDiv.querySelector('tr');
-            itemsBody.appendChild(itemRow);
-
-            document.getElementById(templateVars.levelId).addEventListener(
+    mk.objectIterate(mk.calc.types, function(type, objects) {
+        mk.objectIterate(objects, function(name) {
+            document.getElementById(name + '-level').addEventListener(
                 'change',
                 function() {
                     mk.Events.trigger('calculate', type);
                 },
                 false
             );
-            document.getElementById(templateVars.id).addEventListener(
+            document.getElementById(name).addEventListener(
                 (type === 'spells' ? 'change' : 'input'),
                 function() {
                     mk.Events.trigger('calculate', type);
@@ -129,7 +72,7 @@
             );
 
             if (type === 'units' || type === 'dark') {
-                document.getElementById(templateVars.subtractId).addEventListener(
+                document.getElementById(name + '-subtract').addEventListener(
                     'input',
                     function() {
                         mk.Events.trigger('calculate', type);
@@ -138,11 +81,7 @@
                 );
             }
         });
-    };
-
-    createRows('units', 100);
-    createRows('dark', 200);
-    createRows('spells', 300);
+    });
 
     setDefaults();
 

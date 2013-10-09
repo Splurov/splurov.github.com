@@ -10,9 +10,10 @@ var autoprefixer = require('autoprefixer');
 
 require('buffer');
 
+// params: [is put in separate folder, language array key, changelog entry, is main clash of clans tempalate]
 var sources = {
     'index-source.html': {'ru': [false, 0], 'en': [true, 1]},
-    'clash-of-clans/index-source.html': {'en': [false, 1, 'first'], 'json': [false, 1, true]},
+    'clash-of-clans/index-source.html': {'en': [false, 1, 'first', true], 'json': [false, 1, true]},
     'clash-of-clans/comments-source.html': {'en': [false, 1]},
     'clash-of-clans/version-history-source.html': {'en': [false, 1, 'all']},
     'clash-of-clans/to-do-list-source.html': {'en': [false, 1]},
@@ -24,6 +25,77 @@ var hoganPrepare = function(input) {
 };
 
 var dataCache = {};
+
+var makeDataUri = function(path) {
+    var image = fs.readFileSync(path, 'binary');
+    console.log('data-uri: ' + path);
+    return 'data:image/png;base64,' + (new Buffer(image, 'binary')).toString('base64');
+};
+
+var setItemRowsTemplates = function(vars) {
+
+    var mk = require('../clash-of-clans/js/mk.common.js').mk;
+    mk.calc = require('../clash-of-clans/js/mk.calc.common.js').calc;
+
+    var createRows = function(type, tabIndexMultiplier) {
+        var createLevelOption = function(value, index) {
+            return {'value': value, 'text': (index + 1)};
+        };
+
+        var spellsValuesContent = [];
+        if (type === 'spells') {
+            var i;
+            for (i = 0; i <= mk.calc.spellFactoryData.max; i++) {
+                spellsValuesContent.push({'value': i, 'text': i});
+            }
+        }
+
+        var rows = [];
+        mk.objectIterate(mk.calc.types[type], function(name, value) {
+            var convertedName = mk.convertToTitle(name);
+            var templateVars = {
+                'id': name,
+                'title': convertedName,
+                'titleLink': 'http://clashofclans.wikia.com/wiki/' +
+                             (convertedName + (type === 'spells' ? '_Spell' : '')).replace(' ', '_'),
+                'levelId': name + '-level',
+                'levelContent': value[1].map(createLevelOption),
+                'summaryId': name + '-summary',
+                'rowId': type + '-building-level-' + value[3],
+                'tabIndexLevel': tabIndexMultiplier + value[3],
+                'tabIndexValue': tabIndexMultiplier + 1000 + value[3],
+                'objectType': type
+            };
+            if (type === 'spells') {
+                templateVars.spells = {
+                    'options': spellsValuesContent
+                };
+            }
+
+            if (type === 'units' || type === 'dark') {
+                var i;
+                var barracksTimes = [];
+                for (i = 1; i <= mk.calc.allBarracks[type].getMaxCount(); i++) {
+                    barracksTimes.push({
+                        'barrackQuantityId': 'quantity-' + name + '-' + i
+                    });
+                }
+                templateVars.barracksTimes = barracksTimes;
+
+                templateVars.subtractId = name + '-subtract';
+                templateVars.tabIndexSubtract = tabIndexMultiplier + 4000 + value[3];
+            }
+
+            rows.push(templateVars);
+        });
+
+        vars[type + '_rows'] = rows;
+    };
+
+    createRows('units', 100);
+    createRows('dark', 200);
+    createRows('spells', 300);
+};
 
 for (var file in sources) {
     console.log('started: ' + file);
@@ -48,9 +120,7 @@ for (var file in sources) {
         console.log('csso: ' + p1);
 
         styleData = styleData.replace(/url\((.+?\.png)\)/g, function(match, sp1) {
-            var image = fs.readFileSync(sp1.substr(1), 'binary');
-            console.log('data-uri: ' + sp1);
-            return 'url(data:image/png;base64,' + (new Buffer(image, 'binary')).toString('base64') + ')';
+            return 'url(' + makeDataUri(sp1.substr(1)) + ')';
         });
 
         styleData = hoganPrepare('<style>' + styleData + '</style>')
@@ -160,7 +230,19 @@ for (var file in sources) {
             console.log('json coc done');
         } else {
             translationsCurrent.web_only = true;
-            var dataDest = currentTemplate.render(translationsCurrent);
+            var partials = {};
+            if (options[3]) {
+                partials.item_row = fs.readFileSync(dir + 'mustache/item_row.mustache', 'utf8');
+
+                setItemRowsTemplates(translationsCurrent);
+            }
+            var dataDest = currentTemplate.render(translationsCurrent, partials);
+
+            if (options[3]) {
+                dataDest = dataDest.replace(/src="(.+?\.png)"/g, function(match, imageSrc) {
+                    return 'src="' + makeDataUri(imageSrc.substr(1)) + '"';
+                });
+            }
 
             var currentDir = dir;
             if (options[0]) {

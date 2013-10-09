@@ -2,6 +2,15 @@
 
     'use strict';
 
+    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+    var optimizeIos = function(callback) {
+        if (mk.ios) {
+            requestAnimationFrame(callback);
+        } else {
+            callback();
+        }
+    };
+
     var typesSortedLevel = {};
     mk.objectIterate(mk.calc.types, function(type, items) {
         typesSortedLevel[type] = [];
@@ -42,6 +51,7 @@
         }
         space = space + ' / ' + (type === 'units' ? '': maxSpace);
         document.getElementById(type + '-space').innerHTML = space;
+
     };
 
     var suitableBarracksSort = function(a, b) {
@@ -232,11 +242,7 @@
 
     var calculateItems = function(type, params) {
         var clIndex; // cl - cap level
-        for (
-            clIndex = params.capLevel;
-            clIndex >= 1;
-            clIndex--
-            ) {
+        for (clIndex = params.capLevel; clIndex >= 1; clIndex--) {
             document.getElementById(
                 type +
                 '-building-level-' +
@@ -272,11 +278,10 @@
 
             var levelId = name + '-level';
             var levelEl = document.getElementById(levelId);
-            var summaryEl = document.getElementById(name + '-summary');
             var costPerItem = levelEl.value;
             var summaryCost = (costPerItem * quantity);
 
-            summaryEl.textContent = (summaryCost ? mk.numberFormat(summaryCost) : 0);
+            document.getElementById(name + '-summary').textContent = (summaryCost ? mk.numberFormat(summaryCost) : 0);
 
             totalCost += summaryCost;
 
@@ -337,7 +342,9 @@
 
             var fillSuccess = fillBarracks(barracksQueue, distribution, avgTime);
 
-            populateDistribution(fillSuccess, type, barracksQueue);
+            optimizeIos(function(fillSuccess, type, barracksQueue) {
+                populateDistribution(fillSuccess, type, barracksQueue);
+            }.bind(null, fillSuccess, type, barracksQueue));
 
             currentSpace[type] += totalSpace;
 

@@ -39,11 +39,16 @@ input, select, textarea, button {
     font-size: inherit;
     vertical-align: middle;
 }
+    select {
+        font-size: 14px;
+    }
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+        select {
+            font-size: inherit;
+        }
+    }
     .field-long {
         width: 100%;
-    }
-    .near-field {
-        vertical-align: middle;
     }
 
 h1 {
@@ -51,7 +56,7 @@ h1 {
     margin: 0 0 3px;
 }
 h2 {
-    font-size: 18px;
+    font-size: 16px;
     margin: 13px 0 8px;
 }
 h2 + table {
@@ -73,6 +78,9 @@ table {
         vertical-align: top;
         padding: 0;
     }
+    td img {
+        vertical-align: middle;
+    }
     .number {
         text-align: right;
     }
@@ -86,6 +94,14 @@ table {
 }
     .wikia-link:hover, .wikia-link:active {
         text-decoration: underline;
+    }
+
+.floated {
+    margin: 0 -17px;
+}
+    .floated__item {
+        display: inline-block;
+        margin: 0 28px 0 17px;
     }
 
 .data {
@@ -103,6 +119,7 @@ table {
         text-align: left;
         padding-bottom: 1px;
         line-height: 20px;
+        font-size: 14px;
     }
     .data td {
         padding-top: 2px;
@@ -268,6 +285,14 @@ table {
     margin-top: 30px;
 }
 
+.text-middle {
+    vertical-align: middle;
+}
+
+.message-block-wrapper {
+    margin: 15px 0 0;
+}
+
 .message {
     font-size: 14px;
     background: #cfc;
@@ -287,9 +312,6 @@ table {
     .message_negative {
         background: #fdd;
         border: 1px solid #f88;
-    }
-    .message_block {
-        display: block;
     }
 
 .saved-list {
@@ -342,7 +364,7 @@ table {
 
 .menu-wrapper {
     position: relative;
-    margin: 20px -17px 14px;
+    margin: 20px -17px 0;
 }
 
 .menu {
@@ -370,7 +392,7 @@ table {
         }
     .menu__item {
         display: inline-block;
-        padding: 4px 10px 5px;
+        padding: 4px 10px;
         border-left: 0;
         border-top: 0;
         border-bottom: 0;

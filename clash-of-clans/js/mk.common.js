@@ -4,9 +4,15 @@
 
     var mk = {};
 
-    window.mk = mk;
+    if (typeof exports !== 'undefined') {
+        exports.mk = mk;
+    }
 
-    mk.ios = !!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i);
+    if (typeof window !== 'undefined') {
+        window.mk = mk;
+
+        mk.ios = !!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i);
+    }
 
     mk.toArray = function(likeArrayObject) {
         var resultArray = [];

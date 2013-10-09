@@ -2,7 +2,15 @@
 
     'use strict';
 
+    if (typeof exports !== 'undefined') {
+        var mk = require('./mk.common').mk;
+    }
+
     mk.calc = {};
+
+    if (typeof exports !== 'undefined') {
+        exports.calc = mk.calc;
+    }
 
     mk.calc.types = {
         'units': {
@@ -193,19 +201,21 @@
         this.barracks = [];
         this.data = data;
 
-        var i;
-        for (i = 1; i <= this.data.count; i++) {
-            var barrack = document.getElementById(this.data.prefix + '-levels-' + i);
-            var j;
-            var count;
-            for (j = 0, count = this.data.maxLevel; j <= count; j++) {
-                if (i === 1 && j === 0 && data.firstRequired) {
-                    continue;
+        if (typeof window !== 'undefined') {
+            var i;
+            for (i = 1; i <= this.data.count; i++) {
+                var barrack = document.getElementById(this.data.prefix + '-levels-' + i);
+                var j;
+                var count;
+                for (j = 0, count = this.data.maxLevel; j <= count; j++) {
+                    if (i === 1 && j === 0 && data.firstRequired) {
+                        continue;
+                    }
+                    createOption(barrack, j);
                 }
-                createOption(barrack, j);
+                selectLastOption(barrack);
+                this.barracks.push(barrack);
             }
-            selectLastOption(barrack);
-            this.barracks.push(barrack);
         }
 
         this.setDefaults = function() {
@@ -271,37 +281,39 @@
 
     };
 
-    mk.calc.savedDataStorage = new DataStorage('data3');
-    mk.calc.savedDataAll = new mk.MultiDict(mk.calc.savedDataStorage.load());
-    mk.calc.savedData = mk.calc.savedDataAll.retrieve(0);
+    if (typeof window !== 'undefined') {
+        mk.calc.savedDataStorage = new DataStorage('data3');
+        mk.calc.savedDataAll = new mk.MultiDict(mk.calc.savedDataStorage.load());
+        mk.calc.savedData = mk.calc.savedDataAll.retrieve(0);
+
+        mk.calc.armyCamps = document.getElementById('army-camps');
+        (function() {
+            armyCampsData.base.forEach(createOption.bind(null, mk.calc.armyCamps));
+
+            var value;
+            for (value = armyCampsData.base[armyCampsData.base.length - 1];
+                 value <= armyCampsData.max;
+                 value += armyCampsData.step) {
+                createOption(mk.calc.armyCamps, value);
+            }
+
+            selectLastOption(mk.calc.armyCamps);
+        }());
+
+        mk.calc.spellFactoryLevel = document.getElementById('spell-factory-level');
+        (function() {
+            var i;
+            for (i = 0; i <= mk.calc.spellFactoryData.max; i++) {
+                createOption(mk.calc.spellFactoryLevel, i);
+            }
+
+            selectLastOption(mk.calc.spellFactoryLevel);
+        }());
+    }
 
     mk.calc.allBarracks = {};
     mk.objectIterate(mk.calc.barracksData, function(type, data) {
         mk.calc.allBarracks[type] = new BarracksContainer(data);
     });
 
-    mk.calc.armyCamps = document.getElementById('army-camps');
-    (function() {
-        armyCampsData.base.forEach(createOption.bind(null, mk.calc.armyCamps));
-
-        var value;
-        for (value = armyCampsData.base[armyCampsData.base.length - 1];
-             value <= armyCampsData.max;
-             value += armyCampsData.step) {
-            createOption(mk.calc.armyCamps, value);
-        }
-
-        selectLastOption(mk.calc.armyCamps);
-    }());
-
-    mk.calc.spellFactoryLevel = document.getElementById('spell-factory-level');
-    (function() {
-        var i;
-        for (i = 0; i <= mk.calc.spellFactoryData.max; i++) {
-            createOption(mk.calc.spellFactoryLevel, i);
-        }
-
-        selectLastOption(mk.calc.spellFactoryLevel);
-    }());
-
-}(window.mk));
+}(typeof window === 'undefined' ? {} : window.mk));

@@ -46,7 +46,7 @@
     </p>
 
     <!--[if lte IE 8]>
-    <p class="message message_negative message_block">
+    <p class="message message_negative">
         You are using an old version of Internet Explorer which is not supported.<br />
         Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
     </p>
@@ -97,150 +97,165 @@
     </ul>
 </div>
 
-<p>
-    <span id="view-shared" class="message message_closeable" style="display: none;" title="Click to hide">
+<p id="view-shared" style="display: none;" class="message-block-wrapper">
+    <span class="message message_closeable" title="Click to hide">
         You are viewing shared composition (you can find previous one in the saved compositions)
     </span>
 </p>
 
-<h2 id="barracks-anchor">
-    <a href="http://clashofclans.wikia.com/wiki/Barracks" class="wikia-link" target="_blank">Barracks</a>
-    <span class="message message_negative message_after"
-          style="display: none;"
-          id="units-barracks-exceeded">Too many units</span>
-</h2>
-<table id="units" class="data">
-    <thead>
-        <tr>
-            <th>Unit</th>
-            <th>Level</th>
-            <th>
-                Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="units-quantity"></span>
-                <br/><button class="button data-secondary js-reset" data-reset-type="units" data-scope="quantity">Reset</button>
-            </th>
-            <th><span class="cost-elixir">Total</span></th>
-            <th>
-                Subtract
-                <br/><button class="button data-secondary js-reset" data-reset-type="units" data-scope="subtract">Reset</button>
-            </th>
-            <th>
-                <select id="barracks-levels-1" tabindex="1">
-                </select> <span class="near-field">lvl</span><br/>
-                <span id="units-barrack-header-1"></span>
-            </th>
-            <th>
-                <select id="barracks-levels-2" tabindex="5">
-                </select> <span class="near-field">lvl</span><br />
-                <span id="units-barrack-header-2"></span>
-            </th>
-            <th>
-                <select id="barracks-levels-3" tabindex="10">
-                </select> <span class="near-field">lvl</span><br/>
-                <span id="units-barrack-header-3"></span>
-            </th>
-            <th>
-                <select id="barracks-levels-4" tabindex="15">
-                </select> <span class="near-field">lvl</span><br/>
-                <span id="units-barrack-header-4"></span>
-            </th>
-        </tr>
-    </thead>
-    <tbody id="units-body">
-    </tbody>
-    <tfoot>
-        <tr>
-            <td colspan="2" class="data-secondary number">
-                <label for="army-camps"><a href="http://clashofclans.wikia.com/wiki/Army_Camp"
-                                           class="wikia-link"
-                                           target="_blank">Army Camps</a> Capacity:</label></td>
-            <td>
-                <span id="units-space" class="result near-field"></span>
-                <select id="army-camps" data-object-type="all" tabindex="19">
-                </select>
-            </td>
-            <td id="units-cost" class="number result"></td>
-            <td id="units-subtracted-cost" class="data-secondary"></td>
-            <td id="units-time-barrack-1" class="number"></td>
-            <td id="units-time-barrack-2" class="number"></td>
-            <td id="units-time-barrack-3" class="number"></td>
-            <td id="units-time-barrack-4" class="number"></td>
-        </tr>
-    </tfoot>
-</table>
+<div class="floated">
+    <div class="floated__item">
+        <h2 id="barracks-anchor">
+            <a href="http://clashofclans.wikia.com/wiki/Barracks" class="wikia-link" target="_blank">Barracks</a>
+            <span class="message message_negative message_after"
+                  style="display: none;"
+                  id="units-barracks-exceeded">Too many units</span>
+        </h2>
+        <table id="units" class="data">
+            <thead>
+                <tr>
+                    <th>Unit</th>
+                    <th>Level</th>
+                    <th>
+                        Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="units-quantity"></span>
+                        <br/><button class="button data-secondary js-reset" data-reset-type="units" data-scope="quantity">Reset</button>
+                    </th>
+                    <th><span class="cost-elixir">Total</span></th>
+                    <th>
+                        Subtract
+                        <br/><button class="button data-secondary js-reset" data-reset-type="units" data-scope="subtract">Reset</button>
+                    </th>
+                    <th>
+                        <select id="barracks-levels-1" tabindex="1">
+                        </select> <span class="text-middle">lvl</span><br/>
+                        <span id="units-barrack-header-1"></span>
+                    </th>
+                    <th>
+                        <select id="barracks-levels-2" tabindex="5">
+                        </select> <span class="text-middle">lvl</span><br />
+                        <span id="units-barrack-header-2"></span>
+                    </th>
+                    <th>
+                        <select id="barracks-levels-3" tabindex="10">
+                        </select> <span class="text-middle">lvl</span><br/>
+                        <span id="units-barrack-header-3"></span>
+                    </th>
+                    <th>
+                        <select id="barracks-levels-4" tabindex="15">
+                        </select> <span class="text-middle">lvl</span><br/>
+                        <span id="units-barrack-header-4"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="units-body">
+                {{#units_rows}}
+                    {{> item_row}}
+                {{/units_rows}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2" class="data-secondary number">
+                        <label for="army-camps">Army Camps:</label></td>
+                    <td>
+                        <span id="units-space" class="result text-middle"></span>
+                        <select id="army-camps" data-object-type="all" tabindex="19">
+                        </select>
+                    </td>
+                    <td id="units-cost" class="number result"></td>
+                    <td id="units-subtracted-cost" class="data-secondary"></td>
+                    <td id="units-time-barrack-1" class="number"></td>
+                    <td id="units-time-barrack-2" class="number"></td>
+                    <td id="units-time-barrack-3" class="number"></td>
+                    <td id="units-time-barrack-4" class="number"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div><!--
 
-<h2 id="dark-anchor">
-    <a href="http://clashofclans.wikia.com/wiki/Dark_Barracks" class="wikia-link" target="_blank">Dark Barracks</a>
-    <span class="message message_negative message_after"
-          style="display: none;"
-          id="dark-barracks-exceeded">Too many units</span>
-</h2>
-<table id="dark" class="data">
-    <thead>
-        <tr>
-            <th>Unit</th>
-            <th>Level</th>
-            <th>
-                Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="dark-quantity"></span>
-                <br/><button class="button data-secondary js-reset" data-reset-type="dark" data-scope="quantity">Reset</button>
-            </th>
-            <th><span class="cost-dark-elixir">Total</span></th>
-            <th>
-                Subtract
-                <br/><button class="button data-secondary js-reset" data-reset-type="dark" data-scope="subtract">Reset</button>
-            </th>
-            <th>
-                <select id="dark-barracks-levels-1" tabindex="20">
-                </select> <span class="near-field">lvl</span><br/>
-                <span id="dark-barrack-header-1"></span>
-            </th>
-            <th>
-                <select id="dark-barracks-levels-2" tabindex="25">
-                </select> <span class="near-field">lvl</span><br/>
-                <span id="dark-barrack-header-2"></span>
-            </th>
-        </tr>
-    </thead>
-    <tbody id="dark-body">
-    </tbody>
-    <tfoot>
-        <tr>
-            <td></td>
-            <td></td>
-            <td id="dark-space" class="result"></td>
-            <td id="dark-cost" class="number result"></td>
-            <td id="dark-subtracted-cost" class="data-secondary"></td>
-            <td id="dark-time-barrack-1" class="number"></td>
-            <td id="dark-time-barrack-2" class="number"></td>
-        </tr>
-    </tfoot>
-</table>
+    --><div class="floated__item">
+        <h2 id="dark-anchor">
+            <a href="http://clashofclans.wikia.com/wiki/Dark_Barracks" class="wikia-link" target="_blank">Dark Barracks</a>
+            <span class="message message_negative message_after"
+                  style="display: none;"
+                  id="dark-barracks-exceeded">Too many units</span>
+        </h2>
+        <table id="dark" class="data">
+            <thead>
+                <tr>
+                    <th>Unit</th>
+                    <th>Level</th>
+                    <th>
+                        Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="dark-quantity"></span>
+                        <br/><button class="button data-secondary js-reset" data-reset-type="dark" data-scope="quantity">Reset</button>
+                    </th>
+                    <th><span class="cost-dark-elixir">Total</span></th>
+                    <th>
+                        Subtract
+                        <br/><button class="button data-secondary js-reset" data-reset-type="dark" data-scope="subtract">Reset</button>
+                    </th>
+                    <th>
+                        <select id="dark-barracks-levels-1" tabindex="20">
+                        </select> <span class="text-middle">lvl</span><br/>
+                        <span id="dark-barrack-header-1"></span>
+                    </th>
+                    <th>
+                        <select id="dark-barracks-levels-2" tabindex="25">
+                        </select> <span class="text-middle">lvl</span><br/>
+                        <span id="dark-barrack-header-2"></span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="dark-body">
+                {{#dark_rows}}
+                    {{> item_row}}
+                {{/dark_rows}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td id="dark-space" class="result"></td>
+                    <td id="dark-cost" class="number result"></td>
+                    <td id="dark-subtracted-cost" class="data-secondary"></td>
+                    <td id="dark-time-barrack-1" class="number"></td>
+                    <td id="dark-time-barrack-2" class="number"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div><!--
 
-<h2 id="spell-anchor"><a href="http://clashofclans.wikia.com/wiki/Spell_Factory" class="wikia-link" target="_blank">Spell Factory</a></h2>
-<table id="spells" class="data">
-    <thead>
-        <tr>
-            <th>Spell</th>
-            <th>Level</th>
-            <th>Quantity <span class="data-secondary tooltip" title="Spell Factory Free Capacity" id="spells-quantity"></span></th>
-            <th><span class="cost-gold">Total</span></th>
-            <th>
-                <select id="spell-factory-level" tabindex="35">
-                </select> <span class="near-field">lvl</span>
-            </th>
-        </tr>
-    </thead>
-    <tbody id="spells-body">
-    </tbody>
-    <tfoot>
-        <tr>
-            <td></td>
-            <td></td>
-            <td class="result" id="spells-space"></td>
-            <td id="spells-cost" class="number result"></td>
-            <td class="result number" id="spells-time"></td>
-        </tr>
-    </tfoot>
-</table>
+    --><div class="floated__item">
+        <h2 id="spell-anchor"><a href="http://clashofclans.wikia.com/wiki/Spell_Factory" class="wikia-link" target="_blank">Spell Factory</a></h2>
+        <table id="spells" class="data">
+            <thead>
+                <tr>
+                    <th>Spell</th>
+                    <th>Level</th>
+                    <th>Quantity <span class="data-secondary tooltip" title="Spell Factory Free Capacity" id="spells-quantity"></span></th>
+                    <th><span class="cost-gold">Total</span></th>
+                    <th>
+                        <select id="spell-factory-level" tabindex="35">
+                        </select> <span class="text-middle">lvl</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="spells-body">
+                {{#spells_rows}}
+                    {{> item_row}}
+                {{/spells_rows}}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td class="result" id="spells-space"></td>
+                    <td id="spells-cost" class="number result"></td>
+                    <td class="result number" id="spells-time"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
 
 <div class="js-share">
     <h2 class="block-indented" id="share-anchor">Share Composition</h2>
@@ -287,7 +302,7 @@
 
 <div class="list-content list-content_small fixed-content" id="changelog-anchor">
     {{#firstChangelog}}
-    <h3>What's New in Version {{version}} <a href="version-history.html" class="button button_after" target="_blank">Version History</a></h3>
+    <h3>What’s New in Version {{version}} <a href="version-history.html" class="button button_after" target="_blank">Version History</a></h3>
     {{#ch_title}}
     <p>{{ch_title}}</p>
     {{/ch_title}}
@@ -299,28 +314,39 @@
     {{/firstChangelog}}
 </div>
 
-<div class="footer fixed-content">
-    <p>
-        If you find a bug please send an e-mail to <a href="mailto:clash-of-clans@mkln.ru">clash-of-clans@mkln.ru</a>.
-    </p>
-    <p>
-        Please note this tool is only available at http://mkln.ru/clash-of-clans/.
-        If you've seen it on other sites or in the iTunes App Store or anywhere else —
-        is the result of the actions of fraudsters and thieves that have nothing to do with me
-        and use my work without my permission, violating copyright.
-    </p>
-    <p>
-        This work is licensed under a
-        <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
-            Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
-    </p>
+<div class="footer">
+    <div class="fixed-content">
+        <p>
+            If you find a bug please send an e-mail to <a href="mailto:clash-of-clans@mkln.ru">clash-of-clans@mkln.ru</a>.
+        </p>
+        <p>
+            Please note this tool is only available at http://mkln.ru/clash-of-clans/.
+            If you’ve seen it on other sites or in the iTunes App Store or anywhere else —
+            is the result of the actions of fraudsters and thieves that have nothing to do with me
+            and use my work without my permission, violating copyright.
+        </p>
+        <p>
+            This work is licensed under a
+            <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+                Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
+        </p>
 
-    <p>
-        Save Icon designed by <a href="http://www.endlessicons.com/" target="_blank">Min Kim</a>
-    </p>
-    <p>
-        &copy; 2013. Developed by <a href="/en/">Mikhail Kalashnik</a>
-    </p>
+        <p>
+            Save Icon designed by <a href="http://www.endlessicons.com/" target="_blank">Min Kim</a>
+        </p>
+        <p>
+            Clash of Clans and its logos are trademarks of Supercell.<br/>
+            This web site is not affiliated with, endorsed, sponsored, or specifically approved by Supercell.
+            Supercell is not responsible for the operation or content of this site.
+            Use the trademarks and other intellectual property of Supercell is only as expressly permitted as set forth in Supercell’s
+            <a href="http://forum.supercell.net/showthread.php/148005-Clash-of-Clans-Fan-Kit-and-Guidelines">Fan Site Kit Agreement</a>.<br/>
+            For more information about Supercell, please visit their website at <a href="http://www.supercell.net/">www.supercell.net</a>.
+        </p>
+        <p>
+            Developed by <a href="/en/">Mikhail Kalashnik</a><br/>
+            &copy; 2013
+        </p>
+    </div>
 </div>
 {{/web_only}}
 
