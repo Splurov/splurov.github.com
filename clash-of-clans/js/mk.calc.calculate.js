@@ -11,11 +11,11 @@
         }
     };
 
-    var typesSortedLevel = {};
+    mk.calc.typesSortedLevel = {};
     mk.objectIterate(mk.calc.types, function(type, items) {
-        typesSortedLevel[type] = [];
+        mk.calc.typesSortedLevel[type] = [];
         mk.objectIterate(items, function(name, objects) {
-            typesSortedLevel[type].unshift(objects.concat(name));
+            mk.calc.typesSortedLevel[type].unshift(objects.concat(name));
         });
     });
 
@@ -127,7 +127,7 @@
         return suitable[0];
     };
 
-    var fillBarracks = function(barracksQueue, unitsDistribution, avgTime) {
+    mk.calc.fillBarracks = function(barracksQueue, unitsDistribution, avgTime) {
         var stopDistribution = false;
 
         var udIndex; // ud - units distribution
@@ -175,17 +175,7 @@
             }
         }
 
-        return !stopDistribution;
-    };
-
-    var populateDistribution = function(fillSuccess, type, barracksQueue) {
-        var bqIndex;
-        var bqLength = barracksQueue.length;
-        if (fillSuccess) {
-            document.getElementById(type + '-barracks-exceeded').style.display = 'none';
-            var maxTime = 0;
-            var maxNum = 1;
-
+        if (!stopDistribution) {
             var firstBarrackLevel = barracksQueue[0].level;
             var nums = [];
             if (barracksQueue.every(function(barrack) {
@@ -203,6 +193,18 @@
                     }
                 });
             }
+        }
+
+        return !stopDistribution;
+    };
+
+    var populateDistribution = function(fillSuccess, type, barracksQueue) {
+        var bqIndex;
+        var bqLength = barracksQueue.length;
+        if (fillSuccess) {
+            document.getElementById(type + '-barracks-exceeded').style.display = 'none';
+            var maxTime = 0;
+            var maxNum = 1;
 
             for (bqIndex = 0; bqIndex < bqLength; bqIndex++) {
                 var barrack = barracksQueue[bqIndex];
@@ -212,7 +214,7 @@
                     if (barrack.units[unitIndex] > 0) {
                         document.getElementById(
                             'quantity-' +
-                            typesSortedLevel[type][unitIndex][4] +
+                            mk.calc.typesSortedLevel[type][unitIndex][4] +
                             '-' +
                             barrack.num
                         ).textContent = '×' + barrack.units[unitIndex];
@@ -259,8 +261,8 @@
 
         var tsIndex; // ts - types sorted
         var tsLength;
-        for (tsIndex = 0, tsLength = typesSortedLevel[type].length; tsIndex < tsLength; tsIndex++) {
-            var value = typesSortedLevel[type][tsIndex];
+        for (tsIndex = 0, tsLength = mk.calc.typesSortedLevel[type].length; tsIndex < tsLength; tsIndex++) {
+            var value = mk.calc.typesSortedLevel[type][tsIndex];
             if (value[3] > params.levelValue) {
                 continue;
             }
@@ -340,7 +342,7 @@
             var barracksQueue = mk.calc.allBarracks[type].getQueue();
             var avgTime = Math.max(Math.ceil(totalTime / mk.calc.allBarracks[type].getActiveCount()), maxUnitTime);
 
-            var fillSuccess = fillBarracks(barracksQueue, distribution, avgTime);
+            var fillSuccess = mk.calc.fillBarracks(barracksQueue, distribution, avgTime);
 
             optimizeIos(function(fillSuccess, type, barracksQueue) {
                 populateDistribution(fillSuccess, type, barracksQueue);

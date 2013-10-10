@@ -326,7 +326,7 @@ table {
     }
 
 .saved-list {
-    font-size: 14px;
+    font-size: 15px;
 }
     .saved-list__item {
         display: inline-block;
@@ -335,27 +335,39 @@ table {
         border-radius: 10px;
         padding: 6px 7px 10px;
         vertical-align: top;
-        color: #444;
+        color: #222;
         line-height: 1.35;
     }
-    .saved-list__item-title {
+    .saved-list__item-cost {
         font-weight: bold;
-        color: #222;
-        margin-top: 3px;
-        margin-bottom: 8px;
+        margin-top: 2px;
+        margin-bottom: 10px;
+        color: #777;
+        font-size: 13px;
     }
+        .saved-list__item-cost > span {
+            display: inline-block;
+            line-height: 16px;
+        }
     .saved-list__actions {
-        margin-top: 8px;
+        margin-top: 10px;
     }
     .saved-list__table {
     }
         .saved-list__table td {
-            padding-right: 8px;
+            padding-right: 10px;
         }
-    .saved-list__item-result {
-        font-size: 12px;
+    .saved-list__item-capacity {
+        font-size: 13px;
         color: #999;
         font-weight: bold;
+        margin-bottom: 2px;
+    }
+    .saved-list__item-time {
+        margin-top: 2px;
+        font-weight: bold;
+        color: #444;
+        font-size: 13px;
     }
 
 .footer {

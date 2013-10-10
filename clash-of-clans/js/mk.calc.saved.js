@@ -37,35 +37,77 @@
             mk.objectIterate(mk.calc.barracksData, function(type, barracksData) {
                 var items = [];
                 var cost = 0;
+                var time = 0;
+
+                var barracksQueue = [];
+                var barracksCount = 0;
+                var maxUnitTime = 0;
+                var distribution = [];
 
                 var level;
                 var i;
                 for (i = 1; i <= barracksData.count; i++) {
                     var barrackLevel = data.get(barracksData.prefix + '-levels-' + i, barracksData.maxLevel);
-                    if (i === 1) {
+                    if (i === 1 && barracksData.firstRequired) {
                         barrackLevel++;
                     }
                     if (!level || barrackLevel > level) {
                         level = barrackLevel;
                     }
+
+                    barracksQueue.push({
+                        'num': i,
+                        'time': 0,
+                        'space': 0,
+                        'maxSpace': barracksData.queue[barrackLevel],
+                        'units': {},
+                        'level': barrackLevel
+                    });
+
+                    if (barrackLevel > 0) {
+                        barracksCount++;
+                    }
                 }
 
-                mk.objectIterate(mk.calc.types[type], function(name, troopsData) {
-                    var quantity = parseInt(data.get(name), 10) || 0;
+                mk.calc.typesSortedLevel[type].forEach(function(troopsData, tsIndex) {
+                    var quantity = parseInt(data.get(troopsData[4]), 10) || 0;
                     if (quantity > 0 && troopsData[3] <= level) {
                         items.push({
-                            'name': mk.convertToTitle(name),
-                            'quantity': quantity
+                            'name': mk.convertToTitle(troopsData[4]),
+                            'quantity': quantity,
+                            'level': troopsData[3]
                         });
-                        cost += troopsData[1][data.get(name + '-level')] * quantity;
+                        cost += troopsData[1][data.get(troopsData[4] + '-level')] * quantity;
                         totalCapacity += troopsData[2] * quantity;
+                        time += troopsData[0] * quantity;
+                        maxUnitTime = Math.max(troopsData[0], maxUnitTime);
+
+                        distribution.push([
+                            tsIndex,
+                            quantity,
+                            troopsData[3], // level
+                            troopsData[0], // time
+                            troopsData[2] // space
+                        ]);
                     }
                 });
 
                 if (items.length) {
+                    var avgTime = Math.max(Math.ceil(time / barracksCount), maxUnitTime);
+                    var productionTime;
+                    if (mk.calc.fillBarracks(barracksQueue, distribution, avgTime)) {
+                        productionTime = Math.max.apply(null, barracksQueue.map(function(barrack) {
+                            return barrack.time;
+                        }));
+                        productionTime = mk.getFormattedTime(productionTime);
+                    }
+
                     templateVars[type] = {
-                        'items': items,
-                        'cost': mk.numberFormat(cost)
+                        'items': items.sort(function(a, b) {
+                            return a.level > b.level;
+                        }),
+                        'cost': mk.numberFormat(cost),
+                        'time': productionTime
                     };
                 }
             });
@@ -82,6 +124,7 @@
                 var spellsCost = 0;
                 var spellsCapacity = 0;
                 var spellFactoryLevel = data.get('spellFactoryLevel');
+                var spellsTime = 0;
                 mk.objectIterate(mk.calc.types.spells, function(spellName, spellValue) {
                     var spellQuantity = parseInt(data.get(spellName), 10) || 0;
                     if (spellQuantity > 0 && spellValue[3] <= spellFactoryLevel) {
@@ -91,6 +134,7 @@
                         });
                         spellsCost += spellValue[1][data.get(spellName + '-level')] * spellQuantity;
                         spellsCapacity += spellValue[2] * spellQuantity;
+                        spellsTime += spellValue[0] * spellQuantity;
                     }
                 });
                 if (spellsItems.length) {
@@ -98,7 +142,8 @@
                         'spells': spellsItems,
                         'spellsCost': mk.numberFormat(spellsCost),
                         'spellsCapacity': spellsCapacity,
-                        'spellsFactoryLevel': spellFactoryLevel
+                        'spellsFactoryLevel': spellFactoryLevel,
+                        'spellsTime': mk.getFormattedTime(spellsTime, true)
                     };
                 }
             }

@@ -1,6 +1,6 @@
 <div class="saved-list__item" id="saved-list-item-{{index}}">
     {{#hasCapacity}}
-        <div class="saved-list__item-result">
+        <div class="saved-list__item-capacity">
             {{totalCapacity}} / {{armyCamps}}
         </div>
     {{/hasCapacity}}
@@ -9,39 +9,48 @@
         <table class="saved-list__table">
             {{#items}}
                 <tr>
-                    <td class="number">{{quantity}}</td>
+                    <td class="number">×{{quantity}}</td>
                     <td>{{name}}</td>
                 </tr>
             {{/items}}
         </table>
-        <div class="saved-list__item-title"><span class="cost-elixir">{{cost}}</span></div>
+        <div class="saved-list__item-time">{{time}}</div>
+        <div class="saved-list__item-cost">
+            <span class="cost-elixir">{{cost}}</span>
+        </div>
     {{/units}}
 
     {{#dark}}
         <table class="saved-list__table">
             {{#items}}
                 <tr>
-                    <td class="number">{{quantity}}</td>
+                    <td class="number">×{{quantity}}</td>
                     <td>{{name}}</td>
                 </tr>
             {{/items}}
         </table>
-        <div class="saved-list__item-title"><span class="cost-dark-elixir">{{cost}}</span></div>
+        <div class="saved-list__item-time">{{time}}</div>
+        <div class="saved-list__item-cost">
+            <span class="cost-dark-elixir">{{cost}}</span>
+        </div>
     {{/dark}}
 
     {{#hasSpells}}
-        <div class="saved-list__item-result">
+        <div class="saved-list__item-capacity">
             {{spellsCapacity}} / {{spellsFactoryLevel}}
         </div>
         <table class="saved-list__table">
             {{#spells}}
                 <tr>
-                    <td class="number">{{quantity}}</td>
+                    <td class="number">×{{quantity}}</td>
                     <td>{{name}}</td>
                 </tr>
             {{/spells}}
         </table>
-        <div class="saved-list__item-title"><span class="cost-gold">{{spellsCost}}</span></div>
+        <div class="saved-list__item-time">{{spellsTime}}</div>
+        <div class="saved-list__item-cost">
+            <span class="cost-gold">{{spellsCost}}</span>
+        </div>
     {{/hasSpells}}
 
     <div class="saved-list__actions">
