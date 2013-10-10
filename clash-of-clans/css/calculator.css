@@ -104,7 +104,7 @@ table {
         margin: 0 28px 0 17px;
     }
 
-.ios .data {
+.data {
     -webkit-transform: translateZ(0);
     -webkit-font-smoothing: subpixel-antialiased;
 }

@@ -13,7 +13,7 @@
 
     var isFixed = false;
 
-    if (!mk.ios) {
+    if (!window.platformIos) {
         globalScrollOffset += menuElHeight;
 
         document.addEventListener('scroll', function() {

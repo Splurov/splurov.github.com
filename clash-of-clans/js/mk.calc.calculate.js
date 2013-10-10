@@ -4,7 +4,7 @@
 
     var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
     var optimizeIos = function(callback) {
-        if (mk.ios) {
+        if (window.platformIos) {
             requestAnimationFrame(callback);
         } else {
             callback();
