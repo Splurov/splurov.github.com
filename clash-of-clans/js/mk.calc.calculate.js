@@ -2,7 +2,8 @@
 
     'use strict';
 
-    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                                window.webkitRequestAnimationFrame;
     var optimizeIos = function(callback) {
         if (window.platformIos) {
             requestAnimationFrame(callback);
@@ -312,12 +313,12 @@
                 }
                 if (totalQuantity > 0) {
                     distribution.push([
-                                          tsIndex,
-                                          quantity - subtractQuantity,
-                                          value[3], // level
-                                          value[0], // time
-                                          value[2] // space
-                                      ]);
+                        tsIndex,
+                        quantity - subtractQuantity,
+                        value[3], // level
+                        value[0], // time
+                        value[2] // space
+                    ]);
                     maxUnitTime = Math.max(maxUnitTime, value[0]);
                     totalTime += (value[0] * totalQuantity);
                 }

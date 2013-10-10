@@ -386,7 +386,6 @@ table {
     width: 100%;
     background: #fafafa;
     box-shadow: 0 0 5px #bbb;
-    border-collapse: separate;
     font-size: 15px;
     z-index: 500;
 }

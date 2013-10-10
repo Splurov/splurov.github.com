@@ -1,5 +1,18 @@
 [
     [
+        "3.0",
+        "10 October, 2013",
+        [
+            "Units and spells icons",
+            "Production time in saved compositions",
+            "Huge performance improvements on iOS",
+            "Increased default page zoom on iOS",
+            "Bigger +/- buttons on iOS",
+            "On the big screens shows two tables in a row",
+            "Removed links to wiki"
+        ]
+    ],
+    [
         "2.19",
         "10 September, 2013",
         [
