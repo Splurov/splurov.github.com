@@ -85,17 +85,6 @@ table {
         text-align: right;
     }
 
-.wikia-link:link, .wikia-link:visited {
-    color: inherit;
-    background: url(/clash-of-clans/i/external-link.png) no-repeat 100% .25em;
-    background-size: 10px 10px;
-    padding-right: 15px;
-    text-decoration: none;
-}
-    .wikia-link:hover, .wikia-link:active {
-        text-decoration: underline;
-    }
-
 .floated {
     margin: 0 -17px;
 }
