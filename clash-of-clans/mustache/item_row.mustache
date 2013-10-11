@@ -1,9 +1,9 @@
     <tr id="{{rowId}}">
         <td>
-            <img src="/clash-of-clans/i/objects/{{id}}.png" alt="{{title}}" title="{{title}}" width="32" height="32" />
-            {{#spells}}
-                <span class="text-middle">{{title}}</span>
-            {{/spells}}
+            <span class="object object_{{objectType}}">
+                <span class="object__icon object__icon_{{idDashed}}"></span>
+                <span class="object__text">{{title}}</span>
+            </span>
         </td>
         <td>
             <select id="{{levelId}}" tabindex="{{tabIndexLevel}}">

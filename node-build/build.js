@@ -55,9 +55,8 @@ var setItemRowsTemplates = function(vars) {
             var convertedName = mk.convertToTitle(name);
             var templateVars = {
                 'id': name,
+                'idDashed': name.replace(' ', '_'),
                 'title': convertedName,
-                'titleLink': 'http://clashofclans.wikia.com/wiki/' +
-                             (convertedName + (type === 'spells' ? '_Spell' : '')).replace(' ', '_'),
                 'levelId': name + '-level',
                 'levelContent': value[1].map(createLevelOption),
                 'summaryId': name + '-summary',
