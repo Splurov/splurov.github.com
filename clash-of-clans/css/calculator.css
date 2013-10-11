@@ -445,7 +445,7 @@ table {
         vertical-align: middle;
     }
     .object_units .object__icon {
-        background-image: url('/clash-of-clans/i/objects-units.png');
+        background-image: url(/clash-of-clans/i/objects-units.png);
         background-size: 32px 365px;
     }
         .object__icon_Archer {background-position: 0 0;}
