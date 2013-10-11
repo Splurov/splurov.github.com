@@ -202,6 +202,7 @@
     var populateDistribution = function(fillSuccess, type, barracksQueue) {
         var bqIndex;
         var bqLength = barracksQueue.length;
+        var times = [];
         if (fillSuccess) {
             document.getElementById(type + '-barracks-exceeded').style.display = 'none';
             var maxTime = 0;
@@ -224,17 +225,19 @@
 
                 if (barrack.time > maxTime) {
                     maxTime = barrack.time;
-                    maxNum = barrack.num;
+                    maxNum = parseInt(barrack.num, 10);
                 }
 
-                document.getElementById(
-                    type +
-                    '-time-barrack-' +
-                    barrack.num
-                ).textContent = (barrack.time ? mk.getFormattedTime(barrack.time) : '');
+                times[barrack.num] = (barrack.time ? mk.getFormattedTime(barrack.time) : '');
             }
-            var maxBarrack = document.getElementById(type + '-time-barrack-' + maxNum);
-            maxBarrack.innerHTML = '<span class="result">' + maxBarrack.textContent + '</span>';
+            times.forEach(function(time, num) {
+                var barrackEl = document.getElementById(type + '-time-barrack-' + num);
+                if (num === maxNum) {
+                    barrackEl.innerHTML = '<span class="result">' + time + '</span>';
+                } else {
+                    barrackEl.textContent = time;
+                }
+            });
         } else {
             document.getElementById(type + '-barracks-exceeded').style.display = '';
             for (bqIndex = 0; bqIndex < bqLength; bqIndex++) {
@@ -281,10 +284,16 @@
 
             var levelId = name + '-level';
             var levelEl = document.getElementById(levelId);
+            var levelSelectedIndex = levelEl.selectedIndex;
             var costPerItem = levelEl.value;
             var summaryCost = (costPerItem * quantity);
 
-            document.getElementById(name + '-summary').textContent = (summaryCost ? mk.numberFormat(summaryCost) : 0);
+            if (params.allCosts ||
+                 mk.calc.savedData.get(name) !== quantity ||
+                 mk.calc.savedData.get(levelId) !== levelSelectedIndex) {
+                document.getElementById(name + '-summary').textContent = (summaryCost ?
+                                                                          mk.numberFormat(summaryCost) : 0);
+            }
 
             totalCost += summaryCost;
 
@@ -329,7 +338,7 @@
             }
 
             mk.calc.savedData.set(name, quantity);
-            mk.calc.savedData.set(levelId, levelEl.selectedIndex);
+            mk.calc.savedData.set(levelId, levelSelectedIndex);
         }
 
         document.getElementById(type + '-cost').textContent = mk.numberFormat(totalCost);
@@ -361,32 +370,34 @@
         }
     };
 
-    var calculate = function(type) {
-        if (type === 'all' || type !== 'spells') {
+    var calculate = function(params) {
+        if (params.type === 'all' || params.type !== 'spells') {
 
-            if (type === 'all' || type === 'barrack-units') {
+            if (params.type === 'all' || params.type === 'barrack-units') {
                 updateBarracksHeaders('units');
             }
 
-            if (type === 'all' || type === 'barrack-dark') {
+            if (params.type === 'all' || params.type === 'barrack-dark') {
                 updateBarracksHeaders('dark');
             }
 
             var armyCampsSpace = parseInt(mk.calc.armyCamps.value, 10);
 
-            if (type === 'all' || type === 'units' || type === 'barrack-units') {
+            if (params.type === 'all' || params.type === 'units' || params.type === 'barrack-units') {
                 currentSpace.units = 0;
                 calculateItems('units', {
                     'levelValue': mk.calc.allBarracks.units.getMaxLevel(),
-                    'capLevel': mk.calc.allBarracks.units.getCapLevel()
+                    'capLevel': mk.calc.allBarracks.units.getCapLevel(),
+                    'allCosts': params.allCosts
                 });
             }
 
-            if (type === 'all' || type === 'dark' || type === 'barrack-dark') {
+            if (params.type === 'all' || params.type === 'dark' || params.type === 'barrack-dark') {
                 currentSpace.dark = 0;
                 calculateItems('dark', {
                     'levelValue': mk.calc.allBarracks.dark.getMaxLevel(),
-                    'capLevel': mk.calc.allBarracks.dark.getCapLevel()
+                    'capLevel': mk.calc.allBarracks.dark.getCapLevel(),
+                    'allCosts': params.allCosts
                 });
             }
 
@@ -400,12 +411,13 @@
             mk.calc.allBarracks.dark.updateSavedData();
         }
 
-        if (type === 'all' || type === 'spells') {
+        if (params.type === 'all' || params.type === 'spells') {
             var spellFactoryLevel = parseInt(mk.calc.spellFactoryLevel.value, 10);
             calculateItems('spells', {
                 'levelValue': spellFactoryLevel,
                 'space': spellFactoryLevel,
-                'capLevel': mk.calc.spellFactoryData.max
+                'capLevel': mk.calc.spellFactoryData.max,
+                'allCosts': params.allCosts
             });
 
             mk.calc.savedData.set('spellFactoryLevel', mk.calc.spellFactoryLevel.selectedIndex);

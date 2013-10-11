@@ -17,7 +17,9 @@
                 targetElement.value = current - 1;
             }
         }
-        mk.Events.trigger('calculate', targetElement.getAttribute('data-object-type'));
+        mk.Events.trigger('calculate', {
+            'type': targetElement.getAttribute('data-object-type')
+        });
     };
 
     var spinnerInterval = null;

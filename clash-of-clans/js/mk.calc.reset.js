@@ -13,7 +13,9 @@
             el.value = '0';
         });
 
-        mk.Events.trigger('calculate', resetType);
+        mk.Events.trigger('calculate', {
+            'type': resetType
+        });
     };
 
     mk.getAllByClass('js-reset').forEach(function(el) {

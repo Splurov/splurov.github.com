@@ -43,15 +43,21 @@
     mk.objectIterate(mk.calc.allBarracks, function(k, v) {
         v.getElements().forEach(function(el) {
             el.addEventListener('change', function() {
-                mk.Events.trigger('calculate', 'barrack-' + k);
+                mk.Events.trigger('calculate', {
+                    'type': 'barrack-' + k
+                });
             }, false);
         });
     });
     mk.calc.armyCamps.addEventListener('change', function() {
-        mk.Events.trigger('calculate', 'all');
+        mk.Events.trigger('calculate', {
+            'type': 'all'
+        });
     }, false);
     mk.calc.spellFactoryLevel.addEventListener('change', function() {
-        mk.Events.trigger('calculate', 'spells');
+        mk.Events.trigger('calculate', {
+            'type': 'spells'
+        });
     }, false);
 
     mk.objectIterate(mk.calc.types, function(type, objects) {
@@ -59,14 +65,18 @@
             document.getElementById(name + '-level').addEventListener(
                 'change',
                 function() {
-                    mk.Events.trigger('calculate', type);
+                    mk.Events.trigger('calculate', {
+                        'type': type
+                    });
                 },
                 false
             );
             document.getElementById(name).addEventListener(
                 (type === 'spells' ? 'change' : 'input'),
                 function() {
-                    mk.Events.trigger('calculate', type);
+                    mk.Events.trigger('calculate', {
+                        'type': type
+                    });
                 },
                 false
             );
@@ -75,7 +85,9 @@
                 document.getElementById(name + '-subtract').addEventListener(
                     'input',
                     function() {
-                        mk.Events.trigger('calculate', type);
+                        mk.Events.trigger('calculate', {
+                            'type': type
+                        });
                     },
                     false
                 );
@@ -85,6 +97,9 @@
 
     setDefaults();
 
-    mk.Events.trigger('calculate', 'all');
+    mk.Events.trigger('calculate', {
+        'type': 'all',
+        'allCosts': true
+    });
 
 }(window.mk, window.Hogan));

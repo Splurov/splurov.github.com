@@ -13,7 +13,10 @@
         mk.calc.savedData = new mk.Dict(dataToLoad);
 
         mk.Events.trigger('setDefaults');
-        mk.Events.trigger('calculate', 'all');
+        mk.Events.trigger('calculate', {
+            'type': 'all',
+            'allCosts': true
+        });
 
         mk.Events.trigger('loaded');
         mk.Events.trigger('scrollTo', barracksAnchor);
