@@ -210,8 +210,21 @@ for (var file in sources) {
             }
         }
 
+        var partials = {};
+        if (options[3]) {
+            partials.item_row = fs.readFileSync(dir + 'mustache/item_row.mustache', 'utf8');
+
+            setItemRowsTemplates(translationsCurrent);
+        }
+
+//        if (options[3]) {
+//            dataDest = dataDest.replace(/src="(.+?\.png)"/g, function(match, imageSrc) {
+//                return 'src="' + makeDataUri(imageSrc.substr(1)) + '"';
+//            });
+//        }
+
         if (jsonOutput) {
-            var dataForJson = currentTemplate.render(translationsCurrent);
+            var dataForJson = currentTemplate.render(translationsCurrent, partials);
             dataForJson = dataForJson.replace(/^\s+/gm, '');
             dataForJson = dataForJson.replace(/\n+/g, ' ');
             var jsonData = {
@@ -229,19 +242,8 @@ for (var file in sources) {
             console.log('json coc done');
         } else {
             translationsCurrent.web_only = true;
-            var partials = {};
-            if (options[3]) {
-                partials.item_row = fs.readFileSync(dir + 'mustache/item_row.mustache', 'utf8');
 
-                setItemRowsTemplates(translationsCurrent);
-            }
             var dataDest = currentTemplate.render(translationsCurrent, partials);
-
-            if (options[3]) {
-                dataDest = dataDest.replace(/src="(.+?\.png)"/g, function(match, imageSrc) {
-                    return 'src="' + makeDataUri(imageSrc.substr(1)) + '"';
-                });
-            }
 
             var currentDir = dir;
             if (options[0]) {
