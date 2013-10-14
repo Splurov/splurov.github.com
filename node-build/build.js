@@ -227,6 +227,10 @@ for (var file in sources) {
             var dataForJson = currentTemplate.render(translationsCurrent, partials);
             dataForJson = dataForJson.replace(/^\s+/gm, '');
             dataForJson = dataForJson.replace(/\n+/g, ' ');
+            dataForJson = dataForJson.replace(/url\('(.+?\.png)'\)/g, function(match, sp1) {
+                return 'url(' + makeDataUri(sp1.substr(1)) + ')';
+            });
+
             var jsonData = {
                 'clash_of_clans': {
                     'code': {
