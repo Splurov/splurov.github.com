@@ -6,9 +6,8 @@
                                                      clickmap:true,
                                                      trackLinks:true,
                                                      accurateTrackBounce:true});
-
-            if (mk.__globalSharedLink) {
-                w.yaCounter19642528.reachGoal('SHARE', {'l': mk.__globalSharedLink});
+            if (window.yandexMetrikaLoadCallback) {
+                window.yandexMetrikaLoadCallback(w.yaCounter19642528);
             }
         } catch(e) { }
     });

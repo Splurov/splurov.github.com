@@ -217,12 +217,6 @@ for (var file in sources) {
             setItemRowsTemplates(translationsCurrent);
         }
 
-//        if (options[3]) {
-//            dataDest = dataDest.replace(/src="(.+?\.png)"/g, function(match, imageSrc) {
-//                return 'src="' + makeDataUri(imageSrc.substr(1)) + '"';
-//            });
-//        }
-
         if (jsonOutput) {
             var dataForJson = currentTemplate.render(translationsCurrent, partials);
             dataForJson = dataForJson.replace(/^\s+/gm, '');
@@ -248,6 +242,12 @@ for (var file in sources) {
             translationsCurrent.web_only = true;
 
             var dataDest = currentTemplate.render(translationsCurrent, partials);
+
+            if (options[3]) {
+                dataDest = dataDest.replace(/src="(.+?\.png)"/g, function(match, imageSrc) {
+                    return 'src="' + makeDataUri(imageSrc.substr(1)) + '"';
+                });
+            }
 
             var currentDir = dir;
             if (options[0]) {

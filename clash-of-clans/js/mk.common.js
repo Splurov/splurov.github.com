@@ -218,12 +218,18 @@
     mk.Events = {
 
         events: {},
+        future: {},
 
-        trigger: function(name, data) {
+        trigger: function(name, data, future) {
             if (this.events[name]) {
                 this.events[name].forEach(function(event) {
                     event(data);
                 });
+            } else if (future) {
+                if (!this.future[name]) {
+                    this.future[name] = [];
+                }
+                this.future[name].push(data || {});
             }
         },
 
@@ -232,6 +238,12 @@
                 this.events[name] = [];
             }
             this.events[name].push(cb);
+
+            if (this.future[name]) {
+                this.future[name].forEach(function(data) {
+                    cb(data);
+                });
+            }
         }
 
     };

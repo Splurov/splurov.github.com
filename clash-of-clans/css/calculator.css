@@ -478,3 +478,43 @@ table {
         .object__icon_Jump {background-position: 0 -74px;}
         .object__icon_Lightning {background-position: 0 -111px;}
         .object__icon_Rage {background-position: 0 -148px;}
+
+.add-to-home-screen {
+    margin: 15px 0 0;
+    display: none;
+}
+    .ios .add-to-home-screen {
+        display: block;
+    }
+    .add-to-home-screen__button {
+        color: #222;
+        cursor: pointer;
+        display: inline-block;
+        padding: 0;
+        border: 0;
+        background: none;
+        line-height: inherit;
+        font-weight: bold;
+        text-decoration: none;
+        margin: 0;
+    }
+        .add-to-home-screen__button:before {
+            content: '▶';
+            color: #999;
+            margin-right: 5px;
+            display: inline-block;
+        }
+            .add-to-home-screen[data-on="true"] .add-to-home-screen__button:before {
+                content: '▼';
+            }
+        .add-to-home-screen__button::-moz-focus-inner {
+            border: 0;
+            padding: 0;
+        }
+    .add-to-home-screen__list {
+        margin: 10px 0;
+        display: none;
+    }
+        .add-to-home-screen[data-on="true"] .add-to-home-screen__list {
+            display: block;
+        }

@@ -4,6 +4,9 @@
 
     var barracksAnchor = document.getElementById('barracks-anchor');
     var loadSaved = function(e) {
+        mk.Events.trigger('goal', {
+            'id': 'LOAD_SAVED'
+        }, true);
         e.preventDefault();
         e.stopPropagation();
 
@@ -162,6 +165,9 @@
         });
 
         var deleteSaved = function(e) {
+            mk.Events.trigger('goal', {
+                'id': 'DELETE_SAVED'
+            }, true);
             e.preventDefault();
             e.stopPropagation();
             mk.calc.savedDataAll.remove(e.currentTarget.getAttribute('data-num'));
@@ -183,6 +189,12 @@
         };
         var params = mk.objectExtend(defaultParams, customParams);
         alreadySavedMessage.hide();
+
+        if (params.showMessage) {
+            mk.Events.trigger('goal', {
+                'id': 'SAVE_COMPOSITION'
+            }, true);
+        }
 
         var sourceData = mk.calc.savedDataStorage.load(true);
         if (sourceData[0]) {

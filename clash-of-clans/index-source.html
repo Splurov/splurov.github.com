@@ -43,7 +43,8 @@
     <p>
         <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;screen_name=ClashCalc"
            target="_blank"
-           class="button button_social"><span class="icon-twitter">Follow @ClashCalc on Twitter</span></a>
+           class="button button_social js-goal"
+           data-goal="FOLLOW_TWITTER"><span class="icon-twitter">Follow @ClashCalc on Twitter</span></a>
     </p>
 
     <!--[if lte IE 8]>
@@ -97,6 +98,24 @@
         --><li><button class="menu__item js-anchor" data-anchor-target="saved-anchor">Saved Compositions</button></li>
     </ul>
 </div>
+
+{{#web_only}}
+<div class="add-to-home-screen js-add-to-home-screen">
+    <button class="add-to-home-screen__button js-add-to-home-screen-button js-goal" data-goal="ADD_TO_HOME">
+        How to add Clash Calc icon to your Home screen
+    </button>
+    <ol class="add-to-home-screen__list">
+        <li>
+            Tap the Share button
+            (&thinsp;<img src="/clash-of-clans/i/safari-share-button.png" alt="Share button" height="16" style="vertical-align: text-top;"/>&thinsp;).
+        </li>
+        <li>Tap the icon labeled “Add to Home Screen”.</li>
+        <li>Tap the Add button in the upper right corner.</li>
+        <li>Launch Clash Calc from your Home screen by tapping its icon.</li>
+    </ol>
+</div>
+<script src="js/add-to-home-screen.js"></script>
+{{/web_only}}
 
 <p id="view-shared" style="display: none;" class="message-block-wrapper">
     <span class="message message_closeable" title="Click to hide">
@@ -264,10 +283,20 @@
         <input id="share-permalink" class="field-long" tabindex="1901"/>
     </p>
     <p>
-        <a href="" target="_blank" id="share-twitter" class="button button_social" tabindex="1903">
+        <a href=""
+           target="_blank"
+           id="share-twitter"
+           class="button button_social js-goal"
+           tabindex="1903"
+           data-goal="SHARE_TWITTER">
             <span class="icon-twitter">Share Composition on Twitter</span>
         </a>
-        <a href="" target="_blank" id="share-facebook" class="button button_after button_social" tabindex="1904">
+        <a href=""
+           target="_blank"
+           id="share-facebook"
+           class="button button_after button_social js-goal"
+           tabindex="1904"
+           data-goal="SHARE_FACEBOOK">
             <span class="icon-facebook">Share Composition on Facebook</span>
         </a>
     </p>

@@ -316,6 +316,12 @@
                     subtract.value = subtractQuantity;
                 }
 
+                if (subtract.value > 0) {
+                    mk.Events.trigger('goal', {
+                        'id': 'SUBTRACT'
+                    }, true);
+                }
+
                 var totalQuantity = quantity - subtractQuantity;
                 if (totalQuantity < 0) {
                     totalQuantity = 0;

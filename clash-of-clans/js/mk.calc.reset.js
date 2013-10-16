@@ -9,6 +9,10 @@
         var resetType = e.currentTarget.getAttribute('data-reset-type');
         var scope = e.currentTarget.getAttribute('data-scope');
 
+        mk.Events.trigger('goal', {
+            'id': 'RESET'
+        }, true);
+
         mk.getAll('input[data-field-type="' + scope + '"][data-object-type="' + resetType + '"]').forEach(function(el) {
             el.value = '0';
         });

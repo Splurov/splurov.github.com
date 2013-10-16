@@ -8,7 +8,12 @@
 
             var urlData = location.search.substr(3);
             urlData = decodeURIComponent(urlData);
-            mk.__globalSharedLink = urlData;
+            mk.Events.trigger('goal', {
+                'id': 'SHARE',
+                'params': {
+                    'l': urlData
+                }
+            }, true);
             urlData = urlData.replace(/[a-z]/g, ',');
             urlData = urlData.replace(/,(?=,)/g, ',0');
             urlData = '[' + urlData + ']';
