@@ -165,10 +165,6 @@
         return mk.toArray((customContext || document).getElementsByClassName(cssClass));
     };
 
-    mk.getAll = function(selector, customContext) {
-        return mk.toArray((customContext || document).querySelectorAll(selector));
-    };
-
     mk.selectAll = function(e) {
         if (['input', 'textarea'].indexOf(e.currentTarget.tagName.toLowerCase()) !== -1) {
             setTimeout(function(el) {

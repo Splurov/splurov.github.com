@@ -14,9 +14,9 @@ require('buffer');
 var sources = {
     'index-source.html': {'ru': [false, 0], 'en': [true, 1]},
     'clash-of-clans/index-source.html': {'en': [false, 1, 'first', true], 'json': [false, 1, true]},
-    'clash-of-clans/comments-source.html': {'en': [false, 1]},
+    //'clash-of-clans/comments-source.html': {'en': [false, 1]},
     'clash-of-clans/version-history-source.html': {'en': [false, 1, 'all']},
-    'clash-of-clans/to-do-list-source.html': {'en': [false, 1]},
+    //'clash-of-clans/to-do-list-source.html': {'en': [false, 1]},
     '404-source.html': {'en': [false, 1]}
 };
 
@@ -118,7 +118,7 @@ for (var file in sources) {
         styleData = csso.justDoIt(styleData);
         console.log('csso: ' + p1);
 
-        styleData = styleData.replace(/url\((.+?\.png)\)/g, function(match, sp1) {
+        styleData = styleData.replace(/url\(([^']+?\.png)\)/g, function(match, sp1) {
             return 'url(' + makeDataUri(sp1.substr(1)) + ')';
         });
 
@@ -243,11 +243,11 @@ for (var file in sources) {
 
             var dataDest = currentTemplate.render(translationsCurrent, partials);
 
-            if (options[3]) {
-                dataDest = dataDest.replace(/src="(.+?\.png)"/g, function(match, imageSrc) {
-                    return 'src="' + makeDataUri(imageSrc.substr(1)) + '"';
-                });
-            }
+//            if (options[3]) {
+//                dataDest = dataDest.replace(/src="(.+?\.png)"/g, function(match, imageSrc) {
+//                    return 'src="' + makeDataUri(imageSrc.substr(1)) + '"';
+//                });
+//            }
 
             var currentDir = dir;
             if (options[0]) {

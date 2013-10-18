@@ -159,28 +159,72 @@ table {
         color: #777;
     }
 
+.object {}
+    .object__text {
+        vertical-align: middle;
+        margin-left: 3px;
+    }
+    .object_units .object__text, .object_dark .object__text {
+        display: none;
+    }
+    .object__icon {
+        background-repeat: no-repeat;
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        vertical-align: middle;
+    }
+    .object_units .object__icon {
+        background-image: url(/clash-of-clans/i/objects-units.png);
+        background-size: 32px 365px;
+    }
+        .object__icon_Archer {background-position: 0 0;}
+        .object__icon_Balloon {background-position: 0 -37px;}
+        .object__icon_Barbarian {background-position: 0 -74px;}
+        .object__icon_Dragon {background-position: 0 -111px;}
+        .object__icon_Giant {background-position: 0 -148px;}
+        .object__icon_Goblin {background-position: 0 -185px;}
+        .object__icon_Healer {background-position: 0 -222px;}
+        .object__icon_P-E-K-K-A- {background-position: 0 -259px;}
+        .object__icon_Wall_Breaker {background-position: 0 -296px;}
+        .object__icon_Wizard {background-position: 0 -333px;}
 
-.cost-elixir {
+    .object_dark .object__icon {
+        background-image: url('/clash-of-clans/i/objects-dark.png');
+        background-size: 32px 180px;
+    }
+        .object__icon_Golem {background-position: 0 0;}
+        .object__icon_Hog_Rider {background-position: 0 -37px;}
+        .object__icon_Minion {background-position: 0 -74px;}
+        .object__icon_Valkyrie {background-position: 0 -111px;}
+        .object__icon_Witch {background-position: 0 -148px;}
+
+    .object_spells .object__icon {
+        background-image: url('/clash-of-clans/i/objects-spells.png');
+        background-size: 32px 180px;
+    }
+        .object__icon_Freeze {background-position: 0 0;}
+        .object__icon_Healing {background-position: 0 -37px;}
+        .object__icon_Jump {background-position: 0 -74px;}
+        .object__icon_Lightning {background-position: 0 -111px;}
+        .object__icon_Rage {background-position: 0 -148px;}
+
+.cost {
     background-position: 100% 50%;
-    background-image: url(/clash-of-clans/i/elixir.png);
     background-repeat: no-repeat;
+    padding-right: 19px;
     background-size: 14px 16px;
-    padding-right: 19px;
 }
-.cost-dark-elixir {
-    background-position: 100% 50%;
-    background-image: url(/clash-of-clans/i/dark-elixir.png);
-    background-repeat: no-repeat;
-    background-size: 14px 16px;
-    padding-right: 19px;
-}
-.cost-gold {
-    background-position: 100% 50%;
-    background-image: url(/clash-of-clans/i/gold.png);
-    background-repeat: no-repeat;
-    background-size: 15px 16px;
-    padding-right: 19px;
-}
+    .cost_elixir {
+        background-image: url(/clash-of-clans/i/elixir.png);
+    }
+    .cost_dark-elixir {
+        background-image: url(/clash-of-clans/i/dark-elixir.png);
+    }
+    .cost_gold {
+        background-image: url(/clash-of-clans/i/gold.png);
+        background-size: 15px 16px;
+    }
 
 .button, .button:link, .button:visited {
     color: #444;
@@ -213,9 +257,6 @@ table {
     .button_after {
         margin-left: 7px;
     }
-    .button_middle {
-        vertical-align: middle;
-    }
 
     .button_social, .button_social:link, .button_social:visited {
         border-color: #99b;
@@ -235,35 +276,29 @@ table {
     .button_spinner {
         margin-left: 7px;
     }
-
     .ios .button_spinner {
         padding: 5px 9px 6px;
         margin-left: 12px;
     }
 
-.icon-twitter {
-    background-image: url(/clash-of-clans/i/icon-twitter.png);
-    background-size: 16px 13px;
+.icon {
     background-position: 0 50%;
+    background-repeat: no-repeat;
     padding-left: 19px;
-    background-repeat: no-repeat;
 }
-
-.icon-facebook {
-    background-image: url(/clash-of-clans/i/icon-facebook.png);
-    background-size: 16px 16px;
-    background-position: 0 50%;
-    padding-left: 21px;
-    background-repeat: no-repeat;
-}
-
-.icon-save {
-    background-image: url(/clash-of-clans/i/icon-save.png);
-    background-size: 14px 14px;
-    background-position: 0 50%;
-    padding-left: 19px;
-    background-repeat: no-repeat;
-}
+    .icon_twitter {
+        background-image: url(/clash-of-clans/i/icon-twitter.png);
+        background-size: 16px 13px;
+    }
+    .icon_facebook {
+        background-image: url(/clash-of-clans/i/icon-facebook.png);
+        background-size: 16px 16px;
+        padding-left: 21px;
+    }
+    .icon_save {
+        background-image: url(/clash-of-clans/i/icon-save.png);
+        background-size: 14px 14px;
+    }
 
 .limit-exceeded {
     color: #d00;
@@ -429,62 +464,21 @@ table {
         }
 
 
-.object {}
-    .object__text {
-        vertical-align: middle;
-        margin-left: 3px;
-    }
-    .object_units .object__text, .object_dark .object__text {
-        display: none;
-    }
-    .object__icon {
-        background-repeat: no-repeat;
-        display: inline-block;
-        width: 32px;
-        height: 32px;
-        vertical-align: middle;
-    }
-    .object_units .object__icon {
-        background-image: url(/clash-of-clans/i/objects-units.png);
-        background-size: 32px 365px;
-    }
-        .object__icon_Archer {background-position: 0 0;}
-        .object__icon_Balloon {background-position: 0 -37px;}
-        .object__icon_Barbarian {background-position: 0 -74px;}
-        .object__icon_Dragon {background-position: 0 -111px;}
-        .object__icon_Giant {background-position: 0 -148px;}
-        .object__icon_Goblin {background-position: 0 -185px;}
-        .object__icon_Healer {background-position: 0 -222px;}
-        .object__icon_P-E-K-K-A- {background-position: 0 -259px;}
-        .object__icon_Wall_Breaker {background-position: 0 -296px;}
-        .object__icon_Wizard {background-position: 0 -333px;}
-
-    .object_dark .object__icon {
-        background-image: url('/clash-of-clans/i/objects-dark.png');
-        background-size: 32px 180px;
-    }
-        .object__icon_Golem {background-position: 0 0;}
-        .object__icon_Hog_Rider {background-position: 0 -37px;}
-        .object__icon_Minion {background-position: 0 -74px;}
-        .object__icon_Valkyrie {background-position: 0 -111px;}
-        .object__icon_Witch {background-position: 0 -148px;}
-
-    .object_spells .object__icon {
-        background-image: url('/clash-of-clans/i/objects-spells.png');
-        background-size: 32px 180px;
-    }
-        .object__icon_Freeze {background-position: 0 0;}
-        .object__icon_Healing {background-position: 0 -37px;}
-        .object__icon_Jump {background-position: 0 -74px;}
-        .object__icon_Lightning {background-position: 0 -111px;}
-        .object__icon_Rage {background-position: 0 -148px;}
-
 .add-to-home-screen {
     margin: 15px 0 0;
     display: none;
 }
     .ios .add-to-home-screen {
         display: block;
+    }
+    .ios .add-to-home-screen__share-icon {
+        background-image: url('/clash-of-clans/i/safari-share-button.png');
+        background-size: 12px 16px;
+        background-repeat: no-repeat;
+        display: inline-block;
+        width: 12px;
+        height: 16px;
+        vertical-align: text-top;
     }
     .add-to-home-screen__button {
         color: #222;

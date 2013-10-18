@@ -13,7 +13,10 @@
             'id': 'RESET'
         }, true);
 
-        mk.getAll('input[data-field-type="' + scope + '"][data-object-type="' + resetType + '"]').forEach(function(el) {
+        var inputs = document.querySelectorAll(
+            'input[data-field-type="' + scope + '"][data-object-type="' + resetType + '"]'
+        );
+        mk.toArray(inputs).forEach(function(el) {
             el.value = '0';
         });
 

@@ -12,20 +12,15 @@
     <script src="js/favicon.js"></script>
     <link rel="icon" href="/clash-of-clans/i/favicon-v2.png"/>
 
-    <link rel="apple-touch-icon-precomposed" href="/clash-of-clans/i/app-icons/57x57.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/clash-of-clans/i/app-icons/72x72.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/clash-of-clans/i/app-icons/114x114.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/clash-of-clans/i/app-icons/76x76.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/clash-of-clans/i/app-icons/120x120.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/clash-of-clans/i/app-icons/144x144.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/clash-of-clans/i/app-icons/152x152.png"/>
     <meta name="apple-mobile-web-app-title" content="{{coc_title_web_clip}}"/>
 
     <meta property="fb:admins" content="splurov"/>
 
-    <meta name="twitter:card" content="summary"/>
     <meta name="twitter:site" content="@ClashCalc"/>
     <meta name="twitter:creator" content="@Splurov"/>
-    <meta name="twitter:title" content="{{coc_title}}"/>
-    <meta name="twitter:description" content="{{coc_description}}"/>
 
     <meta property="og:url" content="http://mkln.ru/clash-of-clans/" />
     <meta property="og:title" content="{{coc_title}}" />
@@ -44,7 +39,7 @@
         <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;screen_name=ClashCalc"
            target="_blank"
            class="button button_social js-goal"
-           data-goal="FOLLOW_TWITTER"><span class="icon-twitter">Follow @ClashCalc on Twitter</span></a>
+           data-goal="FOLLOW_TWITTER"><span class="icon icon_twitter">Follow @ClashCalc on Twitter</span></a>
     </p>
 
     <!--[if lte IE 8]>
@@ -94,7 +89,7 @@
         --><li><button class="menu__item js-anchor" data-anchor-target="dark-anchor">Dark Barracks</button></li><!--
         --><li><button class="menu__item js-anchor" data-anchor-target="spell-anchor">Spell Factory</button></li><!--
         --><li><button class="menu__item js-anchor js-share" data-anchor-target="share-anchor">Share Composition</button></li><!--
-        --><li><button class="menu__item js-save-composition" data-scroll="yes"><span class="icon-save">Save Composition</span></button></li><!--
+        --><li><button class="menu__item js-save-composition" data-scroll="yes"><span class="icon icon_save">Save Composition</span></button></li><!--
         --><li><button class="menu__item js-anchor" data-anchor-target="saved-anchor">Saved Compositions</button></li>
     </ul>
 </div>
@@ -107,7 +102,7 @@
     <ol class="add-to-home-screen__list">
         <li>
             Tap the Share button
-            (&thinsp;<img src="/clash-of-clans/i/safari-share-button.png" alt="Share button" height="16" style="vertical-align: text-top;"/>&thinsp;).
+            (&thinsp;<span class="add-to-home-screen__share-icon"></span>&thinsp;).
         </li>
         <li>Tap the icon labeled “Add to Home Screen”.</li>
         <li>Tap the Add button in the upper right corner.</li>
@@ -140,7 +135,7 @@
                         Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="units-quantity"></span>
                         <br/><button class="button data-secondary js-reset" data-reset-type="units" data-scope="quantity">Reset</button>
                     </th>
-                    <th><span class="cost-elixir">Total</span></th>
+                    <th><span class="cost cost_elixir">Total</span></th>
                     <th>
                         Subtract
                         <br/><button class="button data-secondary js-reset" data-reset-type="units" data-scope="subtract">Reset</button>
@@ -208,7 +203,7 @@
                         Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="dark-quantity"></span>
                         <br/><button class="button data-secondary js-reset" data-reset-type="dark" data-scope="quantity">Reset</button>
                     </th>
-                    <th><span class="cost-dark-elixir">Total</span></th>
+                    <th><span class="cost cost_dark-elixir">Total</span></th>
                     <th>
                         Subtract
                         <br/><button class="button data-secondary js-reset" data-reset-type="dark" data-scope="subtract">Reset</button>
@@ -252,7 +247,7 @@
                     <th>Spell</th>
                     <th>Level</th>
                     <th>Quantity <span class="data-secondary tooltip" title="Spell Factory Free Capacity" id="spells-quantity"></span></th>
-                    <th><span class="cost-gold">Total</span></th>
+                    <th><span class="cost cost_gold">Total</span></th>
                     <th>
                         <select id="spell-factory-level" tabindex="35">
                         </select> <span class="text-middle">lvl</span>
@@ -289,7 +284,7 @@
            class="button button_social js-goal"
            tabindex="1903"
            data-goal="SHARE_TWITTER">
-            <span class="icon-twitter">Share Composition on Twitter</span>
+            <span class="icon icon_twitter">Share Composition on Twitter</span>
         </a>
         <a href=""
            target="_blank"
@@ -297,7 +292,7 @@
            class="button button_after button_social js-goal"
            tabindex="1904"
            data-goal="SHARE_FACEBOOK">
-            <span class="icon-facebook">Share Composition on Facebook</span>
+            <span class="icon icon_facebook">Share Composition on Facebook</span>
         </a>
     </p>
     <p class="fixed-content block-indented">
@@ -308,7 +303,7 @@
 <h2 class="block-indented" id="saved-anchor">Saved Compositions</h2>
 <p>Values from the “Subtract” columns not saved.</p>
 <p>
-    <button class="js-save-composition button" tabindex="2000"><span class="icon-save">Save Composition</span></button>
+    <button class="js-save-composition button" tabindex="2000"><span class="icon icon_save">Save Composition</span></button>
 
     <span id="already-saved" class="message message_after message_closeable" style="display: none;" title="Click to hide">
         Already in the saved compositions

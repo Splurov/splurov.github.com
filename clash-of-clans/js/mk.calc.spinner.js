@@ -52,7 +52,7 @@
 
     var setSpinner = function(type, el) {
         var container = document.createElement('button');
-        container.className = 'button button_middle button_spinner';
+        container.className = 'button button_spinner';
         container.textContent = (type === 'plus' ? '+' : '−');
         container.spinnerTarget = el;
 
