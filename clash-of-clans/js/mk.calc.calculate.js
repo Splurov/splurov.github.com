@@ -2,11 +2,9 @@
 
     'use strict';
 
-    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                                window.webkitRequestAnimationFrame;
     var optimizeIos = function(callback) {
         if (window.platformIos) {
-            requestAnimationFrame(callback);
+            (window.requestAnimationFrame || window.webkitRequestAnimationFrame)(callback);
         } else {
             callback();
         }

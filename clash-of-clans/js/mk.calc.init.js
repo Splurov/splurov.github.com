@@ -40,63 +40,45 @@
 
     mk.Events.listen('setDefaults', setDefaults);
 
+    var triggerCalculate = function(type) {
+        mk.Events.trigger('calculate', {
+            'type': type
+        });
+    };
+
     mk.objectIterate(mk.calc.allBarracks, function(k, v) {
         v.getElements().forEach(function(el) {
-            el.addEventListener('change', function() {
-                mk.Events.trigger('calculate', {
-                    'type': 'barrack-' + k
-                });
-            }, false);
+            el.addEventListener('change', triggerCalculate.bind(null, 'barrack-' + k), false);
         });
     });
-    mk.calc.armyCamps.addEventListener('change', function() {
-        mk.Events.trigger('calculate', {
-            'type': 'all'
-        });
-    }, false);
-    mk.calc.spellFactoryLevel.addEventListener('change', function() {
-        mk.Events.trigger('calculate', {
-            'type': 'spells'
-        });
-    }, false);
+    mk.calc.armyCamps.addEventListener('change', triggerCalculate.bind(null, 'all'), false);
+    mk.calc.spellFactoryLevel.addEventListener('change', triggerCalculate.bind(null, 'spells'), false);
 
     mk.objectIterate(mk.calc.types, function(type, objects) {
         mk.objectIterate(objects, function(name) {
             document.getElementById(name + '-level').addEventListener(
                 'change',
-                function() {
-                    mk.Events.trigger('calculate', {
-                        'type': type
-                    });
-                },
+                triggerCalculate.bind(null, type),
                 false
             );
             document.getElementById(name).addEventListener(
                 (type === 'spells' ? 'change' : 'input'),
-                function() {
-                    mk.Events.trigger('calculate', {
-                        'type': type
-                    });
-                },
+                triggerCalculate.bind(null, type),
                 false
             );
 
             if (type === 'units' || type === 'dark') {
                 document.getElementById(name + '-subtract').addEventListener(
                     'input',
-                    function() {
-                        mk.Events.trigger('calculate', {
-                            'type': type
-                        });
-                    },
+                    triggerCalculate.bind(null, type),
                     false
                 );
             }
         });
     });
 
-    setDefaults();
-
+    mk.Events.trigger('setDefaults');
+    
     mk.Events.trigger('calculate', {
         'type': 'all',
         'allCosts': true

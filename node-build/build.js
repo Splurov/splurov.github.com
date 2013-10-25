@@ -148,7 +148,17 @@ for (var file in sources) {
             return compiled;
         });
         if (!p2) {
-            scriptData = uglifyjs.minify(scriptData, {'fromString': true}).code;
+            scriptData = uglifyjs.minify(scriptData, {
+                'fromString': true,
+                'output': {
+                    'screw_ie8': true
+                },
+                'compress': {
+                    'screw_ie8': true,
+                    'unsafe': true
+                }
+            }).code;
+            scriptData = scriptData.replace('"use strict";', '');
         }
 
         scriptData = hoganPrepare('<script>' + scriptData + '</script>');
