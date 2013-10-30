@@ -16,9 +16,28 @@
             }, true);
             urlData = urlData.replace(/[a-z]/g, ',');
             urlData = urlData.replace(/,(?=,)/g, ',0');
+            if (urlData[0] === ',') {
+                urlData = '0' + urlData;
+            }
             urlData = '[' + urlData + ']';
-            urlData = JSON.parse(urlData);
-            urlData = mk.calc.dataArrayToObject(urlData);
+            try {
+                urlData = JSON.parse(urlData);
+            } catch (e) {
+                urlData = false;
+            }
+
+            if (urlData) {
+                urlData = mk.calc.dataArrayToObject(urlData);
+
+                mk.Events.trigger('save', {'showMessage': false});
+                mk.calc.savedData = new mk.Dict(urlData);
+
+                viewSharedMessage.show();
+
+                mk.Events.listen('loaded', function() {
+                    viewSharedMessage.hide();
+                });
+            }
 
             if (history.replaceState) {
                 history.replaceState(
@@ -28,14 +47,6 @@
                 );
             }
 
-            mk.Events.trigger('save', {'showMessage': false});
-            mk.calc.savedData = new mk.Dict(urlData);
-
-            viewSharedMessage.show();
-
-            mk.Events.listen('loaded', function() {
-                viewSharedMessage.hide();
-            });
         }
     };
     checkShare();
