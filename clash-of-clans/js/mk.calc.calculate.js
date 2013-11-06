@@ -290,7 +290,7 @@
                  mk.calc.savedData.get(name) !== quantity ||
                  mk.calc.savedData.get(levelId) !== levelSelectedIndex) {
                 document.getElementById(name + '-summary').textContent = (summaryCost ?
-                                                                          mk.numberFormat(summaryCost) : 0);
+                                                                          mk.numberFormat(summaryCost) : '');
             }
 
             totalCost += summaryCost;
