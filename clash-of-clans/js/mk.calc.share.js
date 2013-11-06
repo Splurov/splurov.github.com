@@ -106,7 +106,7 @@
     var currencies = {
         'units': 'Elixir',
         'dark': 'Dark Elixir',
-        'spells': 'Gold'
+        'spells': 'Elixir'
     };
 
     var makeShareText = function() {

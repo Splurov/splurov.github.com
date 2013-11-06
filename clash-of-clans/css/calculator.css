@@ -221,10 +221,6 @@ table {
     .cost_dark-elixir {
         background-image: url(/clash-of-clans/i/dark-elixir.png);
     }
-    .cost_gold {
-        background-image: url(/clash-of-clans/i/gold.png);
-        background-size: 15px 16px;
-    }
 
 .button, .button:link, .button:visited {
     color: #444;

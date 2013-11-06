@@ -1,5 +1,17 @@
 [
     [
+        "3.1",
+        "6 November, 2013",
+        [
+            "The cost of spells now in Elixir instead of Gold",
+            "Added Goblin level 6",
+            "Fixed a bug associated with the inability to open some shared compositions",
+            "“Too many units” message changed to “Exceeded the maximum queue length of the barracks”",
+            "Updated home screen icons for iOS 7",
+            "Added tooltip for units icons"
+        ]
+    ],
+    [
         "3.0",
         "10 October, 2013",
         [
