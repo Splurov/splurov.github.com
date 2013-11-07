@@ -1,5 +1,12 @@
 [
     [
+        "3.1.1",
+        "7 November, 2013",
+        [
+            "Dropped IE 9 support (currently supported browsers is Safari 5.1+, Chrome 21+, Firefox 17+, IE 10+, Android 4+, Opera 12.1+)"
+        ]
+    ],
+    [
         "3.1",
         "6 November, 2013",
         [

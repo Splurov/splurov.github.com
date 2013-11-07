@@ -19,12 +19,12 @@
         document.addEventListener('scroll', function() {
             if (window.pageYOffset >= menuTopPosition) {
                 if (!isFixed) {
-                    menuEl.className += ' menu_fixed ';
+                    menuEl.classList.add('menu_fixed');
                     isFixed = true;
                 }
             } else if (isFixed) {
                 isFixed = false;
-                menuEl.className = menuEl.className.replace(' menu_fixed ', '');
+                menuEl.classList.remove('menu_fixed');
             }
         }, false);
     }

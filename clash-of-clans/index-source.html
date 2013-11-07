@@ -42,7 +42,7 @@
            data-goal="FOLLOW_TWITTER"><span class="icon icon_twitter">Follow @ClashCalc on Twitter</span></a>
     </p>
 
-    <!--[if lte IE 8]>
+    <!--[if lte IE 9]>
     <p class="message message_negative">
         You are using an old version of Internet Explorer which is not supported.<br />
         Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
@@ -78,7 +78,7 @@
     document.getElementById('app-updated').ontouchend = function(e) {
         e.preventDefault();
         e.stopPropagation();
-        document.getElementById('app_version').className = '';
+        document.getElementById('app_version').classList.remove('updated');
     };
 </script>
 {{/web_only}}
