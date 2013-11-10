@@ -313,6 +313,9 @@ table {
 .result {
     font-weight: bold;
 }
+.unimportant {
+    font-weight: normal;
+}
 
 .tooltip {
     cursor: help;

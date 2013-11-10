@@ -25,15 +25,11 @@
 
     var updateBarracksHeaders = function(type) {
         mk.calc.allBarracks[type].getAllNormalized().forEach(function(barrackData, barrackIndex) {
-            var header;
-            if (parseInt(barrackData.level, 10) === 0) {
-                header = '';
-            } else {
-                header = '<span class="data-secondary tooltip" title="Maximum Queue Length">(max ' +
-                         barrackData.queueLength +
-                         ')</span>';
+            var header = '';
+            if (parseInt(barrackData.level, 10) !== 0) {
+                header = barrackData.queueLength;
             }
-            document.getElementById(type + '-barrack-header-' + (barrackIndex + 1)).innerHTML = header;
+            document.getElementById(type + '-barrack-header-' + (barrackIndex + 1)).textContent = header;
         });
     };
 
@@ -227,6 +223,12 @@
                 }
 
                 times[barrack.num] = (barrack.time ? mk.getFormattedTime(barrack.time) : '');
+
+                var spaceData = '';
+                if (barrack.space !== 0) {
+                    spaceData = barrack.space + ' / ';
+                }
+                document.getElementById(type + '-barrack-space-' + barrack.num).textContent = spaceData;
             }
             times.forEach(function(time, num) {
                 var barrackEl = document.getElementById(type + '-time-barrack-' + num);
@@ -238,9 +240,32 @@
             });
         } else {
             document.getElementById(type + '-barracks-exceeded').style.display = '';
+            var spaces = [];
+            var sumSpace = 0;
             for (bqIndex = 0; bqIndex < bqLength; bqIndex++) {
-                document.getElementById(type + '-time-barrack-' + barracksQueue[bqIndex].num).textContent = '';
+                var barrack = barracksQueue[bqIndex];
+                document.getElementById(type + '-time-barrack-' + barrack.num).textContent = '';
+
+                spaces[barrack.num] = barrack.space;
+                sumSpace += barrack.space;
             }
+
+            var firstIteration = true;
+            spaces.forEach(function(space, num) {
+                var barrackSpaceEl = document.getElementById(type + '-barrack-space-' + num);
+                if (space === 0) {
+                    barrackSpaceEl.textContent = '';
+                } else {
+                    if (firstIteration) {
+                        space += currentSpace[type] - sumSpace;
+                        barrackSpaceEl.innerHTML = '<span class="limit-exceeded result">' + space + '</span> / ';
+
+                        firstIteration = false;
+                    } else {
+                        barrackSpaceEl.textContent = space + ' / ';
+                }
+                }
+            });
         }
     };
 
@@ -358,11 +383,11 @@
 
             var fillSuccess = mk.calc.fillBarracks(barracksQueue, distribution, avgTime);
 
+            currentSpace[type] += totalSpace;
+
             optimizeIos(function(fillSuccess, type, barracksQueue) {
                 populateDistribution(fillSuccess, type, barracksQueue);
             }.bind(null, fillSuccess, type, barracksQueue));
-
-            currentSpace[type] += totalSpace;
 
             var subtractedCostEl = document.getElementById(type + '-subtracted-cost');
             if (subtractedCost === totalCost) {
