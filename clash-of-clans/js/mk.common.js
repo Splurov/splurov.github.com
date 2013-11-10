@@ -83,6 +83,7 @@
         if (remainingTime > 3599) {
             formattedTime += Math.floor(remainingTime / 3600) + 'h ';
             remainingTime %= 3600;
+            hideSeconds = true;
         }
 
         if (remainingTime > 59) {

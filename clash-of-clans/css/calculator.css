@@ -131,6 +131,12 @@ table {
     .data-secondary {
         font-size: 13px;
     }
+    .distribution-column {
+        min-width: 65px;
+    }
+    .quantity-column {
+        min-width: 115px;
+    }
 
 .list-content {
     margin-bottom: 10px;
@@ -322,6 +328,10 @@ table {
 
 .message-block-wrapper {
     margin: 15px 0 0;
+}
+
+.reset {
+    margin-bottom: 2px;
 }
 
 .message {

@@ -5,24 +5,15 @@
                 <span class="object__text">{{title}}</span>
             </span>
         </td>
-        <td>
-            <select id="{{levelId}}" tabindex="{{tabIndexLevel}}">
+        <td class="data-secondary">
+            <select id="{{levelId}}" tabindex="{{tabIndexLevel}}" class="js-setting">
                 {{#levelContent}}
                     <option value="{{value}}">{{text}}</option>
                 {{/levelContent}}
             </select>
         </td>
         <td>
-            {{#spells}}
-                <select id="{{id}}" tabindex="{{tabIndexValue}}" data-field-type="quantity">
-                    {{#options}}
-                        <option value="{{value}}">{{text}}</option>
-                    {{/options}}
-                </select>
-            {{/spells}}
-            {{^spells}}
-                <input type="text" pattern="[0-9]*" data-object-type="{{objectType}}" min="0" max="999" class="js-number" id="{{id}}" size="3" tabindex="{{tabIndexValue}}" data-field-type="quantity"/>
-            {{/spells}}
+            <input type="text" pattern="[0-9]*" data-object-type="{{objectType}}" min="0" max="999" class="js-number" id="{{id}}" size="3" tabindex="{{tabIndexValue}}" data-field-type="quantity"/>
         </td>
         <td id="{{summaryId}}" class="number data-secondary">
         </td>

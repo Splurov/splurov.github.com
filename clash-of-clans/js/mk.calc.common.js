@@ -130,7 +130,8 @@
         'Freeze-level',
         'Witch',
         'Witch-level',
-        'Witch-subtract'
+        'Witch-subtract',
+        'settingsMode'
     ];
 
     mk.calc.dataObjectToArray = function(dataObject) {

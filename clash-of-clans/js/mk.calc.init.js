@@ -21,12 +21,8 @@
                 var levelEl = document.getElementById(levelId);
                 levelEl.options[mk.calc.savedData.get(levelId, levelEl.selectedIndex)].selected = true;
 
-                var valueEl = document.getElementById(name);
-                if (type === 'spells') {
-                    valueEl.options[mk.calc.savedData.get(name, valueEl.selectedIndex)].selected = true;
-                } else {
-                    valueEl.value = mk.calc.savedData.get(name) || 0;
-
+                document.getElementById(name).value = mk.calc.savedData.get(name) || 0;
+                if (type !== 'spells') {
                     var subtractId = name + '-subtract';
                     document.getElementById(subtractId).value = mk.calc.savedData.get(subtractId) || 0;
                 }
@@ -62,7 +58,7 @@
                 false
             );
             document.getElementById(name).addEventListener(
-                (type === 'spells' ? 'change' : 'input'),
+                'input',
                 triggerCalculate.bind(null, type),
                 false
             );

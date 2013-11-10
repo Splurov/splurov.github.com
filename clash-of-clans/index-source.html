@@ -88,9 +88,10 @@
         <li><button class="menu__item js-anchor" data-anchor-target="barracks-anchor">Barracks</button></li><!--
         --><li><button class="menu__item js-anchor" data-anchor-target="dark-anchor">Dark Barracks</button></li><!--
         --><li><button class="menu__item js-anchor" data-anchor-target="spell-anchor">Spell Factory</button></li><!--
-        --><li><button class="menu__item js-anchor js-share" data-anchor-target="share-anchor">Share Composition</button></li><!--
+        --><li><button class="menu__item js-anchor js-share" data-anchor-target="share-anchor">Share</button></li><!--
         --><li><button class="menu__item js-save-composition" data-scroll="yes"><span class="icon icon_save">Save Composition</span></button></li><!--
-        --><li><button class="menu__item js-anchor" data-anchor-target="saved-anchor">Saved Compositions</button></li>
+        --><li><button class="menu__item js-anchor" data-anchor-target="saved-anchor">Saved Compositions</button></li><!--
+        --><li><button class="menu__item" id="js-settings-toggle"><span id="js-settings-toggle-mode"></span> Setting Mode</button></li>
     </ul>
 </div>
 
@@ -130,33 +131,33 @@
             <thead>
                 <tr>
                     <th>Unit</th>
-                    <th>Level</th>
-                    <th>
+                    <th>Lvl</th>
+                    <th class="quantity-column">
                         Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="units-quantity"></span>
-                        <br/><button class="button data-secondary js-reset" data-reset-type="units" data-scope="quantity">Reset</button>
+                        <br/><button class="button data-secondary reset js-reset" data-reset-type="units" data-scope="quantity">Reset</button>
                     </th>
                     <th><span class="cost cost_elixir">Total</span></th>
                     <th>
                         Subtract
-                        <br/><button class="button data-secondary js-reset" data-reset-type="units" data-scope="subtract">Reset</button>
+                        <br/><button class="button data-secondary reset js-reset" data-reset-type="units" data-scope="subtract">Reset</button>
                     </th>
-                    <th>
-                        <select id="barracks-levels-1" tabindex="1">
+                    <th class="distribution-column">
+                        <select id="barracks-levels-1" tabindex="1" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <span id="units-barrack-header-1"></span>
                     </th>
-                    <th>
-                        <select id="barracks-levels-2" tabindex="5">
+                    <th class="distribution-column">
+                        <select id="barracks-levels-2" tabindex="5" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br />
                         <span id="units-barrack-header-2"></span>
                     </th>
-                    <th>
-                        <select id="barracks-levels-3" tabindex="10">
+                    <th class="distribution-column">
+                        <select id="barracks-levels-3" tabindex="10" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <span id="units-barrack-header-3"></span>
                     </th>
-                    <th>
-                        <select id="barracks-levels-4" tabindex="15">
+                    <th class="distribution-column">
+                        <select id="barracks-levels-4" tabindex="15" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <span id="units-barrack-header-4"></span>
                     </th>
@@ -171,9 +172,9 @@
                 <tr>
                     <td colspan="2" class="data-secondary number">
                         <label for="army-camps">Army Camps:</label></td>
-                    <td>
-                        <span id="units-space" class="result text-middle"></span>
-                        <select id="army-camps" data-object-type="all" tabindex="19">
+                    <td class="result">
+                        <span id="units-space" class="text-middle"></span><!--
+                        --><select id="army-camps" data-object-type="all" tabindex="19" class="js-setting">
                         </select>
                     </td>
                     <td id="units-cost" class="number result"></td>
@@ -198,23 +199,23 @@
             <thead>
                 <tr>
                     <th>Unit</th>
-                    <th>Level</th>
-                    <th>
+                    <th>Lvl</th>
+                    <th class="quantity-column">
                         Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="dark-quantity"></span>
-                        <br/><button class="button data-secondary js-reset" data-reset-type="dark" data-scope="quantity">Reset</button>
+                        <br/><button class="button data-secondary reset js-reset" data-reset-type="dark" data-scope="quantity">Reset</button>
                     </th>
                     <th><span class="cost cost_dark-elixir">Total</span></th>
                     <th>
                         Subtract
-                        <br/><button class="button data-secondary js-reset" data-reset-type="dark" data-scope="subtract">Reset</button>
+                        <br/><button class="button data-secondary reset js-reset" data-reset-type="dark" data-scope="subtract">Reset</button>
                     </th>
-                    <th>
-                        <select id="dark-barracks-levels-1" tabindex="20">
+                    <th class="distribution-column">
+                        <select id="dark-barracks-levels-1" tabindex="20" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <span id="dark-barrack-header-1"></span>
                     </th>
-                    <th>
-                        <select id="dark-barracks-levels-2" tabindex="25">
+                    <th class="distribution-column">
+                        <select id="dark-barracks-levels-2" tabindex="25" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <span id="dark-barrack-header-2"></span>
                     </th>
@@ -245,11 +246,14 @@
             <thead>
                 <tr>
                     <th>Spell</th>
-                    <th>Level</th>
-                    <th>Quantity <span class="data-secondary tooltip" title="Spell Factory Free Capacity" id="spells-quantity"></span></th>
+                    <th>Lvl</th>
+                    <th class="quantity-column">
+                        Quantity <span class="data-secondary tooltip" title="Spell Factory Free Capacity" id="spells-quantity"></span>
+                        <br/><button class="button data-secondary reset js-reset" data-reset-type="spells" data-scope="quantity">Reset</button>
+                    </th>
                     <th><span class="cost cost_elixir">Total</span></th>
                     <th>
-                        <select id="spell-factory-level" tabindex="35">
+                        <select id="spell-factory-level" tabindex="35" class="js-setting">
                         </select> <span class="text-middle">lvl</span>
                     </th>
                 </tr>

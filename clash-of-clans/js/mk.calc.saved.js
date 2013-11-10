@@ -13,6 +13,7 @@
         var dataToLoad = mk.objectCopy(
             mk.calc.savedDataAll.retrieve(e.currentTarget.getAttribute('data-num')).getAll()
         );
+        dataToLoad.settingsMode = mk.calc.savedData.get('settingsMode');
         mk.calc.savedData = new mk.Dict(dataToLoad);
 
         mk.Events.trigger('setDefaults');
@@ -201,6 +202,9 @@
             mk.calc.saveMappingKeys.forEach(function(key, index) {
                 if (key.indexOf('subtract') !== -1) {
                     sourceData[0][index] = 0;
+                }
+                if (key === 'settingsMode') {
+                    sourceData[0][index] = 1;
                 }
             });
             var currentJSON = JSON.stringify(sourceData[0]);

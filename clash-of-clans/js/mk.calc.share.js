@@ -57,7 +57,8 @@
     permalink.addEventListener('click', mk.selectAll, false);
     var makePermalink = function() {
         var url = 'http://mkln.ru/clash-of-clans/?l=';
-        var data = mk.calc.savedData.getAll();
+        var data = mk.objectCopy(mk.calc.savedData.getAll());
+        data.settingsMode = 1;
         data = mk.calc.dataObjectToArray(data);
         data = JSON.stringify(data);
         data = data.replace(/\b(?:null|0)\b/g, '');

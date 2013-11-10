@@ -42,14 +42,6 @@ var setItemRowsTemplates = function(vars) {
             return {'value': value, 'text': (index + 1)};
         };
 
-        var spellsValuesContent = [];
-        if (type === 'spells') {
-            var i;
-            for (i = 0; i <= mk.calc.spellFactoryData.max; i++) {
-                spellsValuesContent.push({'value': i, 'text': i});
-            }
-        }
-
         var rows = [];
         mk.objectIterate(mk.calc.types[type], function(name, value) {
             var convertedName = mk.convertToTitle(name);
@@ -66,9 +58,7 @@ var setItemRowsTemplates = function(vars) {
                 'objectType': type
             };
             if (type === 'spells') {
-                templateVars.spells = {
-                    'options': spellsValuesContent
-                };
+                templateVars.spells = true;
             }
 
             if (type === 'units' || type === 'dark') {
