@@ -2,8 +2,8 @@
     (w[c] = w[c] || []).push(function() {
         try {
             w.yaCounter19642528 = new Ya.Metrika({id:19642528,
-                                                     webvisor:true,
-                                                     clickmap:true,
+                                                     //webvisor:true,
+                                                     //clickmap:true,
                                                      trackLinks:true,
                                                      accurateTrackBounce:true});
             if (window.yandexMetrikaLoadCallback) {
