@@ -1,0 +1,61 @@
+.button, .button:link, .button:visited {
+    color: #444;
+    cursor: pointer;
+    display: inline-block;
+    padding: 3px 6px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-color: #fcfcfc;
+    background-image: linear-gradient(#fcfcfc, #ececec);
+    line-height: 1;
+    user-select: none;
+    font-weight: normal;
+    text-decoration: none;
+    font-size: 14px;
+}
+    .button {
+        margin: 0;
+    }
+    .button::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+    .button:hover {
+        background-image: linear-gradient(#fcfcfc, #e0e0e0);
+    }
+    .button:active {
+        color: #444;
+        background: #e3e3e3;
+    }
+    .button_after {
+        margin-left: 7px;
+    }
+    .button_reset {
+        font-size: 13px;
+        margin-bottom: 2px;
+    }
+
+    .button_social, .button_social:link, .button_social:visited {
+        border-color: #99b;
+        padding-top: 4px;
+        padding-bottom: 4px;
+        background-color: #fcfcff;
+        background-image: linear-gradient(#fcfcff, #ececff);
+    }
+    .button_social:hover {
+        background-image: linear-gradient(#fcfcff, #e0e0ff);
+    }
+    .button_social:active {
+        background: #e3e3ff;
+    }
+
+    .button_spinner {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        margin-left: 7px;
+    }
+    .ios .button_spinner {
+        padding: 5px 9px 6px;
+        margin-left: 12px;
+        font-size: 16px;
+    }

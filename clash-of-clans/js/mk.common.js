@@ -153,6 +153,10 @@
             this.entries.forEach(callback);
         };
 
+        this.getLength = function() {
+            return this.entries.length;
+        };
+
         entries.forEach(this.insert.bind(this));
     };
 

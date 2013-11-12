@@ -103,6 +103,10 @@ for (var file in sources) {
             return dataCache[p1];
         }
         var styleData = fs.readFileSync(dir + p1, 'utf8');
+        styleData = styleData.replace(/\/\* build:css:([^ ]+) \*\//g, function(buildMatch, buildP1) {
+            console.log('css sub: ' + buildP1);
+            return fs.readFileSync(dir + buildP1, 'utf8');
+        });
         styleData = autoprefixer('ios >= 5', 'chrome >= 21', 'ff >= 17', 'safari >= 5.1', 'ie >= 10', 'android >= 4', 'opera >= 12.1').compile(styleData);
         console.log('autoprefixer: ' + p1);
         styleData = csso.justDoIt(styleData);

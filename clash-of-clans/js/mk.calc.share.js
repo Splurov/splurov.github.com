@@ -145,16 +145,15 @@
 
     var shareObjects = mk.getAllByClass('js-share');
     var placeShareContent = function() {
+        var display = '';
         if (makeShareText()) {
             makePermalink();
-            shareObjects.forEach(function(el) {
-                el.style.display = '';
-            });
         } else {
-            shareObjects.forEach(function(el) {
-                el.style.display = 'none';
-            });
+            display = 'none';
         }
+        shareObjects.forEach(function(el) {
+            el.style.display = display;
+        });
     };
 
     mk.Events.listen('calculated', placeShareContent);

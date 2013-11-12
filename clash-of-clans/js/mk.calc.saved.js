@@ -77,14 +77,14 @@
                 }
 
                 mk.calc.typesSortedLevel[type].forEach(function(troopsData, tsIndex) {
-                    var quantity = parseInt(data.get(troopsData[4]), 10) || 0;
+                    var quantity = parseInt(data.get(troopsData[5]), 10) || 0;
                     if (quantity > 0 && troopsData[3] <= level) {
                         items.push({
-                            'name': mk.convertToTitle(troopsData[4]),
+                            'name': mk.convertToTitle(troopsData[5]),
                             'quantity': quantity,
                             'level': troopsData[3]
                         });
-                        cost += troopsData[1][data.get(troopsData[4] + '-level')] * quantity;
+                        cost += troopsData[1][data.get(troopsData[5] + '-level')] * quantity;
                         totalCapacity += troopsData[2] * quantity;
                         time += troopsData[0] * quantity;
                         maxUnitTime = Math.max(troopsData[0], maxUnitTime);
@@ -245,5 +245,13 @@
     });
 
     savedListCreateItems();
+
+    var savedCount = mk.calc.savedDataAll.getLength();
+    mk.Events.trigger('goal', {
+        'id': 'SAVED_COMPOSITIONS',
+        'params': {
+            'count': (savedCount ? savedCount - 1 : 0)
+        }
+    }, true);
 
 }(window.mk, window.Hogan));

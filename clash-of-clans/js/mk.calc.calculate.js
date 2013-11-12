@@ -210,7 +210,7 @@
                     if (barrack.units[unitIndex] > 0) {
                         document.getElementById(
                             'quantity-' +
-                            mk.calc.typesSortedLevel[type][unitIndex][4] +
+                            mk.calc.typesSortedLevel[type][unitIndex][5] +
                             '-' +
                             barrack.num
                         ).textContent = '×' + barrack.units[unitIndex];
@@ -225,7 +225,7 @@
                 times[barrack.num] = (barrack.time ? mk.getFormattedTime(barrack.time) : '');
 
                 var spaceData = '';
-                if (barrack.space !== 0) {
+                if (barrack.maxSpace !== 0) {
                     spaceData = barrack.space + ' / ';
                 }
                 document.getElementById(type + '-barrack-space-' + barrack.num).textContent = spaceData;
@@ -294,7 +294,7 @@
                 continue;
             }
 
-            var name = value[4];
+            var name = value[5];
             var item = document.getElementById(name);
 
             var quantity = parseInt(item.value, 10) || 0;
@@ -399,6 +399,8 @@
         }
     };
 
+    var darkWrapper = document.getElementById('dark-wrapper');
+    var spellsWrapper = document.getElementById('spells-wrapper');
     var calculate = function(params) {
         if (params.type === 'all' || params.type !== 'spells') {
 
@@ -408,6 +410,12 @@
 
             if (params.type === 'all' || params.type === 'barrack-dark') {
                 updateBarracksHeaders('dark');
+
+                var method = 'remove';
+                if (mk.calc.allBarracks.dark.getMaxLevel() === 0) {
+                    method = 'add';
+                }
+                darkWrapper.classList[method]('setting-mode-empty');
             }
 
             var armyCampsSpace = parseInt(mk.calc.armyCamps.value, 10);
@@ -450,6 +458,12 @@
             });
 
             mk.calc.savedData.set('spellFactoryLevel', mk.calc.spellFactoryLevel.selectedIndex);
+
+            var method = 'remove';
+            if (spellFactoryLevel === 0) {
+                method = 'add';
+            }
+            spellsWrapper.classList[method]('setting-mode-empty');
         }
 
         mk.calc.savedDataAll.update(0, mk.calc.savedData);

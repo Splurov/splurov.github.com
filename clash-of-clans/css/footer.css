@@ -1,0 +1,14 @@
+.footer {
+    border-top: 1px solid #ddd;
+    padding-top: 12px;
+    margin-top: 30px;
+    font-size: 14px;
+    color: #999;
+}
+    .footer a:link, .footer a:visited {
+        text-decoration: underline;
+        color: #999;
+    }
+    .footer a:hover, .footer a:active {
+        text-decoration: none;
+    }

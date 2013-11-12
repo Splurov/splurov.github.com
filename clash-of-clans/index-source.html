@@ -7,7 +7,7 @@
     <title>{{coc_title}}</title>
     <meta name="description" content="{{coc_description}}"/>
     {{/web_only}}
-    <link rel="stylesheet" type="text/css" href="css/calculator.css"/>
+    <link rel="stylesheet" type="text/css" href="css/all.css"/>
     {{#web_only}}
     <script src="js/favicon.js"></script>
     <link rel="icon" href="/clash-of-clans/i/favicon-v2.png"/>
@@ -91,16 +91,26 @@
         --><li><button class="menu__item js-anchor js-share" data-anchor-target="share-anchor">Share</button></li><!--
         --><li><button class="menu__item js-save-composition" data-scroll="yes"><span class="icon icon_save">Save Composition</span></button></li><!--
         --><li><button class="menu__item js-anchor" data-anchor-target="saved-anchor">Saved Compositions</button></li><!--
-        --><li><button class="menu__item" id="js-settings-toggle"><span id="js-settings-toggle-mode"></span> Setting Mode</button></li>
+        --><li>
+            <button class="menu__item" id="js-settings-toggle">
+                <span class="setting-mode">
+                    <input type="checkbox" id="js-settings-toggle-mode" class="setting-mode__toggle" />
+                    Setting Mode
+                </span>
+            </button>
+        </li>
     </ul>
 </div>
 
 {{#web_only}}
-<div class="add-to-home-screen js-add-to-home-screen">
+<div class="block-intro add-to-home-screen js-add-to-home-screen">
     <button class="add-to-home-screen__button js-add-to-home-screen-button js-goal" data-goal="ADD_TO_HOME">
         How to add Clash Calc icon to your Home screen
     </button>
     <ol class="add-to-home-screen__list">
+        <li value="0">
+            Open Safari, type <kbd>http://mkln.ru/clash-of-clans/</kbd> in the address bar and wait until the page is loaded.
+        </li>
         <li>
             Tap the Share button
             (&thinsp;<span class="add-to-home-screen__share-icon"></span>&thinsp;).
@@ -113,7 +123,24 @@
 <script src="js/add-to-home-screen.js"></script>
 {{/web_only}}
 
-<p id="view-shared" style="display: none;" class="message-block-wrapper">
+<div class="setting-mode-part">
+    <p class="block-intro">
+        Set the level of buildings, units and spells in accordance with the Town Hall of level:<br/>
+        <button class="button js-settings-level">1</button>
+        <button class="button button_after js-settings-level">2</button>
+        <button class="button button_after js-settings-level">3</button>
+        <button class="button button_after js-settings-level">4</button>
+        <button class="button button_after js-settings-level">5</button>
+        <button class="button button_after js-settings-level">6</button>
+        <button class="button button_after js-settings-level">7</button>
+        <button class="button button_after js-settings-level">8</button>
+        <button class="button button_after js-settings-level">9</button>
+        <button class="button button_after js-settings-level">10</button>
+    </p>
+    <p class="block-intro">As soon as you finish to setting up levels you can turn off the Setting Mode (the last item in the menu).</p>
+</div>
+
+<p id="view-shared" style="display: none;" class="block-intro">
     <span class="message message_closeable" title="Click to hide">
         You are viewing shared composition (you can find previous one in the saved compositions)
     </span>
@@ -131,17 +158,17 @@
             <thead>
                 <tr>
                     <th>Unit</th>
-                    <th>Lvl</th>
-                    <th class="quantity-column">
+                    <th>Level</th>
+                    <th class="data__quantity-column">
                         Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="units-quantity"></span>
-                        <br/><button class="button data-secondary reset js-reset" data-reset-type="units" data-scope="quantity">Reset</button>
+                        <br/><button class="button button_reset js-reset" data-reset-type="units" data-scope="quantity">Reset</button>
                     </th>
                     <th><span class="cost cost_elixir">Total</span></th>
                     <th>
                         Subtract
-                        <br/><button class="button data-secondary reset js-reset" data-reset-type="units" data-scope="subtract">Reset</button>
+                        <br/><button class="button button_reset js-reset" data-reset-type="units" data-scope="subtract">Reset</button>
                     </th>
-                    <th class="distribution-column">
+                    <th class="data__distribution-column">
                         <select id="barracks-levels-1" tabindex="1" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
@@ -149,7 +176,7 @@
                             <span id="units-barrack-header-1"></span>
                         </span>
                     </th>
-                    <th class="distribution-column">
+                    <th class="data__distribution-column">
                         <select id="barracks-levels-2" tabindex="5" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br />
                         <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
@@ -157,7 +184,7 @@
                             <span id="units-barrack-header-2"></span>
                         </span>
                     </th>
-                    <th class="distribution-column">
+                    <th class="data__distribution-column">
                         <select id="barracks-levels-3" tabindex="10" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
@@ -165,7 +192,7 @@
                             <span id="units-barrack-header-3"></span>
                         </span>
                     </th>
-                    <th class="distribution-column">
+                    <th class="data__distribution-column">
                         <select id="barracks-levels-4" tabindex="15" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
@@ -200,7 +227,7 @@
         </table>
     </div><!--
 
-    --><div class="floated__item">
+    --><div id="dark-wrapper" class="floated__item">
         <h2 id="dark-anchor">
             Dark Barracks
             <span class="message message_negative message_after"
@@ -211,17 +238,17 @@
             <thead>
                 <tr>
                     <th>Unit</th>
-                    <th>Lvl</th>
-                    <th class="quantity-column">
+                    <th>Level</th>
+                    <th class="data__quantity-column">
                         Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="dark-quantity"></span>
-                        <br/><button class="button data-secondary reset js-reset" data-reset-type="dark" data-scope="quantity">Reset</button>
+                        <br/><button class="button button_reset js-reset" data-reset-type="dark" data-scope="quantity">Reset</button>
                     </th>
                     <th><span class="cost cost_dark-elixir">Total</span></th>
                     <th>
                         Subtract
-                        <br/><button class="button data-secondary reset js-reset" data-reset-type="dark" data-scope="subtract">Reset</button>
+                        <br/><button class="button button_reset js-reset" data-reset-type="dark" data-scope="subtract">Reset</button>
                     </th>
-                    <th class="distribution-column">
+                    <th class="data__distribution-column">
                         <select id="dark-barracks-levels-1" tabindex="20" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
@@ -229,7 +256,7 @@
                             <span id="dark-barrack-header-1"></span>
                         </span>
                     </th>
-                    <th class="distribution-column">
+                    <th class="data__distribution-column">
                         <select id="dark-barracks-levels-2" tabindex="25" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
@@ -258,16 +285,16 @@
         </table>
     </div><!--
 
-    --><div class="floated__item">
+    --><div id="spells-wrapper" class="floated__item">
         <h2 id="spell-anchor">Spell Factory</h2>
         <table id="spells" class="data">
             <thead>
                 <tr>
                     <th>Spell</th>
-                    <th>Lvl</th>
-                    <th class="quantity-column">
+                    <th>Level</th>
+                    <th class="data__quantity-column">
                         Quantity <span class="data-secondary tooltip" title="Spell Factory Free Capacity" id="spells-quantity"></span>
-                        <br/><button class="button data-secondary reset js-reset" data-reset-type="spells" data-scope="quantity">Reset</button>
+                        <br/><button class="button button_reset js-reset" data-reset-type="spells" data-scope="quantity">Reset</button>
                     </th>
                     <th><span class="cost cost_elixir">Total</span></th>
                     <th>

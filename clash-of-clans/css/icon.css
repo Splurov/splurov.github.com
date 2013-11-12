@@ -1,0 +1,18 @@
+.icon {
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    padding-left: 19px;
+}
+    .icon_twitter {
+        background-image: url(/clash-of-clans/i/icon-twitter.png);
+        background-size: 16px 13px;
+    }
+    .icon_facebook {
+        background-image: url(/clash-of-clans/i/icon-facebook.png);
+        background-size: 16px 16px;
+        padding-left: 21px;
+    }
+    .icon_save {
+        background-image: url(/clash-of-clans/i/icon-save.png);
+        background-size: 14px 14px;
+    }

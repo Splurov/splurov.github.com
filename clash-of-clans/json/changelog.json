@@ -1,11 +1,11 @@
 [
     [
         "3.2",
-        "10 November, 2013",
+        "12 November, 2013",
         [
-            "Added Setting Mode — it is recommended to turn it off when your levels changes rarely",
+            "Added Setting Mode with the possibility of preset levels of buildings, troops and spells according to the level of the Town Hall",
             "Added display of the queue length for barracks",
-            "Dropped IE 9 support (currently supported browsers is Safari 5.1+, Chrome 21+, Firefox 17+, IE 10+, Android 4+, Opera 12.1+)"
+            "Dropped IE 9 support (currently supported browsers is Safari 5.1+, Chrome 21+, Firefox 17+, IE 10+, Android 4+ and Opera 12.1+)"
         ]
     ],
     [

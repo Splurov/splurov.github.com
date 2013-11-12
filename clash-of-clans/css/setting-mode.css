@@ -1,0 +1,19 @@
+.setting-mode {
+    position: relative;
+    padding-left: 17px;
+}
+    .setting-mode__toggle {
+        position: absolute;
+        left: -5px;
+        top: -1px;
+    }
+
+.setting-mode-disabled .setting-mode-part {
+    display: none;
+}
+.setting-mode-enabled .setting-mode-not-part {
+    display: none;
+}
+.setting-mode-disabled .setting-mode-empty {
+    display: none;
+}

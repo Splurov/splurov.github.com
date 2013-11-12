@@ -1,0 +1,123 @@
+html, body {
+    background: #fefefe;
+    color: #222;
+}
+body {
+    font-family: 'PT Sans', Arial, sans-serif;
+    margin: 13px 17px;
+    line-height: 1.4;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+a {
+    white-space: nowrap;
+}
+    a:link {
+        color: #4100f1;
+        text-decoration: none;
+    }
+    a:visited {
+        color: #63008c;
+        text-decoration: none;
+    }
+    a:hover, a:active {
+        text-decoration: underline;
+    }
+
+
+kbd {
+    font-family: inherit;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0 4px;
+}
+
+input, select, textarea, button {
+    font-family: inherit;
+    font-size: inherit;
+    vertical-align: middle;
+}
+    select {
+        font-size: 14px;
+    }
+    @media screen and (-webkit-min-device-pixel-ratio:0) {
+        select {
+            font-size: inherit;
+        }
+    }
+    .field-long {
+        width: 100%;
+    }
+
+h1 {
+    font-size: 22px;
+    margin: 0 0 3px;
+}
+h2 {
+    font-size: 16px;
+    margin: 13px 0 8px;
+}
+h2 + table {
+    margin-top: 1px;
+}
+h3 {
+    font-size: 14px;
+    margin: 17px 0 2px;
+}
+
+p {
+    margin: 0 0 10px;
+}
+
+table {
+    border-spacing: 0;
+}
+    table td, table th {
+        vertical-align: top;
+        padding: 0;
+    }
+    td img {
+        vertical-align: middle;
+    }
+    .number {
+        text-align: right;
+    }
+
+
+.data-secondary {
+    font-size: 13px;
+}
+
+.limit-exceeded {
+    color: #d00;
+}
+
+.fixed-content {
+    max-width: 50em;
+}
+
+.result {
+    font-weight: bold;
+}
+
+.unimportant {
+    font-weight: normal;
+}
+
+.tooltip {
+    cursor: help;
+}
+
+.block-indented {
+    margin-top: 30px;
+}
+
+.text-middle {
+    vertical-align: middle;
+}
+
+.block-intro {
+    margin: 15px 0 0;
+}
