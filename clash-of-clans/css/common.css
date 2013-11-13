@@ -21,7 +21,7 @@ a {
         color: #63008c;
         text-decoration: none;
     }
-    a:hover, a:active {
+    .not-ios a:hover, a:active {
         text-decoration: underline;
     }
 
@@ -86,7 +86,7 @@ table {
     }
 
 
-.data-secondary {
+.small {
     font-size: 13px;
 }
 

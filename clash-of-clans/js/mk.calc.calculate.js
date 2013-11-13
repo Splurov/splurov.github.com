@@ -1,13 +1,17 @@
-(function(mk){
+(function(){
 
     'use strict';
 
-    var optimizeIos = function(callback) {
-        if (window.platformIos) {
-            (window.requestAnimationFrame || window.webkitRequestAnimationFrame)(callback);
-        } else {
-            callback();
-        }
+    var debounce = function(fn, delay) {
+        var timer;
+        return function() {
+            var context = this;
+            var args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                fn.apply(context, args);
+            }, delay);
+        };
     };
 
     mk.calc.typesSortedLevel = {};
@@ -29,7 +33,7 @@
             if (parseInt(barrackData.level, 10) !== 0) {
                 header = barrackData.queueLength;
             }
-            document.getElementById(type + '-barrack-header-' + (barrackIndex + 1)).textContent = header;
+            mk.$id(type + '-barrack-header-' + (barrackIndex + 1)).textContent = header;
         });
     };
 
@@ -38,14 +42,14 @@
         if (spaceDiff < 0) {
             spaceDiff = '<span class="limit-exceeded">' + spaceDiff + '</span>';
         }
-        document.getElementById(type + '-quantity').innerHTML = '(' + spaceDiff + ' free)';
+        mk.$id(type + '-quantity').innerHTML = '(' + spaceDiff + ' free)';
 
         var space = totalSpace;
         if (totalSpace > maxSpace) {
             space = '<span class="limit-exceeded">' + totalSpace + '</span>';
         }
         space = space + ' / ' + (type === 'units' ? '': maxSpace);
-        document.getElementById(type + '-space').innerHTML = space;
+        mk.$id(type + '-space').innerHTML = space;
 
     };
 
@@ -125,16 +129,15 @@
     mk.calc.fillBarracks = function(barracksQueue, unitsDistribution, avgTime) {
         var stopDistribution = false;
 
-        var udIndex; // ud - units distribution
-        var udLength;
-        for (udIndex = 0, udLength = unitsDistribution.length; udIndex < udLength; udIndex++) {
-            var kit = unitsDistribution[udIndex];
+        while (unitsDistribution.length) {
+            var kit = unitsDistribution.shift();
+            var kitIndex = kit[0];
+            var kitQuantity = kit[1];
             var kitLevel = kit[2];
             var kitTime = kit[3];
             var kitSpace = kit[4];
-            var i;
             var barrack = null;
-            for (i = 0; i < kit[1]; i++) {
+            while (kitQuantity--) {
                 var isGetBarrack = true;
                 if (barrack) {
                     var newTime = barrack.time + kitTime;
@@ -159,10 +162,10 @@
                     break;
                 }
 
-                if (barrack.units[kit[0]]) {
-                    barrack.units[kit[0]]++;
+                if (barrack.units[kitIndex]) {
+                    barrack.units[kitIndex]++;
                 } else {
-                    barrack.units[kit[0]] = 1;
+                    barrack.units[kitIndex] = 1;
                 }
 
                 barrack.time += kitTime;
@@ -194,21 +197,18 @@
     };
 
     var populateDistribution = function(fillSuccess, type, barracksQueue) {
-        var bqIndex;
-        var bqLength = barracksQueue.length;
         var times = [];
         if (fillSuccess) {
-            document.getElementById(type + '-barracks-exceeded').style.display = 'none';
+            mk.$id(type + '-barracks-exceeded').style.display = 'none';
             var maxTime = 0;
             var maxNum = 1;
 
-            for (bqIndex = 0; bqIndex < bqLength; bqIndex++) {
-                var barrack = barracksQueue[bqIndex];
+            while (barracksQueue.length) {
+                var barrack = barracksQueue.shift();
 
-                var unitIndex;
-                for (unitIndex in barrack.units) {
+                for (var unitIndex in barrack.units) {
                     if (barrack.units[unitIndex] > 0) {
-                        document.getElementById(
+                        mk.$id(
                             'quantity-' +
                             mk.calc.typesSortedLevel[type][unitIndex][5] +
                             '-' +
@@ -228,10 +228,10 @@
                 if (barrack.maxSpace !== 0) {
                     spaceData = barrack.space + ' / ';
                 }
-                document.getElementById(type + '-barrack-space-' + barrack.num).textContent = spaceData;
+                mk.$id(type + '-barrack-space-' + barrack.num).textContent = spaceData;
             }
             times.forEach(function(time, num) {
-                var barrackEl = document.getElementById(type + '-time-barrack-' + num);
+                var barrackEl = mk.$id(type + '-time-barrack-' + num);
                 if (num === maxNum) {
                     barrackEl.innerHTML = '<span class="result">' + time + '</span>';
                 } else {
@@ -239,12 +239,12 @@
                 }
             });
         } else {
-            document.getElementById(type + '-barracks-exceeded').style.display = '';
+            mk.$id(type + '-barracks-exceeded').style.display = '';
             var spaces = [];
             var sumSpace = 0;
-            for (bqIndex = 0; bqIndex < bqLength; bqIndex++) {
-                var barrack = barracksQueue[bqIndex];
-                document.getElementById(type + '-time-barrack-' + barrack.num).textContent = '';
+            while (barracksQueue.length) {
+                var barrack = barracksQueue.shift();
+                mk.$id(type + '-time-barrack-' + barrack.num).textContent = '';
 
                 spaces[barrack.num] = barrack.space;
                 sumSpace += barrack.space;
@@ -252,7 +252,7 @@
 
             var firstIteration = true;
             spaces.forEach(function(space, num) {
-                var barrackSpaceEl = document.getElementById(type + '-barrack-space-' + num);
+                var barrackSpaceEl = mk.$id(type + '-barrack-space-' + num);
                 if (space === 0) {
                     barrackSpaceEl.textContent = '';
                 } else {
@@ -268,11 +268,11 @@
             });
         }
     };
+    var populateDistributionDebounced = debounce(populateDistribution, 200);
 
     var calculateItems = function(type, params) {
-        var clIndex; // cl - cap level
-        for (clIndex = params.capLevel; clIndex >= 1; clIndex--) {
-            document.getElementById(
+        for (var clIndex = params.capLevel; clIndex >= 1; clIndex--) {
+            mk.$id(
                 type +
                 '-building-level-' +
                 clIndex
@@ -286,16 +286,16 @@
         var maxUnitTime = 0;
         var distribution = [];
 
-        var tsIndex; // ts - types sorted
-        var tsLength;
-        for (tsIndex = 0, tsLength = mk.calc.typesSortedLevel[type].length; tsIndex < tsLength; tsIndex++) {
+        var tsIndex = -1; // ts - types sorted
+        var tsLength = mk.calc.typesSortedLevel[type].length;
+        while (++tsIndex < tsLength) {
             var value = mk.calc.typesSortedLevel[type][tsIndex];
             if (value[3] > params.levelValue) {
                 continue;
             }
 
             var name = value[5];
-            var item = document.getElementById(name);
+            var item = mk.$id(name);
 
             var quantity = parseInt(item.value, 10) || 0;
             if (quantity < 0) {
@@ -306,16 +306,15 @@
             }
 
             var levelId = name + '-level';
-            var levelEl = document.getElementById(levelId);
+            var levelEl = mk.$id(levelId);
             var levelSelectedIndex = levelEl.selectedIndex;
             var costPerItem = levelEl.value;
             var summaryCost = (costPerItem * quantity);
 
-            if (params.allCosts ||
-                 mk.calc.savedData.get(name) !== quantity ||
-                 mk.calc.savedData.get(levelId) !== levelSelectedIndex) {
-                document.getElementById(name + '-summary').textContent = (summaryCost ?
-                                                                          mk.numberFormat(summaryCost) : '');
+            if (params.computeAll ||
+                mk.calc.savedData.get(name) !== quantity ||
+                mk.calc.savedData.get(levelId) !== levelSelectedIndex) {
+                 mk.$id(name + '-summary').textContent = (summaryCost ? mk.numberFormat(summaryCost) : '');
             }
 
             totalCost += summaryCost;
@@ -324,13 +323,14 @@
             if (type === 'spells') {
                 totalTime += (value[0] * quantity);
             } else {
-                var mcIndex; // mc - max count
-                for (mcIndex = 1; mcIndex <= mk.calc.allBarracks[type].getMaxCount(); mcIndex++) {
-                    document.getElementById('quantity-' + name + '-' + mcIndex).textContent = '';
+                var mcIndex = 0; // mc - max count
+                var mcLength = mk.calc.allBarracks[type].getMaxCount();
+                while (++mcIndex <= mcLength) {
+                    mk.$id('quantity-' + name + '-' + mcIndex).textContent = '';
                 }
 
                 var subtractId = name + '-subtract';
-                var subtract = document.getElementById(subtractId);
+                var subtract = mk.$id(subtractId);
                 var subtractQuantity = parseInt(subtract.value, 10) || 0;
                 if (subtractQuantity < 0) {
                     subtractQuantity = 0;
@@ -370,12 +370,12 @@
             mk.calc.savedData.set(levelId, levelSelectedIndex);
         }
 
-        document.getElementById(type + '-cost').textContent = mk.numberFormat(totalCost);
+        mk.$id(type + '-cost').textContent = mk.numberFormat(totalCost);
 
         if (type === 'spells') {
             setQuantityAndSpace(params.space, totalSpace, type);
             if (totalTime > 0) {
-                document.getElementById(type + '-time').textContent = mk.getFormattedTime(totalTime, true);
+                mk.$id(type + '-time').textContent = mk.getFormattedTime(totalTime, true);
             }
         } else {
             var barracksQueue = mk.calc.allBarracks[type].getQueue();
@@ -385,11 +385,15 @@
 
             currentSpace[type] += totalSpace;
 
-            optimizeIos(function(fillSuccess, type, barracksQueue) {
-                populateDistribution(fillSuccess, type, barracksQueue);
-            }.bind(null, fillSuccess, type, barracksQueue));
+            var fn;
+            if (params.computeAll || !window.platformIos) {
+                fn = populateDistribution;
+            } else {
+                fn = populateDistributionDebounced;
+            }
+            fn(fillSuccess, type, barracksQueue);
 
-            var subtractedCostEl = document.getElementById(type + '-subtracted-cost');
+            var subtractedCostEl = mk.$id(type + '-subtracted-cost');
             if (subtractedCost === totalCost) {
                 subtractedCostEl.textContent = '';
             } else {
@@ -399,8 +403,8 @@
         }
     };
 
-    var darkWrapper = document.getElementById('dark-wrapper');
-    var spellsWrapper = document.getElementById('spells-wrapper');
+    var darkObjects = mk.$('.js-dark-object');
+    var spellsObjects = mk.$('.js-spells-object');
     var calculate = function(params) {
         if (params.type === 'all' || params.type !== 'spells') {
 
@@ -415,7 +419,9 @@
                 if (mk.calc.allBarracks.dark.getMaxLevel() === 0) {
                     method = 'add';
                 }
-                darkWrapper.classList[method]('setting-mode-empty');
+                darkObjects.iterate(function(el) {
+                    el.classList[method]('setting-mode-empty');
+                });
             }
 
             var armyCampsSpace = parseInt(mk.calc.armyCamps.value, 10);
@@ -425,7 +431,7 @@
                 calculateItems('units', {
                     'levelValue': mk.calc.allBarracks.units.getMaxLevel(),
                     'capLevel': mk.calc.allBarracks.units.getCapLevel(),
-                    'allCosts': params.allCosts
+                    'computeAll': params.computeAll
                 });
             }
 
@@ -434,7 +440,7 @@
                 calculateItems('dark', {
                     'levelValue': mk.calc.allBarracks.dark.getMaxLevel(),
                     'capLevel': mk.calc.allBarracks.dark.getCapLevel(),
-                    'allCosts': params.allCosts
+                    'computeAll': params.computeAll
                 });
             }
 
@@ -454,7 +460,7 @@
                 'levelValue': spellFactoryLevel,
                 'space': spellFactoryLevel,
                 'capLevel': mk.calc.spellFactoryData.max,
-                'allCosts': params.allCosts
+                'computeAll': params.computeAll
             });
 
             mk.calc.savedData.set('spellFactoryLevel', mk.calc.spellFactoryLevel.selectedIndex);
@@ -463,7 +469,9 @@
             if (spellFactoryLevel === 0) {
                 method = 'add';
             }
-            spellsWrapper.classList[method]('setting-mode-empty');
+            spellsObjects.iterate(function(el) {
+                el.classList[method]('setting-mode-empty');
+            });
         }
 
         mk.calc.savedDataAll.update(0, mk.calc.savedData);
@@ -474,4 +482,4 @@
 
     mk.Events.listen('calculate', calculate);
 
-}(window.mk));
+}());

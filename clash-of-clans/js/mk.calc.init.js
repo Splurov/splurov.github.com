@@ -1,4 +1,4 @@
-(function(mk, Hogan) {
+(function() {
 
     'use strict';
 
@@ -18,13 +18,13 @@
         var setItems = function(type) {
             mk.objectIterate(mk.calc.types[type], function(name) {
                 var levelId = name + '-level';
-                var levelEl = document.getElementById(levelId);
+                var levelEl = mk.$id(levelId);
                 levelEl.options[mk.calc.savedData.get(levelId, levelEl.selectedIndex)].selected = true;
 
-                document.getElementById(name).value = mk.calc.savedData.get(name) || 0;
+                mk.$id(name).value = mk.calc.savedData.get(name) || 0;
                 if (type !== 'spells') {
                     var subtractId = name + '-subtract';
-                    document.getElementById(subtractId).value = mk.calc.savedData.get(subtractId) || 0;
+                    mk.$id(subtractId).value = mk.calc.savedData.get(subtractId) || 0;
                 }
             });
         };
@@ -52,19 +52,19 @@
 
     mk.objectIterate(mk.calc.types, function(type, objects) {
         mk.objectIterate(objects, function(name) {
-            document.getElementById(name + '-level').addEventListener(
+            mk.$id(name + '-level').addEventListener(
                 'change',
                 triggerCalculate.bind(null, type),
                 false
             );
-            document.getElementById(name).addEventListener(
+            mk.$id(name).addEventListener(
                 'input',
                 triggerCalculate.bind(null, type),
                 false
             );
 
             if (type === 'units' || type === 'dark') {
-                document.getElementById(name + '-subtract').addEventListener(
+                mk.$id(name + '-subtract').addEventListener(
                     'input',
                     triggerCalculate.bind(null, type),
                     false
@@ -77,7 +77,7 @@
     
     mk.Events.trigger('calculate', {
         'type': 'all',
-        'allCosts': true
+        'computeAll': true
     });
 
-}(window.mk, window.Hogan));
+}());

@@ -1,4 +1,4 @@
-(function(mk){
+(function(){
 
     'use strict';
 
@@ -27,7 +27,6 @@
 
     var spinnerHold = function(e) {
         e.preventDefault();
-        e.stopPropagation();
         e.currentTarget.spinnerClicked = true;
         spinnerTimeout = setTimeout(function(eventElement) {
             eventElement.spinnerClicked = false;
@@ -42,7 +41,6 @@
 
     var spinnerRelease = function(e) {
         e.preventDefault();
-        e.stopPropagation();
         if (e.currentTarget.spinnerClicked) {
             spinnerAction(e.currentTarget.spinnerTarget, e.currentTarget.textContent);
         }
@@ -56,8 +54,8 @@
         container.textContent = (type === 'plus' ? '+' : '−');
         container.spinnerTarget = el;
 
-        mk.addEvents(container, ['touchstart', 'mousedown'], spinnerHold);
-        mk.addEvents(container, ['touchend', 'mouseup'], spinnerRelease);
+        mk.$Listen(container, ['touchstart', 'mousedown'], spinnerHold);
+        mk.$Listen(container, ['touchend', 'mouseup'], spinnerRelease);
 
         if (el.nextSibling) {
             el.parentNode.insertBefore(container, el.nextSibling);
@@ -77,7 +75,7 @@
         }
     };
 
-    mk.getAllByClass('js-number').forEach(function(el) {
+    mk.$('.js-number').iterate(function(el) {
         el.addEventListener('focus', mk.selectAll, false);
         setSpinner('minus', el);
         setSpinner('plus', el);
@@ -85,4 +83,4 @@
         el.addEventListener('keydown', spinnerKeyboard, false);
     });
 
-}(window.mk));
+}());

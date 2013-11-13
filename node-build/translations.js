@@ -3,7 +3,7 @@ var ya_metrika_noscript = '<noscript><div><img src="//mc.yandex.ru/watch/1964252
 var clash_of_clans = 'Clash of Clans';
 var coc_calc_title = 'Clash Calc — Troops and Spells Cost Calculator/Time Planner for ' + clash_of_clans;
 
-exports.translations = {
+module.exports = {
     'lang': ['ru', 'en'],
     'lang_switcher_href': ['/en/', '/'],
     'lang_switcher_title': ['In English', 'На русском'],

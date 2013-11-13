@@ -1,14 +1,11 @@
-(function(mk) {
+(function() {
 
     'use strict';
 
-    var elements = mk.getAllByClass('js-goal');
-    elements.forEach(function(el) {
-        mk.addEvents(el, ['click', 'touchend'], function(e) {
-            mk.Events.trigger('goal', {
-                'id': e.currentTarget.getAttribute('data-goal')
-            }, true);
-        });
+    mk.$('.js-goal').listen(['click'], function(e) {
+        mk.Events.trigger('goal', {
+            'id': e.currentTarget.getAttribute('data-goal')
+        }, true);
     });
 
     var cache = [];
@@ -27,4 +24,4 @@
         });
     };
 
-}(window.mk));
+}());

@@ -83,45 +83,24 @@
 </script>
 {{/web_only}}
 
-<div class="menu-wrapper js-menu-wrapper">
-    <ul class="menu js-menu">
+<div class="menu-wrapper" id="menu-wrapper">
+    <ul class="menu" id="menu">
         <li><button class="menu__item js-anchor" data-anchor-target="barracks-anchor">Barracks</button></li><!--
-        --><li><button class="menu__item js-anchor" data-anchor-target="dark-anchor">Dark Barracks</button></li><!--
-        --><li><button class="menu__item js-anchor" data-anchor-target="spell-anchor">Spell Factory</button></li><!--
-        --><li><button class="menu__item js-anchor js-share" data-anchor-target="share-anchor">Share</button></li><!--
+        --><li class="js-dark-object"><button class="menu__item js-anchor" data-anchor-target="dark-anchor">Dark Barracks</button></li><!--
+        --><li class="js-spells-object"><button class="menu__item js-anchor" data-anchor-target="spell-anchor">Spell Factory</button></li><!--
+        --><li class="js-share"><button class="menu__item js-anchor" data-anchor-target="share-anchor">Share</button></li><!--
         --><li><button class="menu__item js-save-composition" data-scroll="yes"><span class="icon icon_save">Save Composition</span></button></li><!--
         --><li><button class="menu__item js-anchor" data-anchor-target="saved-anchor">Saved Compositions</button></li><!--
         --><li>
-            <button class="menu__item" id="js-settings-toggle">
-                <span class="setting-mode">
-                    <input type="checkbox" id="js-settings-toggle-mode" class="setting-mode__toggle" />
+            <button class="menu__item" id="settings-toggle">
+                <label class="setting-mode">
+                    <input type="checkbox" id="settings-toggle-mode" class="setting-mode__toggle"/>
                     Setting Mode
-                </span>
+                </label>
             </button>
         </li>
     </ul>
 </div>
-
-{{#web_only}}
-<div class="block-intro add-to-home-screen js-add-to-home-screen">
-    <button class="add-to-home-screen__button js-add-to-home-screen-button js-goal" data-goal="ADD_TO_HOME">
-        How to add Clash Calc icon to your Home screen
-    </button>
-    <ol class="add-to-home-screen__list">
-        <li value="0">
-            Open Safari, type <kbd>http://mkln.ru/clash-of-clans/</kbd> in the address bar and wait until the page is loaded.
-        </li>
-        <li>
-            Tap the Share button
-            (&thinsp;<span class="add-to-home-screen__share-icon"></span>&thinsp;).
-        </li>
-        <li>Tap the icon labeled “Add to Home Screen”.</li>
-        <li>Tap the Add button in the upper right corner.</li>
-        <li>Launch Clash Calc from your Home screen by tapping its icon.</li>
-    </ol>
-</div>
-<script src="js/add-to-home-screen.js"></script>
-{{/web_only}}
 
 <div class="setting-mode-part">
     <p class="block-intro">
@@ -160,7 +139,7 @@
                     <th>Unit</th>
                     <th>Level</th>
                     <th class="data__quantity-column">
-                        Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="units-quantity"></span>
+                        Quantity <span class="small tooltip" title="Army Camps Free Capacity" id="units-quantity"></span>
                         <br/><button class="button button_reset js-reset" data-reset-type="units" data-scope="quantity">Reset</button>
                     </th>
                     <th><span class="cost cost_elixir">Total</span></th>
@@ -171,7 +150,7 @@
                     <th class="data__distribution-column">
                         <select id="barracks-levels-1" tabindex="1" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
-                        <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
+                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="units-barrack-space-1"></span>
                             <span id="units-barrack-header-1"></span>
                         </span>
@@ -179,7 +158,7 @@
                     <th class="data__distribution-column">
                         <select id="barracks-levels-2" tabindex="5" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br />
-                        <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
+                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="units-barrack-space-2"></span>
                             <span id="units-barrack-header-2"></span>
                         </span>
@@ -187,7 +166,7 @@
                     <th class="data__distribution-column">
                         <select id="barracks-levels-3" tabindex="10" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
-                        <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
+                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="units-barrack-space-3"></span>
                             <span id="units-barrack-header-3"></span>
                         </span>
@@ -195,7 +174,7 @@
                     <th class="data__distribution-column">
                         <select id="barracks-levels-4" tabindex="15" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
-                        <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
+                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="units-barrack-space-4"></span>
                             <span id="units-barrack-header-4"></span>
                         </span>
@@ -209,7 +188,7 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="2" class="data-secondary number">
+                    <td colspan="2" class="small number">
                         <label for="army-camps">Army Camps:</label></td>
                     <td class="result">
                         <span id="units-space" class="text-middle"></span><!--
@@ -217,7 +196,7 @@
                         </select>
                     </td>
                     <td id="units-cost" class="number result"></td>
-                    <td id="units-subtracted-cost" class="data-secondary"></td>
+                    <td id="units-subtracted-cost" class="small"></td>
                     <td id="units-time-barrack-1" class="number"></td>
                     <td id="units-time-barrack-2" class="number"></td>
                     <td id="units-time-barrack-3" class="number"></td>
@@ -227,7 +206,7 @@
         </table>
     </div><!--
 
-    --><div id="dark-wrapper" class="floated__item">
+    --><div class="floated__item js-dark-object">
         <h2 id="dark-anchor">
             Dark Barracks
             <span class="message message_negative message_after"
@@ -240,7 +219,7 @@
                     <th>Unit</th>
                     <th>Level</th>
                     <th class="data__quantity-column">
-                        Quantity <span class="data-secondary tooltip" title="Army Camps Free Capacity" id="dark-quantity"></span>
+                        Quantity <span class="small tooltip" title="Army Camps Free Capacity" id="dark-quantity"></span>
                         <br/><button class="button button_reset js-reset" data-reset-type="dark" data-scope="quantity">Reset</button>
                     </th>
                     <th><span class="cost cost_dark-elixir">Total</span></th>
@@ -251,7 +230,7 @@
                     <th class="data__distribution-column">
                         <select id="dark-barracks-levels-1" tabindex="20" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
-                        <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
+                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="dark-barrack-space-1"></span>
                             <span id="dark-barrack-header-1"></span>
                         </span>
@@ -259,7 +238,7 @@
                     <th class="data__distribution-column">
                         <select id="dark-barracks-levels-2" tabindex="25" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
-                        <span class="unimportant data-secondary tooltip" title="Queue Length / Maximum Queue Length">
+                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="dark-barrack-space-2"></span>
                             <span id="dark-barrack-header-2"></span>
                         </span>
@@ -277,7 +256,7 @@
                     <td></td>
                     <td id="dark-space" class="result"></td>
                     <td id="dark-cost" class="number result"></td>
-                    <td id="dark-subtracted-cost" class="data-secondary"></td>
+                    <td id="dark-subtracted-cost" class="small"></td>
                     <td id="dark-time-barrack-1" class="number"></td>
                     <td id="dark-time-barrack-2" class="number"></td>
                 </tr>
@@ -285,7 +264,7 @@
         </table>
     </div><!--
 
-    --><div id="spells-wrapper" class="floated__item">
+    --><div class="floated__item js-spells-object">
         <h2 id="spell-anchor">Spell Factory</h2>
         <table id="spells" class="data">
             <thead>
@@ -293,7 +272,7 @@
                     <th>Spell</th>
                     <th>Level</th>
                     <th class="data__quantity-column">
-                        Quantity <span class="data-secondary tooltip" title="Spell Factory Free Capacity" id="spells-quantity"></span>
+                        Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id="spells-quantity"></span>
                         <br/><button class="button button_reset js-reset" data-reset-type="spells" data-scope="quantity">Reset</button>
                     </th>
                     <th><span class="cost cost_elixir">Total</span></th>
@@ -388,19 +367,48 @@
     {{/firstChangelog}}
 </div>
 
+<h2 class="block-indented">Additionally</h2>
+<div class="fixed-content">
+    <p>
+        Please note this tool is only available at http://mkln.ru/clash-of-clans/.
+        If you’ve seen it on other sites or in the iTunes App Store or anywhere else —
+        is the result of the actions of fraudsters and thieves that have nothing to do with me
+        and use my work without my permission, violating copyright.
+    </p>
+
+    <p>
+        If you find a bug please send an e-mail to <a href="mailto:clash-of-clans@mkln.ru">clash-of-clans@mkln.ru</a>.
+    </p>
+
+    <p>
+        Do you have a Dropbox account?
+        If not, please help me to get some free space by <a href="https://db.tt/4D6VZnI" class="js-goal" data-goal="DROPBOX_LINK">signing up</a> (it’s free).
+    </p>
+
+    {{#web_only}}
+    <div class="add-to-home-screen" id="add-to-home-screen">
+        <button class="add-to-home-screen__button js-goal" id="add-to-home-screen-button" data-goal="ADD_TO_HOME">
+            How to add Clash Calc icon to your Home screen
+        </button>
+        <ol class="add-to-home-screen__list">
+            <li value="0">
+                Open Safari, type <kbd>http://mkln.ru/clash-of-clans/</kbd> in the address bar, tap Go and wait until the page is loaded.
+            </li>
+            <li>
+                Tap the Share button
+                (&thinsp;<span class="add-to-home-screen__share-icon"></span>&thinsp;).
+            </li>
+            <li>Tap the icon labeled “Add to Home Screen”.</li>
+            <li>Tap the Add button in the upper right corner.</li>
+            <li>Launch Clash Calc from your Home screen by tapping its icon.</li>
+        </ol>
+    </div>
+    <script src="js/add-to-home-screen.js"></script>
+    {{/web_only}}
+</div>
+
 <div class="footer">
     <div class="fixed-content">
-        <p>
-            If you find a bug please send an e-mail to <a href="mailto:clash-of-clans@mkln.ru">clash-of-clans@mkln.ru</a>.
-        </p>
-
-        <p>
-            Please note this tool is only available at http://mkln.ru/clash-of-clans/.
-            If you’ve seen it on other sites or in the iTunes App Store or anywhere else —
-            is the result of the actions of fraudsters and thieves that have nothing to do with me
-            and use my work without my permission, violating copyright.
-        </p>
-
         <p>
             Save Icon designed by <a href="http://www.endlessicons.com/" target="_blank">Min Kim</a>.
         </p>

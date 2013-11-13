@@ -1,14 +1,12 @@
-(function(mk, Hogan){
+(function(){
 
     'use strict';
 
-    var barracksAnchor = document.getElementById('barracks-anchor');
+    var barracksAnchor = mk.$id('barracks-anchor');
     var loadSaved = function(e) {
         mk.Events.trigger('goal', {
             'id': 'LOAD_SAVED'
         }, true);
-        e.preventDefault();
-        e.stopPropagation();
 
         var dataToLoad = mk.objectCopy(
             mk.calc.savedDataAll.retrieve(e.currentTarget.getAttribute('data-num')).getAll()
@@ -19,7 +17,7 @@
         mk.Events.trigger('setDefaults');
         mk.Events.trigger('calculate', {
             'type': 'all',
-            'allCosts': true
+            'computeAll': true
         });
 
         mk.Events.trigger('loaded');
@@ -51,14 +49,14 @@
                 var maxUnitTime = 0;
                 var distribution = [];
 
-                var level;
-                var i;
-                for (i = 1; i <= barracksData.count; i++) {
+                var level = 0;
+                var i = 0;
+                while (++i <= barracksData.count) {
                     var barrackLevel = data.get(barracksData.prefix + '-levels-' + i, barracksData.maxLevel);
                     if (i === 1 && barracksData.firstRequired) {
                         barrackLevel++;
                     }
-                    if (!level || barrackLevel > level) {
+                    if (barrackLevel > level) {
                         level = barrackLevel;
                     }
 
@@ -158,37 +156,33 @@
             content.push(savedListItemTemplate.render(templateVars));
         });
 
-        var savedListContent = document.getElementById('saved-list-content');
+        var savedListContent = mk.$id('saved-list-content');
         savedListContent.innerHTML = content.join('');
 
-        mk.getAllByClass('js-saved-load', savedListContent).forEach(function(el) {
-            mk.addEvents(el, ['click', 'touchend'], loadSaved);
-        });
+        mk.$('.js-saved-load', savedListContent).listen(['click'], loadSaved);
 
         var deleteSaved = function(e) {
             mk.Events.trigger('goal', {
                 'id': 'DELETE_SAVED'
             }, true);
-            e.preventDefault();
-            e.stopPropagation();
             mk.calc.savedDataAll.remove(e.currentTarget.getAttribute('data-num'));
             mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
             savedListCreateItems();
         };
 
-        mk.getAllByClass('js-saved-delete', savedListContent).forEach(function(el) {
-            mk.addEvents(el, ['click', 'touchend'], deleteSaved);
-        });
+        mk.$('.js-saved-delete', savedListContent).listen(['click'], deleteSaved);
     };
 
     var alreadySavedMessage = mk.infoMessage('already-saved', true);
-    var savedCalculationAnchor = document.getElementById('saved-anchor');
+    var savedCalculationAnchor = mk.$id('saved-anchor');
 
     var save = function(customParams) {
-        var defaultParams = {
+        var params = {
             'showMessage': true
         };
-        var params = mk.objectExtend(defaultParams, customParams);
+        mk.objectIterate(customParams, function(key, value) {
+            params[key] = value;
+        });
         alreadySavedMessage.hide();
 
         if (params.showMessage) {
@@ -208,9 +202,9 @@
                 }
             });
             var currentJSON = JSON.stringify(sourceData[0]);
-            var sdIndex;
-            var sdLength;
-            for (sdIndex = 1, sdLength = sourceData.length; sdIndex < sdLength; sdIndex++) {
+            var sdIndex = 0;
+            var sdLength = sourceData.length;
+            while (++sdIndex < sdLength) {
                 var savedJSON = JSON.stringify(sourceData[sdIndex]);
                 if (currentJSON === savedJSON) {
                     if (params.showMessage) {
@@ -221,6 +215,14 @@
             }
 
             var dataToSave = mk.objectCopy(mk.calc.savedData.getAll());
+            mk.objectIterate(dataToSave, function(key) {
+                if (key.indexOf('subtract') !== -1) {
+                    dataToSave[key] = 0;
+                }
+                if (key === 'settingsMode') {
+                    dataToSave[key] = 1;
+                }
+            });
             mk.calc.savedDataAll.insert(dataToSave);
             mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
             savedListCreateItems();
@@ -230,9 +232,6 @@
     mk.Events.listen('save', save);
 
     var saveHandler = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
         if (e.currentTarget.getAttribute('data-scroll') === 'yes') {
             mk.Events.trigger('scrollTo', savedCalculationAnchor);
         }
@@ -240,9 +239,7 @@
         save();
     };
 
-    mk.getAllByClass('js-save-composition').forEach(function(saveEl) {
-        mk.addEvents(saveEl, ['click', 'touchend'], saveHandler);
-    });
+    mk.$('.js-save-composition').listen(['click'], saveHandler);
 
     savedListCreateItems();
 
@@ -254,4 +251,4 @@
         }
     }, true);
 
-}(window.mk, window.Hogan));
+}());

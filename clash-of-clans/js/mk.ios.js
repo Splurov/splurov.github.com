@@ -1,18 +1,21 @@
-(function(mk) {
+(function() {
 
     'use strict';
 
     if (window.device && window.device.cordova) {
-        mk.toArray(document.getElementsByTagName('a')).forEach(function(el) {
-            var href = el.getAttribute('href');
-            el.removeAttribute('target');
-            el.setAttribute('href', 'javascript:void(0)');
-            el.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                app.open_browser(href);
-            });
-        });
+        var clickHandler = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            app.open_browser(e.currentTarget.getAttribute('href'));
+        };
+
+        var links = document.getElementsByTagName('a');
+        var i = -1;
+        var l = links.length;
+        while (++i < l) {
+            links[i].removeAttribute('target');
+            links[i].addEventListener('touchend', clickHandler);
+        }
     }
 
-}(window.mk));
+}());

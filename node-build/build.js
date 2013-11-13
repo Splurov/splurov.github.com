@@ -2,7 +2,7 @@
 
 var path = require('path');
 var fs = require('fs');
-var translations = require('./translations').translations;
+var translations = require('./translations');
 var hogan = require('hogan.js');
 var csso = require('csso');
 var uglifyjs = require('uglify-js');
@@ -34,8 +34,7 @@ var makeDataUri = function(path) {
 
 var setItemRowsTemplates = function(vars) {
 
-    var mk = require('../clash-of-clans/js/mk.common.js').mk;
-    mk.calc = require('../clash-of-clans/js/mk.calc.common.js').calc;
+    var mk = require('../clash-of-clans/js/mk.calc.common.js');
 
     var createRows = function(type, tabIndexMultiplier) {
         var createLevelOption = function(value, index) {

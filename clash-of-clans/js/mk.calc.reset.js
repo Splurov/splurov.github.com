@@ -1,32 +1,24 @@
-(function(mk){
+(function(){
 
     'use strict';
 
     var resetColumn = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
         var resetType = e.currentTarget.getAttribute('data-reset-type');
         var scope = e.currentTarget.getAttribute('data-scope');
 
-        mk.Events.trigger('goal', {
-            'id': 'RESET'
-        }, true);
-
-        var inputs = document.querySelectorAll(
-            'input[data-field-type="' + scope + '"][data-object-type="' + resetType + '"]'
-        );
-        mk.toArray(inputs).forEach(function(el) {
+        mk.$('input[data-field-type="' + scope + '"][data-object-type="' + resetType + '"]').iterate(function(el) {
             el.value = '0';
         });
 
         mk.Events.trigger('calculate', {
             'type': resetType
         });
+
+        mk.Events.trigger('goal', {
+            'id': 'RESET'
+        }, true);
     };
 
-    mk.getAllByClass('js-reset').forEach(function(el) {
-        mk.addEvents(el, ['click', 'touchend'], resetColumn);
-    });
+    mk.$('.js-reset').listen(['click'], resetColumn);
 
-}(window.mk));
+}());

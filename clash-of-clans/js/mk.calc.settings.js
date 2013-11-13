@@ -1,4 +1,4 @@
-(function(mk) {
+(function() {
 
     'use strict';
     
@@ -6,7 +6,7 @@
         el.nextSibling.textContent = el.options[el.selectedIndex].textContent;
     };
 
-    mk.getAllByClass('js-setting').forEach(function(el) {
+    mk.$('.js-setting').iterate(function(el) {
         var placeholderEl = document.createElement('span');
         placeholderEl.classList.add('text-middle', 'setting-mode-not-part');
         placeholderEl.textContent = el.options[el.selectedIndex].textContent;
@@ -24,7 +24,7 @@
         }, false);
     });
 
-    var toggleModeEl = document.getElementById('js-settings-toggle-mode');
+    var toggleModeEl = mk.$id('settings-toggle-mode');
     var toggleSettings = function(value) {
         if (value === 0) {
             toggleModeEl.checked = false;
@@ -41,10 +41,7 @@
         mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
     };
 
-    mk.addEvents(document.getElementById('js-settings-toggle'), ['click', 'touchend'], function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
+    mk.$('#settings-toggle').listen(['click'], function() {
         toggleSettings(toggleModeEl.checked ? 0 : 1);
         mk.Events.trigger('goal', {'id': 'SETTINGS_SWITCH'}, true);
     });
@@ -92,7 +89,7 @@
 
         mk.objectIterate(mk.calc.types, function(type, items) {
             mk.objectIterate(items, function(name, data) {
-                var levelEl = document.getElementById(name + '-level');
+                var levelEl = mk.$id(name + '-level');
                 levelEl.value = data[1][getSettingValue(th, data[4]) - 1];
                 updateSettingPlaceholder(levelEl);
             });
@@ -100,14 +97,12 @@
 
         mk.Events.trigger('calculate', {
             'type': 'all',
-            'allCosts': true
+            'computeAll': true
         });
     };
 
-    mk.getAllByClass('js-settings-level').forEach(function(el) {
-        mk.addEvents(el, ['click', 'touchend'], function(e) {
-            setLevels(parseInt(e.currentTarget.textContent, 10));
-        });
+    mk.$('.js-settings-level').iterate(function(el) {
+        mk.$Listen(el, ['click'], setLevels.bind(null, parseInt(el.textContent, 10)));
     });
 
-}(window.mk));
+}());

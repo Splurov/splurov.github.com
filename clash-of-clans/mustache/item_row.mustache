@@ -5,7 +5,7 @@
                 <span class="object__text">{{title}}</span>
             </span>
         </td>
-        <td class="data-secondary">
+        <td class="small">
             <select id="{{levelId}}" tabindex="{{tabIndexLevel}}" class="js-setting">
                 {{#levelContent}}
                     <option value="{{value}}">{{text}}</option>
@@ -15,7 +15,7 @@
         <td>
             <input type="text" pattern="[0-9]*" data-object-type="{{objectType}}" min="0" max="999" class="js-number" id="{{id}}" size="3" tabindex="{{tabIndexValue}}" data-field-type="quantity"/>
         </td>
-        <td id="{{summaryId}}" class="number data-secondary">
+        <td id="{{summaryId}}" class="number small">
         </td>
         {{#subtractId}}
             <td>

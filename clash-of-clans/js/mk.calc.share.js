@@ -1,4 +1,4 @@
-(function(mk) {
+(function() {
 
     'use strict';
 
@@ -51,10 +51,10 @@
     };
     checkShare();
 
-    var shareTwitter = document.getElementById('share-twitter');
-    var shareFacebook = document.getElementById('share-facebook');
-    var permalink = document.getElementById('share-permalink');
-    permalink.addEventListener('click', mk.selectAll, false);
+    var shareTwitter = mk.$id('share-twitter');
+    var shareFacebook = mk.$id('share-facebook');
+    var permalink = mk.$id('share-permalink');
+    permalink.addEventListener('focus', mk.selectAll, false);
     var makePermalink = function() {
         var url = 'http://mkln.ru/clash-of-clans/?l=';
         var data = mk.objectCopy(mk.calc.savedData.getAll());
@@ -67,7 +67,7 @@
 
         // 97 - a, 122 - z
         var charCode = 97;
-        data = data.replace(/,/g, function(match, p1) {
+        data = data.replace(/,/g, function() {
             var letter = String.fromCharCode(charCode);
             if (charCode === 122) {
                 charCode = 97;
@@ -89,8 +89,8 @@
         );
     };
 
-    var text = document.getElementById('share-text');
-    text.addEventListener('click', mk.selectAll, false);
+    var text = mk.$id('share-text');
+    text.addEventListener('focus', mk.selectAll, false)
 
     var superscriptNumbers = {
         '1': '¹',
@@ -131,7 +131,7 @@
                     );
                 }
             });
-            var price = document.getElementById(type + '-cost').textContent;
+            var price = mk.$id(type + '-cost').textContent;
             if (price !== '0') {
                 prices.push(price + ' ' + currencies[type]);
             }
@@ -143,7 +143,7 @@
         return false;
     };
 
-    var shareObjects = mk.getAllByClass('js-share');
+    var $shareObjects = mk.$('.js-share');
     var placeShareContent = function() {
         var display = '';
         if (makeShareText()) {
@@ -151,11 +151,11 @@
         } else {
             display = 'none';
         }
-        shareObjects.forEach(function(el) {
+        $shareObjects.iterate(function(el) {
             el.style.display = display;
         });
     };
 
     mk.Events.listen('calculated', placeShareContent);
 
-}(window.mk));
+}());

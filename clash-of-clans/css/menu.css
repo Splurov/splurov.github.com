@@ -48,6 +48,6 @@
         .menu li:last-child .menu__item {
             border-right: 0;
         }
-        .menu .menu__item:hover {
+        .not-ios .menu .menu__item:hover, .menu .menu__item:active {
             background: #efefef;
         }

@@ -1,40 +1,22 @@
-(function() {
+(function(global) {
 
     'use strict';
 
     var mk = {};
-
-    if (typeof exports !== 'undefined') {
-        exports.mk = mk;
-    }
-
-    if (typeof window !== 'undefined') {
-        window.mk = mk;
-    }
-
-    mk.toArray = function(likeArrayObject) {
-        var resultArray = [];
-        var i;
-        var l;
-        for (i = 0, l = likeArrayObject.length; i < l; i++) {
-            resultArray.push(likeArrayObject[i]);
-        }
-        return resultArray;
-    };
+    global.mk = mk;
 
     if (!Function.prototype.bind) {
         Function.prototype.bind = function(context) {
             var self = this;
-            var args = mk.toArray(arguments).slice(1);
+            var args = Array.prototype.slice.call(arguments, 1);
             return function() {
-                return self.apply(context, args.concat(mk.toArray(arguments)));
+                return self.apply(context, args.concat(Array.prototype.slice.call(arguments)));
             };
         };
     }
 
     mk.objectIterate = function(obj, callback) {
-        var key;
-        for (key in obj) {
+        for (var key in obj) {
             if (obj.hasOwnProperty(key)) {
                 if (callback(key, obj[key]) === false) {
                     break;
@@ -49,23 +31,6 @@
             newObj[key] = value;
         });
         return newObj;
-    };
-
-    mk.objectExtend = function(target, object) {
-        if (!object) {
-            return target;
-        }
-
-        var finalObject = target;
-        mk.objectIterate(object, function(key, value) {
-            if (Object.prototype.toString.call(value) === '[object Object]') {
-                finalObject[key] = mk.objectCopy(value);
-            } else {
-                finalObject[key] = value;
-            }
-        });
-
-        return finalObject;
     };
 
     mk.numberFormat = function(n) {
@@ -160,16 +125,6 @@
         entries.forEach(this.insert.bind(this));
     };
 
-    mk.addEvents = function(el, eventNames, handler) {
-        eventNames.forEach(function(eventName) {
-            el.addEventListener(eventName, handler, false);
-        });
-    };
-
-    mk.getAllByClass = function(cssClass, customContext) {
-        return mk.toArray((customContext || document).getElementsByClassName(cssClass));
-    };
-
     mk.selectAll = function(e) {
         if (['input', 'textarea'].indexOf(e.currentTarget.tagName.toLowerCase()) !== -1) {
             setTimeout(function(el) {
@@ -178,21 +133,85 @@
         }
     };
 
+    var $RegisterMobileClick = function(target) {
+        if (window.Touch && !target.__clickRegistered) {
+            var moved;
+
+            target.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                moved = false;
+            }, false);
+
+            target.addEventListener('touchmove', function() {
+                moved = true;
+            }, false);
+
+            target.addEventListener('touchend', function(e) {
+                if (!moved) {
+                    var ev = document.createEvent('MouseEvents');
+                    ev.initEvent('click', true, true);
+                    e.currentTarget.dispatchEvent(ev);
+                }
+            }, false);
+
+            target.__clickRegistered = true;
+        }
+    };
+
+    mk.$Listen = function(target, types, listener) {
+        var i = -1;
+        var l = types.length;
+        while (++i < l) {
+            var type = types[i];
+            if (type === 'click') {
+                $RegisterMobileClick(target, listener);
+            }
+            target.addEventListener(type, listener, false);
+        }
+    };
+
+    var $List = function(elements) {
+        if (elements) {
+            this.elements = elements;
+        } else {
+            this.elements = [];
+        }
+
+        this.listen = function(types, listener) {
+            this.iterate(function(el) {
+                mk.$Listen(el, types, listener);
+            });
+        };
+
+        this.iterate = function(callback) {
+            var i = -1;
+            var l = this.elements.length;
+            while (++i < l) {
+                callback(this.elements[i]);
+            }
+        };
+    };
+
+
+    mk.$ = function(selector, context) {
+        return new $List((context || document).querySelectorAll(selector));
+    };
+
+    mk.$id = function(id) {
+        return document.getElementById(id);
+    };
+
     mk.infoMessage = function(id, isAutoHide) {
-        var el = document.getElementById(id);
+        var el = mk.$id(id);
 
         var timeout;
 
-        var hide = function(e) {
-            if (e) {
-                e.preventDefault();
-                e.stopPropagation();
-            }
+        var hide = function() {
             clearTimeout(timeout);
             el.style.display = 'none';
         };
 
-        mk.addEvents(el, ['click', 'touchend'], hide);
+        mk.$Listen(el, ['click'], hide);
 
         return {
             'show': function() {
@@ -205,15 +224,6 @@
             },
             'hide': hide
         };
-    };
-
-    mk.getTopPosition = function(el) {
-        var position = 0;
-        do {
-            position += el.offsetTop;
-        } while (el = el.offsetParent);
-
-        return position;
     };
 
     mk.Events = {
@@ -249,4 +259,4 @@
 
     };
 
-}());
+}(typeof exports !== 'undefined' ? exports : window));

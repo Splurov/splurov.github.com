@@ -1,4 +1,4 @@
-(function(mk){
+(function(){
 
     'use strict';
 
@@ -107,4 +107,4 @@
         localStorage.removeItem('data2');
     }
 
-}(window.mk));
+}());
