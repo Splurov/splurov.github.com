@@ -7,7 +7,7 @@
         var scope = e.currentTarget.getAttribute('data-scope');
 
         mk.$('input[data-field-type="' + scope + '"][data-object-type="' + resetType + '"]').iterate(function(el) {
-            el.value = '0';
+            el.value = '';
         });
 
         mk.Events.trigger('calculate', {

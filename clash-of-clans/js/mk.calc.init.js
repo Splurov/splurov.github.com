@@ -21,10 +21,7 @@
                 var levelEl = mk.$id(levelId);
                 levelEl.options[mk.calc.savedData.get(levelId, levelEl.selectedIndex)].selected = true;
 
-                mk.$id(name).value = mk.calc.savedData.get(name) || 0;
-                if (type !== 'spells') {
-                    mk.$id(name + '-subtract').value = 0;
-                }
+                mk.$id(name).value = mk.calc.savedData.get(name) || '';
             });
         };
 

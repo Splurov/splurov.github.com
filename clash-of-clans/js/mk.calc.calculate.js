@@ -301,9 +301,7 @@
             if (quantity < 0) {
                 quantity = 0;
             }
-            if (item.value !== '') {
-                item.value = quantity;
-            }
+            item.value = quantity || '';
 
             var levelId = name + '-level';
             var levelEl = mk.$id(levelId);
@@ -335,9 +333,7 @@
                 if (subtractQuantity < 0) {
                     subtractQuantity = 0;
                 }
-                if (subtract.value !== '') {
-                    subtract.value = subtractQuantity;
-                }
+                subtract.value = subtractQuantity || '';
 
                 if (subtract.value > 0) {
                     mk.Events.trigger('goal', {

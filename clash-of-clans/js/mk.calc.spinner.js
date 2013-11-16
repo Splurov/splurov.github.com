@@ -12,7 +12,7 @@
             }
         } else {
             if (isNaN(current) || current < 2) {
-                targetElement.value = 0;
+                targetElement.value = '';
             } else {
                 targetElement.value = current - 1;
             }
