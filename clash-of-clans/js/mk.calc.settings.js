@@ -11,7 +11,6 @@
     $settings.iterate(function(el) {
         var placeholderEl = document.createElement('span');
         placeholderEl.classList.add('text-middle', 'setting-mode-not-part');
-        placeholderEl.textContent = el.options[el.selectedIndex].textContent;
 
         if (el.nextSibling) {
             el.parentNode.insertBefore(placeholderEl, el.nextSibling);
@@ -20,6 +19,8 @@
         }
 
         el.classList.add('setting-mode-part');
+
+        updateSettingPlaceholder(el);
 
         el.addEventListener('change', function(e) {
             updateSettingPlaceholder(e.currentTarget);
