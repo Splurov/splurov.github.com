@@ -238,7 +238,6 @@
             while (++i <= this.data.count) {
                 var barrack = mk.$id(this.data.prefix + '-levels-' + i);
                 var j = -1;
-                var count = this.data.mx;
                 while (++j <= this.data.maxLevel) {
                     if (i === 1 && j === 0 && data.firstRequired) {
                         continue;
