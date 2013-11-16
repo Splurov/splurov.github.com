@@ -37,7 +37,6 @@ module.exports = {
     'imdb_watchlist': ['IMDb «на посмотреть»', 'IMDb Watchlist'],
     'last_fm': ['Ласт.фм', 'Last.fm'],
     'tv_shows': ['Сериалы, которые я смотрю', 'TV Series'],
-    'last_change_title': ['Последнее обновление', 'Last updated'],
     'given_name': ['Михаил', 'Mikhail'],
     'additional_name': ['Сергеевич', 'Sergeevich'],
     'family_name': ['Калашник', 'Kalashnik'],
