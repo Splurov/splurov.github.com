@@ -26,7 +26,7 @@
 
     var toggleModeEl = mk.$id('settings-toggle-mode');
     var toggleSettings = function(value) {
-        if (value === 0) {
+        if (value === 2) {
             toggleModeEl.checked = false;
             document.documentElement.classList.add('setting-mode-disabled');
             document.documentElement.classList.remove('setting-mode-enabled');
@@ -42,10 +42,11 @@
     };
 
     mk.$('#settings-toggle').listen(['click'], function() {
-        toggleSettings(toggleModeEl.checked ? 0 : 1);
+        toggleSettings(toggleModeEl.checked ? 2 : 1);
         mk.Events.trigger('goal', {'id': 'SETTINGS_SWITCH'}, true);
     });
 
+    // 1 is on, 2 is off
     var settingsModeValue = mk.calc.savedData.get('settingsMode', 1);
 
     toggleSettings(settingsModeValue);
@@ -53,7 +54,7 @@
     mk.Events.trigger('goal', {
         'id': 'SETTINGS_INIT',
         'params': {
-            'mode': (settingsModeValue === 0 ? 'off' : 'on')
+            'mode': (settingsModeValue === 2 ? 'off' : 'on')
         }
     }, true);
 
