@@ -11,7 +11,7 @@ require('buffer');
 
 // params: [language array key, changelog entry, is main clash of clans template, target path]
 var sources = {
-    'index-source.html': {
+    'mustache/index.mustache': {
         'ru': [0, false, false, 'index.html'],
         'en': [1, false, false, 'en/index.html'],
         'resource_dir': './'
@@ -25,7 +25,7 @@ var sources = {
         'en': [1, 'all', false, 'clash-of-clans/version-history.html'],
         'resource_dir': './clash-of-clans/'
     },
-    '404-source.html': {
+    'mustache/404.mustache': {
         'en': [1, false, false, '404.html'],
         'resource_dir': './'
     }
