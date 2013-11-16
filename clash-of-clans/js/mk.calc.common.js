@@ -127,16 +127,6 @@
         'Healer-level',
         'Dragon-level',
         'P-E-K-K-A--level',
-        'Barbarian-subtract',
-        'Archer-subtract',
-        'Goblin-subtract',
-        'Giant-subtract',
-        'Wall_Breaker-subtract',
-        'Balloon-subtract',
-        'Wizard-subtract',
-        'Healer-subtract',
-        'Dragon-subtract',
-        'P-E-K-K-A--subtract',
         'Lightning',
         'Healing',
         'Rage',
@@ -153,16 +143,10 @@
         'Hog Rider-level',
         'Valkyrie-level',
         'Golem-level',
-        'Minion-subtract',
-        'Hog Rider-subtract',
-        'Valkyrie-subtract',
-        'Golem-subtract',
         'Freeze',
         'Freeze-level',
         'Witch',
-        'Witch-level',
-        'Witch-subtract',
-        'settingsMode'
+        'Witch-level'
     ];
 
     mk.calc.dataObjectToArray = function(dataObject) {
@@ -314,7 +298,7 @@
     };
 
     if (typeof window !== 'undefined') {
-        mk.calc.savedDataStorage = new DataStorage('data3');
+        mk.calc.savedDataStorage = new DataStorage('data4');
         mk.calc.savedDataAll = new mk.MultiDict(mk.calc.savedDataStorage.load());
         mk.calc.savedData = mk.calc.savedDataAll.retrieve(0);
 

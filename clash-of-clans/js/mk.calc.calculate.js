@@ -362,8 +362,6 @@
                 }
 
                 subtractedCost += (costPerItem * totalQuantity);
-
-                mk.calc.savedData.set(subtractId, subtractQuantity);
             }
 
             mk.calc.savedData.set(name, quantity);

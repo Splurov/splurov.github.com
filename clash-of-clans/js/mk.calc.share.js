@@ -2,62 +2,64 @@
 
     'use strict';
 
-    var checkShare = function() {
-        if (location.search.indexOf('?l=') !== -1) {
-            var viewSharedMessage = mk.infoMessage('view-shared');
+    var urlParam;
+    var oldUrlParam;
 
-            var urlData = location.search.substr(3);
-            urlData = decodeURIComponent(urlData);
-            mk.Events.trigger('goal', {
-                'id': 'SHARE',
-                'params': {
-                    'l': urlData
-                }
-            }, true);
-            urlData = urlData.replace(/[a-z]/g, ',');
-            urlData = urlData.replace(/,(?=,)/g, ',0');
-            if (urlData[0] === ',') {
-                urlData = '0' + urlData;
-            }
-            urlData = '[' + urlData + ']';
-            try {
-                urlData = JSON.parse(urlData);
-            } catch (e) {
-                urlData = false;
-            }
+    if (location.search.indexOf('?l=') !== -1) {
+        urlParam = true;
+        oldUrlParam = true;
+    } else if (location.search.indexOf('?s=') !== -1) {
+        urlParam = true;
+    }
 
-            if (urlData) {
-                urlData = mk.calc.dataArrayToObject(urlData);
-                urlData.settingsMode = mk.calc.savedData.get('settingsMode');
-
-                mk.Events.trigger('save', {'showMessage': false});
-                mk.calc.savedData = new mk.Dict(urlData);
-
-                viewSharedMessage.show();
-
-                mk.Events.listen('loaded', function() {
-                    viewSharedMessage.hide();
-                });
-            }
-
-            if (history.replaceState) {
-                history.replaceState(
-                    {},
-                    '',
-                    location.protocol + '//' + location.host + location.pathname
-                );
-            }
-
+    if (urlParam) {
+        var urlData = location.search.substr(3);
+        urlData = decodeURIComponent(urlData);
+        var goalParams = {};
+        goalParams[oldUrlParam ? 'l' : 's'] = urlData;
+        mk.Events.trigger('goal', {
+            'id': 'SHARE',
+            'params': goalParams
+        }, true);
+        urlData = urlData.replace(/[a-z]/g, ',');
+        urlData = urlData.replace(/,(?=,)/g, ',0');
+        if (urlData[0] === ',') {
+            urlData = '0' + urlData;
         }
-    };
-    checkShare();
+        urlData = '[' + urlData + ']';
+        try {
+            urlData = JSON.parse(urlData);
+        } catch (e) {
+            urlData = false;
+        }
+
+        history.replaceState({}, '', location.protocol + '//' + location.host + location.pathname);
+
+        if (urlData) {
+            if (oldUrlParam) {
+                mk.oldConvert3to4(urlData);
+            }
+
+            urlData = mk.calc.dataArrayToObject(urlData);
+
+            mk.Events.trigger('save', {'showMessage': false});
+            mk.calc.savedData = new mk.Dict(urlData);
+
+            var viewSharedMessage = mk.infoMessage('view-shared');
+            viewSharedMessage.show();
+
+            mk.Events.listen('loaded', function() {
+                viewSharedMessage.hide();
+            });
+        }
+    }
 
     var shareTwitter = mk.$id('share-twitter');
     var shareFacebook = mk.$id('share-facebook');
     var permalink = mk.$id('share-permalink');
     permalink.addEventListener('focus', mk.selectAll, false);
     var makePermalink = function() {
-        var url = 'http://mkln.ru/clash-of-clans/?l=';
+        var url = 'http://mkln.ru/clash-of-clans/?s=';
         var data = mk.objectCopy(mk.calc.savedData.getAll());
         data.settingsMode = 1;
         data = mk.calc.dataObjectToArray(data);
@@ -91,7 +93,7 @@
     };
 
     var text = mk.$id('share-text');
-    text.addEventListener('focus', mk.selectAll, false)
+    text.addEventListener('focus', mk.selectAll, false);
 
     var superscriptNumbers = {
         '1': '¹',

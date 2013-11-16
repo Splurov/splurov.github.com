@@ -11,7 +11,6 @@
         var dataToLoad = mk.objectCopy(
             mk.calc.savedDataAll.retrieve(e.currentTarget.getAttribute('data-num')).getAll()
         );
-        dataToLoad.settingsMode = mk.calc.savedData.get('settingsMode');
         mk.calc.savedData = new mk.Dict(dataToLoad);
 
         mk.Events.trigger('setDefaults');
@@ -193,14 +192,6 @@
 
         var sourceData = mk.calc.savedDataStorage.load(true);
         if (sourceData[0]) {
-            mk.calc.saveMappingKeys.forEach(function(key, index) {
-                if (key.indexOf('subtract') !== -1) {
-                    sourceData[0][index] = 0;
-                }
-                if (key === 'settingsMode') {
-                    sourceData[0][index] = 1;
-                }
-            });
             var currentJSON = JSON.stringify(sourceData[0]);
             var sdIndex = 0;
             var sdLength = sourceData.length;
@@ -215,14 +206,6 @@
             }
 
             var dataToSave = mk.objectCopy(mk.calc.savedData.getAll());
-            mk.objectIterate(dataToSave, function(key) {
-                if (key.indexOf('subtract') !== -1) {
-                    dataToSave[key] = 0;
-                }
-                if (key === 'settingsMode') {
-                    dataToSave[key] = 1;
-                }
-            });
             mk.calc.savedDataAll.insert(dataToSave);
             mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
             savedListCreateItems();

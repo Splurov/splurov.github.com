@@ -35,7 +35,7 @@
 
     var toggleModeEl = mk.$id('settings-toggle-mode');
     var toggleSettings = function(value) {
-        if (value === 2) {
+        if (value === 'off') {
             toggleModeEl.checked = false;
             document.documentElement.classList.add('setting-mode-disabled');
             document.documentElement.classList.remove('setting-mode-enabled');
@@ -45,25 +45,25 @@
             document.documentElement.classList.add('setting-mode-enabled');
         }
 
-        mk.calc.savedData.set('settingsMode', value);
-        mk.calc.savedDataAll.update(0, mk.calc.savedData);
-        mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
+        localStorage.setItem('settingsMode', value);
     };
 
     mk.$('#settings-toggle').listen(['click'], function() {
-        toggleSettings(toggleModeEl.checked ? 2 : 1);
+        toggleSettings(toggleModeEl.checked ? 'off' : 'on');
         mk.Events.trigger('goal', {'id': 'SETTINGS_SWITCH'}, true);
     });
 
     // 1 is on, 2 is off
-    var settingsModeValue = mk.calc.savedData.get('settingsMode', 1);
-
+    var settingsModeValue = localStorage.getItem('settingsMode');
+    if (settingsModeValue !== 'off') {
+        settingsModeValue = 'on';
+    }
     toggleSettings(settingsModeValue);
 
     mk.Events.trigger('goal', {
         'id': 'SETTINGS_INIT',
         'params': {
-            'mode': (settingsModeValue === 2 ? 'off' : 'on')
+            'mode': settingsModeValue
         }
     }, true);
 

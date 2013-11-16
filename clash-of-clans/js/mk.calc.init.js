@@ -23,8 +23,7 @@
 
                 mk.$id(name).value = mk.calc.savedData.get(name) || 0;
                 if (type !== 'spells') {
-                    var subtractId = name + '-subtract';
-                    mk.$id(subtractId).value = mk.calc.savedData.get(subtractId) || 0;
+                    mk.$id(name + '-subtract').value = 0;
                 }
             });
         };
