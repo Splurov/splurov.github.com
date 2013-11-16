@@ -28,6 +28,7 @@
 
             if (urlData) {
                 urlData = mk.calc.dataArrayToObject(urlData);
+                urlData.settingsMode = mk.calc.savedData.get('settingsMode');
 
                 mk.Events.trigger('save', {'showMessage': false});
                 mk.calc.savedData = new mk.Dict(urlData);
