@@ -22,6 +22,7 @@
     }
     .not-ios .button:hover {
         background-image: linear-gradient(#fcfcfc, #e0e0e0);
+        text-decoration: none;
     }
     .button:active {
         color: #444;
