@@ -9,4 +9,3 @@
 /* build:js:js/mk.calc.settings.js */
 /* build:js:js/mk.calc.spinner.js */
 /* build:js:js/mk.calc.reset.js */
-/* build:js:js/mk.goal.js */
