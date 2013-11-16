@@ -8,7 +8,7 @@
         <td class="small">
             <select id="{{levelId}}" tabindex="{{tabIndexLevel}}" class="js-setting">
                 {{#levelContent}}
-                    <option value="{{value}}">{{text}}</option>
+                    <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
                 {{/levelContent}}
             </select>
         </td>

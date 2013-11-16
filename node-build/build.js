@@ -44,12 +44,14 @@ var setItemRowsTemplates = function(vars) {
         var rows = [];
         mk.objectIterate(mk.calc.types[type], function(name, value) {
             var convertedName = mk.convertToTitle(name);
+            var levelOptions = value[1].map(createLevelOption);
+            levelOptions[levelOptions.length - 1].selected = true;
             var templateVars = {
                 'id': name,
                 'idDashed': name.replace(' ', '_'),
                 'title': convertedName,
                 'levelId': name + '-level',
-                'levelContent': value[1].map(createLevelOption),
+                'levelContent': levelOptions,
                 'summaryId': name + '-summary',
                 'rowId': type + '-building-level-' + value[3],
                 'tabIndexLevel': tabIndexMultiplier + value[3],
