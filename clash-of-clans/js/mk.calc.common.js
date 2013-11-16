@@ -218,17 +218,6 @@
         };
     };
 
-    var createOption = function(el, value) {
-        var option = document.createElement('option');
-        option.text = value;
-        option.value = value;
-        el.appendChild(option);
-    };
-
-    var selectLastOption = function(el) {
-        el.options[el.options.length - 1].selected = true;
-    };
-
     var BarracksContainer = function(data) {
         this.barracks = [];
         this.data = data;
@@ -238,13 +227,18 @@
             while (++i <= this.data.count) {
                 var barrack = mk.$id(this.data.prefix + '-levels-' + i);
                 var j = -1;
+                var options = [];
                 while (++j <= this.data.maxLevel) {
                     if (i === 1 && j === 0 && data.firstRequired) {
                         continue;
                     }
-                    createOption(barrack, j);
+                    var selected = '';
+                    if (j === this.data.maxLevel) {
+                        selected = ' selected="selected"';
+                    }
+                    options.push('<option value="' + j + '"' + selected + '>' + j + '</option>');
                 }
-                selectLastOption(barrack);
+                barrack.innerHTML = options.join('');
                 this.barracks.push(barrack);
             }
         }
@@ -325,27 +319,7 @@
         mk.calc.savedData = mk.calc.savedDataAll.retrieve(0);
 
         mk.calc.armyCamps = mk.$id('army-camps');
-        (function() {
-            mk.calc.armyCampsData.base.forEach(createOption.bind(null, mk.calc.armyCamps));
-
-            for (var value = mk.calc.armyCampsData.base[mk.calc.armyCampsData.base.length - 1];
-                 value <= mk.calc.armyCampsData.max;
-                 value += mk.calc.armyCampsData.step) {
-                createOption(mk.calc.armyCamps, value);
-            }
-
-            selectLastOption(mk.calc.armyCamps);
-        }());
-
         mk.calc.spellFactoryLevel = mk.$id('spell-factory-level');
-        (function() {
-            var i = -1;
-            while (++i <= mk.calc.spellFactoryData.max) {
-                createOption(mk.calc.spellFactoryLevel, i);
-            }
-
-            selectLastOption(mk.calc.spellFactoryLevel);
-        }());
     }
 
     mk.calc.allBarracks = {};

@@ -193,6 +193,9 @@
                     <td class="result">
                         <span id="units-space" class="text-middle"></span><!--
                         --><select id="army-camps" data-object-type="all" tabindex="19" class="js-setting">
+                            {{#armyCamps}}
+                                <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
+                            {{/armyCamps}}
                         </select>
                     </td>
                     <td id="units-cost" class="number result"></td>
@@ -278,6 +281,9 @@
                     <th><span class="cost cost_elixir">Total</span></th>
                     <th>
                         <select id="spell-factory-level" tabindex="35" class="js-setting">
+                            {{#spellFactory}}
+                                <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
+                            {{/spellFactory}}
                         </select> <span class="text-middle">lvl</span>
                     </th>
                 </tr>

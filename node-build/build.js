@@ -85,6 +85,25 @@ var setItemRowsTemplates = function(vars) {
     createRows('units', 100);
     createRows('dark', 200);
     createRows('spells', 300);
+
+    vars.armyCamps = [];
+    mk.calc.armyCampsData.base.forEach(function(value) {
+        vars.armyCamps.push({'value': value});
+    });
+    for (var value = mk.calc.armyCampsData.base[mk.calc.armyCampsData.base.length - 1];
+         value <= mk.calc.armyCampsData.max;
+         value += mk.calc.armyCampsData.step) {
+        vars.armyCamps.push({'value': value});
+    }
+    vars.armyCamps[vars.armyCamps.length - 1].selected = true;
+
+    vars.spellFactory = [];
+    var i = -1;
+    while (++i <= mk.calc.spellFactoryData.max) {
+        vars.spellFactory.push({'value': i});
+    }
+    vars.spellFactory[vars.spellFactory.length - 1].selected = true;
+
 };
 
 for (var file in sources) {
