@@ -1,17 +1,11 @@
 [
     [
-        "3.3",
-        "17 November, 2013",
-        [
-            "Values from the “Subtract” columns not preserved between browser sessions anymore",
-            "Zeros no longer used for empty values in the text fields"
-        ]
-    ],
-    [
         "3.2",
         "16 November, 2013",
         [
             "Added Setting Mode with the possibility of preset levels of buildings, troops and spells according to the level of the Town Hall",
+            "Values from the “Subtract” columns not preserved between browser sessions anymore",
+            "Zeros no longer used for empty values in the text fields",
             "Added display of the queue length for barracks",
             "Dropped IE 9 support (currently supported browsers is Safari 5.1+, Chrome 21+, Firefox 17+, IE 10+, Android 4+ and Opera 12.1+)"
         ]
