@@ -6,7 +6,9 @@
         el.nextSibling.textContent = el.options[el.selectedIndex].textContent;
     };
 
-    mk.$('.js-setting').iterate(function(el) {
+    var $settings = mk.$('.js-setting');
+
+    $settings.iterate(function(el) {
         var placeholderEl = document.createElement('span');
         placeholderEl.classList.add('text-middle', 'setting-mode-not-part');
         placeholderEl.textContent = el.options[el.selectedIndex].textContent;
@@ -22,6 +24,12 @@
         el.addEventListener('change', function(e) {
             updateSettingPlaceholder(e.currentTarget);
         }, false);
+    });
+
+    mk.Events.listen('loaded', function() {
+        $settings.iterate(function(el) {
+            updateSettingPlaceholder(el);
+        });
     });
 
     var toggleModeEl = mk.$id('settings-toggle-mode');
