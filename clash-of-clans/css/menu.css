@@ -15,7 +15,6 @@
     .menu_fixed {
         position: fixed;
         top: 0;
-        left: 0;
         box-shadow: 0 3px 8px #ccc;
     }
     .menu li {
@@ -27,20 +26,13 @@
     .menu__item {
         display: inline-block;
         padding: 4px 10px;
-        border-left: 0;
-        border-top: 0;
-        border-bottom: 0;
+        border: 0;
         border-right: 1px solid #d9d9d9;
-        color: #000;
-        cursor: pointer;
+        color: #111;
         background: none;
         margin: 0;
         user-select: none;
         line-height: 20px;
-    }
-    .menu__item::-moz-focus-inner {
-        border: 0;
-        padding: 0;
     }
         .menu li:first-child .menu__item {
             margin-left: -10px;

@@ -15,14 +15,12 @@
     }
     .add-to-home-screen__button {
         color: #222;
-        cursor: pointer;
         display: inline-block;
         padding: 0;
         border: 0;
         background: none;
         line-height: inherit;
         font-weight: bold;
-        text-decoration: none;
         margin: 0;
     }
         .add-to-home-screen__button:before {
@@ -34,10 +32,6 @@
             .add-to-home-screen[data-on="true"] .add-to-home-screen__button:before {
                 content: '▼';
             }
-        .add-to-home-screen__button::-moz-focus-inner {
-            border: 0;
-            padding: 0;
-        }
     .add-to-home-screen__list {
         margin: 10px 0;
         display: none;

@@ -1,19 +1,17 @@
 .setting-mode {
     position: relative;
     padding-left: 17px;
+    cursor: pointer;
 }
     .setting-mode__toggle {
         position: absolute;
         left: -5px;
         top: -1px;
+        cursor: pointer;
     }
 
-.setting-mode-disabled .setting-mode-part {
-    display: none;
-}
-.setting-mode-enabled .setting-mode-not-part {
-    display: none;
-}
+.setting-mode-disabled .setting-mode-part,
+.setting-mode-enabled .setting-mode-not-part,
 .setting-mode-disabled .setting-mode-empty {
     display: none;
 }

@@ -16,10 +16,6 @@
     .button {
         margin: 0;
     }
-    .button::-moz-focus-inner {
-        border: 0;
-        padding: 0;
-    }
     .not-ios .button:hover {
         background-image: linear-gradient(#fcfcfc, #e0e0e0);
         text-decoration: none;
@@ -33,7 +29,7 @@
     }
     .button_reset {
         font-size: 13px;
-        margin-bottom: 2px;
+        margin-bottom: 3px;
     }
 
     .button_social, .button_social:link, .button_social:visited {

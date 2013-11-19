@@ -50,6 +50,13 @@ input, select, textarea, button {
     .field-long {
         width: 100%;
     }
+    button {
+        cursor: pointer;
+    }
+    button::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
 
 h1 {
     font-size: 22px;

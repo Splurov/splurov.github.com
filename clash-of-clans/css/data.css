@@ -11,8 +11,6 @@
     }
     .data th {
         text-align: left;
-        padding-bottom: 1px;
-        line-height: 20px;
         font-size: 14px;
     }
     .data td {
