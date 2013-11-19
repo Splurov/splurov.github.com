@@ -38,7 +38,7 @@
     };
 
     mk.calc.armyCampsData = {
-        'base': [20, 40, 50],
+        'base': [20, 30, 40, 50],
         'step': 5,
         'max': 240,
         'th': {

@@ -128,7 +128,7 @@
     var selectAllTimeout;
     mk.selectAll = function(e) {
         var el = e.currentTarget;
-        if (['input', 'textarea'].indexOf(el.tagName.toLowerCase()) !== -1) {
+        if (['input', 'textarea'].indexOf(el.tagName.toLowerCase()) !== -1 && el.value !== '') {
             clearTimeout(selectAllTimeout);
             selectAllTimeout = setTimeout(function() {
                 el.setSelectionRange(0, el.value.length);

@@ -10,7 +10,8 @@
 
     $settings.iterate(function(el) {
         var placeholderEl = document.createElement('span');
-        placeholderEl.classList.add('text-middle', 'setting-mode-not-part');
+        placeholderEl.classList.add('text-middle');
+        placeholderEl.classList.add('setting-mode-not-part');
 
         if (el.nextSibling) {
             el.parentNode.insertBefore(placeholderEl, el.nextSibling);
