@@ -125,11 +125,14 @@
         entries.forEach(this.insert.bind(this));
     };
 
+    var selectAllTimeout;
     mk.selectAll = function(e) {
-        if (['input', 'textarea'].indexOf(e.currentTarget.tagName.toLowerCase()) !== -1) {
-            setTimeout(function(el) {
+        var el = e.currentTarget;
+        if (['input', 'textarea'].indexOf(el.tagName.toLowerCase()) !== -1) {
+            clearTimeout(selectAllTimeout);
+            selectAllTimeout = setTimeout(function() {
                 el.setSelectionRange(0, el.value.length);
-            }.bind(null, e.currentTarget), 10);
+            }, 1);
         }
     };
 

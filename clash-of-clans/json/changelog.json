@@ -1,5 +1,12 @@
 [
     [
+        "3.2.1",
+        "19 November, 2013",
+        [
+            "Fixed a bug with the inability to focus the input field in some cases."
+        ]
+    ],
+    [
         "3.2",
         "16 November, 2013",
         [
