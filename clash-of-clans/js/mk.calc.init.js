@@ -6,28 +6,20 @@
         mk.calc.allBarracks.units.setDefaults();
         mk.calc.allBarracks.dark.setDefaults();
 
-        var armyCampsSaved = mk.calc.savedData.get('armyCamps', mk.calc.armyCamps.value);
-        var armyCampsOption = mk.calc.armyCamps.querySelector('option[value="' + armyCampsSaved + '"]');
-        if (armyCampsOption) {
-            armyCampsOption.selected = true;
-        }
+        mk.calc.armyCamps.value = mk.calc.savedData.get('armyCamps', mk.calc.armyCamps.value);
 
         var spellFactoryIndex = mk.calc.savedData.get('spellFactoryLevel', mk.calc.spellFactoryLevel.selectedIndex);
         mk.calc.spellFactoryLevel.options[spellFactoryIndex].selected = true;
 
-        var setItems = function(type) {
-            mk.objectIterate(mk.calc.types[type], function(name) {
+        mk.objectIterate(mk.calc.types, function(type, objects) {
+            mk.objectIterate(objects, function(name) {
                 var levelId = name + '-level';
                 var levelEl = mk.$id(levelId);
                 levelEl.options[mk.calc.savedData.get(levelId, levelEl.selectedIndex)].selected = true;
 
                 mk.$id(name).value = mk.calc.savedData.get(name) || '';
             });
-        };
-
-        setItems('units');
-        setItems('spells');
-        setItems('dark');
+        });
     };
 
     mk.Events.listen('setDefaults', setDefaults);
