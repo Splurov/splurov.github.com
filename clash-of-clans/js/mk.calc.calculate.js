@@ -271,7 +271,8 @@
     var populateDistributionDebounced = debounce(populateDistribution, 200);
 
     var calculateItems = function(type, params) {
-        for (var clIndex = params.capLevel; clIndex >= 1; clIndex--) {
+        var clIndex = params.capLevel + 1;
+        while (--clIndex > 0) {
             mk.$id(
                 type +
                 '-building-level-' +

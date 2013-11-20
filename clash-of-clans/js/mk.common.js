@@ -162,10 +162,9 @@
     };
 
     mk.$Listen = function(target, types, listener) {
-        var i = -1;
         var l = types.length;
-        while (++i < l) {
-            var type = types[i];
+        while (l--) {
+            var type = types[l];
             if (type === 'click') {
                 $RegisterMobileClick(target, listener);
             }

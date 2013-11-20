@@ -10,11 +10,10 @@
         };
 
         var links = document.getElementsByTagName('a');
-        var i = -1;
         var l = links.length;
-        while (++i < l) {
-            links[i].removeAttribute('target');
-            links[i].addEventListener('touchend', clickHandler);
+        while (l--) {
+            links[l].removeAttribute('target');
+            links[l].addEventListener('touchend', clickHandler);
         }
     }
 
