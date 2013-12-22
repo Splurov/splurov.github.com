@@ -57,6 +57,13 @@ input, select, textarea, button {
         border: 0;
         padding: 0;
     }
+    input[type="checkbox"] {
+        margin: 0;
+    }
+
+label {
+    user-select: none;
+}
 
 h1 {
     font-size: 22px;
@@ -124,4 +131,8 @@ table {
 
 .block-intro {
     margin: 15px 0 0;
+}
+
+.boosted {
+    text-shadow: #48F928 1px 1px 3px;
 }

@@ -259,13 +259,25 @@
 
         this.getQueue = function() {
             return this.barracks.map(function(el) {
+                var num = el.getAttribute('id').slice(-1);
                 return {
-                    'num': el.getAttribute('id').slice(-1),
+                    'num': num,
                     'time': 0,
                     'space': 0,
                     'maxSpace': this.data.queue[el.value],
                     'units': {},
-                    'level': parseInt(el.value, 10)
+                    'level': parseInt(el.value, 10),
+                    '__boostedId': this.data.prefix + '-boosted-' + num,
+                    'isBoosted': function() {
+                        return localStorage.getItem(this.__boostedId) === 'yes';
+                    },
+                    'getActualTime': function() {
+                        if (this.isBoosted()) {
+                            return Math.floor(this.time / 4);
+                        }
+
+                        return this.time;
+                    }
                 };
             }, this);
         };

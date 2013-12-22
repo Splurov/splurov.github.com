@@ -65,7 +65,13 @@
                         'space': 0,
                         'maxSpace': barracksData.queue[barrackLevel],
                         'units': {},
-                        'level': barrackLevel
+                        'level': barrackLevel,
+                        'isBoosted': function() {
+                            return false;
+                        },
+                        'getActualTime': function() {
+                            return this.time;
+                        }
                     });
 
                     if (barrackLevel > 0) {

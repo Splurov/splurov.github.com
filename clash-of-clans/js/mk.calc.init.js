@@ -38,6 +38,24 @@
     mk.calc.armyCamps.addEventListener('change', triggerCalculate.bind(null, 'all'), false);
     mk.calc.spellFactoryLevel.addEventListener('change', triggerCalculate.bind(null, 'spells'), false);
 
+    var boostedListener = function(type, e) {
+        var el = e.currentTarget;
+        localStorage.setItem(el.getAttribute('id'), (el.checked ? 'yes' : 'no'));
+        triggerCalculate(type);
+    };
+
+    mk.objectIterate(mk.calc.barracksData, function(type, data) {
+        var i = 0;
+        while (++i <= data.count) {
+            var id = data.prefix + '-boosted-' + i;
+            var boosted = mk.$id(id);
+            if (localStorage.getItem(id) === 'yes') {
+                boosted.checked = true;
+            }
+            mk.$Listen(boosted, ['click'], boostedListener.bind(null, type));
+        }
+    });
+
     mk.objectIterate(mk.calc.types, function(type, objects) {
         mk.objectIterate(objects, function(name) {
             mk.$id(name + '-level').addEventListener(

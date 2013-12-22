@@ -55,10 +55,12 @@
 
     var suitableBarracksSort = function(a, b) {
         // minimum time first
-        if (a.time < b.time) {
+        var aTime = a.getActualTime();
+        var bTime = b.getActualTime();
+        if (aTime < bTime) {
             return -1;
         }
-        if (a.time > b.time) {
+        if (aTime > bTime) {
             return 1;
         }
 
@@ -110,7 +112,7 @@
         if (suitable.length > 1) {
             if (requiredSpace === 1) {
                 var timeSuitable = suitable.filter(function(barrack) {
-                    return (barrack.time + requiredTime) <= avgTime;
+                    return (barrack.getActualTime() + requiredTime) <= avgTime;
                 });
                 if (timeSuitable.length) {
                     if (timeSuitable.length > 1) {
@@ -140,7 +142,7 @@
             while (kitQuantity--) {
                 var isGetBarrack = true;
                 if (barrack) {
-                    var newTime = barrack.time + kitTime;
+                    var newTime = barrack.getActualTime() + kitTime;
                     var newSpace = barrack.space + kitSpace;
                     if (kitSpace === 1 && newTime <= avgTime && newSpace <= barrack.maxSpace) {
                         isGetBarrack = false;
@@ -175,15 +177,19 @@
 
         if (!stopDistribution) {
             var firstBarrackLevel = barracksQueue[0].level;
+            var firstBarrackBoosted = barracksQueue[0].isBoosted();
             var nums = [];
             if (barracksQueue.every(function(barrack) {
                 if (barrack.level !== 0) {
                     nums.push(barrack.num);
                 }
-                return (barrack.level === firstBarrackLevel || barrack.level === 0);
+                return (
+                    (barrack.level === firstBarrackLevel && barrack.isBoosted() === firstBarrackBoosted) ||
+                    barrack.level === 0
+                );
             })) {
                 barracksQueue.sort(function(a, b) {
-                    return b.time - a.time;
+                    return b.getActualTime() - a.getActualTime();
                 });
                 barracksQueue.forEach(function(barrack, index) {
                     if (barrack.level !== 0) {
@@ -217,12 +223,17 @@
                     }
                 }
 
-                if (barrack.time > maxTime) {
-                    maxTime = barrack.time;
+                var actualTime = barrack.getActualTime();
+                if (actualTime > maxTime) {
+                    maxTime = actualTime;
                     maxNum = parseInt(barrack.num, 10);
                 }
 
-                times[barrack.num] = (barrack.time ? mk.getFormattedTime(barrack.time) : '');
+                var time = (actualTime ? mk.getFormattedTime(actualTime) : '');
+                if (barrack.isBoosted()) {
+                    time = '<span class="boosted">' + time + '</span>';
+                }
+                times[barrack.num] = time;
 
                 var spaceData = '';
                 if (barrack.maxSpace !== 0) {
@@ -233,10 +244,9 @@
             times.forEach(function(time, num) {
                 var barrackEl = mk.$id(type + '-time-barrack-' + num);
                 if (num === maxNum) {
-                    barrackEl.innerHTML = '<span class="result">' + time + '</span>';
-                } else {
-                    barrackEl.textContent = time;
+                    time = '<span class="result">' + time + '</span>';
                 }
+                barrackEl.innerHTML = time;
             });
         } else {
             mk.$id(type + '-barracks-exceeded').style.display = '';
@@ -374,7 +384,16 @@
             }
         } else {
             var barracksQueue = mk.calc.allBarracks[type].getQueue();
-            var avgTime = Math.max(Math.ceil(totalTime / mk.calc.allBarracks[type].getActiveCount()), maxUnitTime);
+            var boostedCount = barracksQueue.filter(function(barrack) {
+                return barrack.isBoosted() === true;
+            }).length;
+
+            if (boostedCount) {
+                maxUnitTime = Math.ceil(maxUnitTime / 4);
+            }
+
+            var virtualBarracksCount = mk.calc.allBarracks[type].getActiveCount() + (boostedCount * 4);
+            var avgTime = Math.max(Math.ceil(totalTime / virtualBarracksCount), maxUnitTime);
 
             var fillSuccess = mk.calc.fillBarracks(barracksQueue, distribution, avgTime);
 
