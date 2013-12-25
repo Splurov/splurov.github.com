@@ -52,7 +52,7 @@
             if (localStorage.getItem(id) === 'yes') {
                 boosted.checked = true;
             }
-            mk.$Listen(boosted, ['click'], boostedListener.bind(null, type));
+            mk.$Listen(boosted, ['change'], boostedListener.bind(null, type));
         }
     });
 

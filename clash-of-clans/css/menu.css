@@ -33,13 +33,17 @@
         margin: 0;
         user-select: none;
         line-height: 20px;
+        cursor: pointer;
     }
+        .menu__item > input[type="checkbox"] {
+            cursor: pointer;
+        }
         .menu li:first-child .menu__item {
             margin-left: -10px;
         }
         .menu li:last-child .menu__item {
             border-right: 0;
         }
-        .not-ios .menu .menu__item:hover, .menu .menu__item:active {
+        .not-mobile .menu .menu__item:hover, .menu .menu__item:active {
             background: #efefef;
         }

@@ -13,13 +13,31 @@
             </select>
         </td>
         <td>
-            <input type="text" pattern="[0-9]*" data-object-type="{{objectType}}" min="0" max="999" class="js-number" id="{{id}}" size="3" tabindex="{{tabIndexValue}}" data-field-type="quantity"/>
+            <input type="text"
+                   pattern="[0-9]*"
+                   data-object-type="{{objectType}}"
+                   min="0"
+                   max="999"
+                   class="js-number text-middle"
+                   id="{{id}}"
+                   size="3"
+                   tabindex="{{tabIndexValue}}"
+                   data-field-type="quantity"/>
         </td>
         <td id="{{summaryId}}" class="number small">
         </td>
         {{#subtractId}}
             <td>
-               <input type="text" pattern="[0-9]*" data-object-type="{{objectType}}" min="0" max="999" class="js-number" id="{{subtractId}}" size="3" tabindex="{{tabIndexSubtract}}" data-field-type="subtract"/>
+                <input type="text"
+                       pattern="[0-9]*"
+                       data-object-type="{{objectType}}"
+                       min="0"
+                       max="999"
+                       class="js-number text-middle"
+                       id="{{subtractId}}"
+                       size="3"
+                       tabindex="{{tabIndexSubtract}}"
+                       data-field-type="subtract"/>
             </td>
         {{/subtractId}}
         {{#barracksTimes}}

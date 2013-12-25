@@ -144,7 +144,7 @@ for (var file in sources) {
             return 'url(' + makeDataUri(sp1.substr(1)) + ')';
         });
 
-        styleData = hoganPrepare('<style>' + styleData + '</style>')
+        styleData = hoganPrepare('<style>' + styleData + '</style>');
 
         dataCache[p1] = styleData;
 

@@ -136,39 +136,95 @@
         }
     };
 
-    var $RegisterMobileClick = function(target) {
-        if (window.Touch && !target.__clickRegistered) {
-            var moved;
+    var $RegisterUniversalClick = function(target, listener, isMiddleClickTriggers) {
+        var touchSupported = ('ontouchstart' in window);
+
+        var lastEventSource;
+
+        if (touchSupported) {
+            var tapping;
 
             target.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-                moved = false;
-            }, false);
-
-            target.addEventListener('touchmove', function() {
-                moved = true;
-            }, false);
-
-            target.addEventListener('touchend', function(e) {
-                if (!moved) {
-                    var ev = document.createEvent('MouseEvents');
-                    ev.initEvent('click', true, true);
-                    e.currentTarget.dispatchEvent(ev);
+                if (lastEventSource === 'mouse') {
+                    lastEventSource = null;
+                    tapping = false;
+                } else {
+                    lastEventSource = 'touch';
+                    tapping = true;
                 }
             }, false);
 
-            target.__clickRegistered = true;
+            target.addEventListener('touchmove', function() {
+                tapping = false;
+            }, false);
+
+            target.addEventListener('touchcancel', function() {
+                tapping = false;
+            }, false);
+
+            target.addEventListener('touchend', function(e) {
+                if (tapping) {
+                    listener(e);
+                }
+            }, false);
         }
+
+        if (!window.mkIsMobile || !touchSupported) {
+            if (isMiddleClickTriggers) {
+                var clicking;
+
+                target.addEventListener('mousedown', function() {
+                    if (lastEventSource === 'touch') {
+                        lastEventSource = null;
+                        clicking = false;
+                    } else {
+                        lastEventSource = 'mouse';
+                        clicking = true;
+                    }
+                }, false);
+
+                target.addEventListener('mousemove', function() {
+                    clicking = false;
+                }, false);
+
+                target.addEventListener('mouseup', function(e) {
+                    if (clicking && e.which !== 3) {
+                        listener(e);
+                    }
+                }, false);
+
+                target.addEventListener('keypress', function(e) {
+                    var code = e.keyCode || e.which;
+                    if ([13, 32].indexOf(code) !== -1) {
+                        listener(e);
+                    }
+                }, false);
+
+            } else {
+                target.addEventListener('click', function(e) {
+                    if (lastEventSource === 'touch') {
+                        lastEventSource = null;
+                    } else {
+                        lastEventSource = 'mouse';
+                        listener(e);
+                    }
+                }, false);
+            }
+        }
+
     };
 
     mk.$Listen = function(target, types, listener) {
         var l = types.length;
         while (l--) {
             var type = types[l];
-            if (type === 'click') {
-                $RegisterMobileClick(target, listener);
+            if (type === 'universalClick') {
+                $RegisterUniversalClick(target, listener, true);
+            } else if (type === 'universalAndMiddleClick') {
+                $RegisterUniversalClick(target, listener, true);
+            } else {
+                target.addEventListener(type, listener, false);
             }
-            target.addEventListener(type, listener, false);
         }
     };
 
@@ -213,7 +269,7 @@
             el.style.display = 'none';
         };
 
-        mk.$Listen(el, ['click'], hide);
+        mk.$Listen(el, ['universalClick'], hide);
 
         return {
             'show': function() {

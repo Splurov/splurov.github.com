@@ -9,6 +9,6 @@
         text-decoration: underline;
         color: #999;
     }
-    .not-ios .footer a:hover, .footer a:active {
+    .not-mobile .footer a:hover, .footer a:active {
         text-decoration: none;
     }

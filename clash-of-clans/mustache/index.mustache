@@ -26,7 +26,7 @@
     {{/web_only}}
 </head>
 <body>
-<script src="js/detect-ios.js"></script>
+<script src="js/detect-mobile.js"></script>
 
 {{#web_only}}
 <h1>{{coc_title}}</h1>
@@ -96,12 +96,10 @@
         --><li><button class="menu__item js-save-composition" data-scroll="yes"><span class="icon icon_save">Save Composition</span></button></li><!--
         --><li><button class="menu__item js-anchor" data-anchor-target="saved-anchor">Saved Compositions</button></li><!--
         --><li>
-            <button class="menu__item" id="settings-toggle">
-                <label class="setting-mode">
-                    <input type="checkbox" id="settings-toggle-mode" class="setting-mode__toggle"/>
-                    Setting Mode
-                </label>
-            </button>
+            <label class="menu__item">
+                <input type="checkbox" id="settings-toggle-mode"/>
+                Setting Mode
+            </label>
         </li>
     </ul>
 </div>

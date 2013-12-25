@@ -19,6 +19,6 @@
         }, true);
     };
 
-    mk.$('.js-reset').listen(['click'], resetColumn);
+    mk.$('.js-reset').listen(['universalClick'], resetColumn);
 
 }());

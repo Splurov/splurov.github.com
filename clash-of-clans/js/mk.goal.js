@@ -2,7 +2,7 @@
 
     'use strict';
 
-    mk.$('.js-goal').listen(['click'], function(e) {
+    mk.$('.js-goal').listen(['universalAndMiddleClick'], function(e) {
         mk.Events.trigger('goal', {
             'id': e.currentTarget.getAttribute('data-goal')
         }, true);

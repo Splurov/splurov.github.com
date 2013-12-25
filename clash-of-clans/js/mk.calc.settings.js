@@ -49,12 +49,11 @@
         localStorage.setItem('settingsMode', value);
     };
 
-    mk.$('#settings-toggle').listen(['click'], function() {
-        toggleSettings(toggleModeEl.checked ? 'off' : 'on');
+    mk.$Listen(toggleModeEl, ['change'], function() {
+        toggleSettings(toggleModeEl.checked ? 'on' : 'off');
         mk.Events.trigger('goal', {'id': 'SETTINGS_SWITCH'}, true);
     });
 
-    // 1 is on, 2 is off
     var settingsModeValue = localStorage.getItem('settingsMode');
     if (settingsModeValue !== 'off') {
         settingsModeValue = 'on';
@@ -79,7 +78,7 @@
         mk.Events.trigger('goal', {
             'id': 'SETTINGS_TH',
             'params': {
-                'level': th
+                'level': 'th' + th
             }
         }, true);
 
@@ -113,7 +112,7 @@
     };
 
     mk.$('.js-settings-level').iterate(function(el) {
-        mk.$Listen(el, ['click'], setLevels.bind(null, parseInt(el.textContent, 10)));
+        mk.$Listen(el, ['universalClick'], setLevels.bind(null, parseInt(el.textContent, 10)));
     });
 
 }());

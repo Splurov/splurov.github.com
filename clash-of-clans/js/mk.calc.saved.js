@@ -164,7 +164,7 @@
         var savedListContent = mk.$id('saved-list-content');
         savedListContent.innerHTML = content.join('');
 
-        mk.$('.js-saved-load', savedListContent).listen(['click'], loadSaved);
+        mk.$('.js-saved-load', savedListContent).listen(['universalClick'], loadSaved);
 
         var deleteSaved = function(e) {
             mk.Events.trigger('goal', {
@@ -175,7 +175,7 @@
             savedListCreateItems();
         };
 
-        mk.$('.js-saved-delete', savedListContent).listen(['click'], deleteSaved);
+        mk.$('.js-saved-delete', savedListContent).listen(['universalClick'], deleteSaved);
     };
 
     var alreadySavedMessage = mk.infoMessage('already-saved', true);
@@ -228,7 +228,7 @@
         save();
     };
 
-    mk.$('.js-save-composition').listen(['click'], saveHandler);
+    mk.$('.js-save-composition').listen(['universalClick'], saveHandler);
 
     savedListCreateItems();
 
@@ -236,7 +236,7 @@
     mk.Events.trigger('goal', {
         'id': 'SAVED_COMPOSITIONS',
         'params': {
-            'count': (savedCount ? savedCount - 1 : 0)
+            'count': 'sc' + (savedCount ? savedCount - 1 : 0)
         }
     }, true);
 

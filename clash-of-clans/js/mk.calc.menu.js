@@ -20,7 +20,7 @@
 
     var globalScrollOffset = 15;
 
-    if (!window.platformIos) {
+    if (!window.mkIsMobile) {
         globalScrollOffset += menuElHeight;
 
         document.addEventListener('scroll', function() {
@@ -69,7 +69,7 @@
     mk.Events.listen('scrollTo', smoothScroll);
 
     mk.$('.js-anchor').iterate(function(el) {
-        mk.$Listen(el, ['click'], smoothScroll.bind(null, mk.$id(el.getAttribute('data-anchor-target'))));
+        mk.$Listen(el, ['universalClick'], smoothScroll.bind(null, mk.$id(el.getAttribute('data-anchor-target'))));
     });
 
 }());

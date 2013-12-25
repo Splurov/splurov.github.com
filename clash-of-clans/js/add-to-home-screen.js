@@ -2,7 +2,7 @@
 
     'use strict';
 
-    if (window.platformIos) {
+    if (window.mkIsIos) {
         var wrapper = document.getElementById('add-to-home-screen');
         document.getElementById('add-to-home-screen-button').addEventListener('touchend', function() {
             if (wrapper.dataset.on === 'true') {

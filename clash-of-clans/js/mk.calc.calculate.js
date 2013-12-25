@@ -400,7 +400,7 @@
             currentSpace[type] += totalSpace;
 
             var fn;
-            if (params.computeAll || !window.platformIos) {
+            if (params.computeAll || !window.mkIsMobile) {
                 fn = populateDistribution;
             } else {
                 fn = populateDistributionDebounced;

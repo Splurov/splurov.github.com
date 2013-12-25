@@ -21,7 +21,7 @@ a {
         color: #63008c;
         text-decoration: none;
     }
-    .not-ios a:hover, a:active {
+    .not-mobile a:hover, a:active {
         text-decoration: underline;
     }
 
@@ -37,7 +37,6 @@ kbd {
 input, select, textarea, button {
     font-family: inherit;
     font-size: inherit;
-    vertical-align: middle;
 }
     select {
         font-size: 14px;
