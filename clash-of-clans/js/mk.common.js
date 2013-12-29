@@ -219,7 +219,7 @@
         while (l--) {
             var type = types[l];
             if (type === 'universalClick') {
-                $RegisterUniversalClick(target, listener, true);
+                $RegisterUniversalClick(target, listener);
             } else if (type === 'universalAndMiddleClick') {
                 $RegisterUniversalClick(target, listener, true);
             } else {
