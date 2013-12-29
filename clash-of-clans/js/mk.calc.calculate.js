@@ -380,7 +380,13 @@
         if (type === 'spells') {
             setQuantityAndSpace(params.space, totalSpace, type);
             if (totalTime > 0) {
-                mk.$id(type + '-time').textContent = mk.getFormattedTime(totalTime, true);
+                if (localStorage.getItem('spell-factory-boosted') === 'yes') {
+                    totalTime = Math.floor(totalTime / 4);
+                    mk.$id(type + '-time').innerHTML = '<span class="boosted">' + mk.getFormattedTime(totalTime, true) + '</span>';
+                } else{
+                    mk.$id(type + '-time').textContent = mk.getFormattedTime(totalTime, true);
+                }
+
             }
         } else {
             var barracksQueue = mk.calc.allBarracks[type].getQueue();

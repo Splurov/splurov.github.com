@@ -1,5 +1,13 @@
 [
     [
+        "3.4",
+        "29 December, 2013",
+        [
+            "Added support for “gem-boosted” Spell Factory",
+            "Improved support for non-Apple devices (Android and other mobile devices)"
+        ]
+    ],
+    [
         "3.3",
         "22 December, 2013",
         [

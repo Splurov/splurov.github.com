@@ -316,6 +316,7 @@
 
         mk.calc.armyCamps = mk.$id('army-camps');
         mk.calc.spellFactoryLevel = mk.$id('spell-factory-level');
+        mk.calc.spellFactoryBoosted = mk.$id('spell-factory-boosted');
     }
 
     mk.calc.allBarracks = {};

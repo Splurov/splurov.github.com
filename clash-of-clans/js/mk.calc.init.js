@@ -11,6 +11,8 @@
         var spellFactoryIndex = mk.calc.savedData.get('spellFactoryLevel', mk.calc.spellFactoryLevel.selectedIndex);
         mk.calc.spellFactoryLevel.options[spellFactoryIndex].selected = true;
 
+        mk.calc.spellFactoryBoosted.checked = (localStorage.getItem('spell-factory-boosted') === 'yes');
+
         mk.objectIterate(mk.calc.types, function(type, objects) {
             mk.objectIterate(objects, function(name) {
                 var levelId = name + '-level';
@@ -37,6 +39,10 @@
     });
     mk.calc.armyCamps.addEventListener('change', triggerCalculate.bind(null, 'all'), false);
     mk.calc.spellFactoryLevel.addEventListener('change', triggerCalculate.bind(null, 'spells'), false);
+    mk.calc.spellFactoryBoosted.addEventListener('change', function() {
+        localStorage.setItem('spell-factory-boosted', (mk.calc.spellFactoryBoosted.checked ? 'yes' : 'no'));
+        triggerCalculate('spells');
+    });
 
     var boostedListener = function(type, e) {
         var el = e.currentTarget;
