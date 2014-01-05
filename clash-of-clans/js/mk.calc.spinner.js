@@ -57,11 +57,7 @@
         mk.$Listen(container, ['touchstart', 'mousedown'], spinnerHold);
         mk.$Listen(container, ['touchend', 'mouseup'], spinnerRelease);
 
-        if (el.nextSibling) {
-            el.parentNode.insertBefore(container, el.nextSibling);
-        } else {
-            el.parentNode.appendChild(container);
-        }
+        mk.$insertBefore(el, container);
     };
 
     var spinnerKeyboard = function(e) {

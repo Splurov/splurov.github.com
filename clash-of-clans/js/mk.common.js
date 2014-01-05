@@ -228,6 +228,10 @@
         }
     };
 
+    mk.$toggleClass = function(el, value, state) {
+        el.classList[state ? 'add' : 'remove'](value);
+    };
+
     var $List = function(elements) {
         if (elements) {
             this.elements = elements;
@@ -248,6 +252,12 @@
                 callback(this.elements[i]);
             }
         };
+
+        this.toggleClass = function(value, state) {
+            this.iterate(function(el) {
+                mk.$toggleClass(el, value, state);
+            });
+        };
     };
 
 
@@ -257,6 +267,14 @@
 
     mk.$id = function(id) {
         return document.getElementById(id);
+    };
+
+    mk.$insertBefore = function(el, newEl) {
+        if (el.nextSibling) {
+            el.parentNode.insertBefore(newEl, el.nextSibling);
+        } else {
+            el.parentNode.appendChild(newEl);
+        }
     };
 
     mk.infoMessage = function(id, isAutoHide) {

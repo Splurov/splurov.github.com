@@ -24,11 +24,7 @@
         globalScrollOffset += menuElHeight;
 
         document.addEventListener('scroll', function() {
-            if (window.pageYOffset >= menuTopPosition) {
-                menuEl.classList.add('menu_fixed');
-            } else {
-                menuEl.classList.remove('menu_fixed');
-            }
+            mk.$toggleClass(menuEl, 'menu_fixed', (window.pageYOffset >= menuTopPosition));
         }, false);
     }
 

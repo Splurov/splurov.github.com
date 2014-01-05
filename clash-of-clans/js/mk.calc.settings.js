@@ -13,11 +13,7 @@
         placeholderEl.classList.add('text-middle');
         placeholderEl.classList.add('setting-mode-not-part');
 
-        if (el.nextSibling) {
-            el.parentNode.insertBefore(placeholderEl, el.nextSibling);
-        } else {
-            el.parentNode.appendChild(placeholderEl);
-        }
+        mk.$insertBefore(el, placeholderEl);
 
         el.classList.add('setting-mode-part');
 
@@ -35,22 +31,15 @@
     });
 
     var toggleModeEl = mk.$id('settings-toggle-mode');
-    var toggleSettings = function(value) {
-        if (value === 'off') {
-            toggleModeEl.checked = false;
-            document.documentElement.classList.add('setting-mode-disabled');
-            document.documentElement.classList.remove('setting-mode-enabled');
-        } else {
-            toggleModeEl.checked = true;
-            document.documentElement.classList.remove('setting-mode-disabled');
-            document.documentElement.classList.add('setting-mode-enabled');
-        }
+    var toggleSettings = function() {
+        mk.$toggleClass(document.documentElement, 'setting-mode-disabled', !toggleModeEl.checked);
+        mk.$toggleClass(document.documentElement, 'setting-mode-enabled', toggleModeEl.checked);
 
-        localStorage.setItem('settingsMode', value);
+        localStorage.setItem('settingsMode', (toggleModeEl.checked ? 'on' : 'off'));
     };
 
     mk.$Listen(toggleModeEl, ['change'], function() {
-        toggleSettings(toggleModeEl.checked ? 'on' : 'off');
+        toggleSettings();
         mk.Events.trigger('goal', {'id': 'SETTINGS_SWITCH'}, true);
     });
 
@@ -58,7 +47,8 @@
     if (settingsModeValue !== 'off') {
         settingsModeValue = 'on';
     }
-    toggleSettings(settingsModeValue);
+    toggleModeEl.checked = (settingsModeValue === 'on');
+    toggleSettings();
 
     mk.Events.trigger('goal', {
         'id': 'SETTINGS_INIT',

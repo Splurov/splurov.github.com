@@ -435,13 +435,7 @@
             if (params.type === 'all' || params.type === 'barrack-dark') {
                 updateBarracksHeaders('dark');
 
-                var method = 'remove';
-                if (mk.calc.allBarracks.dark.getMaxLevel() === 0) {
-                    method = 'add';
-                }
-                darkObjects.iterate(function(el) {
-                    el.classList[method]('setting-mode-empty');
-                });
+                darkObjects.toggleClass('setting-mode-empty', (mk.calc.allBarracks.dark.getMaxLevel() === 0));
             }
 
             var armyCampsSpace = parseInt(mk.calc.armyCamps.value, 10);
@@ -485,13 +479,7 @@
 
             mk.calc.savedData.set('spellFactoryLevel', mk.calc.spellFactoryLevel.selectedIndex);
 
-            var method = 'remove';
-            if (spellFactoryLevel === 0) {
-                method = 'add';
-            }
-            spellsObjects.iterate(function(el) {
-                el.classList[method]('setting-mode-empty');
-            });
+            spellsObjects.toggleClass('setting-mode-empty', (spellFactoryLevel === 0));
         }
 
         mk.calc.savedDataAll.update(0, mk.calc.savedData);
