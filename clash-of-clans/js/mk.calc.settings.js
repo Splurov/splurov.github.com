@@ -19,9 +19,7 @@
 
         updateSettingPlaceholder(el);
 
-        el.addEventListener('change', function(e) {
-            updateSettingPlaceholder(e.currentTarget);
-        }, false);
+        mk.$Listen(el, ['change'], updateSettingPlaceholder.bind(null, el));
     });
 
     mk.Events.listen('loaded', function() {

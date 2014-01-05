@@ -57,7 +57,7 @@
     var shareTwitter = mk.$id('share-twitter');
     var shareFacebook = mk.$id('share-facebook');
     var permalink = mk.$id('share-permalink');
-    permalink.addEventListener('focus', mk.selectAll, false);
+    mk.$Listen(permalink, ['focus'], mk.selectAll);
     var makePermalink = function() {
         var url = 'http://mkln.ru/clash-of-clans/?s=';
         var data = mk.objectCopy(mk.calc.savedData.getAll());
@@ -93,7 +93,7 @@
     };
 
     var text = mk.$id('share-text');
-    text.addEventListener('focus', mk.selectAll, false);
+    mk.$Listen(text, ['focus'], mk.selectAll);
 
     var superscriptNumbers = {
         '1': '¹',

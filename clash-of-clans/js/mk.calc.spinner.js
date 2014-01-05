@@ -72,11 +72,11 @@
     };
 
     mk.$('.js-number').iterate(function(el) {
-        el.addEventListener('focus', mk.selectAll, false);
+        mk.$Listen(el, ['focus'], mk.selectAll);
         setSpinner('minus', el);
         setSpinner('plus', el);
 
-        el.addEventListener('keydown', spinnerKeyboard, false);
+        mk.$Listen(el, ['keydown'], spinnerKeyboard);
     });
 
 }());

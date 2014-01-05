@@ -34,12 +34,12 @@
 
     mk.objectIterate(mk.calc.allBarracks, function(k, v) {
         v.getElements().forEach(function(el) {
-            el.addEventListener('change', triggerCalculate.bind(null, 'barrack-' + k), false);
+            mk.$Listen(el, ['change'], triggerCalculate.bind(null, 'barrack-' + k));
         });
     });
-    mk.calc.armyCamps.addEventListener('change', triggerCalculate.bind(null, 'all'), false);
-    mk.calc.spellFactoryLevel.addEventListener('change', triggerCalculate.bind(null, 'spells'), false);
-    mk.calc.spellFactoryBoosted.addEventListener('change', function() {
+    mk.$Listen(mk.calc.armyCamps, ['change'], triggerCalculate.bind(null, 'all'));
+    mk.$Listen(mk.calc.spellFactoryLevel, ['change'], triggerCalculate.bind(null, 'spells'));
+    mk.$Listen(mk.calc.spellFactoryBoosted, ['change'], function() {
         localStorage.setItem('spell-factory-boosted', (mk.calc.spellFactoryBoosted.checked ? 'yes' : 'no'));
         triggerCalculate('spells');
     });
@@ -64,23 +64,13 @@
 
     mk.objectIterate(mk.calc.types, function(type, objects) {
         mk.objectIterate(objects, function(name) {
-            mk.$id(name + '-level').addEventListener(
-                'change',
-                triggerCalculate.bind(null, type),
-                false
-            );
-            mk.$id(name).addEventListener(
-                'input',
-                triggerCalculate.bind(null, type),
-                false
-            );
+            var triggerFunc = triggerCalculate.bind(null, type);
+
+            mk.$Listen(mk.$id(name + '-level'), ['change'], triggerFunc);
+            mk.$Listen(mk.$id(name), ['input'], triggerFunc);
 
             if (type === 'units' || type === 'dark') {
-                mk.$id(name + '-subtract').addEventListener(
-                    'input',
-                    triggerCalculate.bind(null, type),
-                    false
-                );
+                mk.$Listen(mk.$id(name + '-subtract'), ['input'], triggerFunc);
             }
         });
     });

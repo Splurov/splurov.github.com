@@ -23,9 +23,9 @@
     if (!window.mkIsMobile) {
         globalScrollOffset += menuElHeight;
 
-        document.addEventListener('scroll', function() {
+        mk.$Listen(window, ['scroll'], function() {
             mk.$toggleClass(menuEl, 'menu_fixed', (window.pageYOffset >= menuTopPosition));
-        }, false);
+        });
     }
 
     var smoothScroll = function(el) {
