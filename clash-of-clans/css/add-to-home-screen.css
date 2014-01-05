@@ -13,15 +13,13 @@
         height: 16px;
         vertical-align: text-top;
     }
+    .add-to-home-screen-flag {
+        display: none;
+    }
     .add-to-home-screen__button {
         color: #222;
         display: inline-block;
-        padding: 0;
-        border: 0;
-        background: none;
-        line-height: inherit;
         font-weight: bold;
-        margin: 0;
     }
         .add-to-home-screen__button:before {
             content: '▶';
@@ -29,13 +27,13 @@
             margin-right: 5px;
             display: inline-block;
         }
-            .add-to-home-screen[data-on="true"] .add-to-home-screen__button:before {
+            .add-to-home-screen-flag:checked + .add-to-home-screen__button:before {
                 content: '▼';
             }
     .add-to-home-screen__list {
         margin: 10px 0;
         display: none;
     }
-        .add-to-home-screen[data-on="true"] .add-to-home-screen__list {
+        .add-to-home-screen-flag:checked ~ .add-to-home-screen__list {
             display: block;
         }

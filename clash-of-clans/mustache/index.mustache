@@ -422,10 +422,11 @@
     </p>
 
     {{#web_only}}
-    <div class="add-to-home-screen" id="add-to-home-screen">
-        <button class="add-to-home-screen__button js-goal" id="add-to-home-screen-button" data-goal="ADD_TO_HOME">
+    <div class="add-to-home-screen">
+        <input type="checkbox" id="add-to-home-screen" class="add-to-home-screen-flag" />
+        <label for="add-to-home-screen" class="add-to-home-screen__button js-goal" data-goal="ADD_TO_HOME">
             How to add Clash Calc icon to your Home screen
-        </button>
+        </label>
         <ol class="add-to-home-screen__list">
             <li value="0">
                 Open Safari, type <kbd>http://mkln.ru/clash-of-clans/</kbd> in the address bar, tap Go and wait until the page is loaded.
@@ -439,7 +440,6 @@
             <li>Launch Clash Calc from your Home screen by tapping its icon.</li>
         </ol>
     </div>
-    <script src="js/add-to-home-screen.js"></script>
     {{/web_only}}
 </div>
 
