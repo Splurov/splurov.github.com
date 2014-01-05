@@ -6,6 +6,7 @@ var hogan = require('hogan.js');
 var csso = require('csso');
 var uglifyjs = require('uglify-js');
 var autoprefixer = require('autoprefixer');
+var cssc = require('css-condense');
 
 require('buffer');
 
@@ -137,12 +138,15 @@ for (var file in sources) {
         });
         styleData = autoprefixer('ios >= 5', 'chrome >= 21', 'ff >= 17', 'safari >= 5.1', 'ie >= 10', 'android >= 4', 'opera >= 12.1').process(styleData).css;
         console.log('autoprefixer: ' + p1);
-        styleData = csso.justDoIt(styleData);
-        console.log('csso: ' + p1);
-
         styleData = styleData.replace(/url\(([^']+?\.png)\)/g, function(match, sp1) {
             return 'url(' + makeDataUri(sp1.substr(1)) + ')';
         });
+
+        styleData = cssc.compress(styleData);
+        console.log('cssc: ' + p1);
+
+        styleData = csso.justDoIt(styleData);
+        console.log('csso: ' + p1);
 
         styleData = hoganPrepare('<style>' + styleData + '</style>');
 
