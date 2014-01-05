@@ -23,9 +23,7 @@
     });
 
     mk.Events.listen('loaded', function() {
-        $settings.iterate(function(el) {
-            updateSettingPlaceholder(el);
-        });
+        $settings.iterate(updateSettingPlaceholder);
     });
 
     var toggleModeEl = mk.$id('settings-toggle-mode');

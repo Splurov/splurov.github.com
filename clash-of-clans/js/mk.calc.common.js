@@ -188,16 +188,12 @@
             if (isLoadSource) {
                 return data;
             }
-            data = data.map(function(dataArray) {
-                return mk.calc.dataArrayToObject(dataArray);
-            });
+            data = data.map(mk.calc.dataArrayToObject);
             return data;
         };
 
         this.save = function(dataObjects) {
-            var dataArrays = dataObjects.map(function(dataObject) {
-                return mk.calc.dataObjectToArray(dataObject);
-            });
+            var dataArrays = dataObjects.map(mk.calc.dataObjectToArray);
             localStorage.setItem(this.key, JSON.stringify(dataArrays));
         };
     };

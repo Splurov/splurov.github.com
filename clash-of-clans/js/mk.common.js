@@ -327,9 +327,7 @@
             this.events[name].push(cb);
 
             if (this.future[name]) {
-                this.future[name].forEach(function(data) {
-                    cb(data);
-                });
+                this.future[name].forEach(cb);
             }
         }
 
