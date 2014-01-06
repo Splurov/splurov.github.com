@@ -144,7 +144,7 @@
         if (touchSupported) {
             var tapping;
 
-            target.addEventListener('touchstart', function(e) {
+            target.addEventListener('touchstart', function() {
                 if (lastEventSource === 'mouse') {
                     lastEventSource = null;
                     tapping = false;
@@ -333,4 +333,4 @@
 
     };
 
-}(typeof exports !== 'undefined' ? exports : window));
+}(typeof exports === 'undefined' ? window : exports));

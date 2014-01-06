@@ -1,5 +1,12 @@
 [
     [
+        "3.5",
+        "6 January, 2014",
+        [
+            "When possible, troops distributed between the barracks into equal parts"
+        ]
+    ],
+    [
         "3.4",
         "29 December, 2013",
         [
@@ -43,14 +50,14 @@
             "Fixed a bug associated with the inability to open some shared compositions",
             "“Too many units” message changed to “Exceeded the maximum queue length of the barracks”",
             "Updated home screen icons for iOS 7",
-            "Added tooltip for units icons"
+            "Added tooltip for troops icons"
         ]
     ],
     [
         "3.0",
         "10 October, 2013",
         [
-            "Units and spells icons",
+            "Troops and spells icons",
             "Production time in saved compositions",
             "Huge performance improvements on iOS",
             "Increased default page zoom on iOS",
@@ -81,7 +88,7 @@
         "2.17",
         "20 August, 2013",
         [
-            "Optimized distribution of units between the barracks, especially for easy filling"
+            "Optimized distribution of troops between the barracks, especially for easy filling"
         ]
     ],
     [
@@ -97,7 +104,7 @@
         [
             "Dark Barracks level 5 queue capacity increased to 80",
             "Witch is now displayed in the saved compositions",
-            "Units that not suitable for barracks levels is not displayed in the saved compositions"
+            "Troops that not suitable for barracks levels is not displayed in the saved compositions"
         ],
         "Fixed bugs:"
     ],
@@ -106,7 +113,7 @@
         "13 August, 2013",
         [
             "Added a field with a textual representation of the current composition",
-            "“Share Composition” block does not displayed if no units or spells are selected"
+            "“Share Composition” block does not displayed if no troops or spells are selected"
         ]
     ],
     [
@@ -114,7 +121,7 @@
         "31 July, 2013",
         [
             "Added Wall Breaker level 6",
-            "Added Witch unit (and Dark Barracks level 5)",
+            "Added Witch (and Dark Barracks level 5)",
             "Decreased Hog Rider’s housing space from 6 to 5",
             "Decreased Valkyrie’s training cost"
         ],
@@ -133,7 +140,7 @@
         [
             "Now you can increase or decrease the values in the text fields using the up and down arrow keys on the keyboard",
             "Fixed inability to choose five spells",
-            "Display of units/spells level and Amry Camps/Spell Factory capacity removed from the saved compositions",
+            "Display of troops/spells level and Amry Camps/Spell Factory capacity removed from the saved compositions",
             "Comments moved to a separate page, added “Contact Me” section, share buttons removed from the top"
         ]
     ],
@@ -143,7 +150,7 @@
         [
             "Freeze spell, level 6 Lighting and Heal spells",
             "P.E.K.K.A. level 4",
-            "Army Camps maximum capacity increased to 240 units"
+            "Army Camps maximum capacity increased to 240 troops"
         ],
         "4.53 updates:"
     ],
@@ -181,14 +188,14 @@
         "2.8.3",
         "4 June, 2013",
         [
-            "Added total cost with subtracted units"
+            "Added total cost with subtracted troops"
         ]
     ],
     [
         "2.8.2",
         "28 May, 2013",
         [
-            "Once again, optimized distribution of units between the barracks, especially when the difference between the levels of the barracks is significant",
+            "Once again, optimized distribution of troops between the barracks, especially when the difference between the levels of the barracks is significant",
             "Added copyright warning to the description of the page",
             "Added license",
             "Changed title"
@@ -198,7 +205,7 @@
         "2.8.1",
         "23 May, 2013",
         [
-            "Optimized distribution of units between the barracks when the maximum unit level less than the minimum barrack level"
+            "Optimized distribution of troops between the barracks when the maximum troop level less than the minimum barrack level"
         ]
     ],
     [
@@ -216,7 +223,7 @@
         "2.7",
         "22 May, 2013",
         [
-            "Fixed several bugs regarding the distribution of units between barracks",
+            "Fixed several bugs regarding the distribution of troops between barracks",
             "What’s New block and Version History box"
         ]
     ],
@@ -224,16 +231,16 @@
         "2.6.1",
         "6 May, 2013",
         [
-            "Fixed a bug on iPhone/iPad when many units cause lags",
+            "Fixed a bug on iPhone/iPad when many troops cause lags",
             "Bigger buttons to simplify tapping on iPhone/iPad (and other minor improvements: reduced indents, reduced font size of the headers, width set to fit the content)",
-            "Fixed a bug when all units goes to a single barrack"
+            "Fixed a bug when all troops goes to a single barrack"
         ]
     ],
     [
         "2.6",
         "5 May, 2013",
         [
-            "Grouping units of the same type in distribution between the barracks (as much as possible)",
+            "Grouping troops of the same type in distribution between the barracks (as much as possible)",
             "Improved distribution between the barracks to reduce the time of production",
             "Performance optimizations (primarily on iPhone/iPad)"
         ]
@@ -297,7 +304,7 @@
         "2.4",
         "14 April, 2013",
         [
-            "Added awesome feature to “subtract” units, which you already have. For example, you want to get 100 Barbarians and 100 Archers. And you already have 20 Barbarians. In the column “Quantity”, as usual, make 100 Barbarians and 100 Archers. And in the column “Subtract” 20 Barbarians. Now the distribution between the barracks are considered to be only for 80 Barbarians and 100 Archers. This is very useful, when after the battle you have remained part of the army"
+            "Added awesome feature to “subtract” troops, which you already have. For example, you want to get 100 Barbarians and 100 Archers. And you already have 20 Barbarians. In the column “Quantity”, as usual, make 100 Barbarians and 100 Archers. And in the column “Subtract” 20 Barbarians. Now the distribution between the barracks are considered to be only for 80 Barbarians and 100 Archers. This is very useful, when after the battle you have remained part of the army"
         ]
     ],
     [
@@ -305,7 +312,7 @@
         "12 April, 2013",
         [
             "The correct order for keyboard navigation through <kbd>TAB</kbd> key",
-            "Production time for each unit separately are no longer displayed (useless information)"
+            "Production time for each troop separately are no longer displayed (useless information)"
         ]
     ],
     [
@@ -348,8 +355,8 @@
         "2.0.1",
         "5 March, 2013",
         [
-            "Fixed a bug in which the units were distributed in barracks without accounting maximum barracks queue",
-            "Fixed bug with negative number of units"
+            "Fixed a bug in which the troops were distributed in barracks without accounting maximum barracks queue",
+            "Fixed bug with negative number of troops"
         ]
     ],
     [
@@ -401,7 +408,7 @@
             "The title is replaced by the more similar to the contents of the page",
             "Added description for auto-save feature",
             "Added army camps capacity — allows to show free capacity",
-            "Added maximum barracks level — allows show/hide unavailable units",
+            "Added maximum barracks level — allows show/hide unavailable troops",
             "Added spells calculation"
         ]
     ],
@@ -413,7 +420,7 @@
             "Fixed IE 9+ support",
             "Changed favicon to app store game icon",
             "Added elixir icon to costs",
-            "Added intermediate results of the calculations to the units table"
+            "Added intermediate results of the calculations to the troops table"
         ]
     ],
     [

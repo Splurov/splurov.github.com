@@ -320,4 +320,4 @@
         mk.calc.allBarracks[type] = new BarracksContainer(data);
     });
 
-}(typeof exports !== 'undefined' ? require('./mk.common').mk : window.mk));
+}(typeof exports === 'undefined' ? window.mk : require('./mk.common').mk));

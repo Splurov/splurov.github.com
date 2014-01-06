@@ -1,4 +1,4 @@
-(function(){
+(function() {
 
     'use strict';
 
@@ -128,7 +128,43 @@
         return suitable[0];
     };
 
-    mk.calc.fillBarracks = function(barracksQueue, unitsDistribution, avgTime) {
+    mk.calc.fillBarracks = function(barracksQueue, unitsDistribution, avgTime, activeCount) {
+        var isSuitedForEqual = true;
+
+        var maxUnitLevel = 0;
+        var totalUnitsSpace = 0;
+        unitsDistribution.forEach(function(kit) {
+            if (isSuitedForEqual && kit[1] % activeCount !== 0) {
+                isSuitedForEqual = false;
+            }
+
+            maxUnitLevel = Math.max(kit[2], maxUnitLevel);
+            totalUnitsSpace += kit[1] * kit[4];
+        });
+
+        var isAllBarracksSimilar = true;
+        var totalBarracksSpace = 0;
+        var barracksNums = [];
+        var firstBarrackBoosted = barracksQueue[0].isBoosted();
+        barracksQueue.forEach(function(barrack) {
+            if (barrack.level !== 0) {
+                var boostedLikeFirst = (barrack.isBoosted() === firstBarrackBoosted);
+                if (isSuitedForEqual && !(barrack.level >= maxUnitLevel && boostedLikeFirst)) {
+                    isSuitedForEqual = false;
+                }
+
+                if (isAllBarracksSimilar && !(barrack.level === barracksQueue[0].level && boostedLikeFirst)) {
+                    isAllBarracksSimilar = false;
+                }
+
+                barracksNums.push(barrack.num);
+
+                totalBarracksSpace += barrack.maxSpace;
+            }
+        });
+
+        isSuitedForEqual = (isSuitedForEqual && totalBarracksSpace >= totalUnitsSpace);
+
         var stopDistribution = false;
 
         while (unitsDistribution.length) {
@@ -138,65 +174,67 @@
             var kitLevel = kit[2];
             var kitTime = kit[3];
             var kitSpace = kit[4];
-            var barrack = null;
-            while (kitQuantity--) {
-                var isGetBarrack = true;
-                if (barrack) {
-                    var newTime = barrack.getActualTime() + kitTime;
-                    var newSpace = barrack.space + kitSpace;
-                    if (kitSpace === 1 && newTime <= avgTime && newSpace <= barrack.maxSpace) {
-                        isGetBarrack = false;
+
+            if (isSuitedForEqual) {
+                var quantityPerBarrack = kitQuantity / activeCount;
+                var timePerBarrack = quantityPerBarrack * kitTime;
+                var spacePerBarrack = quantityPerBarrack * kitSpace;
+
+                barracksQueue.forEach(function(barrack) {
+                    if (barrack.level !== 0) {
+                        barrack.units[kitIndex] = quantityPerBarrack;
+                        barrack.time += timePerBarrack;
+                        barrack.space += spacePerBarrack;
                     }
-                }
+                });
+            } else {
+                var barrack = null;
+                while (kitQuantity--) {
+                    var isGetBarrack = true;
+                    if (barrack) {
+                        var newTime = barrack.getActualTime() + kitTime;
+                        var newSpace = barrack.space + kitSpace;
+                        if (kitSpace === 1 && newTime <= avgTime && newSpace <= barrack.maxSpace) {
+                            isGetBarrack = false;
+                        }
+                    }
 
-                if (isGetBarrack) {
-                    barrack = getSuitableBarrack(
-                        barracksQueue,
-                        kitLevel,
-                        kitSpace,
-                        kitTime,
-                        avgTime
-                    );
-                }
+                    if (isGetBarrack) {
+                        barrack = getSuitableBarrack(
+                            barracksQueue,
+                            kitLevel,
+                            kitSpace,
+                            kitTime,
+                            avgTime
+                        );
+                    }
 
-                if (barrack === null) {
-                    stopDistribution = true;
-                    break;
-                }
+                    if (barrack === null) {
+                        stopDistribution = true;
+                        break;
+                    }
 
-                if (barrack.units[kitIndex]) {
-                    barrack.units[kitIndex]++;
-                } else {
-                    barrack.units[kitIndex] = 1;
-                }
+                    if (barrack.units[kitIndex]) {
+                        barrack.units[kitIndex]++;
+                    } else {
+                        barrack.units[kitIndex] = 1;
+                    }
 
-                barrack.time += kitTime;
-                barrack.space += kitSpace;
+                    barrack.time += kitTime;
+                    barrack.space += kitSpace;
+                }
             }
         }
 
-        if (!stopDistribution) {
-            var firstBarrackLevel = barracksQueue[0].level;
-            var firstBarrackBoosted = barracksQueue[0].isBoosted();
-            var nums = [];
-            if (barracksQueue.every(function(barrack) {
+        if (!stopDistribution && isAllBarracksSimilar && !isSuitedForEqual) {
+            barracksQueue.sort(function(a, b) {
+                return b.getActualTime() - a.getActualTime();
+            });
+            barracksQueue.forEach(function(barrack, index) {
                 if (barrack.level !== 0) {
-                    nums.push(barrack.num);
+                    barrack.num = barracksNums[index];
                 }
-                return (
-                    (barrack.level === firstBarrackLevel && barrack.isBoosted() === firstBarrackBoosted) ||
-                    barrack.level === 0
-                );
-            })) {
-                barracksQueue.sort(function(a, b) {
-                    return b.getActualTime() - a.getActualTime();
-                });
-                barracksQueue.forEach(function(barrack, index) {
-                    if (barrack.level !== 0) {
-                        barrack.num = nums[index];
-                    }
-                });
-            }
+            });
         }
 
         return !stopDistribution;
@@ -273,7 +311,7 @@
                         firstIteration = false;
                     } else {
                         barrackSpaceEl.textContent = space + ' / ';
-                }
+                    }
                 }
             });
         }
@@ -321,9 +359,9 @@
             var summaryCost = (costPerItem * quantity);
 
             if (params.computeAll ||
-                mk.calc.savedData.get(name) !== quantity ||
-                mk.calc.savedData.get(levelId) !== levelSelectedIndex) {
-                 mk.$id(name + '-summary').textContent = (summaryCost ? mk.numberFormat(summaryCost) : '');
+                    mk.calc.savedData.get(name) !== quantity ||
+                    mk.calc.savedData.get(levelId) !== levelSelectedIndex) {
+                mk.$id(name + '-summary').textContent = (summaryCost ? mk.numberFormat(summaryCost) : '');
             }
 
             totalCost += summaryCost;
@@ -398,10 +436,11 @@
                 maxUnitTime = Math.ceil(maxUnitTime / 4);
             }
 
-            var virtualBarracksCount = mk.calc.allBarracks[type].getActiveCount() + (boostedCount * 4);
+            var activeCount = mk.calc.allBarracks[type].getActiveCount();
+            var virtualBarracksCount = activeCount + (boostedCount * 4);
             var avgTime = Math.max(Math.ceil(totalTime / virtualBarracksCount), maxUnitTime);
 
-            var fillSuccess = mk.calc.fillBarracks(barracksQueue, distribution, avgTime);
+            var fillSuccess = mk.calc.fillBarracks(barracksQueue, distribution, avgTime, activeCount);
 
             currentSpace[type] += totalSpace;
 

@@ -29,7 +29,7 @@
         urlData = '[' + urlData + ']';
         try {
             urlData = JSON.parse(urlData);
-        } catch (e) {
+        } catch (ignore) {
             urlData = false;
         }
 

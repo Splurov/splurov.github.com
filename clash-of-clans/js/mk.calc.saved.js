@@ -105,7 +105,7 @@
                 if (items.length) {
                     var avgTime = Math.max(Math.ceil(time / barracksCount), maxUnitTime);
                     var productionTime;
-                    if (mk.calc.fillBarracks(barracksQueue, distribution, avgTime)) {
+                    if (mk.calc.fillBarracks(barracksQueue, distribution, avgTime, barracksCount)) {
                         productionTime = Math.max.apply(null, barracksQueue.map(function(barrack) {
                             return barrack.time;
                         }));
