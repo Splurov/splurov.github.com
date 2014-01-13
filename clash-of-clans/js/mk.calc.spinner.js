@@ -22,30 +22,114 @@
         });
     };
 
-    var spinnerInterval = null;
-    var spinnerTimeout = null;
+    var currentSpinner = {
+        'target': null,
+        'click': false,
+        'firstTimeout': null,
+        'secondTimeout': null,
+        'x': 0,
+        'y': 0
+    };
 
-    var spinnerHold = function(e) {
-        e.preventDefault();
-        e.currentTarget.spinnerClicked = true;
-        spinnerTimeout = setTimeout(function(eventElement) {
-            eventElement.spinnerClicked = false;
+    var spinnerEventStart = function(target) {
+        currentSpinner.target = target;
+        currentSpinner.click = true;
+        currentSpinner.firstTimeout = setTimeout(function() {
+            currentSpinner.click = false;
             (function fakeInterval() {
-                spinnerInterval = setTimeout(function() {
-                    spinnerAction(eventElement.spinnerTarget, eventElement.textContent);
+                currentSpinner.secondTimeout = setTimeout(function() {
+                    spinnerAction(currentSpinner.target.spinnerTarget, currentSpinner.target.textContent);
                     fakeInterval();
                 }, 100);
             }());
-        }.bind(null, e.currentTarget), 500);
+        }, 500);
     };
 
-    var spinnerRelease = function(e) {
-        e.preventDefault();
-        if (e.currentTarget.spinnerClicked) {
-            spinnerAction(e.currentTarget.spinnerTarget, e.currentTarget.textContent);
+    var spinnerEventMoveStop = function(diffX, diffY) {
+        if (diffX > 10 || diffY > 10) {
+            currentSpinner.target = null;
+            currentSpinner.click = false;
+            clearTimeout(currentSpinner.firstTimeout);
+            clearTimeout(currentSpinner.secondTimeout);
         }
-        clearTimeout(spinnerTimeout);
-        clearInterval(spinnerInterval);
+    };
+
+    var spinnerEventStop = function() {
+        if (currentSpinner.target) {
+            if (currentSpinner.click) {
+                spinnerAction(currentSpinner.target.spinnerTarget, currentSpinner.target.textContent);
+            }
+            currentSpinner.target = null;
+            clearTimeout(currentSpinner.firstTimeout);
+            clearTimeout(currentSpinner.secondTimeout);
+        }
+    };
+
+    var touchSupported = ('ontouchstart' in window);
+
+    if (!window.mkIsMobile || !touchSupported) {
+        window.addEventListener('mousemove', function(e) {
+            if (currentSpinner.target) {
+                var diffX = Math.abs(e.screenX - currentSpinner.x);
+                var diffY = Math.abs(e.screenY - currentSpinner.y);
+                spinnerEventMoveStop(diffX, diffY);
+            }
+        }, false);
+
+        window.addEventListener('mouseup', function() {
+            spinnerEventStop();
+        }, false);
+    }
+
+    var spinnerEvents = function(el) {
+
+        if (touchSupported) {
+            var preventTimeStamp = 0;
+            el.addEventListener('touchstart', function(e) {
+                e.stopPropagation();
+
+                if (e.timeStamp - preventTimeStamp < 500) {
+                    e.preventDefault();
+                }
+                preventTimeStamp = e.timeStamp;
+
+                currentSpinner.x = e.touches[0].screenX;
+                currentSpinner.y = e.touches[0].screenY;
+
+                spinnerEventStart(e.currentTarget);
+            }, false);
+
+            el.addEventListener('touchmove', function(e) {
+                e.stopPropagation();
+
+                if (currentSpinner.target) {
+                    var diffX = Math.abs(e.touches[0].screenX - currentSpinner.x) / 2;
+                    var diffY = Math.abs(e.touches[0].screenY - currentSpinner.y) / 2;
+                    spinnerEventMoveStop(diffX, diffY);
+                }
+            }, false);
+
+            el.addEventListener('touchcancel', function(e) {
+                e.stopPropagation();
+                spinnerEventStop();
+            }, false);
+
+            el.addEventListener('touchend', function(e) {
+                e.stopPropagation();
+                spinnerEventStop();
+            }, false);
+        }
+
+        if (!window.mkIsMobile || !touchSupported) {
+            el.addEventListener('mousedown', function(e) {
+                e.stopPropagation();
+
+                currentSpinner.x = e.screenX;
+                currentSpinner.y = e.screenY;
+                spinnerEventStart(e.currentTarget);
+            }, false);
+        }
+
     };
 
     var setSpinner = function(type, el) {
@@ -54,8 +138,7 @@
         container.textContent = (type === 'plus' ? '+' : '−');
         container.spinnerTarget = el;
 
-        mk.$Listen(container, ['touchstart', 'mousedown'], spinnerHold);
-        mk.$Listen(container, ['touchend', 'mouseup'], spinnerRelease);
+        spinnerEvents(container);
 
         mk.$insertBefore(el, container);
     };

@@ -3,7 +3,8 @@
         "3.5",
         "6 January, 2014",
         [
-            "When possible, troops distributed between the barracks into equal parts"
+            "When possible, troops distributed between the barracks into equal parts",
+            "Improved usability of plus/minus buttons (no more frozen state on desktop or failed attempts to scroll on mobile)"
         ]
     ],
     [
