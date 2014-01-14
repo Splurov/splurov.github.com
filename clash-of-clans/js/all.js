@@ -1,3 +1,4 @@
+/* build:js:vendor:js/template-2.0.0.min.js */
 /* build:js:js/mk.common.js */
 /* build:js:js/mk.calc.converter.js */
 /* build:js:js/mk.calc.common.js */
@@ -9,3 +10,4 @@
 /* build:js:js/mk.calc.settings.js */
 /* build:js:js/mk.calc.spinner.js */
 /* build:js:js/mk.calc.reset.js */
+/* build:js:js/mk.goal.js */

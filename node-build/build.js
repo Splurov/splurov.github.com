@@ -162,7 +162,7 @@ for (var file in sources) {
         }
         console.log('js: ' + p1);
         var scriptData = fs.readFileSync(dir + p1, 'utf8');
-        scriptData = scriptData.replace(/\/\* build:js:([^ ]+) \*\//g, function(buildMatch, buildP1) {
+        scriptData = scriptData.replace(/\/\* build:js:([^ :]+) \*\//g, function(buildMatch, buildP1) {
             console.log('js sub: ' + buildP1);
             return fs.readFileSync(dir + buildP1, 'utf8');
         });
@@ -177,7 +177,8 @@ for (var file in sources) {
             scriptData = uglifyjs.minify(scriptData, {
                 'fromString': true,
                 'output': {
-                    'screw_ie8': true
+                    'screw_ie8': true,
+                    'comments': /build:js:vendor:/
                 },
                 'compress': {
                     'screw_ie8': true,
@@ -186,6 +187,11 @@ for (var file in sources) {
             }).code;
             scriptData = scriptData.replace('"use strict";', '');
         }
+
+        scriptData = scriptData.replace(/\/\* build:js:vendor:([^ ]+) \*\//g, function(buildMatch, buildP1) {
+            console.log('js sub vendor: ' + buildP1);
+            return fs.readFileSync(dir + buildP1, 'utf8');
+        });
 
         scriptData = hoganPrepare('<script>' + scriptData + '</script>');
 

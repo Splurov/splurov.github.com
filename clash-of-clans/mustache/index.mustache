@@ -7,7 +7,7 @@
     <title>{{coc_seo_title}}</title>
     <meta name="description" content="{{coc_description}}"/>
     {{/web_only}}
-    <script src="js/detect-mobile.js"></script>
+    <script src="js/detect-mobile.js"></script>{{#web_only}}<script src="js/mk.calc.security.js"></script>{{/web_only}}
     <link rel="stylesheet" type="text/css" href="css/all.css"/>
     {{#web_only}}
     <link rel="icon" href="/clash-of-clans/i/favicon-v2.png"/>
@@ -377,16 +377,7 @@
     </div>
 </div>
 
-<script src="js/template-2.0.0.min.js" data-compress="no"></script>
-
-<script src="js/all.js"></script>{{#web_only}}<script src="js/mk.calc.security.js"></script>{{/web_only}}
-
 {{#web_only}}
-<script src="../js/ya-metrika.js"></script>
-{{& ya_metrika_noscript}}
-
-<script src="../js/ga.js"></script>
-
 <div class="list-content list-content_small fixed-content" id="changelog">
     {{#firstChangelog}}
     <h3 class="block-indented">What’s New in Version {{version}} <a href="version-history.html" class="button button_after" target="_blank">Version History</a></h3>
@@ -443,8 +434,6 @@
     {{/web_only}}
 </div>
 
-<script src="js/mk.goal.js"></script>
-
 <footer>
     <div class="fixed-content">
         <p>
@@ -470,6 +459,15 @@
         </p>
     </div>
 </footer>
+{{/web_only}}
+
+<script src="js/all.js"></script>
+
+{{#web_only}}
+<script src="../js/ya-metrika.js"></script>
+{{& ya_metrika_noscript}}
+
+<script src="../js/ga.js"></script>
 {{/web_only}}
 
 {{^web_only}}
