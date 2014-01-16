@@ -170,7 +170,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Barbarian-level" tabindex="101" class="js-setting">
+                                <select id="Barbarian-level" tabindex="101" class="js-setting" data-component="level" data-type="units">
                                         <option value="25">1</option>
                     <option value="40">2</option>
                     <option value="60">3</option>
@@ -182,28 +182,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="units"
+                                       data-type="units"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Barbarian"
                                        size="3"
                                        tabindex="1101"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Barbarian-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="units"
+                                           data-type="units"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Barbarian-subtract"
                                            size="3"
                                            tabindex="4101"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Barbarian-1" class="number"></td>
             <td id="quantity-Barbarian-2" class="number"></td>
@@ -217,7 +217,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Archer-level" tabindex="102" class="js-setting">
+                                <select id="Archer-level" tabindex="102" class="js-setting" data-component="level" data-type="units">
                                         <option value="50">1</option>
                     <option value="80">2</option>
                     <option value="120">3</option>
@@ -229,28 +229,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="units"
+                                       data-type="units"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Archer"
                                        size="3"
                                        tabindex="1102"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Archer-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="units"
+                                           data-type="units"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Archer-subtract"
                                            size="3"
                                            tabindex="4102"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Archer-1" class="number"></td>
             <td id="quantity-Archer-2" class="number"></td>
@@ -264,7 +264,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Goblin-level" tabindex="103" class="js-setting">
+                                <select id="Goblin-level" tabindex="103" class="js-setting" data-component="level" data-type="units">
                                         <option value="25">1</option>
                     <option value="40">2</option>
                     <option value="60">3</option>
@@ -276,28 +276,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="units"
+                                       data-type="units"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Goblin"
                                        size="3"
                                        tabindex="1103"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Goblin-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="units"
+                                           data-type="units"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Goblin-subtract"
                                            size="3"
                                            tabindex="4103"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Goblin-1" class="number"></td>
             <td id="quantity-Goblin-2" class="number"></td>
@@ -311,7 +311,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Giant-level" tabindex="104" class="js-setting">
+                                <select id="Giant-level" tabindex="104" class="js-setting" data-component="level" data-type="units">
                                         <option value="500">1</option>
                     <option value="1000">2</option>
                     <option value="1500">3</option>
@@ -323,28 +323,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="units"
+                                       data-type="units"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Giant"
                                        size="3"
                                        tabindex="1104"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Giant-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="units"
+                                           data-type="units"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Giant-subtract"
                                            size="3"
                                            tabindex="4104"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Giant-1" class="number"></td>
             <td id="quantity-Giant-2" class="number"></td>
@@ -358,7 +358,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Wall_Breaker-level" tabindex="105" class="js-setting">
+                                <select id="Wall_Breaker-level" tabindex="105" class="js-setting" data-component="level" data-type="units">
                                         <option value="1000">1</option>
                     <option value="1500">2</option>
                     <option value="2000">3</option>
@@ -370,28 +370,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="units"
+                                       data-type="units"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Wall_Breaker"
                                        size="3"
                                        tabindex="1105"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Wall_Breaker-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="units"
+                                           data-type="units"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Wall_Breaker-subtract"
                                            size="3"
                                            tabindex="4105"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Wall_Breaker-1" class="number"></td>
             <td id="quantity-Wall_Breaker-2" class="number"></td>
@@ -405,7 +405,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Balloon-level" tabindex="106" class="js-setting">
+                                <select id="Balloon-level" tabindex="106" class="js-setting" data-component="level" data-type="units">
                                         <option value="2000">1</option>
                     <option value="2500">2</option>
                     <option value="3000">3</option>
@@ -417,28 +417,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="units"
+                                       data-type="units"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Balloon"
                                        size="3"
                                        tabindex="1106"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Balloon-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="units"
+                                           data-type="units"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Balloon-subtract"
                                            size="3"
                                            tabindex="4106"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Balloon-1" class="number"></td>
             <td id="quantity-Balloon-2" class="number"></td>
@@ -452,7 +452,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Wizard-level" tabindex="107" class="js-setting">
+                                <select id="Wizard-level" tabindex="107" class="js-setting" data-component="level" data-type="units">
                                         <option value="1500">1</option>
                     <option value="2000">2</option>
                     <option value="2500">3</option>
@@ -464,28 +464,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="units"
+                                       data-type="units"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Wizard"
                                        size="3"
                                        tabindex="1107"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Wizard-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="units"
+                                           data-type="units"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Wizard-subtract"
                                            size="3"
                                            tabindex="4107"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Wizard-1" class="number"></td>
             <td id="quantity-Wizard-2" class="number"></td>
@@ -499,7 +499,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Healer-level" tabindex="108" class="js-setting">
+                                <select id="Healer-level" tabindex="108" class="js-setting" data-component="level" data-type="units">
                                         <option value="5000">1</option>
                     <option value="6000">2</option>
                     <option value="8000">3</option>
@@ -509,28 +509,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="units"
+                                       data-type="units"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Healer"
                                        size="3"
                                        tabindex="1108"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Healer-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="units"
+                                           data-type="units"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Healer-subtract"
                                            size="3"
                                            tabindex="4108"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Healer-1" class="number"></td>
             <td id="quantity-Healer-2" class="number"></td>
@@ -544,7 +544,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Dragon-level" tabindex="109" class="js-setting">
+                                <select id="Dragon-level" tabindex="109" class="js-setting" data-component="level" data-type="units">
                                         <option value="25000">1</option>
                     <option value="30000">2</option>
                     <option value="36000">3</option>
@@ -554,28 +554,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="units"
+                                       data-type="units"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Dragon"
                                        size="3"
                                        tabindex="1109"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Dragon-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="units"
+                                           data-type="units"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Dragon-subtract"
                                            size="3"
                                            tabindex="4109"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Dragon-1" class="number"></td>
             <td id="quantity-Dragon-2" class="number"></td>
@@ -589,7 +589,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="P-E-K-K-A--level" tabindex="110" class="js-setting">
+                                <select id="P-E-K-K-A--level" tabindex="110" class="js-setting" data-component="level" data-type="units">
                                         <option value="30000">1</option>
                     <option value="35000">2</option>
                     <option value="42000">3</option>
@@ -599,28 +599,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="units"
+                                       data-type="units"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="P-E-K-K-A-"
                                        size="3"
                                        tabindex="1110"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="P-E-K-K-A--summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="units"
+                                           data-type="units"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="P-E-K-K-A--subtract"
                                            size="3"
                                            tabindex="4110"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-P-E-K-K-A--1" class="number"></td>
             <td id="quantity-P-E-K-K-A--2" class="number"></td>
@@ -633,7 +633,7 @@
                         <label for="army-camps">Army Camps:</label></td>
                     <td class="result">
                         <span id="units-space" class="text-middle"></span><!--
-                        --><select id="army-camps" data-object-type="all" tabindex="19" class="js-setting">
+                        --><select id="army-camps" data-type="all" tabindex="19" class="js-setting">
                                 <option value="20">20</option>
                                 <option value="30">30</option>
                                 <option value="40">40</option>
@@ -746,7 +746,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Minion-level" tabindex="201" class="js-setting">
+                                <select id="Minion-level" tabindex="201" class="js-setting" data-component="level" data-type="dark">
                                         <option value="6">1</option>
                     <option value="7">2</option>
                     <option value="8">3</option>
@@ -757,28 +757,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="dark"
+                                       data-type="dark"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Minion"
                                        size="3"
                                        tabindex="1201"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Minion-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="dark"
+                                           data-type="dark"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Minion-subtract"
                                            size="3"
                                            tabindex="4201"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Minion-1" class="number"></td>
             <td id="quantity-Minion-2" class="number"></td>
@@ -790,7 +790,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Hog Rider-level" tabindex="202" class="js-setting">
+                                <select id="Hog Rider-level" tabindex="202" class="js-setting" data-component="level" data-type="dark">
                                         <option value="30">1</option>
                     <option value="35">2</option>
                     <option value="40">3</option>
@@ -801,28 +801,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="dark"
+                                       data-type="dark"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Hog Rider"
                                        size="3"
                                        tabindex="1202"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Hog Rider-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="dark"
+                                           data-type="dark"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Hog Rider-subtract"
                                            size="3"
                                            tabindex="4202"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Hog Rider-1" class="number"></td>
             <td id="quantity-Hog Rider-2" class="number"></td>
@@ -834,7 +834,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Valkyrie-level" tabindex="203" class="js-setting">
+                                <select id="Valkyrie-level" tabindex="203" class="js-setting" data-component="level" data-type="dark">
                                         <option value="70">1</option>
                     <option value="100">2</option>
                     <option value="130">3</option>
@@ -844,28 +844,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="dark"
+                                       data-type="dark"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Valkyrie"
                                        size="3"
                                        tabindex="1203"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Valkyrie-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="dark"
+                                           data-type="dark"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Valkyrie-subtract"
                                            size="3"
                                            tabindex="4203"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Valkyrie-1" class="number"></td>
             <td id="quantity-Valkyrie-2" class="number"></td>
@@ -877,7 +877,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Golem-level" tabindex="204" class="js-setting">
+                                <select id="Golem-level" tabindex="204" class="js-setting" data-component="level" data-type="dark">
                                         <option value="450">1</option>
                     <option value="525">2</option>
                     <option value="600">3</option>
@@ -888,28 +888,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="dark"
+                                       data-type="dark"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Golem"
                                        size="3"
                                        tabindex="1204"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Golem-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="dark"
+                                           data-type="dark"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Golem-subtract"
                                            size="3"
                                            tabindex="4204"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Golem-1" class="number"></td>
             <td id="quantity-Golem-2" class="number"></td>
@@ -921,7 +921,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Witch-level" tabindex="205" class="js-setting">
+                                <select id="Witch-level" tabindex="205" class="js-setting" data-component="level" data-type="dark">
                                         <option value="250">1</option>
                     <option value="350" selected="selected">2</option>
             </select>
@@ -929,28 +929,28 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="dark"
+                                       data-type="dark"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Witch"
                                        size="3"
                                        tabindex="1205"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Witch-summary" class="number small">
                             </td>
                                 <td>
                                     <input type="text"
                                            pattern="[0-9]*"
-                                           data-object-type="dark"
+                                           data-type="dark"
                                            min="0"
                                            max="999"
                                            class="js-number text-middle"
                                            id="Witch-subtract"
                                            size="3"
                                            tabindex="4205"
-                                           data-field-type="subtract"/>
+                                           data-component="subtract"/>
                                 </td>
             <td id="quantity-Witch-1" class="number"></td>
             <td id="quantity-Witch-2" class="number"></td>
@@ -1006,7 +1006,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Lightning-level" tabindex="301" class="js-setting">
+                                <select id="Lightning-level" tabindex="301" class="js-setting" data-component="level" data-type="spells">
                                         <option value="15000">1</option>
                     <option value="16500">2</option>
                     <option value="18000">3</option>
@@ -1018,14 +1018,14 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="spells"
+                                       data-type="spells"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Lightning"
                                        size="3"
                                        tabindex="1301"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Lightning-summary" class="number small">
                             </td>
@@ -1038,7 +1038,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Healing-level" tabindex="302" class="js-setting">
+                                <select id="Healing-level" tabindex="302" class="js-setting" data-component="level" data-type="spells">
                                         <option value="15000">1</option>
                     <option value="16500">2</option>
                     <option value="18000">3</option>
@@ -1050,14 +1050,14 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="spells"
+                                       data-type="spells"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Healing"
                                        size="3"
                                        tabindex="1302"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Healing-summary" class="number small">
                             </td>
@@ -1070,7 +1070,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Rage-level" tabindex="303" class="js-setting">
+                                <select id="Rage-level" tabindex="303" class="js-setting" data-component="level" data-type="spells">
                                         <option value="23000">1</option>
                     <option value="25000">2</option>
                     <option value="27000">3</option>
@@ -1081,14 +1081,14 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="spells"
+                                       data-type="spells"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Rage"
                                        size="3"
                                        tabindex="1303"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Rage-summary" class="number small">
                             </td>
@@ -1101,7 +1101,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Jump-level" tabindex="304" class="js-setting">
+                                <select id="Jump-level" tabindex="304" class="js-setting" data-component="level" data-type="spells">
                                         <option value="23000">1</option>
                     <option value="29000" selected="selected">2</option>
             </select>
@@ -1109,14 +1109,14 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="spells"
+                                       data-type="spells"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Jump"
                                        size="3"
                                        tabindex="1304"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Jump-summary" class="number small">
                             </td>
@@ -1129,7 +1129,7 @@
                                 </span>
                             </td>
                             <td class="small">
-                                <select id="Freeze-level" tabindex="305" class="js-setting">
+                                <select id="Freeze-level" tabindex="305" class="js-setting" data-component="level" data-type="spells">
                                         <option value="26000">1</option>
                     <option value="29000">2</option>
                     <option value="31000">3</option>
@@ -1139,14 +1139,14 @@
                             <td>
                                 <input type="text"
                                        pattern="[0-9]*"
-                                       data-object-type="spells"
+                                       data-type="spells"
                                        min="0"
                                        max="999"
                                        class="js-number text-middle"
                                        id="Freeze"
                                        size="3"
                                        tabindex="1305"
-                                       data-field-type="quantity"/>
+                                       data-component="quantity"/>
                             </td>
                             <td id="Freeze-summary" class="number small">
                             </td>
@@ -1286,8 +1286,7 @@
 * @license http://www.apache.org/licenses/LICENSE-2.0.txt
 */
 var Hogan={};(function(a,b){function i(a){return String(a===null||a===undefined?"":a)}function j(a){return a=i(a),h.test(a)?a.replace(c,"&amp;").replace(d,"&lt;").replace(e,"&gt;").replace(f,"&#39;").replace(g,"&quot;"):a}a.Template=function(a,c,d,e){this.r=a||this.r,this.c=d,this.options=e,this.text=c||"",this.buf=b?[]:""},a.Template.prototype={r:function(a,b,c){return""},v:j,t:i,render:function(b,c,d){return this.ri([b],c||{},d)},ri:function(a,b,c){return this.r(a,b,c)},rp:function(a,b,c,d){var e=c[a];return e?(this.c&&typeof e=="string"&&(e=this.c.compile(e,this.options)),e.ri(b,c,d)):""},rs:function(a,b,c){var d=a[a.length-1];if(!k(d)){c(a,b,this);return}for(var e=0;e<d.length;e++)a.push(d[e]),c(a,b,this),a.pop()},s:function(a,b,c,d,e,f,g){var h;return k(a)&&a.length===0?!1:(typeof a=="function"&&(a=this.ls(a,b,c,d,e,f,g)),h=a===""||!!a,!d&&h&&b&&b.push(typeof a=="object"?a:b[b.length-1]),h)},d:function(a,b,c,d){var e=a.split("."),f=this.f(e[0],b,c,d),g=null;if(a==="."&&k(b[b.length-2]))return b[b.length-1];for(var h=1;h<e.length;h++)f&&typeof f=="object"&&e[h]in f?(g=f,f=f[e[h]]):f="";return d&&!f?!1:(!d&&typeof f=="function"&&(b.push(g),f=this.lv(f,b,c),b.pop()),f)},f:function(a,b,c,d){var e=!1,f=null,g=!1;for(var h=b.length-1;h>=0;h--){f=b[h];if(f&&typeof f=="object"&&a in f){e=f[a],g=!0;break}}return g?(!d&&typeof e=="function"&&(e=this.lv(e,b,c)),e):d?!1:""},ho:function(a,b,c,d,e){var f=this.c,g=this.options;g.delimiters=e;var d=a.call(b,d);return d=d==null?String(d):d.toString(),this.b(f.compile(d,g).render(b,c)),!1},b:b?function(a){this.buf.push(a)}:function(a){this.buf+=a},fl:b?function(){var a=this.buf.join("");return this.buf=[],a}:function(){var a=this.buf;return this.buf="",a},ls:function(a,b,c,d,e,f,g){var h=b[b.length-1],i=null;if(!d&&this.c&&a.length>0)return this.ho(a,h,c,this.text.substring(e,f),g);i=a.call(h);if(typeof i=="function"){if(d)return!0;if(this.c)return this.ho(i,h,c,this.text.substring(e,f),g)}return i},lv:function(a,b,c){var d=b[b.length-1],e=a.call(d);if(typeof e=="function"){e=i(e.call(d));if(this.c&&~e.indexOf("{{"))return this.c.compile(e,this.options).render(d,c)}return i(e)}};var c=/&/g,d=/</g,e=/>/g,f=/\'/g,g=/\"/g,h=/[&<>\"\']/,k=Array.isArray||function(a){return Object.prototype.toString.call(a)==="[object Array]"}})(typeof exports!="undefined"?exports:Hogan)
-!function(e){var t={};e.mk=t,Function.prototype.bind||(Function.prototype.bind=function(e){var t=this,a=Array.prototype.slice.call(arguments,1);return function(){return t.apply(e,a.concat(Array.prototype.slice.call(arguments)))}}),t.objectIterate=function(e,t){for(var a in e)if(e.hasOwnProperty(a)&&t(a,e[a])===!1)break},t.objectCopy=function(e){var a=e.constructor();return t.objectIterate(e,function(e,t){a[e]=t}),a},t.numberFormat=function(e){return(""+e).replace(/\B(?=(\d{3})+(?!\d))/g,",")},t.convertToTitle=function(e){return e.replace("_"," ").replace(/-/g,".")},t.getFormattedTime=function(e,t){var a="",n=e;if(n>3599&&(a+=Math.floor(n/3600)+"h ",n%=3600,t=!0),n>59){var l=Math.floor(n/60);n%=60,t&&n>0&&l++,a+=l+"m "}else a+="0m ";return""!==a&&t||(a+=n+"s"),a},t.Dict=function(e){this.data=e,this.get=function(e,t){var a=this.data[e];return void 0===t||void 0!==a&&null!==a?a:t},this.set=function(e,t){this.data[e]=t},this.getAll=function(){return this.data}},t.MultiDict=function(e){this.entries=[],this.retrieve=function(e){return this.entries[e]||new t.Dict({})},this.update=function(e,t){this.entries[e]=t},this.insert=function(e){this.entries.push(new t.Dict(e))},this.remove=function(e){this.entries.splice(e,1)},this.getAll=function(){return this.entries.map(function(e){return e.getAll()})},this.forEach=function(e){this.entries.forEach(e)},this.getLength=function(){return this.entries.length},e.forEach(this.insert.bind(this))};var a;t.selectAll=function(e){var t=e.currentTarget;-1!==["input","textarea"].indexOf(t.tagName.toLowerCase())&&""!==t.value&&(clearTimeout(a),a=setTimeout(function(){t.setSelectionRange(0,t.value.length)},1))};var n=function(e,t,a){var n,l="ontouchstart"in window;if(l){var s;e.addEventListener("touchstart",function(){"mouse"===n?(n=null,s=!1):(n="touch",s=!0)},!1),e.addEventListener("touchmove",function(){s=!1},!1),e.addEventListener("touchcancel",function(){s=!1},!1),e.addEventListener("touchend",function(e){s&&t(e)},!1)}if(!window.mkIsMobile||!l)if(a){var r;e.addEventListener("mousedown",function(){"touch"===n?(n=null,r=!1):(n="mouse",r=!0)},!1),e.addEventListener("mousemove",function(){r=!1},!1),e.addEventListener("mouseup",function(e){r&&3!==e.which&&t(e)},!1),e.addEventListener("keypress",function(e){var a=e.keyCode||e.which;-1!==[13,32].indexOf(a)&&t(e)},!1)}else e.addEventListener("click",function(e){"touch"===n?n=null:(n="mouse",t(e))},!1)};t.$Listen=function(e,t,a){for(var l=t.length;l--;){var s=t[l];"universalClick"===s?n(e,a):"universalAndMiddleClick"===s?n(e,a,!0):e.addEventListener(s,a,!1)}},t.$toggleClass=function(e,t,a){e.classList[a?"add":"remove"](t)};var l=function(e){this.elements=e?e:[],this.listen=function(e,a){this.iterate(function(n){t.$Listen(n,e,a)})},this.iterate=function(e){for(var t=-1,a=this.elements.length;++t<a;)e(this.elements[t])},this.toggleClass=function(e,a){this.iterate(function(n){t.$toggleClass(n,e,a)})}};t.$=function(e,t){return new l((t||document).querySelectorAll(e))},t.$id=function(e){return document.getElementById(e)},t.$insertBefore=function(e,t){e.nextSibling?e.parentNode.insertBefore(t,e.nextSibling):e.parentNode.appendChild(t)},t.infoMessage=function(e,a){var n,l=t.$id(e),s=function(){clearTimeout(n),l.style.display="none"};return t.$Listen(l,["universalClick"],s),{show:function(){l.style.display="inline-block",a&&(n=setTimeout(function(){l.style.display="none"},2e3))},hide:s}},t.Events={events:{},future:{},trigger:function(e,t,a){this.events[e]?this.events[e].forEach(function(e){e(t)}):a&&(this.future[e]||(this.future[e]=[]),this.future[e].push(t||{}))},listen:function(e,t){this.events[e]||(this.events[e]=[]),this.events[e].push(t),this.future[e]&&this.future[e].forEach(t)}}}("undefined"==typeof exports?window:exports),function(){"use strict";if(mk.oldConvert3to4=function(e,t){var a=[28,29,30,31,32,33,34,35,36,37,54,55,56,57,62],n=63,l=0;a.forEach(function(t){void 0!==e[t-l]&&(e.splice(t-l,1),l++)}),void 0!==e[n-l]&&(t&&localStorage.setItem("settingsMode",2===e[n-l]?"off":"on"),e.splice(n-l,1))},localStorage.getItem("data3")&&!localStorage.getItem("data4")){var e=JSON.parse(localStorage.getItem("data3"));e.forEach(function(e,t){mk.oldConvert3to4(e,0===t)}),localStorage.setItem("data4",JSON.stringify(e)),mk.Events.trigger("goal",{id:"CONVERTED3TO4"},!0)}["savedData","savedCalculations","data","data2","data3"].forEach(function(e){localStorage.removeItem(e)})}(),function(e){"use strict";e.calc={},"undefined"!=typeof exports&&(module.exports=e),e.calc.types={units:{Barbarian:[20,[25,40,60,80,100,150],1,1,{1:1,3:2,5:3,7:4,8:5,9:6}],Archer:[25,[50,80,120,160,200,300],1,2,{1:1,3:2,5:3,7:4,8:5,9:6}],Goblin:[30,[25,40,60,80,100,150],1,3,{1:1,3:2,5:3,7:4,8:5,10:6}],Giant:[120,[500,1e3,1500,2e3,2500,3e3],5,4,{1:1,2:1,4:2,6:3,7:4,8:5,9:6}],Wall_Breaker:[120,[1e3,1500,2e3,2500,3e3,3500],2,5,{1:1,3:1,4:2,6:3,7:4,8:5,10:6}],Balloon:[480,[2e3,2500,3e3,3500,4e3,4500],5,6,{1:1,4:2,6:3,7:4,8:5,9:6}],Wizard:[480,[1500,2e3,2500,3e3,3500,4e3],4,7,{1:1,5:2,6:3,7:4,8:5,10:6}],Healer:[900,[5e3,6e3,8e3,1e4],14,8,{1:1,6:1,7:2,8:3,9:4}],Dragon:[1800,[25e3,3e4,36e3,42e3],20,9,{1:1,7:2,8:3,10:4}],"P-E-K-K-A-":[2700,[3e4,35e3,42e3,5e4],25,10,{1:1,8:3,10:4}]},dark:{Minion:[45,[6,7,8,9,10],2,1,{1:1,7:2,8:4,9:5}],"Hog Rider":[120,[30,35,40,45,50],5,2,{1:1,7:2,8:4,9:5}],Valkyrie:[900,[70,100,130,160],8,3,{1:1,7:1,8:2,9:4}],Golem:[2700,[450,525,600,675,750],30,4,{1:1,8:2,9:4,10:5}],Witch:[1200,[250,350],12,5,{1:1,9:2}]},spells:{Lightning:[1800,[15e3,16500,18e3,2e4,22e3,24e3],1,1,{1:1,5:4,8:5,10:6}],Healing:[1800,[15e3,16500,18e3,2e4,22e3,24e3],1,2,{1:1,6:3,7:4,8:5,9:6}],Rage:[2700,[23e3,25e3,27e3,3e4,33e3],1,3,{1:1,7:4,8:5}],Jump:[2700,[23e3,29e3],1,4,{1:1,9:2}],Freeze:[2700,[26e3,29e3,31e3,33e3],1,5,{1:1,10:4}]}},e.calc.armyCampsData={base:[20,30,40,50],step:5,max:240,th:{1:20,2:30,3:70,4:80,5:135,6:150,7:200,9:220,10:240}},e.calc.barracksData={units:{prefix:"barracks",count:4,queue:[0,20,25,30,35,40,45,50,55,60,75],maxLevel:10,firstRequired:!0,th:{1:3,2:4,3:5,4:6,5:7,6:8,7:9,8:10}},dark:{prefix:"dark-barracks",count:2,queue:[0,40,50,60,70,80],maxLevel:5,th:{1:0,7:2,8:4,9:5}}},e.calc.spellFactoryData={max:5,th:{1:0,5:1,6:2,7:3,9:4,10:5}},e.calc.saveMappingKeys=["barracks-levels-1","barracks-levels-2","barracks-levels-3","barracks-levels-4","dark-barracks-levels-1","dark-barracks-levels-2","armyCamps","spellFactoryLevel","Barbarian","Archer","Goblin","Giant","Wall_Breaker","Balloon","Wizard","Healer","Dragon","P-E-K-K-A-","Barbarian-level","Archer-level","Goblin-level","Giant-level","Wall_Breaker-level","Balloon-level","Wizard-level","Healer-level","Dragon-level","P-E-K-K-A--level","Lightning","Healing","Rage","Jump","Lightning-level","Healing-level","Rage-level","Jump-level","Minion","Hog Rider","Valkyrie","Golem","Minion-level","Hog Rider-level","Valkyrie-level","Golem-level","Freeze","Freeze-level","Witch","Witch-level"],e.calc.dataObjectToArray=function(t){var a=[];return e.calc.saveMappingKeys.forEach(function(e){var n;n=t.hasOwnProperty(e)?t[e]:0,a.push(n)}),a},e.calc.dataArrayToObject=function(t){var a={};return e.calc.saveMappingKeys.forEach(function(e,n){a[e]=void 0===t[n]?0:t[n]}),a};var t=function(t){this.key=t,this.load=function(t){var a=localStorage.getItem(this.key);return a=a&&JSON.parse(a)||[],t?a:a=a.map(e.calc.dataArrayToObject)},this.save=function(t){var a=t.map(e.calc.dataObjectToArray);localStorage.setItem(this.key,JSON.stringify(a))}},a=function(t){if(this.barracks=[],this.data=t,"undefined"!=typeof window)for(var a=0;++a<=this.data.count;){for(var n=e.$id(this.data.prefix+"-levels-"+a),l=-1,s=[];++l<=this.data.maxLevel;)if(1!==a||0!==l||!t.firstRequired){var r="";l===this.data.maxLevel&&(r=' selected="selected"'),s.push('<option value="'+l+'"'+r+">"+l+"</option>")}n.innerHTML=s.join(""),this.barracks.push(n)}this.setDefaults=function(){this.barracks.forEach(function(t){var a=e.calc.savedData.get(t.getAttribute("id"));void 0!==a&&null!==a&&(t.options[a].selected=!0)})},this.updateSavedData=function(){this.barracks.forEach(function(t){e.calc.savedData.set(t.getAttribute("id"),t.selectedIndex)})},this.getMaxLevel=function(){return Math.max.apply(null,this.barracks.map(function(e){return parseInt(e.value,10)}))},this.getAllNormalized=function(){return this.barracks.map(function(e){return{level:parseInt(e.value,10),queueLength:this.data.queue[e.value]}},this)},this.getQueue=function(){return this.barracks.map(function(e){var t=e.getAttribute("id").slice(-1);return{num:t,time:0,space:0,maxSpace:this.data.queue[e.value],units:{},level:parseInt(e.value,10),__boostedId:this.data.prefix+"-boosted-"+t,isBoosted:function(){return"yes"===localStorage.getItem(this.__boostedId)},getActualTime:function(){return this.isBoosted()?Math.floor(this.time/4):this.time}}},this)},this.getElements=function(){return this.barracks},this.getMaxCount=function(){return this.data.count},this.getCapLevel=function(){return this.data.maxLevel},this.getActiveCount=function(){return this.barracks.filter(function(e){return e.value>0}).length},this.setLevels=function(e,t){this.barracks.forEach(function(a){a.value=e,t(a)})}};"undefined"!=typeof window&&(e.calc.savedDataStorage=new t("data4"),e.calc.savedDataAll=new e.MultiDict(e.calc.savedDataStorage.load()),e.calc.savedData=e.calc.savedDataAll.retrieve(0),e.calc.armyCamps=e.$id("army-camps"),e.calc.spellFactoryLevel=e.$id("spell-factory-level"),e.calc.spellFactoryBoosted=e.$id("spell-factory-boosted")),e.calc.allBarracks={},e.objectIterate(e.calc.barracksData,function(t,n){e.calc.allBarracks[t]=new a(n)})}("undefined"==typeof exports?window.mk:require("./mk.common").mk),function(){"use strict";var e=function(e){var t=0;do t+=e.offsetTop;while(e=e.offsetParent);return t},t=mk.$id("menu-wrapper"),a=mk.$id("menu"),n=e(a),l=a.offsetHeight;t.style.height=l+"px";var s=15;window.mkIsMobile||(s+=l,mk.$Listen(window,["scroll"],function(){mk.$toggleClass(a,"menu_fixed",window.pageYOffset>=n)}));var r=function(t){var a=window.pageYOffset,n=e(t)-s,l=a>n,r=l?a-n:n-a,i=100+r/20,c=16,o=Math.round(r/(i/c));!function u(){setTimeout(function(){l?(a-=o,n>a&&(a=n)):(a+=o,a>n&&(a=n)),window.scrollTo(window.pageXOffset,a),a!==n&&u()},c)}()};mk.Events.listen("scrollTo",r),mk.$(".js-anchor").iterate(function(e){mk.$Listen(e,["universalClick"],r.bind(null,mk.$id(e.getAttribute("data-anchor-target"))))})}(),function(){"use strict";var e=function(e,t){var a;return function(){var n=this,l=arguments;clearTimeout(a),a=setTimeout(function(){e.apply(n,l)},t)}};mk.calc.typesSortedLevel={},mk.objectIterate(mk.calc.types,function(e,t){mk.calc.typesSortedLevel[e]=[],mk.objectIterate(t,function(t,a){mk.calc.typesSortedLevel[e].unshift(a.concat(t))})});var t={units:0,dark:0},a=function(e){mk.calc.allBarracks[e].getAllNormalized().forEach(function(t,a){var n="";0!==parseInt(t.level,10)&&(n=t.queueLength),mk.$id(e+"-barrack-header-"+(a+1)).textContent=n})},n=function(e,t,a){var n=e-t;0>n&&(n='<span class="limit-exceeded">'+n+"</span>"),mk.$id(a+"-quantity").innerHTML="("+n+" free)";var l=t;t>e&&(l='<span class="limit-exceeded">'+t+"</span>"),l=l+" / "+("units"===a?"":e),mk.$id(a+"-space").innerHTML=l},l=function(e,t){var a=e.getActualTime(),n=t.getActualTime();return n>a?-1:a>n?1:e.space<t.space?-1:e.space>t.space?1:e.maxSpace<t.maxSpace?-1:e.maxSpace>t.maxSpace?1:0},s=function(e,t){return e.level<t.level?-1:e.level>t.level?1:l(e,t)},r=function(e,t,a,n,r){var i=e.filter(function(e){return e.level>=t&&e.space+a<=e.maxSpace});if(!i.length)return null;if(i.length>1){if(1===a){var c=i.filter(function(e){return e.getActualTime()+n<=r});if(c.length)return c.length>1&&c.sort(s),c[0]}i.sort(l)}return i[0]};mk.calc.fillBarracks=function(e,t,a,n){var l=!0,s=0,i=0;t.forEach(function(e){l&&e[1]%n!==0&&(l=!1),s=Math.max(e[2],s),i+=e[1]*e[4]});var c=!0,o=0,u=[],m=e[0].isBoosted();e.forEach(function(t){if(0!==t.level){var a=t.isBoosted()===m;!l||t.level>=s&&a||(l=!1),!c||t.level===e[0].level&&a||(c=!1),u.push(t.num),o+=t.maxSpace}}),l=l&&o>=i;for(var d=!1;t.length;){var v=t.shift(),f=v[0],k=v[1],p=v[2],b=v[3],g=v[4];if(l){var h=k/n,y=h*b,x=h*g;e.forEach(function(e){0!==e.level&&(e.units[f]=h,e.time+=y,e.space+=x)})}else for(var L=null;k--;){var E=!0;if(L){var T=L.getActualTime()+b,C=L.space+g;1===g&&a>=T&&C<=L.maxSpace&&(E=!1)}if(E&&(L=r(e,p,g,b,a)),null===L){d=!0;break}L.units[f]?L.units[f]++:L.units[f]=1,L.time+=b,L.space+=g}}return d||!c||l||(e.sort(function(e,t){return t.getActualTime()-e.getActualTime()}),e.forEach(function(e,t){0!==e.level&&(e.num=u[t])})),!d};var i=function(e,a,n){var l=[];if(e){mk.$id(a+"-barracks-exceeded").style.display="none";for(var s=0,r=1;n.length;){var i=n.shift();for(var c in i.units)i.units[c]>0&&(mk.$id("quantity-"+mk.calc.typesSortedLevel[a][c][5]+"-"+i.num).textContent="×"+i.units[c]);var o=i.getActualTime();o>s&&(s=o,r=parseInt(i.num,10));var u=o?mk.getFormattedTime(o):"";i.isBoosted()&&(u='<span class="boosted">'+u+"</span>"),l[i.num]=u;var m="";0!==i.maxSpace&&(m=i.space+" / "),mk.$id(a+"-barrack-space-"+i.num).textContent=m}l.forEach(function(e,t){var n=mk.$id(a+"-time-barrack-"+t);t===r&&(e='<span class="result">'+e+"</span>"),n.innerHTML=e})}else{mk.$id(a+"-barracks-exceeded").style.display="";for(var d=[],v=0;n.length;){var i=n.shift();mk.$id(a+"-time-barrack-"+i.num).textContent="",d[i.num]=i.space,v+=i.space}var f=!0;d.forEach(function(e,n){var l=mk.$id(a+"-barrack-space-"+n);0===e?l.textContent="":f?(e+=t[a]-v,l.innerHTML='<span class="limit-exceeded result">'+e+"</span> / ",f=!1):l.textContent=e+" / "})}},c=e(i,200),o=function(e,a){for(var l=a.capLevel+1;--l>0;)mk.$id(e+"-building-level-"+l).style.display=l>a.levelValue?"none":"";for(var s=0,r=0,o=0,u=0,m=0,d=[],v=-1,f=mk.calc.typesSortedLevel[e].length;++v<f;){var k=mk.calc.typesSortedLevel[e][v];if(!(k[3]>a.levelValue)){var p=k[5],b=mk.$id(p),g=parseInt(b.value,10)||0;0>g&&(g=0),b.value=g||"";var h=p+"-level",y=mk.$id(h),x=y.selectedIndex,L=y.value,E=L*g;if((a.computeAll||mk.calc.savedData.get(p)!==g||mk.calc.savedData.get(h)!==x)&&(mk.$id(p+"-summary").textContent=E?mk.numberFormat(E):""),s+=E,o+=k[2]*g,"spells"===e)u+=k[0]*g;else{for(var T=0,C=mk.calc.allBarracks[e].getMaxCount();++T<=C;)mk.$id("quantity-"+p+"-"+T).textContent="";var $=p+"-subtract",A=mk.$id($),D=parseInt(A.value,10)||0;0>D&&(D=0),A.value=D||"",A.value>0&&mk.Events.trigger("goal",{id:"SUBTRACT"},!0);var I=g-D;0>I&&(I=0),I>0&&(d.push([v,g-D,k[3],k[0],k[2]]),m=Math.max(m,k[0]),u+=k[0]*I),r+=L*I}mk.calc.savedData.set(p,g),mk.calc.savedData.set(h,x)}}if(mk.$id(e+"-cost").textContent=mk.numberFormat(s),"spells"===e)n(a.space,o,e),u>0&&("yes"===localStorage.getItem("spell-factory-boosted")?(u=Math.floor(u/4),mk.$id(e+"-time").innerHTML='<span class="boosted">'+mk.getFormattedTime(u,!0)+"</span>"):mk.$id(e+"-time").textContent=mk.getFormattedTime(u,!0));else{var S=mk.calc.allBarracks[e].getQueue(),w=S.filter(function(e){return e.isBoosted()===!0}).length;w&&(m=Math.ceil(m/4));var M=mk.calc.allBarracks[e].getActiveCount(),j=M+4*w,B=Math.max(Math.ceil(u/j),m),_=mk.calc.fillBarracks(S,d,B,M);t[e]+=o;var F;F=a.computeAll||!window.mkIsMobile?i:c,F(_,e,S);var O=mk.$id(e+"-subtracted-cost");r===s?O.textContent="":O.innerHTML="− "+mk.numberFormat(s-r)+' = <span class="result">'+mk.numberFormat(r)+"</span>"}},u=mk.$(".js-dark-object"),m=mk.$(".js-spells-object"),d=function(e){if("all"===e.type||"spells"!==e.type){("all"===e.type||"barrack-units"===e.type)&&a("units"),("all"===e.type||"barrack-dark"===e.type)&&(a("dark"),u.toggleClass("setting-mode-empty",0===mk.calc.allBarracks.dark.getMaxLevel()));var l=parseInt(mk.calc.armyCamps.value,10);("all"===e.type||"units"===e.type||"barrack-units"===e.type)&&(t.units=0,o("units",{levelValue:mk.calc.allBarracks.units.getMaxLevel(),capLevel:mk.calc.allBarracks.units.getCapLevel(),computeAll:e.computeAll})),("all"===e.type||"dark"===e.type||"barrack-dark"===e.type)&&(t.dark=0,o("dark",{levelValue:mk.calc.allBarracks.dark.getMaxLevel(),capLevel:mk.calc.allBarracks.dark.getCapLevel(),computeAll:e.computeAll}));var s=t.units+t.dark;n(l,s,"units"),n(l,s,"dark"),mk.calc.savedData.set("armyCamps",l),mk.calc.allBarracks.units.updateSavedData(),mk.calc.allBarracks.dark.updateSavedData()}if("all"===e.type||"spells"===e.type){var r=parseInt(mk.calc.spellFactoryLevel.value,10);o("spells",{levelValue:r,space:r,capLevel:mk.calc.spellFactoryData.max,computeAll:e.computeAll}),mk.calc.savedData.set("spellFactoryLevel",mk.calc.spellFactoryLevel.selectedIndex),m.toggleClass("setting-mode-empty",0===r)}mk.calc.savedDataAll.update(0,mk.calc.savedData),mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll()),mk.Events.trigger("calculated")};mk.Events.listen("calculate",d)}(),function(){"use strict";var e=mk.$id("barracks-anchor"),t=function(t){mk.Events.trigger("goal",{id:"LOAD_SAVED"},!0);var a=mk.objectCopy(mk.calc.savedDataAll.retrieve(t.currentTarget.getAttribute("data-num")).getAll());mk.calc.savedData=new mk.Dict(a),mk.Events.trigger("setDefaults"),mk.Events.trigger("calculate",{type:"all",computeAll:!0}),mk.Events.trigger("loaded"),mk.Events.trigger("scrollTo",e)},a=new Hogan.Template(function(e,t,a){var n=this;return n.b(a=a||""),n.b('<div class="saved-list__item" id="saved-list-item-'),n.b(n.v(n.f("index",e,t,0))),n.b('">'),n.b("\n"+a),n.s(n.f("hasCapacity",e,t,1),e,t,0,82,196,"{{ }}")&&(n.rs(e,t,function(e,t,n){n.b('        <div class="saved-list__item-capacity">'),n.b("\n"+a),n.b("            "),n.b(n.v(n.f("totalCapacity",e,t,0))),n.b(" / "),n.b(n.v(n.f("armyCamps",e,t,0))),n.b("\n"+a),n.b("        </div>"),n.b("\n")}),e.pop()),n.b("\n"+a),n.s(n.f("units",e,t,1),e,t,0,228,653,"{{ }}")&&(n.rs(e,t,function(e,t,n){n.b('        <table class="saved-list__table">'),n.b("\n"+a),n.s(n.f("items",e,t,1),e,t,0,293,445,"{{ }}")&&(n.rs(e,t,function(e,t,n){n.b("                <tr>"),n.b("\n"+a),n.b('                    <td class="number">×'),n.b(n.v(n.f("quantity",e,t,0))),n.b("</td>"),n.b("\n"+a),n.b("                    <td>"),n.b(n.v(n.f("name",e,t,0))),n.b("</td>"),n.b("\n"+a),n.b("                </tr>"),n.b("\n")}),e.pop()),n.b("        </table>"),n.b("\n"+a),n.b('        <div class="saved-list__item-time">'),n.b(n.v(n.f("time",e,t,0))),n.b("</div>"),n.b("\n"+a),n.b('        <div class="saved-list__item-cost">'),n.b("\n"+a),n.b('            <span class="cost cost_elixir">'),n.b(n.v(n.f("cost",e,t,0))),n.b("</span>"),n.b("\n"+a),n.b("        </div>"),n.b("\n")}),e.pop()),n.b("\n"+a),n.s(n.f("dark",e,t,1),e,t,0,678,1108,"{{ }}")&&(n.rs(e,t,function(e,t,n){n.b('        <table class="saved-list__table">'),n.b("\n"+a),n.s(n.f("items",e,t,1),e,t,0,743,895,"{{ }}")&&(n.rs(e,t,function(e,t,n){n.b("                <tr>"),n.b("\n"+a),n.b('                    <td class="number">×'),n.b(n.v(n.f("quantity",e,t,0))),n.b("</td>"),n.b("\n"+a),n.b("                    <td>"),n.b(n.v(n.f("name",e,t,0))),n.b("</td>"),n.b("\n"+a),n.b("                </tr>"),n.b("\n")}),e.pop()),n.b("        </table>"),n.b("\n"+a),n.b('        <div class="saved-list__item-time">'),n.b(n.v(n.f("time",e,t,0))),n.b("</div>"),n.b("\n"+a),n.b('        <div class="saved-list__item-cost">'),n.b("\n"+a),n.b('            <span class="cost cost_dark-elixir">'),n.b(n.v(n.f("cost",e,t,0))),n.b("</span>"),n.b("\n"+a),n.b("        </div>"),n.b("\n")}),e.pop()),n.b("\n"+a),n.s(n.f("hasSpells",e,t,1),e,t,0,1137,1695,"{{ }}")&&(n.rs(e,t,function(e,t,n){n.b('        <div class="saved-list__item-capacity">'),n.b("\n"+a),n.b("            "),n.b(n.v(n.f("spellsCapacity",e,t,0))),n.b(" / "),n.b(n.v(n.f("spellsFactoryLevel",e,t,0))),n.b("\n"+a),n.b("        </div>"),n.b("\n"+a),n.b('        <table class="saved-list__table">'),n.b("\n"+a),n.s(n.f("spells",e,t,1),e,t,0,1322,1474,"{{ }}")&&(n.rs(e,t,function(e,t,n){n.b("                <tr>"),n.b("\n"+a),n.b('                    <td class="number">×'),n.b(n.v(n.f("quantity",e,t,0))),n.b("</td>"),n.b("\n"+a),n.b("                    <td>"),n.b(n.v(n.f("name",e,t,0))),n.b("</td>"),n.b("\n"+a),n.b("                </tr>"),n.b("\n")}),e.pop()),n.b("        </table>"),n.b("\n"+a),n.b('        <div class="saved-list__item-time">'),n.b(n.v(n.f("spellsTime",e,t,0))),n.b("</div>"),n.b("\n"+a),n.b('        <div class="saved-list__item-cost">'),n.b("\n"+a),n.b('            <span class="cost cost_elixir">'),n.b(n.v(n.f("spellsCost",e,t,0))),n.b("</span>"),n.b("\n"+a),n.b("        </div>"),n.b("\n")}),e.pop()),n.b("\n"+a),n.b('    <div class="saved-list__actions">'),n.b("\n"+a),n.b('        <button class="button js-saved-load"'),n.b("\n"+a),n.b('              data-num="'),n.b(n.v(n.f("index",e,t,0))),n.b('"'),n.b("\n"+a),n.b('              tabindex="'),n.b(n.v(n.f("tabIndexLoad",e,t,0))),n.b('"'),n.b("\n"+a),n.b('              title="Current composition will be lost">'),n.b("\n"+a),n.b("            Load"),n.b("\n"+a),n.b("        </button>"),n.b("\n"+a),n.b('        <button class="button button_after js-saved-delete"'),n.b("\n"+a),n.b('              data-num="'),n.b(n.v(n.f("index",e,t,0))),n.b('"'),n.b("\n"+a),n.b('              tabindex="'),n.b(n.v(n.f("tabIndexDelete",e,t,0))),n.b('">'),n.b("\n"+a),n.b("            Delete"),n.b("\n"+a),n.b("        </button>"),n.b("\n"+a),n.b("    </div>"),n.b("\n"+a),n.b("</div>"),n.fl()}),n=function(){var e=[];mk.calc.savedDataAll.forEach(function(t,n){if(0!==n){var l={index:n,tabIndexLoad:n+3e3+1,tabIndexDelete:n+3e3+2},s=0;if(mk.objectIterate(mk.calc.barracksData,function(e,a){for(var n=[],r=0,i=0,c=[],o=0,u=0,m=[],d=0,v=0;++v<=a.count;){var f=t.get(a.prefix+"-levels-"+v,a.maxLevel);1===v&&a.firstRequired&&f++,f>d&&(d=f),c.push({num:v,time:0,space:0,maxSpace:a.queue[f],units:{},level:f,isBoosted:function(){return!1},getActualTime:function(){return this.time}}),f>0&&o++}if(mk.calc.typesSortedLevel[e].forEach(function(e,a){var l=parseInt(t.get(e[5]),10)||0;l>0&&e[3]<=d&&(n.push({name:mk.convertToTitle(e[5]),quantity:l,level:e[3]}),r+=e[1][t.get(e[5]+"-level")]*l,s+=e[2]*l,i+=e[0]*l,u=Math.max(e[0],u),m.push([a,l,e[3],e[0],e[2]]))}),n.length){var k,p=Math.max(Math.ceil(i/o),u);mk.calc.fillBarracks(c,m,p,o)&&(k=Math.max.apply(null,c.map(function(e){return e.time})),k=mk.getFormattedTime(k)),l[e]={items:n.sort(function(e,t){return e.level>t.level}),cost:mk.numberFormat(r),time:k}}}),s>0&&(l.hasCapacity={totalCapacity:s,armyCamps:t.get("armyCamps")}),t.get("spellFactoryLevel")>0){var r=[],i=0,c=0,o=t.get("spellFactoryLevel"),u=0;mk.objectIterate(mk.calc.types.spells,function(e,a){var n=parseInt(t.get(e),10)||0;n>0&&a[3]<=o&&(r.push({name:mk.convertToTitle(e),quantity:n}),i+=a[1][t.get(e+"-level")]*n,c+=a[2]*n,u+=a[0]*n)}),r.length&&(l.hasSpells={spells:r,spellsCost:mk.numberFormat(i),spellsCapacity:c,spellsFactoryLevel:o,spellsTime:mk.getFormattedTime(u,!0)})}e.push(a.render(l))}});var l=mk.$id("saved-list-content");l.innerHTML=e.join(""),mk.$(".js-saved-load",l).listen(["universalClick"],t);var s=function(e){mk.Events.trigger("goal",{id:"DELETE_SAVED"},!0),mk.calc.savedDataAll.remove(e.currentTarget.getAttribute("data-num")),mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll()),n()};mk.$(".js-saved-delete",l).listen(["universalClick"],s)},l=mk.infoMessage("already-saved",!0),s=mk.$id("saved-anchor"),r=function(e){var t={showMessage:!0};mk.objectIterate(e,function(e,a){t[e]=a}),l.hide(),t.showMessage&&mk.Events.trigger("goal",{id:"SAVE_COMPOSITION"},!0);var a=mk.calc.savedDataStorage.load(!0);if(a[0]){for(var s=JSON.stringify(a[0]),r=0,i=a.length;++r<i;){var c=JSON.stringify(a[r]);if(s===c)return t.showMessage&&l.show(),void 0}var o=mk.objectCopy(mk.calc.savedData.getAll());mk.calc.savedDataAll.insert(o),mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll()),n()}};mk.Events.listen("save",r);var i=function(e){"yes"===e.currentTarget.getAttribute("data-scroll")&&mk.Events.trigger("scrollTo",s),r()};mk.$(".js-save-composition").listen(["universalClick"],i),n();var c=mk.calc.savedDataAll.getLength();mk.Events.trigger("goal",{id:"SAVED_COMPOSITIONS",params:{count:"sc"+(c?c-1:0)}},!0)}(),function(){"use strict";var e,t;if(-1!==location.search.indexOf("?l=")?(e=!0,t=!0):-1!==location.search.indexOf("?s=")&&(e=!0),e){var a=location.search.substr(3);a=decodeURIComponent(a);var n={};n[t?"l":"s"]=a,mk.Events.trigger("goal",{id:"SHARE",params:n},!0),a=a.replace(/[a-z]/g,","),a=a.replace(/,(?=,)/g,",0"),","===a[0]&&(a="0"+a),a="["+a+"]";try{a=JSON.parse(a)}catch(l){a=!1}if(history.replaceState({},"",location.protocol+"//"+location.host+location.pathname),a){t&&mk.oldConvert3to4(a),a=mk.calc.dataArrayToObject(a),mk.Events.trigger("save",{showMessage:!1}),mk.calc.savedData=new mk.Dict(a);var s=mk.infoMessage("view-shared");s.show(),mk.Events.listen("loaded",function(){s.hide()})}}var r=mk.$id("share-twitter"),i=mk.$id("share-facebook"),c=mk.$id("share-permalink");mk.$Listen(c,["focus"],mk.selectAll);var o=function(){var e="http://mkln.ru/clash-of-clans/?s=",t=mk.objectCopy(mk.calc.savedData.getAll());t.settingsMode=1,t=mk.calc.dataObjectToArray(t),t=JSON.stringify(t),t=t.replace(/\b(?:null|0)\b/g,""),t=t.substr(1,t.length-2),t=t.replace(/,+$/,"");var a=97;t=t.replace(/,/g,function(){var e=String.fromCharCode(a);return 122===a?a=97:a++,e}),c.value=e+t;var n=encodeURIComponent(e+t);r.setAttribute("href","https://twitter.com/share?url="+n+"&via=ClashCalc&hashtags=ClashOfClans"),i.setAttribute("href","https://www.facebook.com/sharer/sharer.php?u="+n)},u=mk.$id("share-text");mk.$Listen(u,["focus"],mk.selectAll);var m={1:"¹",2:"²",3:"³",4:"⁴",5:"⁵",6:"⁶",7:"⁷",8:"⁸",9:"⁹"},d={units:"Elixir",dark:"Dark Elixir",spells:"Elixir"},v=function(){var e=mk.calc.savedData.getAll(),t=[],a=[];return mk.objectIterate(mk.calc.types,function(n,l){var s;s="spells"===n?parseInt(mk.calc.spellFactoryLevel.value,10):mk.calc.allBarracks[n].getMaxLevel(),mk.objectIterate(l,function(a,n){e[a]>0&&n[3]<=s&&t.push(mk.convertToTitle(a)+m[e[a+"-level"]+1]+" ×"+e[a])});var r=mk.$id(n+"-cost").textContent;"0"!==r&&a.push(r+" "+d[n])}),t.length?(u.value=t.join(", ")+" — "+a.join(", "),!0):!1},f=mk.$(".js-share"),k=function(){var e="";v()?o():e="none",f.iterate(function(t){t.style.display=e})};mk.Events.listen("calculated",k)}(),function(){"use strict";var e=function(){mk.calc.allBarracks.units.setDefaults(),mk.calc.allBarracks.dark.setDefaults(),mk.calc.armyCamps.value=mk.calc.savedData.get("armyCamps",mk.calc.armyCamps.value);var e=mk.calc.savedData.get("spellFactoryLevel",mk.calc.spellFactoryLevel.selectedIndex);mk.calc.spellFactoryLevel.options[e].selected=!0,mk.calc.spellFactoryBoosted.checked="yes"===localStorage.getItem("spell-factory-boosted"),mk.objectIterate(mk.calc.types,function(e,t){mk.objectIterate(t,function(e){var t=e+"-level",a=mk.$id(t);a.options[mk.calc.savedData.get(t,a.selectedIndex)].selected=!0,mk.$id(e).value=mk.calc.savedData.get(e)||""})})};mk.Events.listen("setDefaults",e);var t=function(e){mk.Events.trigger("calculate",{type:e})};mk.objectIterate(mk.calc.allBarracks,function(e,a){a.getElements().forEach(function(a){mk.$Listen(a,["change"],t.bind(null,"barrack-"+e))})}),mk.$Listen(mk.calc.armyCamps,["change"],t.bind(null,"all")),mk.$Listen(mk.calc.spellFactoryLevel,["change"],t.bind(null,"spells")),mk.$Listen(mk.calc.spellFactoryBoosted,["change"],function(){localStorage.setItem("spell-factory-boosted",mk.calc.spellFactoryBoosted.checked?"yes":"no"),t("spells")});var a=function(e,a){var n=a.currentTarget;localStorage.setItem(n.getAttribute("id"),n.checked?"yes":"no"),t(e)};mk.objectIterate(mk.calc.barracksData,function(e,t){for(var n=0;++n<=t.count;){var l=t.prefix+"-boosted-"+n,s=mk.$id(l);"yes"===localStorage.getItem(l)&&(s.checked=!0),mk.$Listen(s,["change"],a.bind(null,e))}}),mk.objectIterate(mk.calc.types,function(e,a){mk.objectIterate(a,function(a){var n=t.bind(null,e);mk.$Listen(mk.$id(a+"-level"),["change"],n),mk.$Listen(mk.$id(a),["input"],n),("units"===e||"dark"===e)&&mk.$Listen(mk.$id(a+"-subtract"),["input"],n)})}),mk.Events.trigger("setDefaults"),mk.Events.trigger("calculate",{type:"all",computeAll:!0})}(),function(){"use strict";var e=function(e){e.nextSibling.textContent=e.options[e.selectedIndex].textContent},t=mk.$(".js-setting");t.iterate(function(t){var a=document.createElement("span");a.classList.add("text-middle"),a.classList.add("setting-mode-not-part"),mk.$insertBefore(t,a),t.classList.add("setting-mode-part"),e(t),mk.$Listen(t,["change"],e.bind(null,t))}),mk.Events.listen("loaded",function(){t.iterate(e)});var a=mk.$id("settings-toggle-mode"),n=function(){mk.$toggleClass(document.documentElement,"setting-mode-disabled",!a.checked),mk.$toggleClass(document.documentElement,"setting-mode-enabled",a.checked),localStorage.setItem("settingsMode",a.checked?"on":"off")};mk.$Listen(a,["change"],function(){n(),mk.Events.trigger("goal",{id:"SETTINGS_SWITCH"},!0)});var l=localStorage.getItem("settingsMode");"off"!==l&&(l="on"),a.checked="on"===l,n(),mk.Events.trigger("goal",{id:"SETTINGS_INIT",params:{mode:l}},!0);var s=function(e,t){for(;!t.hasOwnProperty(e)&&e>0;)e--;return t[e]},r=function(t){mk.Events.trigger("goal",{id:"SETTINGS_TH",params:{level:"th"+t}},!0),mk.calc.armyCamps.value=s(t,mk.calc.armyCampsData.th),e(mk.calc.armyCamps),mk.calc.spellFactoryLevel.value=s(t,mk.calc.spellFactoryData.th),e(mk.calc.spellFactoryLevel),mk.calc.allBarracks.units.setLevels(s(t,mk.calc.barracksData.units.th),e),mk.calc.allBarracks.dark.setLevels(s(t,mk.calc.barracksData.dark.th),e),mk.objectIterate(mk.calc.types,function(a,n){mk.objectIterate(n,function(a,n){var l=mk.$id(a+"-level");l.value=n[1][s(t,n[4])-1],e(l)})}),mk.Events.trigger("calculate",{type:"all",computeAll:!0})};mk.$(".js-settings-level").iterate(function(e){mk.$Listen(e,["universalClick"],r.bind(null,parseInt(e.textContent,10)))})}(),function(){"use strict";var e=function(e,t){var a=parseInt(e.value,10);e.value="+"===t?isNaN(a)?1:a+1:isNaN(a)||2>a?"":a-1,mk.Events.trigger("calculate",{type:e.getAttribute("data-object-type")})},t={target:null,click:!1,firstTimeout:null,secondTimeout:null,x:0,y:0},a=function(a){t.target=a,t.click=!0,t.firstTimeout=setTimeout(function(){t.click=!1,function a(){t.secondTimeout=setTimeout(function(){e(t.target.spinnerTarget,t.target.textContent),a()},100)}()},500)},n=function(e,a){(e>10||a>10)&&(t.target=null,t.click=!1,clearTimeout(t.firstTimeout),clearTimeout(t.secondTimeout))},l=function(){t.target&&(t.click&&e(t.target.spinnerTarget,t.target.textContent),t.target=null,clearTimeout(t.firstTimeout),clearTimeout(t.secondTimeout))},s="ontouchstart"in window;window.mkIsMobile&&s||(window.addEventListener("mousemove",function(e){if(t.target){var a=Math.abs(e.screenX-t.x),l=Math.abs(e.screenY-t.y);n(a,l)}},!1),window.addEventListener("mouseup",function(){l()},!1));var r=function(e){if(s){var r=0;e.addEventListener("touchstart",function(e){e.stopPropagation(),e.timeStamp-r<500&&e.preventDefault(),r=e.timeStamp,t.x=e.touches[0].screenX,t.y=e.touches[0].screenY,a(e.currentTarget)},!1),e.addEventListener("touchmove",function(e){if(e.stopPropagation(),t.target){var a=Math.abs(e.touches[0].screenX-t.x)/2,l=Math.abs(e.touches[0].screenY-t.y)/2;n(a,l)}},!1),e.addEventListener("touchcancel",function(e){e.stopPropagation(),l()},!1),e.addEventListener("touchend",function(e){e.stopPropagation(),l()},!1)}window.mkIsMobile&&s||e.addEventListener("mousedown",function(e){e.stopPropagation(),t.x=e.screenX,t.y=e.screenY,a(e.currentTarget)},!1)},i=function(e,t){var a=document.createElement("button");a.className="button button_spinner",a.textContent="plus"===e?"+":"−",a.spinnerTarget=t,r(a),mk.$insertBefore(t,a)},c=function(t){var a=t.keyCode||t.which;38===a?(e(t.currentTarget,"+"),t.preventDefault()):40===a&&(e(t.currentTarget,"-"),t.preventDefault())};mk.$(".js-number").iterate(function(e){mk.$Listen(e,["focus"],mk.selectAll),i("minus",e),i("plus",e),mk.$Listen(e,["keydown"],c)})}(),function(){"use strict";var e=function(e){var t=e.currentTarget.getAttribute("data-reset-type"),a=e.currentTarget.getAttribute("data-scope");mk.$('input[data-field-type="'+a+'"][data-object-type="'+t+'"]').iterate(function(e){e.value=""
-}),mk.Events.trigger("calculate",{type:t}),mk.Events.trigger("goal",{id:"RESET"},!0)};mk.$(".js-reset").listen(["universalClick"],e)}(),function(){"use strict";mk.$(".js-goal").listen(["universalAndMiddleClick"],function(e){mk.Events.trigger("goal",{id:e.currentTarget.getAttribute("data-goal")},!0)});var e=[];window.yandexMetrikaLoadCallback=function(t){mk.Events.listen("goal",function(a){if(-1===e.indexOf(a.id)){e.push(a.id);var n=a.id,l=a.params||null;t.reachGoal(n,l)}})}}();</script>
+var part=function(){var e={},t=function(t){return t.map(function(t){return e[t]})};return function(n,a,r){"string"==typeof n?e[n]=r?r.apply(null,t(a)):a():a.apply(null,t(n))}}();part("dom",function(){"use strict";var e,t=function(e,t,n){var a,r="ontouchstart"in window;if(r){var i;e.addEventListener("touchstart",function(){"mouse"===a?(a=null,i=!1):(a="touch",i=!0)},!1),e.addEventListener("touchmove",function(){i=!1},!1),e.addEventListener("touchcancel",function(){i=!1},!1),e.addEventListener("touchend",function(e){i&&t(e)},!1)}if(!window.mkIsMobile||!r)if(n){var s;e.addEventListener("mousedown",function(){"touch"===a?(a=null,s=!1):(a="mouse",s=!0)},!1),e.addEventListener("mousemove",function(){s=!1},!1),e.addEventListener("mouseup",function(e){s&&3!==e.which&&t(e)},!1),e.addEventListener("keypress",function(e){var n=e.keyCode||e.which;-1!==[13,32].indexOf(n)&&t(e)},!1)}else e.addEventListener("click",function(e){"touch"===a?a=null:(a="mouse",t(e))},!1)},n=function(e,n,a){for(var r=n.length;r--;){var i=n[r];"universalClick"===i?t(e,a):"universalAndMiddleClick"===i?t(e,a,!0):e.addEventListener(i,a,!1)}},a=function(e,t,n){e.classList[n?"add":"remove"](t)},r=function(e){this.elements=e?e:[],this.listen=function(e,t){this.iterate(function(a){n(a,e,t)})},this.iterate=function(e){for(var t=-1,n=this.elements.length;++t<n;)e(this.elements[t])},this.toggleClass=function(e,t){this.iterate(function(n){a(n,e,t)})}},i=function(t){var n=t.currentTarget;-1!==["input","textarea"].indexOf(n.tagName.toLowerCase())&&""!==n.value&&(clearTimeout(e),e=setTimeout(function(){n.setSelectionRange(0,n.value.length)},1))};return{id:function(e){return document.getElementById(e)},insertBefore:function(e,t){e.nextSibling?e.parentNode.insertBefore(t,e.nextSibling):e.parentNode.appendChild(t)},find:function(e,t){return new r((t||document).querySelectorAll(e))},selectOnFocus:function(e){n(e,["focus"],i)},listen:n,toggleClass:a}}),part("common",["dom"],function(e){"use strict";return Function.prototype.bind||(Function.prototype.bind=function(e){var t=this,n=Array.prototype.slice.call(arguments,1);return function(){return t.apply(e,n.concat(Array.prototype.slice.call(arguments)))}}),{objectCopy:function(e){var t=e.constructor();return Object.keys(e).forEach(function(n){t[n]=e[n]}),t},numberFormat:function(e){return(""+e).replace(/\B(?=(\d{3})+(?!\d))/g,",")},convertToTitle:function(e){return e.replace("_"," ").replace(/-/g,".")},getFormattedTime:function(e,t){var n="",a=e;if(a>3599&&(n+=Math.floor(a/3600)+"h ",a%=3600,t=!0),a>59){var r=Math.floor(a/60);a%=60,t&&a>0&&r++,n+=r+"m "}else n+="0m ";return""!==n&&t||(n+=a+"s"),n},Dict:function(e){this.data=e,this.get=function(e,t){var n=this.data[e];return void 0===t||void 0!==n&&null!==n?n:t},this.set=function(e,t){this.data[e]=t},this.getAll=function(){return this.data}},infoMessage:function(t,n){var a,r,i;return a=e.id(t),r=function(){clearTimeout(i),a.style.display="none"},e.listen(a,["universalClick"],r),{show:function(){a.style.display="inline-block",n&&(i=setTimeout(function(){a.style.display="none"},2e3))},hide:r}}}}),part("events",function(){"use strict";return{events:{},future:{},trigger:function(e,t,n){this.events[e]?this.events[e].forEach(function(e){e(t)}):n&&(this.future[e]||(this.future[e]=[]),this.future[e].push(t||{}))},listen:function(e,t){this.events[e]||(this.events[e]=[]),this.events[e].push(t),this.future[e]&&this.future[e].forEach(t)}}}),part("converter",["events"],function(e){"use strict";var t=function(e,t){var n=[28,29,30,31,32,33,34,35,36,37,54,55,56,57,62],a=63,r=0;n.forEach(function(t){void 0!==e[t-r]&&(e.splice(t-r,1),r++)}),void 0!==e[a-r]&&(t&&localStorage.setItem("settingsMode",2===e[a-r]?"off":"on"),e.splice(a-r,1))};if(localStorage.getItem("data3")&&!localStorage.getItem("data4")){var n=JSON.parse(localStorage.getItem("data3"));n.forEach(function(e,n){t(e,0===n)}),localStorage.setItem("data4",JSON.stringify(n)),e.trigger("goal",{id:"CONVERTED3TO4"},!0)}return["savedData","savedCalculations","data","data2","data3"].forEach(function(e){localStorage.removeItem(e)}),{oldConvert3to4:t}}),part("types",function(){"use strict";var e={units:{Barbarian:[20,[25,40,60,80,100,150],1,1,{1:1,3:2,5:3,7:4,8:5,9:6}],Archer:[25,[50,80,120,160,200,300],1,2,{1:1,3:2,5:3,7:4,8:5,9:6}],Goblin:[30,[25,40,60,80,100,150],1,3,{1:1,3:2,5:3,7:4,8:5,10:6}],Giant:[120,[500,1e3,1500,2e3,2500,3e3],5,4,{1:1,2:1,4:2,6:3,7:4,8:5,9:6}],Wall_Breaker:[120,[1e3,1500,2e3,2500,3e3,3500],2,5,{1:1,3:1,4:2,6:3,7:4,8:5,10:6}],Balloon:[480,[2e3,2500,3e3,3500,4e3,4500],5,6,{1:1,4:2,6:3,7:4,8:5,9:6}],Wizard:[480,[1500,2e3,2500,3e3,3500,4e3],4,7,{1:1,5:2,6:3,7:4,8:5,10:6}],Healer:[900,[5e3,6e3,8e3,1e4],14,8,{1:1,6:1,7:2,8:3,9:4}],Dragon:[1800,[25e3,3e4,36e3,42e3],20,9,{1:1,7:2,8:3,10:4}],"P-E-K-K-A-":[2700,[3e4,35e3,42e3,5e4],25,10,{1:1,8:3,10:4}]},dark:{Minion:[45,[6,7,8,9,10],2,1,{1:1,7:2,8:4,9:5}],"Hog Rider":[120,[30,35,40,45,50],5,2,{1:1,7:2,8:4,9:5}],Valkyrie:[900,[70,100,130,160],8,3,{1:1,7:1,8:2,9:4}],Golem:[2700,[450,525,600,675,750],30,4,{1:1,8:2,9:4,10:5}],Witch:[1200,[250,350],12,5,{1:1,9:2}]},spells:{Lightning:[1800,[15e3,16500,18e3,2e4,22e3,24e3],1,1,{1:1,5:4,8:5,10:6}],Healing:[1800,[15e3,16500,18e3,2e4,22e3,24e3],1,2,{1:1,6:3,7:4,8:5,9:6}],Rage:[2700,[23e3,25e3,27e3,3e4,33e3],1,3,{1:1,7:4,8:5}],Jump:[2700,[23e3,29e3],1,4,{1:1,9:2}],Freeze:[2700,[26e3,29e3,31e3,33e3],1,5,{1:1,10:4}]}};return{data:e,iterateTree:function(t){Object.keys(e).forEach(function(n){Object.keys(e[n]).forEach(function(a){t(n,a,e[n][a])})})}}}),part("savedData",["common"],function(e){"use strict";var t=["barracks-levels-1","barracks-levels-2","barracks-levels-3","barracks-levels-4","dark-barracks-levels-1","dark-barracks-levels-2","armyCamps","spellFactoryLevel","Barbarian","Archer","Goblin","Giant","Wall_Breaker","Balloon","Wizard","Healer","Dragon","P-E-K-K-A-","Barbarian-level","Archer-level","Goblin-level","Giant-level","Wall_Breaker-level","Balloon-level","Wizard-level","Healer-level","Dragon-level","P-E-K-K-A--level","Lightning","Healing","Rage","Jump","Lightning-level","Healing-level","Rage-level","Jump-level","Minion","Hog Rider","Valkyrie","Golem","Minion-level","Hog Rider-level","Valkyrie-level","Golem-level","Freeze","Freeze-level","Witch","Witch-level"],n=function(e){var n=[];return t.forEach(function(t){var a;a=e.hasOwnProperty(t)?e[t]:0,n.push(a)}),n},a=function(e){var n={};return t.forEach(function(t,a){n[t]=void 0===e[a]?0:e[a]}),n},r=function(e){this.key=e,this.load=function(e){var t=localStorage.getItem(this.key);return t=t&&JSON.parse(t)||[],e?t:t=t.map(a)},this.save=function(e){var t=e.map(n);localStorage.setItem(this.key,JSON.stringify(t))}},i=function(t){this.entries=[],this.retrieve=function(e){return this.entries[e]||new Dict({})},this.update=function(e,t){this.entries[e]=t},this.insert=function(t){this.entries.push(new e.Dict(t))},this.remove=function(e){this.entries.splice(e,1)},this.getAll=function(){return this.entries.map(function(e){return e.getAll()})},this.forEach=function(e){this.entries.forEach(e)},this.getLength=function(){return this.entries.length},t.forEach(this.insert.bind(this))},s=new r("data4"),l=new i(s.load());return{storage:s,all:l,current:l.retrieve(0),save:function(){s.save(l.getAll())},dataArrayToObject:a,dataObjectToArray:n}});var DOM_ENABLED=!0;part("armyCamps",["dom","events","savedData"],function(e,t,n){"use strict";var a={base:[20,30,40,50],step:5,max:240,th:{1:20,2:30,3:70,4:80,5:135,6:150,7:200,9:220,10:240}};if(DOM_ENABLED){var r,i=function(e){n.current.set("armyCamps",parseInt(e,10))},s=function(e){r.value=e},l=function(){t.trigger("elChange",r,!0)};r=e.id("army-camps"),e.listen(r,["change"],function(){i(r.value),l(),t.trigger("calculate",{type:"all"})}),t.listen("updateFromSaved",function(){s(n.current.get("armyCamps",r.value)),l()}),t.listen("updateSetting",function(e){var t=e.helper(e.th,a.th);s(t),i(t),l()})}return a});var DOM_ENABLED=!0;part("spellFactory",["dom","events","savedData"],function(e,t,n){"use strict";var a={max:5,th:{1:0,5:1,6:2,7:3,9:4,10:5}};if(DOM_ENABLED){var r=e.id("spell-factory-level"),i=e.id("spell-factory-boosted"),s=function(e){n.current.set("spellFactoryLevel",parseInt(e,10))},l=function(e){r.value=e},o=function(){t.trigger("elChange",r,!0)};e.listen(r,["change"],function(){s(r.value),o(),t.trigger("calculate",{type:"spells"})}),e.listen(i,["change"],function(){localStorage.setItem("spell-factory-boosted",i.checked?"yes":"no"),t.trigger("calculate",{type:"spells"})}),t.listen("updateFromSaved",function(){l(n.current.get("spellFactoryLevel",r.value)),o(),i.checked="yes"===localStorage.getItem("spell-factory-boosted")}),t.listen("updateSetting",function(e){var t=e.helper(e.th,a.th);l(t),s(t),o()})}return a});var DOM_ENABLED=!0;part("barracks",["dom","savedData","events"],function(e,t,n){"use strict";var a=function(a){if(this.barracks=[],this.data=a,DOM_ENABLED){for(var r=0;++r<=this.data.count;){for(var i=e.id(this.data.prefix+"-levels-"+r),s=-1,l=[];++s<=this.data.maxLevel;)if(1!==r||0!==s||!this.data.firstRequired){var o="";s===this.data.maxLevel&&(o=' selected="selected"'),l.push('<option value="'+s+'"'+o+">"+s+"</option>")}i.innerHTML=l.join(""),e.listen(i,["change"],function(e){var a=e.currentTarget;t.current.set(a.getAttribute("id"),a.selectedIndex),n.trigger("elChange",a),n.trigger("calculate",{type:"barracks-"+this.data.type})}.bind(this)),this.barracks.push(i);var c=this.data.prefix+"-boosted-"+r,u=e.id(c);"yes"===localStorage.getItem(c)&&(u.checked=!0),e.listen(u,["change"],function(e){var t=e.currentTarget;localStorage.setItem(t.getAttribute("id"),t.checked?"yes":"no"),n.trigger("calculate",{type:this.data.type})}.bind(this))}n.listen("updateFromSaved",function(){this.barracks.forEach(function(e){var a=t.current.get(e.getAttribute("id"),e.selectedIndex);e.options[a].selected=!0,n.trigger("elChange",e,!0)})}.bind(this)),n.listen("updateSetting",function(e){var a=e.helper(e.th,this.data.th);this.barracks.forEach(function(e){e.value=a,t.current.set(e.getAttribute("id"),e.selectedIndex),n.trigger("elChange",e,!0)})}.bind(this))}this.getMaxLevel=function(){return Math.max.apply(null,this.barracks.map(function(e){return parseInt(e.value,10)}))},this.getAllNormalized=function(){return this.barracks.map(function(e){return{level:parseInt(e.value,10),queueLength:this.data.queue[e.value]}},this)},this.getQueue=function(){return this.barracks.map(function(e){var t=e.getAttribute("id").slice(-1);return{num:t,time:0,space:0,maxSpace:this.data.queue[e.value],units:{},level:parseInt(e.value,10),__boostedId:this.data.prefix+"-boosted-"+t,isBoosted:function(){return"yes"===localStorage.getItem(this.__boostedId)},getActualTime:function(){return this.isBoosted()?Math.floor(this.time/4):this.time}}},this)},this.getActiveCount=function(){return this.barracks.filter(function(e){return e.value>0}).length}};return{units:new a({type:"units",prefix:"barracks",count:4,queue:[0,20,25,30,35,40,45,50,55,60,75],maxLevel:10,firstRequired:!0,th:{1:3,2:4,3:5,4:6,5:7,6:8,7:9,8:10}}),dark:new a({type:"dark",prefix:"dark-barracks",count:2,queue:[0,40,50,60,70,80],maxLevel:5,th:{1:0,7:2,8:4,9:5}})}}),part(["events","dom"],function(e,t){"use strict";var n=function(e){var t=0;do t+=e.offsetTop;while(e=e.offsetParent);return t},a=t.id("menu-wrapper"),r=t.id("menu"),i=n(r),s=r.offsetHeight;a.style.height=s+"px";var l=15;window.mkIsMobile||(l+=s,t.listen(window,["scroll"],function(){t.toggleClass(r,"menu_fixed",window.pageYOffset>=i)}));var o=function(e){var t=window.pageYOffset,a=n(e)-l,r=t>a,i=r?t-a:a-t,s=100+i/20,o=16,c=Math.round(i/(s/o));!function u(){setTimeout(function(){r?(t-=c,a>t&&(t=a)):(t+=c,t>a&&(t=a)),window.scrollTo(window.pageXOffset,t),t!==a&&u()},o)}()};e.listen("scrollTo",o),t.find(".js-anchor").iterate(function(e){t.listen(e,["universalClick"],o.bind(null,t.id(e.getAttribute("data-anchor-target"))))})}),part("calculate",["spellFactory","savedData","types","events","dom","barracks","common"],function(e,t,n,a,r,i,s){"use strict";var l=function(e,t){var n;return function(){var a=this,r=arguments;clearTimeout(n),n=setTimeout(function(){e.apply(a,r)},t)}},o={};Object.keys(n.data).forEach(function(e){o[e]=[],Object.keys(n.data[e]).forEach(function(t){o[e].unshift(n.data[e][t].concat(t))})});var c={units:0,dark:0},u=function(e){i[e].getAllNormalized().forEach(function(t,n){var a="";0!==parseInt(t.level,10)&&(a=t.queueLength),r.id(e+"-barrack-header-"+(n+1)).textContent=a})},d=function(e,t,n){var a=e-t;0>a&&(a='<span class="limit-exceeded">'+a+"</span>"),r.id(n+"-quantity").innerHTML="("+a+" free)";var i=t;t>e&&(i='<span class="limit-exceeded">'+t+"</span>"),i=i+" / "+("units"===n?"":e),r.id(n+"-space").innerHTML=i},f=function(e,t){var n=e.getActualTime(),a=t.getActualTime();return a>n?-1:n>a?1:e.space<t.space?-1:e.space>t.space?1:e.maxSpace<t.maxSpace?-1:e.maxSpace>t.maxSpace?1:0},v=function(e,t){return e.level<t.level?-1:e.level>t.level?1:f(e,t)},p=function(e,t,n,a,r){var i=e.filter(function(e){return e.level>=t&&e.space+n<=e.maxSpace});if(!i.length)return null;if(i.length>1){if(1===n){var s=i.filter(function(e){return e.getActualTime()+a<=r});if(s.length)return s.length>1&&s.sort(v),s[0]}i.sort(f)}return i[0]},g=function(e,t,n,a){var r=!0,i=0,s=0;t.forEach(function(e){r&&e[1]%a!==0&&(r=!1),i=Math.max(e[2],i),s+=e[1]*e[4]});var l=!0,o=0,c=[],u=e[0].isBoosted();e.forEach(function(t){if(0!==t.level){var n=t.isBoosted()===u;!r||t.level>=i&&n||(r=!1),!l||t.level===e[0].level&&n||(l=!1),c.push(t.num),o+=t.maxSpace}}),r=r&&o>=s;for(var d=!1;t.length;){var f=t.shift(),v=f[0],g=f[1],m=f[2],b=f[3],h=f[4];if(r){var y=g/a,k=y*b,x=y*h;e.forEach(function(e){0!==e.level&&(e.units[v]=y,e.time+=k,e.space+=x)})}else for(var T=null;g--;){var C=!0;if(T){var E=T.getActualTime()+b,A=T.space+h;1===h&&n>=E&&A<=T.maxSpace&&(C=!1)}if(C&&(T=p(e,m,h,b,n)),null===T){d=!0;break}T.units[v]?T.units[v]++:T.units[v]=1,T.time+=b,T.space+=h}}return d||!l||r||(e.sort(function(e,t){return t.getActualTime()-e.getActualTime()}),e.forEach(function(e,t){0!==e.level&&(e.num=c[t])})),!d},m=function(e,t,n){var a=[];if(e){r.id(t+"-barracks-exceeded").style.display="none";for(var i=0,l=1;n.length;){var u=n.shift();for(var d in u.units)u.units[d]>0&&(r.id("quantity-"+o[t][d][5]+"-"+u.num).textContent="×"+u.units[d]);var f=u.getActualTime();f>i&&(i=f,l=parseInt(u.num,10));var v=f?s.getFormattedTime(f):"";u.isBoosted()&&(v='<span class="boosted">'+v+"</span>"),a[u.num]=v;var p="";0!==u.maxSpace&&(p=u.space+" / "),r.id(t+"-barrack-space-"+u.num).textContent=p}a.forEach(function(e,n){var a=r.id(t+"-time-barrack-"+n);n===l&&(e='<span class="result">'+e+"</span>"),a.innerHTML=e})}else{r.id(t+"-barracks-exceeded").style.display="";for(var g=[],m=0;n.length;){var u=n.shift();r.id(t+"-time-barrack-"+u.num).textContent="",g[u.num]=u.space,m+=u.space}var b=!0;g.forEach(function(e,n){var a=r.id(t+"-barrack-space-"+n);0===e?a.textContent="":b?(e+=c[t]-m,a.innerHTML='<span class="limit-exceeded result">'+e+"</span> / ",b=!1):a.textContent=e+" / "})}},b=l(m,200),h=function(e,n){for(var l=n.capLevel+1;--l>0;)r.id(e+"-building-level-"+l).style.display=l>n.levelValue?"none":"";for(var u=0,f=0,v=0,p=0,h=0,y=[],k=-1,x=o[e].length;++k<x;){var T=o[e][k];if(!(T[3]>n.levelValue)){var C=T[5],E=t.current.get(C),A=T[1][t.current.get(C+"-level")],S=A*E;if(r.id(C+"-summary").textContent=S?s.numberFormat(S):"",u+=S,v+=T[2]*E,"spells"===e)p+=T[0]*E;else{for(var L=0,w=i[e].data.count;++L<=w;)r.id("quantity-"+C+"-"+L).textContent="";var M=r.id(C+"-subtract"),I=parseInt(M.value,10)||0;0>I&&(I=0),M.value=I||"",I&&a.trigger("goal",{id:"SUBTRACT"},!0);var O=E-I;0>O&&(O=0),O>0&&(y.push([k,E-I,T[3],T[0],T[2]]),h=Math.max(h,T[0]),p+=T[0]*O),f+=A*O}}}if(r.id(e+"-cost").textContent=s.numberFormat(u),"spells"===e)d(n.space,v,e),p>0&&("yes"===localStorage.getItem("spell-factory-boosted")?(p=Math.floor(p/4),r.id(e+"-time").innerHTML='<span class="boosted">'+s.getFormattedTime(p,!0)+"</span>"):r.id(e+"-time").textContent=s.getFormattedTime(p,!0));else{var _=i[e].getQueue(),D=_.filter(function(e){return e.isBoosted()===!0}).length;D&&(h=Math.ceil(h/4));var F=i[e].getActiveCount(),j=F+4*D,N=Math.max(Math.ceil(p/j),h),B=g(_,y,N,F);c[e]+=v;var H;H=n.computeAll||!window.mkIsMobile?m:b,H(B,e,_);var q=r.id(e+"-subtracted-cost");f===u?q.textContent="":q.innerHTML="− "+s.numberFormat(u-f)+' = <span class="result">'+s.numberFormat(f)+"</span>"}},y=r.find(".js-dark-object"),k=r.find(".js-spells-object"),x=function(n){if("all"===n.type||"spells"!==n.type){("all"===n.type||"barrack-units"===n.type)&&u("units"),("all"===n.type||"barrack-dark"===n.type)&&(u("dark"),y.toggleClass("setting-mode-empty",0===i.dark.getMaxLevel())),("all"===n.type||"units"===n.type||"barrack-units"===n.type)&&(c.units=0,h("units",{levelValue:i.units.getMaxLevel(),capLevel:i.units.data.maxLevel,computeAll:n.computeAll})),("all"===n.type||"dark"===n.type||"barrack-dark"===n.type)&&(c.dark=0,h("dark",{levelValue:i.dark.getMaxLevel(),capLevel:i.dark.data.maxLevel,computeAll:n.computeAll}));var r=t.current.get("armyCamps"),s=c.units+c.dark;d(r,s,"units"),d(r,s,"dark")}if("all"===n.type||"spells"===n.type){var l=t.current.get("spellFactoryLevel");h("spells",{levelValue:l,space:l,capLevel:e.max,computeAll:n.computeAll}),k.toggleClass("setting-mode-empty",0===l)}t.all.update(0,t.current),t.save(),a.trigger("calculated")};return a.listen("calculate",x),{typesSortedLevel:o,fillBarracks:g}}),part(["savedData","types","events","dom","barracks","calculate","common"],function(e,t,n,a,r,i,s){"use strict";var l=a.id("barracks-anchor"),o=function(t){n.trigger("goal",{id:"LOAD_SAVED"},!0);var a=s.objectCopy(e.all.retrieve(t.currentTarget.getAttribute("data-num")).getAll());e.current=new s.Dict(a),n.trigger("updateFromSaved"),n.trigger("calculate",{type:"all",computeAll:!0}),n.trigger("loaded"),n.trigger("scrollTo",l)},c=new Hogan.Template(function(e,t,n){var a=this;return a.b(n=n||""),a.b('<div class="saved-list__item" id="saved-list-item-'),a.b(a.v(a.f("index",e,t,0))),a.b('">'),a.b("\n"+n),a.s(a.f("hasCapacity",e,t,1),e,t,0,82,196,"{{ }}")&&(a.rs(e,t,function(e,t,a){a.b('        <div class="saved-list__item-capacity">'),a.b("\n"+n),a.b("            "),a.b(a.v(a.f("totalCapacity",e,t,0))),a.b(" / "),a.b(a.v(a.f("armyCamps",e,t,0))),a.b("\n"+n),a.b("        </div>"),a.b("\n")}),e.pop()),a.b("\n"+n),a.s(a.f("units",e,t,1),e,t,0,228,653,"{{ }}")&&(a.rs(e,t,function(e,t,a){a.b('        <table class="saved-list__table">'),a.b("\n"+n),a.s(a.f("items",e,t,1),e,t,0,293,445,"{{ }}")&&(a.rs(e,t,function(e,t,a){a.b("                <tr>"),a.b("\n"+n),a.b('                    <td class="number">×'),a.b(a.v(a.f("quantity",e,t,0))),a.b("</td>"),a.b("\n"+n),a.b("                    <td>"),a.b(a.v(a.f("name",e,t,0))),a.b("</td>"),a.b("\n"+n),a.b("                </tr>"),a.b("\n")}),e.pop()),a.b("        </table>"),a.b("\n"+n),a.b('        <div class="saved-list__item-time">'),a.b(a.v(a.f("time",e,t,0))),a.b("</div>"),a.b("\n"+n),a.b('        <div class="saved-list__item-cost">'),a.b("\n"+n),a.b('            <span class="cost cost_elixir">'),a.b(a.v(a.f("cost",e,t,0))),a.b("</span>"),a.b("\n"+n),a.b("        </div>"),a.b("\n")}),e.pop()),a.b("\n"+n),a.s(a.f("dark",e,t,1),e,t,0,678,1108,"{{ }}")&&(a.rs(e,t,function(e,t,a){a.b('        <table class="saved-list__table">'),a.b("\n"+n),a.s(a.f("items",e,t,1),e,t,0,743,895,"{{ }}")&&(a.rs(e,t,function(e,t,a){a.b("                <tr>"),a.b("\n"+n),a.b('                    <td class="number">×'),a.b(a.v(a.f("quantity",e,t,0))),a.b("</td>"),a.b("\n"+n),a.b("                    <td>"),a.b(a.v(a.f("name",e,t,0))),a.b("</td>"),a.b("\n"+n),a.b("                </tr>"),a.b("\n")}),e.pop()),a.b("        </table>"),a.b("\n"+n),a.b('        <div class="saved-list__item-time">'),a.b(a.v(a.f("time",e,t,0))),a.b("</div>"),a.b("\n"+n),a.b('        <div class="saved-list__item-cost">'),a.b("\n"+n),a.b('            <span class="cost cost_dark-elixir">'),a.b(a.v(a.f("cost",e,t,0))),a.b("</span>"),a.b("\n"+n),a.b("        </div>"),a.b("\n")}),e.pop()),a.b("\n"+n),a.s(a.f("hasSpells",e,t,1),e,t,0,1137,1695,"{{ }}")&&(a.rs(e,t,function(e,t,a){a.b('        <div class="saved-list__item-capacity">'),a.b("\n"+n),a.b("            "),a.b(a.v(a.f("spellsCapacity",e,t,0))),a.b(" / "),a.b(a.v(a.f("spellsFactoryLevel",e,t,0))),a.b("\n"+n),a.b("        </div>"),a.b("\n"+n),a.b('        <table class="saved-list__table">'),a.b("\n"+n),a.s(a.f("spells",e,t,1),e,t,0,1322,1474,"{{ }}")&&(a.rs(e,t,function(e,t,a){a.b("                <tr>"),a.b("\n"+n),a.b('                    <td class="number">×'),a.b(a.v(a.f("quantity",e,t,0))),a.b("</td>"),a.b("\n"+n),a.b("                    <td>"),a.b(a.v(a.f("name",e,t,0))),a.b("</td>"),a.b("\n"+n),a.b("                </tr>"),a.b("\n")}),e.pop()),a.b("        </table>"),a.b("\n"+n),a.b('        <div class="saved-list__item-time">'),a.b(a.v(a.f("spellsTime",e,t,0))),a.b("</div>"),a.b("\n"+n),a.b('        <div class="saved-list__item-cost">'),a.b("\n"+n),a.b('            <span class="cost cost_elixir">'),a.b(a.v(a.f("spellsCost",e,t,0))),a.b("</span>"),a.b("\n"+n),a.b("        </div>"),a.b("\n")}),e.pop()),a.b("\n"+n),a.b('    <div class="saved-list__actions">'),a.b("\n"+n),a.b('        <button class="button js-saved-load"'),a.b("\n"+n),a.b('              data-num="'),a.b(a.v(a.f("index",e,t,0))),a.b('"'),a.b("\n"+n),a.b('              tabindex="'),a.b(a.v(a.f("tabIndexLoad",e,t,0))),a.b('"'),a.b("\n"+n),a.b('              title="Current composition will be lost">'),a.b("\n"+n),a.b("            Load"),a.b("\n"+n),a.b("        </button>"),a.b("\n"+n),a.b('        <button class="button button_after js-saved-delete"'),a.b("\n"+n),a.b('              data-num="'),a.b(a.v(a.f("index",e,t,0))),a.b('"'),a.b("\n"+n),a.b('              tabindex="'),a.b(a.v(a.f("tabIndexDelete",e,t,0))),a.b('">'),a.b("\n"+n),a.b("            Delete"),a.b("\n"+n),a.b("        </button>"),a.b("\n"+n),a.b("    </div>"),a.b("\n"+n),a.b("</div>"),a.fl()}),u=function(){var l=[];e.all.forEach(function(e,n){if(0!==n){var a={index:n,tabIndexLoad:n+3e3+1,tabIndexDelete:n+3e3+2},o=0;if(Object.keys(r).forEach(function(t){for(var n=r[t].data,l=[],c=0,u=0,d=[],f=0,v=0,p=[],g=0,m=0;++m<=n.count;){var b=e.get(n.prefix+"-levels-"+m,n.maxLevel);1===m&&n.firstRequired&&b++,b>g&&(g=b),d.push({num:m,time:0,space:0,maxSpace:n.queue[b],units:{},level:b,isBoosted:function(){return!1},getActualTime:function(){return this.time}}),b>0&&f++}if(i.typesSortedLevel[t].forEach(function(t,n){var a=parseInt(e.get(t[5]),10)||0;a>0&&t[3]<=g&&(l.push({name:s.convertToTitle(t[5]),quantity:a,level:t[3]}),c+=t[1][e.get(t[5]+"-level")]*a,o+=t[2]*a,u+=t[0]*a,v=Math.max(t[0],v),p.push([n,a,t[3],t[0],t[2]]))}),l.length){var h,y=Math.max(Math.ceil(u/f),v);i.fillBarracks(d,p,y,f)&&(h=Math.max.apply(null,d.map(function(e){return e.time})),h=s.getFormattedTime(h)),a[t]={items:l.sort(function(e,t){return e.level>t.level}),cost:s.numberFormat(c),time:h}}}),o>0&&(a.hasCapacity={totalCapacity:o,armyCamps:e.get("armyCamps")}),e.get("spellFactoryLevel")>0){var u=[],d=0,f=0,v=e.get("spellFactoryLevel"),p=0;Object.keys(t.data.spells).forEach(function(n){var a=t.data.spells[n],r=parseInt(e.get(n),10)||0;r>0&&a[3]<=v&&(u.push({name:s.convertToTitle(n),quantity:r}),d+=a[1][e.get(n+"-level")]*r,f+=a[2]*r,p+=a[0]*r)}),u.length&&(a.hasSpells={spells:u,spellsCost:s.numberFormat(d),spellsCapacity:f,spellsFactoryLevel:v,spellsTime:s.getFormattedTime(p,!0)})}l.push(c.render(a))}});var d=a.id("saved-list-content");d.innerHTML=l.join(""),a.find(".js-saved-load",d).listen(["universalClick"],o);var f=function(t){n.trigger("goal",{id:"DELETE_SAVED"},!0),e.all.remove(t.currentTarget.getAttribute("data-num")),e.save(),u()};a.find(".js-saved-delete",d).listen(["universalClick"],f)},d=s.infoMessage("already-saved",!0),f=a.id("saved-anchor"),v=function(t){var a={showMessage:!0};Object.keys(t).forEach(function(e){a[e]=t[e]}),d.hide(),a.showMessage&&n.trigger("goal",{id:"SAVE_COMPOSITION"},!0);var r=e.storage.load(!0);if(r[0]){for(var i=JSON.stringify(r[0]),l=0,o=r.length;++l<o;){var c=JSON.stringify(r[l]);if(i===c)return a.showMessage&&d.show(),void 0}var f=s.objectCopy(e.current.getAll());e.all.insert(f),e.save(),u()}};n.listen("save",v);var p=function(e){"yes"===e.currentTarget.getAttribute("data-scroll")&&n.trigger("scrollTo",f),v()};a.find(".js-save-composition").listen(["universalClick"],p),u();var g=e.all.getLength();n.trigger("goal",{id:"SAVED_COMPOSITIONS",params:{count:"sc"+(g?g-1:0)}},!0)}),part(["savedData","types","events","dom","barracks","common","converter"],function(e,t,n,a,r,i){"use strict";var s,l;if(-1!==location.search.indexOf("?l=")?(s=!0,l=!0):-1!==location.search.indexOf("?s=")&&(s=!0),s){var o=location.search.substr(3);o=decodeURIComponent(o);var c={};c[l?"l":"s"]=o,n.trigger("goal",{id:"SHARE",params:c},!0),o=o.replace(/[a-z]/g,","),o=o.replace(/,(?=,)/g,",0"),","===o[0]&&(o="0"+o),o="["+o+"]";try{o=JSON.parse(o)}catch(u){o=!1}if(history.replaceState({},"",location.protocol+"//"+location.host+location.pathname),o){l&&converter.oldConvert3to4(o),o=e.dataArrayToObject(o),n.trigger("save",{showMessage:!1},!0),e.current=new i.Dict(o);var d=i.infoMessage("view-shared");d.show(),n.listen("loaded",function(){d.hide()})}}var f=a.id("share-twitter"),v=a.id("share-facebook"),p=a.id("share-permalink");a.selectOnFocus(p);var g=function(){var t="http://mkln.ru/clash-of-clans/?s=",n=i.objectCopy(e.current.getAll());n.settingsMode=1,n=e.dataObjectToArray(n),n=JSON.stringify(n),n=n.replace(/\b(?:null|0)\b/g,""),n=n.substr(1,n.length-2),n=n.replace(/,+$/,"");var a=97;n=n.replace(/,/g,function(){var e=String.fromCharCode(a);return 122===a?a=97:a++,e}),p.value=t+n;var r=encodeURIComponent(t+n);f.setAttribute("href","https://twitter.com/share?url="+r+"&via=ClashCalc&hashtags=ClashOfClans"),v.setAttribute("href","https://www.facebook.com/sharer/sharer.php?u="+r)},m=a.id("share-text");a.selectOnFocus(m);var b={1:"¹",2:"²",3:"³",4:"⁴",5:"⁵",6:"⁶",7:"⁷",8:"⁸",9:"⁹"},h={units:"Elixir",dark:"Dark Elixir",spells:"Elixir"},y=function(){var n=e.current.getAll(),s=[],l=[];return Object.keys(t.data).forEach(function(e){var o;o="spells"===e?n.spellFactoryLevel:r[e].getMaxLevel(),Object.keys(t.data[e]).forEach(function(a){n[a]>0&&t.data[e][a][3]<=o&&s.push(i.convertToTitle(a)+b[n[a+"-level"]+1]+" ×"+n[a])});var c=a.id(e+"-cost").textContent;"0"!==c&&l.push(c+" "+h[e])}),s.length?(m.value=s.join(", ")+" — "+l.join(", "),!0):!1},k=a.find(".js-share"),x=function(){var e="";y()?g():e="none",k.iterate(function(t){t.style.display=e})};n.listen("calculated",x)}),part(["savedData","types","events","dom"],function(e,t,n,a){"use strict";var r=function(t){e.current.set(t.getAttribute("id"),t.selectedIndex)},i=function(e,t){e.options[t].selected=!0},s=function(e){n.trigger("elChange",e,!0)};n.listen("updateFromSaved",function(){t.iterateTree(function(t,n){var r=n+"-level",l=a.id(r);i(l,e.current.get(r,l.selectedIndex)),s(l)})}),n.listen("updateSetting",function(e){t.iterateTree(function(t,n,l){var o=a.id(n+"-level");i(o,e.helper(e.th,l[4])-1),r(o),s(o)})}),a.listen(document.body,["change"],function(e){"level"===e.target.getAttribute("data-component")&&(r(e.target),s(e.target),n.trigger("calculate",{type:e.target.getAttribute("data-type")}))}),a.listen(document.body,["input"],function(t){var a=t.target.getAttribute("data-component");if(-1!==["subtract","quantity"].indexOf(a)){if("quantity"===a){var r=parseInt(t.target.value,10)||0;0>r&&(r=0),t.target.value=r||"",e.current.set(t.target.getAttribute("id"),r)}n.trigger("calculate",{type:t.target.getAttribute("data-type")})}}),n.listen("updateFromSaved",function(){t.iterateTree(function(t,n){a.id(n).value=e.current.get(n)||""})}),n.trigger("updateFromSaved",!0),n.trigger("calculate",{type:"all",computeAll:!0},!0)}),part(["events","dom"],function(e,t){"use strict";t.find(".js-setting").iterate(function(e){var n=document.createElement("span");n.className="text-middle setting-mode-not-part",t.insertBefore(e,n),e.classList.add("setting-mode-part")}),e.listen("elChange",function(e){e.nextSibling.textContent=e.options[e.selectedIndex].textContent});var n=t.id("settings-toggle-mode"),a=function(){t.toggleClass(document.documentElement,"setting-mode-disabled",!n.checked),t.toggleClass(document.documentElement,"setting-mode-enabled",n.checked),localStorage.setItem("settingsMode",n.checked?"on":"off")};t.listen(n,["change"],function(){a(),e.trigger("goal",{id:"SETTINGS_SWITCH"},!0)});var r=localStorage.getItem("settingsMode");"off"!==r&&(r="on"),n.checked="on"===r,a(),e.trigger("goal",{id:"SETTINGS_INIT",params:{mode:r}},!0);var i=function(e,t){for(;!t.hasOwnProperty(e)&&e>0;)e--;return t[e]},s=function(t){e.trigger("goal",{id:"SETTINGS_TH",params:{level:"th"+t}},!0),e.trigger("updateSetting",{th:t,helper:i}),e.trigger("calculate",{type:"all",computeAll:!0})};t.find(".js-settings-level").iterate(function(e){t.listen(e,["universalClick"],s.bind(null,parseInt(e.textContent,10)))})}),part(["events","dom"],function(e,t){"use strict";var n=function(t,n){var a=parseInt(t.value,10);t.value="+"===n?isNaN(a)?1:a+1:isNaN(a)||2>a?"":a-1,e.trigger("calculate",{type:t.getAttribute("data-type")})},a={target:null,click:!1,firstTimeout:null,secondTimeout:null,x:0,y:0},r=function(e){a.target=e,a.click=!0,a.firstTimeout=setTimeout(function(){a.click=!1,function e(){a.secondTimeout=setTimeout(function(){n(a.target.spinnerTarget,a.target.textContent),e()},100)}()},500)},i=function(e,t){(e>10||t>10)&&(a.target=null,a.click=!1,clearTimeout(a.firstTimeout),clearTimeout(a.secondTimeout))},s=function(){a.target&&(a.click&&n(a.target.spinnerTarget,a.target.textContent),a.target=null,clearTimeout(a.firstTimeout),clearTimeout(a.secondTimeout))},l="ontouchstart"in window;window.mkIsMobile&&l||(window.addEventListener("mousemove",function(e){if(a.target){var t=Math.abs(e.screenX-a.x),n=Math.abs(e.screenY-a.y);i(t,n)}},!1),window.addEventListener("mouseup",function(){s()},!1));var o=function(e){if(l){var t=0;e.addEventListener("touchstart",function(e){e.stopPropagation(),e.timeStamp-t<500&&e.preventDefault(),t=e.timeStamp,a.x=e.touches[0].screenX,a.y=e.touches[0].screenY,r(e.currentTarget)},!1),e.addEventListener("touchmove",function(e){if(e.stopPropagation(),a.target){var t=Math.abs(e.touches[0].screenX-a.x)/2,n=Math.abs(e.touches[0].screenY-a.y)/2;i(t,n)}},!1),e.addEventListener("touchcancel",function(e){e.stopPropagation(),s()},!1),e.addEventListener("touchend",function(e){e.stopPropagation(),s()},!1)}window.mkIsMobile&&l||e.addEventListener("mousedown",function(e){e.stopPropagation(),a.x=e.screenX,a.y=e.screenY,r(e.currentTarget)},!1)},c=function(e,n){var a=document.createElement("button");a.className="button button_spinner",a.textContent="plus"===e?"+":"−",a.spinnerTarget=n,o(a),t.insertBefore(n,a)},u=function(e){var t=e.keyCode||e.which;38===t?(n(e.currentTarget,"+"),e.preventDefault()):40===t&&(n(e.currentTarget,"-"),e.preventDefault())};t.find(".js-number").iterate(function(e){t.selectOnFocus(e),c("minus",e),c("plus",e),t.listen(e,["keydown"],u)})}),part(["events","dom"],function(e,t){"use strict";var n=function(n){var a=n.currentTarget.getAttribute("data-reset-type"),r=n.currentTarget.getAttribute("data-scope");t.find('input[data-component="'+r+'"][data-type="'+a+'"]').iterate(function(e){e.value=""}),e.trigger("calculate",{type:a}),e.trigger("goal",{id:"RESET"},!0)};t.find(".js-reset").listen(["universalClick"],n)}),part(["events","dom"],function(e,t){"use strict";t.find(".js-goal").listen(["universalAndMiddleClick"],function(t){e.trigger("goal",{id:t.currentTarget.getAttribute("data-goal")},!0)});var n=[];window.yandexMetrikaLoadCallback=function(t){e.listen("goal",function(e){if(-1===n.indexOf(e.id)){n.push(e.id);var a=e.id,r=e.params||null;t.reachGoal(a,r)}})}});</script>
 
 <script>!function(a,e,n,t){(e[n]=e[n]||[]).push(function(){try{e.yaCounter19642528=new Ya.Metrika({id:19642528,trackLinks:!0,accurateTrackBounce:!0}),window.yandexMetrikaLoadCallback&&window.yandexMetrikaLoadCallback(e.yaCounter19642528)}catch(a){}});var c=a.getElementsByTagName(t)[0],r=a.createElement(t);r.async=!0,r.src="//mc.yandex.ru/metrika/watch.js",c.parentNode.insertBefore(r,c)}(document,window,"yandex_metrika_callbacks","script");</script>
 <noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>

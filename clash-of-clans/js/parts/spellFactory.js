@@ -1,0 +1,72 @@
+var DOM_ENABLED = true;
+if (typeof exports !== 'undefined') {
+    DOM_ENABLED = false;
+    var part = require('../part.js');
+}
+
+part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, savedData) {
+    'use strict';
+
+    var data = {
+        'max': 5,
+        'th': {
+            1: 0,
+            5: 1,
+            6: 2,
+            7: 3,
+            9: 4,
+            10: 5
+        }
+    };
+
+    if (DOM_ENABLED) {
+        var levelEl = dom.id('spell-factory-level');
+        var boostedEl = dom.id('spell-factory-boosted');
+
+        var updateLevelSavedData = function(value) {
+            savedData.current.set('spellFactoryLevel', parseInt(value, 10));
+        };
+
+        var updateLevelEl = function(value) {
+            levelEl.value = value;
+        };
+
+        var notifyLevelChange = function() {
+            events.trigger('elChange', levelEl, true);
+        };
+
+        dom.listen(levelEl, ['change'], function() {
+            updateLevelSavedData(levelEl.value);
+            notifyLevelChange();
+
+            events.trigger('calculate', {
+                'type': 'spells'
+            });
+        });
+
+        dom.listen(boostedEl, ['change'], function() {
+            localStorage.setItem('spell-factory-boosted', (boostedEl.checked ? 'yes' : 'no'));
+
+            events.trigger('calculate', {
+                'type': 'spells'
+            });
+        });
+
+        events.listen('updateFromSaved', function() {
+            updateLevelEl(savedData.current.get('spellFactoryLevel', levelEl.value));
+            notifyLevelChange();
+
+            boostedEl.checked = (localStorage.getItem('spell-factory-boosted') === 'yes');
+        });
+
+        events.listen('updateSetting', function(params) {
+            var value = params.helper(params.th, data.th);
+            updateLevelEl(value);
+            updateLevelSavedData(value);
+            notifyLevelChange();
+        });
+    }
+
+    return data;
+
+});

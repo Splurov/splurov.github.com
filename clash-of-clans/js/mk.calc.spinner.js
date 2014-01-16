@@ -1,4 +1,4 @@
-(function(){
+part(['events', 'dom'], function(events, dom) {
 
     'use strict';
 
@@ -17,8 +17,8 @@
                 targetElement.value = current - 1;
             }
         }
-        mk.Events.trigger('calculate', {
-            'type': targetElement.getAttribute('data-object-type')
+        events.trigger('calculate', {
+            'type': targetElement.getAttribute('data-type')
         });
     };
 
@@ -140,7 +140,7 @@
 
         spinnerEvents(container);
 
-        mk.$insertBefore(el, container);
+        dom.insertBefore(el, container);
     };
 
     var spinnerKeyboard = function(e) {
@@ -154,12 +154,12 @@
         }
     };
 
-    mk.$('.js-number').iterate(function(el) {
-        mk.$Listen(el, ['focus'], mk.selectAll);
+    dom.find('.js-number').iterate(function(el) {
+        dom.selectOnFocus(el);
         setSpinner('minus', el);
         setSpinner('plus', el);
 
-        mk.$Listen(el, ['keydown'], spinnerKeyboard);
+        dom.listen(el, ['keydown'], spinnerKeyboard);
     });
 
-}());
+});

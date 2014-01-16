@@ -1,4 +1,4 @@
-(function(){
+part(['events', 'dom'], function(events, dom){
 
     'use strict';
 
@@ -11,8 +11,8 @@
         return position;
     };
 
-    var menuWrapperEl = mk.$id('menu-wrapper');
-    var menuEl = mk.$id('menu');
+    var menuWrapperEl = dom.id('menu-wrapper');
+    var menuEl = dom.id('menu');
     var menuTopPosition = getTopPosition(menuEl);
 
     var menuElHeight = menuEl.offsetHeight;
@@ -23,8 +23,8 @@
     if (!window.mkIsMobile) {
         globalScrollOffset += menuElHeight;
 
-        mk.$Listen(window, ['scroll'], function() {
-            mk.$toggleClass(menuEl, 'menu_fixed', (window.pageYOffset >= menuTopPosition));
+        dom.listen(window, ['scroll'], function() {
+            dom.toggleClass(menuEl, 'menu_fixed', (window.pageYOffset >= menuTopPosition));
         });
     }
 
@@ -62,10 +62,10 @@
         }());
     };
 
-    mk.Events.listen('scrollTo', smoothScroll);
+    events.listen('scrollTo', smoothScroll);
 
-    mk.$('.js-anchor').iterate(function(el) {
-        mk.$Listen(el, ['universalClick'], smoothScroll.bind(null, mk.$id(el.getAttribute('data-anchor-target'))));
+    dom.find('.js-anchor').iterate(function(el) {
+        dom.listen(el, ['universalClick'], smoothScroll.bind(null, dom.id(el.getAttribute('data-anchor-target'))));
     });
 
-}());
+});

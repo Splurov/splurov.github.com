@@ -1,4 +1,5 @@
-(function() {
+part('calculate', ['spellFactory', 'savedData', 'types', 'events', 'dom', 'barracks', 'common'],
+     function(spellFactory, savedData, types, events, dom, barracksInfo, common) {
 
     'use strict';
 
@@ -14,11 +15,11 @@
         };
     };
 
-    mk.calc.typesSortedLevel = {};
-    mk.objectIterate(mk.calc.types, function(type, items) {
-        mk.calc.typesSortedLevel[type] = [];
-        mk.objectIterate(items, function(name, objects) {
-            mk.calc.typesSortedLevel[type].unshift(objects.concat(name));
+    var typesSortedLevel = {};
+    Object.keys(types.data).forEach(function(type) {
+        typesSortedLevel[type] = [];
+        Object.keys(types.data[type]).forEach(function(name) {
+            typesSortedLevel[type].unshift(types.data[type][name].concat(name));
         });
     });
 
@@ -28,12 +29,12 @@
     };
 
     var updateBarracksHeaders = function(type) {
-        mk.calc.allBarracks[type].getAllNormalized().forEach(function(barrackData, barrackIndex) {
+        barracksInfo[type].getAllNormalized().forEach(function(barrackData, barrackIndex) {
             var header = '';
             if (parseInt(barrackData.level, 10) !== 0) {
                 header = barrackData.queueLength;
             }
-            mk.$id(type + '-barrack-header-' + (barrackIndex + 1)).textContent = header;
+            dom.id(type + '-barrack-header-' + (barrackIndex + 1)).textContent = header;
         });
     };
 
@@ -42,14 +43,14 @@
         if (spaceDiff < 0) {
             spaceDiff = '<span class="limit-exceeded">' + spaceDiff + '</span>';
         }
-        mk.$id(type + '-quantity').innerHTML = '(' + spaceDiff + ' free)';
+        dom.id(type + '-quantity').innerHTML = '(' + spaceDiff + ' free)';
 
         var space = totalSpace;
         if (totalSpace > maxSpace) {
             space = '<span class="limit-exceeded">' + totalSpace + '</span>';
         }
         space = space + ' / ' + (type === 'units' ? '': maxSpace);
-        mk.$id(type + '-space').innerHTML = space;
+        dom.id(type + '-space').innerHTML = space;
 
     };
 
@@ -128,7 +129,7 @@
         return suitable[0];
     };
 
-    mk.calc.fillBarracks = function(barracksQueue, unitsDistribution, avgTime, activeCount) {
+    var fillBarracks = function(barracksQueue, unitsDistribution, avgTime, activeCount) {
         var isSuitedForEqual = true;
 
         var maxUnitLevel = 0;
@@ -243,7 +244,7 @@
     var populateDistribution = function(fillSuccess, type, barracksQueue) {
         var times = [];
         if (fillSuccess) {
-            mk.$id(type + '-barracks-exceeded').style.display = 'none';
+            dom.id(type + '-barracks-exceeded').style.display = 'none';
             var maxTime = 0;
             var maxNum = 1;
 
@@ -252,9 +253,9 @@
 
                 for (var unitIndex in barrack.units) {
                     if (barrack.units[unitIndex] > 0) {
-                        mk.$id(
+                        dom.id(
                             'quantity-' +
-                            mk.calc.typesSortedLevel[type][unitIndex][5] +
+                            typesSortedLevel[type][unitIndex][5] +
                             '-' +
                             barrack.num
                         ).textContent = '×' + barrack.units[unitIndex];
@@ -267,7 +268,7 @@
                     maxNum = parseInt(barrack.num, 10);
                 }
 
-                var time = (actualTime ? mk.getFormattedTime(actualTime) : '');
+                var time = (actualTime ? common.getFormattedTime(actualTime) : '');
                 if (barrack.isBoosted()) {
                     time = '<span class="boosted">' + time + '</span>';
                 }
@@ -277,22 +278,22 @@
                 if (barrack.maxSpace !== 0) {
                     spaceData = barrack.space + ' / ';
                 }
-                mk.$id(type + '-barrack-space-' + barrack.num).textContent = spaceData;
+                dom.id(type + '-barrack-space-' + barrack.num).textContent = spaceData;
             }
             times.forEach(function(time, num) {
-                var barrackEl = mk.$id(type + '-time-barrack-' + num);
+                var barrackEl = dom.id(type + '-time-barrack-' + num);
                 if (num === maxNum) {
                     time = '<span class="result">' + time + '</span>';
                 }
                 barrackEl.innerHTML = time;
             });
         } else {
-            mk.$id(type + '-barracks-exceeded').style.display = '';
+            dom.id(type + '-barracks-exceeded').style.display = '';
             var spaces = [];
             var sumSpace = 0;
             while (barracksQueue.length) {
                 var barrack = barracksQueue.shift();
-                mk.$id(type + '-time-barrack-' + barrack.num).textContent = '';
+                dom.id(type + '-time-barrack-' + barrack.num).textContent = '';
 
                 spaces[barrack.num] = barrack.space;
                 sumSpace += barrack.space;
@@ -300,7 +301,7 @@
 
             var firstIteration = true;
             spaces.forEach(function(space, num) {
-                var barrackSpaceEl = mk.$id(type + '-barrack-space-' + num);
+                var barrackSpaceEl = dom.id(type + '-barrack-space-' + num);
                 if (space === 0) {
                     barrackSpaceEl.textContent = '';
                 } else {
@@ -321,7 +322,7 @@
     var calculateItems = function(type, params) {
         var clIndex = params.capLevel + 1;
         while (--clIndex > 0) {
-            mk.$id(
+            dom.id(
                 type +
                 '-building-level-' +
                 clIndex
@@ -336,33 +337,20 @@
         var distribution = [];
 
         var tsIndex = -1; // ts - types sorted
-        var tsLength = mk.calc.typesSortedLevel[type].length;
+        var tsLength = typesSortedLevel[type].length;
         while (++tsIndex < tsLength) {
-            var value = mk.calc.typesSortedLevel[type][tsIndex];
+            var value = typesSortedLevel[type][tsIndex];
             if (value[3] > params.levelValue) {
                 continue;
             }
 
             var name = value[5];
-            var item = mk.$id(name);
 
-            var quantity = parseInt(item.value, 10) || 0;
-            if (quantity < 0) {
-                quantity = 0;
-            }
-            item.value = quantity || '';
-
-            var levelId = name + '-level';
-            var levelEl = mk.$id(levelId);
-            var levelSelectedIndex = levelEl.selectedIndex;
-            var costPerItem = levelEl.value;
+            var quantity = savedData.current.get(name);
+            var costPerItem = value[1][savedData.current.get(name + '-level')];
             var summaryCost = (costPerItem * quantity);
 
-            if (params.computeAll ||
-                    mk.calc.savedData.get(name) !== quantity ||
-                    mk.calc.savedData.get(levelId) !== levelSelectedIndex) {
-                mk.$id(name + '-summary').textContent = (summaryCost ? mk.numberFormat(summaryCost) : '');
-            }
+            dom.id(name + '-summary').textContent = (summaryCost ? common.numberFormat(summaryCost) : '');
 
             totalCost += summaryCost;
 
@@ -371,21 +359,20 @@
                 totalTime += (value[0] * quantity);
             } else {
                 var mcIndex = 0; // mc - max count
-                var mcLength = mk.calc.allBarracks[type].getMaxCount();
+                var mcLength = barracksInfo[type].data.count;
                 while (++mcIndex <= mcLength) {
-                    mk.$id('quantity-' + name + '-' + mcIndex).textContent = '';
+                    dom.id('quantity-' + name + '-' + mcIndex).textContent = '';
                 }
 
-                var subtractId = name + '-subtract';
-                var subtract = mk.$id(subtractId);
+                var subtract = dom.id(name + '-subtract');
                 var subtractQuantity = parseInt(subtract.value, 10) || 0;
                 if (subtractQuantity < 0) {
                     subtractQuantity = 0;
                 }
                 subtract.value = subtractQuantity || '';
 
-                if (subtract.value > 0) {
-                    mk.Events.trigger('goal', {
+                if (subtractQuantity) {
+                    events.trigger('goal', {
                         'id': 'SUBTRACT'
                     }, true);
                 }
@@ -408,26 +395,23 @@
 
                 subtractedCost += (costPerItem * totalQuantity);
             }
-
-            mk.calc.savedData.set(name, quantity);
-            mk.calc.savedData.set(levelId, levelSelectedIndex);
         }
 
-        mk.$id(type + '-cost').textContent = mk.numberFormat(totalCost);
+        dom.id(type + '-cost').textContent = common.numberFormat(totalCost);
 
         if (type === 'spells') {
             setQuantityAndSpace(params.space, totalSpace, type);
             if (totalTime > 0) {
                 if (localStorage.getItem('spell-factory-boosted') === 'yes') {
                     totalTime = Math.floor(totalTime / 4);
-                    mk.$id(type + '-time').innerHTML = '<span class="boosted">' + mk.getFormattedTime(totalTime, true) + '</span>';
+                    dom.id(type + '-time').innerHTML = '<span class="boosted">' + common.getFormattedTime(totalTime, true) + '</span>';
                 } else{
-                    mk.$id(type + '-time').textContent = mk.getFormattedTime(totalTime, true);
+                    dom.id(type + '-time').textContent = common.getFormattedTime(totalTime, true);
                 }
 
             }
         } else {
-            var barracksQueue = mk.calc.allBarracks[type].getQueue();
+            var barracksQueue = barracksInfo[type].getQueue();
             var boostedCount = barracksQueue.filter(function(barrack) {
                 return barrack.isBoosted() === true;
             }).length;
@@ -436,11 +420,11 @@
                 maxUnitTime = Math.ceil(maxUnitTime / 4);
             }
 
-            var activeCount = mk.calc.allBarracks[type].getActiveCount();
+            var activeCount = barracksInfo[type].getActiveCount();
             var virtualBarracksCount = activeCount + (boostedCount * 4);
             var avgTime = Math.max(Math.ceil(totalTime / virtualBarracksCount), maxUnitTime);
 
-            var fillSuccess = mk.calc.fillBarracks(barracksQueue, distribution, avgTime, activeCount);
+            var fillSuccess = fillBarracks(barracksQueue, distribution, avgTime, activeCount);
 
             currentSpace[type] += totalSpace;
 
@@ -452,18 +436,18 @@
             }
             fn(fillSuccess, type, barracksQueue);
 
-            var subtractedCostEl = mk.$id(type + '-subtracted-cost');
+            var subtractedCostEl = dom.id(type + '-subtracted-cost');
             if (subtractedCost === totalCost) {
                 subtractedCostEl.textContent = '';
             } else {
-                subtractedCostEl.innerHTML = '− ' + mk.numberFormat(totalCost - subtractedCost) +
-                                             ' = <span class="result">' + mk.numberFormat(subtractedCost) + '</span>';
+                subtractedCostEl.innerHTML = '− ' + common.numberFormat(totalCost - subtractedCost) +
+                                             ' = <span class="result">' + common.numberFormat(subtractedCost) + '</span>';
             }
         }
     };
 
-    var darkObjects = mk.$('.js-dark-object');
-    var spellsObjects = mk.$('.js-spells-object');
+    var darkObjects = dom.find('.js-dark-object');
+    var spellsObjects = dom.find('.js-spells-object');
     var calculate = function(params) {
         if (params.type === 'all' || params.type !== 'spells') {
 
@@ -474,16 +458,14 @@
             if (params.type === 'all' || params.type === 'barrack-dark') {
                 updateBarracksHeaders('dark');
 
-                darkObjects.toggleClass('setting-mode-empty', (mk.calc.allBarracks.dark.getMaxLevel() === 0));
+                darkObjects.toggleClass('setting-mode-empty', (barracksInfo.dark.getMaxLevel() === 0));
             }
-
-            var armyCampsSpace = parseInt(mk.calc.armyCamps.value, 10);
 
             if (params.type === 'all' || params.type === 'units' || params.type === 'barrack-units') {
                 currentSpace.units = 0;
                 calculateItems('units', {
-                    'levelValue': mk.calc.allBarracks.units.getMaxLevel(),
-                    'capLevel': mk.calc.allBarracks.units.getCapLevel(),
+                    'levelValue': barracksInfo.units.getMaxLevel(),
+                    'capLevel': barracksInfo.units.data.maxLevel,
                     'computeAll': params.computeAll
                 });
             }
@@ -491,42 +473,41 @@
             if (params.type === 'all' || params.type === 'dark' || params.type === 'barrack-dark') {
                 currentSpace.dark = 0;
                 calculateItems('dark', {
-                    'levelValue': mk.calc.allBarracks.dark.getMaxLevel(),
-                    'capLevel': mk.calc.allBarracks.dark.getCapLevel(),
+                    'levelValue': barracksInfo.dark.getMaxLevel(),
+                    'capLevel': barracksInfo.dark.data.maxLevel,
                     'computeAll': params.computeAll
                 });
             }
 
+            var armyCampsSpace = savedData.current.get('armyCamps');
+
             var togetherSpace = currentSpace.units + currentSpace.dark;
             setQuantityAndSpace(armyCampsSpace, togetherSpace, 'units');
             setQuantityAndSpace(armyCampsSpace, togetherSpace, 'dark');
-
-            mk.calc.savedData.set('armyCamps', armyCampsSpace);
-
-            mk.calc.allBarracks.units.updateSavedData();
-            mk.calc.allBarracks.dark.updateSavedData();
         }
 
         if (params.type === 'all' || params.type === 'spells') {
-            var spellFactoryLevel = parseInt(mk.calc.spellFactoryLevel.value, 10);
+            var spellFactoryLevel = savedData.current.get('spellFactoryLevel');
             calculateItems('spells', {
                 'levelValue': spellFactoryLevel,
                 'space': spellFactoryLevel,
-                'capLevel': mk.calc.spellFactoryData.max,
+                'capLevel': spellFactory.max,
                 'computeAll': params.computeAll
             });
-
-            mk.calc.savedData.set('spellFactoryLevel', mk.calc.spellFactoryLevel.selectedIndex);
 
             spellsObjects.toggleClass('setting-mode-empty', (spellFactoryLevel === 0));
         }
 
-        mk.calc.savedDataAll.update(0, mk.calc.savedData);
-        mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
+        savedData.all.update(0, savedData.current);
+        savedData.save();
 
-        mk.Events.trigger('calculated');
+        events.trigger('calculated');
     };
 
-    mk.Events.listen('calculate', calculate);
+    events.listen('calculate', calculate);
 
-}());
+    return {
+        'typesSortedLevel': typesSortedLevel,
+        'fillBarracks': fillBarracks
+    };
+});

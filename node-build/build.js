@@ -46,75 +46,85 @@ var makeDataUri = function(path) {
 
 var setItemRowsTemplates = function(vars) {
 
-    var mk = require('../clash-of-clans/js/mk.calc.common.js');
+    require('../clash-of-clans/js/parts/common.js');
 
-    var createRows = function(type, tabIndexMultiplier) {
-        var createLevelOption = function(value, index) {
-            return {'value': value, 'text': (index + 1)};
+    require('../clash-of-clans/js/parts/types.js');
+    require('../clash-of-clans/js/parts/armyCamps.js');
+    require('../clash-of-clans/js/parts/spellFactory.js');
+    require('../clash-of-clans/js/parts/barracks.js');
+
+    var part = require('../clash-of-clans/js/part.js');
+
+    part(['armyCamps', 'spellFactory', 'types', 'barracks', 'common'], function(armyCamps, spellFactory, types, barracks, common) {
+        var createRows = function(type, tabIndexMultiplier) {
+            var createLevelOption = function(value, index) {
+                return {'value': value, 'text': (index + 1)};
+            };
+
+            var rows = [];
+            Object.keys(types.data[type]).forEach(function(name) {
+                var value = types.data[type][name];
+                var convertedName = common.convertToTitle(name);
+                var levelOptions = value[1].map(createLevelOption);
+                levelOptions[levelOptions.length - 1].selected = true;
+                var templateVars = {
+                    'id': name,
+                    'idDashed': name.replace(' ', '_'),
+                    'title': convertedName,
+                    'levelId': name + '-level',
+                    'levelContent': levelOptions,
+                    'summaryId': name + '-summary',
+                    'rowId': type + '-building-level-' + value[3],
+                    'tabIndexLevel': tabIndexMultiplier + value[3],
+                    'tabIndexValue': tabIndexMultiplier + 1000 + value[3],
+                    'objectType': type
+                };
+                if (type === 'spells') {
+                    templateVars.spells = true;
+                }
+
+                if (type === 'units' || type === 'dark') {
+                    var i;
+                    var barracksTimes = [];
+                    for (i = 1; i <= barracks[type].data.count; i++) {
+                        barracksTimes.push({
+                            'barrackQuantityId': 'quantity-' + name + '-' + i
+                        });
+                    }
+                    templateVars.barracksTimes = barracksTimes;
+
+                    templateVars.subtractId = name + '-subtract';
+                    templateVars.tabIndexSubtract = tabIndexMultiplier + 4000 + value[3];
+                }
+
+                rows.push(templateVars);
+            });
+
+            vars[type + '_rows'] = rows;
         };
 
-        var rows = [];
-        mk.objectIterate(mk.calc.types[type], function(name, value) {
-            var convertedName = mk.convertToTitle(name);
-            var levelOptions = value[1].map(createLevelOption);
-            levelOptions[levelOptions.length - 1].selected = true;
-            var templateVars = {
-                'id': name,
-                'idDashed': name.replace(' ', '_'),
-                'title': convertedName,
-                'levelId': name + '-level',
-                'levelContent': levelOptions,
-                'summaryId': name + '-summary',
-                'rowId': type + '-building-level-' + value[3],
-                'tabIndexLevel': tabIndexMultiplier + value[3],
-                'tabIndexValue': tabIndexMultiplier + 1000 + value[3],
-                'objectType': type
-            };
-            if (type === 'spells') {
-                templateVars.spells = true;
-            }
+        createRows('units', 100);
+        createRows('dark', 200);
+        createRows('spells', 300);
 
-            if (type === 'units' || type === 'dark') {
-                var i;
-                var barracksTimes = [];
-                for (i = 1; i <= mk.calc.allBarracks[type].getMaxCount(); i++) {
-                    barracksTimes.push({
-                        'barrackQuantityId': 'quantity-' + name + '-' + i
-                    });
-                }
-                templateVars.barracksTimes = barracksTimes;
-
-                templateVars.subtractId = name + '-subtract';
-                templateVars.tabIndexSubtract = tabIndexMultiplier + 4000 + value[3];
-            }
-
-            rows.push(templateVars);
+        vars.armyCamps = [];
+        armyCamps.base.forEach(function(value) {
+            vars.armyCamps.push({'value': value});
         });
+        for (var value = armyCamps.base[armyCamps.base.length - 1];
+             value <= armyCamps.max;
+             value += armyCamps.step) {
+            vars.armyCamps.push({'value': value});
+        }
+        vars.armyCamps[vars.armyCamps.length - 1].selected = true;
 
-        vars[type + '_rows'] = rows;
-    };
-
-    createRows('units', 100);
-    createRows('dark', 200);
-    createRows('spells', 300);
-
-    vars.armyCamps = [];
-    mk.calc.armyCampsData.base.forEach(function(value) {
-        vars.armyCamps.push({'value': value});
+        vars.spellFactory = [];
+        var i = -1;
+        while (++i <= spellFactory.max) {
+            vars.spellFactory.push({'value': i});
+        }
+        vars.spellFactory[vars.spellFactory.length - 1].selected = true;
     });
-    for (var value = mk.calc.armyCampsData.base[mk.calc.armyCampsData.base.length - 1];
-         value <= mk.calc.armyCampsData.max;
-         value += mk.calc.armyCampsData.step) {
-        vars.armyCamps.push({'value': value});
-    }
-    vars.armyCamps[vars.armyCamps.length - 1].selected = true;
-
-    vars.spellFactory = [];
-    var i = -1;
-    while (++i <= mk.calc.spellFactoryData.max) {
-        vars.spellFactory.push({'value': i});
-    }
-    vars.spellFactory[vars.spellFactory.length - 1].selected = true;
 
 };
 
@@ -173,6 +183,7 @@ for (var file in sources) {
             console.log('hogan: ' + hoganP1);
             return compiled;
         });
+        scriptData = scriptData.replace(/if \(typeof exports !== 'undefined'\) \{[^\}]+\}/g, '');
         if (!p2) {
             scriptData = uglifyjs.minify(scriptData, {
                 'fromString': true,

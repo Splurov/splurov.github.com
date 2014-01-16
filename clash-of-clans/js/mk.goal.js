@@ -1,9 +1,9 @@
-(function() {
+part(['events', 'dom'], function(events, dom) {
 
     'use strict';
 
-    mk.$('.js-goal').listen(['universalAndMiddleClick'], function(e) {
-        mk.Events.trigger('goal', {
+    dom.find('.js-goal').listen(['universalAndMiddleClick'], function(e) {
+        events.trigger('goal', {
             'id': e.currentTarget.getAttribute('data-goal')
         }, true);
     });
@@ -11,7 +11,7 @@
     var cache = [];
 
     window.yandexMetrikaLoadCallback = function(yandexMetrika) {
-        mk.Events.listen('goal', function(data) {
+        events.listen('goal', function(data) {
             if (cache.indexOf(data.id) !== -1) {
                 return;
             }
@@ -24,4 +24,4 @@
         });
     };
 
-}());
+});

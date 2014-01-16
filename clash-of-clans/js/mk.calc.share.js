@@ -1,4 +1,5 @@
-(function() {
+part(['savedData', 'types', 'events', 'dom', 'barracks', 'common', 'converter'],
+     function(savedData, types, events, dom, barracks, common, coverter) {
 
     'use strict';
 
@@ -17,7 +18,7 @@
         urlData = decodeURIComponent(urlData);
         var goalParams = {};
         goalParams[oldUrlParam ? 'l' : 's'] = urlData;
-        mk.Events.trigger('goal', {
+        events.trigger('goal', {
             'id': 'SHARE',
             'params': goalParams
         }, true);
@@ -37,32 +38,32 @@
 
         if (urlData) {
             if (oldUrlParam) {
-                mk.oldConvert3to4(urlData);
+                converter.oldConvert3to4(urlData);
             }
 
-            urlData = mk.calc.dataArrayToObject(urlData);
+            urlData = savedData.dataArrayToObject(urlData);
 
-            mk.Events.trigger('save', {'showMessage': false});
-            mk.calc.savedData = new mk.Dict(urlData);
+            events.trigger('save', {'showMessage': false}, true);
+            savedData.current = new common.Dict(urlData);
 
-            var viewSharedMessage = mk.infoMessage('view-shared');
+            var viewSharedMessage = common.infoMessage('view-shared');
             viewSharedMessage.show();
 
-            mk.Events.listen('loaded', function() {
+            events.listen('loaded', function() {
                 viewSharedMessage.hide();
             });
         }
     }
 
-    var shareTwitter = mk.$id('share-twitter');
-    var shareFacebook = mk.$id('share-facebook');
-    var permalink = mk.$id('share-permalink');
-    mk.$Listen(permalink, ['focus'], mk.selectAll);
+    var shareTwitter = dom.id('share-twitter');
+    var shareFacebook = dom.id('share-facebook');
+    var permalink = dom.id('share-permalink');
+    dom.selectOnFocus(permalink);
     var makePermalink = function() {
         var url = 'http://mkln.ru/clash-of-clans/?s=';
-        var data = mk.objectCopy(mk.calc.savedData.getAll());
+        var data = common.objectCopy(savedData.current.getAll());
         data.settingsMode = 1;
-        data = mk.calc.dataObjectToArray(data);
+        data = savedData.dataObjectToArray(data);
         data = JSON.stringify(data);
         data = data.replace(/\b(?:null|0)\b/g, '');
         data = data.substr(1, data.length - 2);
@@ -92,8 +93,8 @@
         );
     };
 
-    var text = mk.$id('share-text');
-    mk.$Listen(text, ['focus'], mk.selectAll);
+    var text = dom.id('share-text');
+    dom.selectOnFocus(text);
 
     var superscriptNumbers = {
         '1': '¹',
@@ -114,27 +115,27 @@
     };
 
     var makeShareText = function() {
-        var data = mk.calc.savedData.getAll();
+        var data = savedData.current.getAll();
         var output = [];
         var prices = [];
-        mk.objectIterate(mk.calc.types, function(type, items) {
+        Object.keys(types.data).forEach(function(type) {
             var maxLevel;
             if (type === 'spells') {
-                maxLevel = parseInt(mk.calc.spellFactoryLevel.value, 10);
+                maxLevel = data.spellFactoryLevel;
             } else {
-                maxLevel = mk.calc.allBarracks[type].getMaxLevel();
+                maxLevel = barracks[type].getMaxLevel();
             }
-            mk.objectIterate(items, function(itemName, itemData) {
-                if (data[itemName] > 0 && itemData[3] <= maxLevel) {
+            Object.keys(types.data[type]).forEach(function(itemName) {
+                if (data[itemName] > 0 && types.data[type][itemName][3] <= maxLevel) {
                     output.push(
-                        mk.convertToTitle(itemName) +
+                        common.convertToTitle(itemName) +
                         superscriptNumbers[data[itemName + '-level'] + 1] +
                         ' ×' +
                         data[itemName]
                     );
                 }
             });
-            var price = mk.$id(type + '-cost').textContent;
+            var price = dom.id(type + '-cost').textContent;
             if (price !== '0') {
                 prices.push(price + ' ' + currencies[type]);
             }
@@ -146,7 +147,7 @@
         return false;
     };
 
-    var $shareObjects = mk.$('.js-share');
+    var $shareObjects = dom.find('.js-share');
     var placeShareContent = function() {
         var display = '';
         if (makeShareText()) {
@@ -159,6 +160,6 @@
         });
     };
 
-    mk.Events.listen('calculated', placeShareContent);
+    events.listen('calculated', placeShareContent);
 
-}());
+});

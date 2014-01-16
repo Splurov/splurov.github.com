@@ -1,85 +1,92 @@
-(function() {
-
+part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events, dom) {
     'use strict';
 
-    var setDefaults = function() {
-        mk.calc.allBarracks.units.setDefaults();
-        mk.calc.allBarracks.dark.setDefaults();
+    /**
+     * LEVELS
+     */
 
-        mk.calc.armyCamps.value = mk.calc.savedData.get('armyCamps', mk.calc.armyCamps.value);
+    var updateSavedData = function(el) {
+        savedData.current.set(el.getAttribute('id'), el.selectedIndex);
+    };
 
-        var spellFactoryIndex = mk.calc.savedData.get('spellFactoryLevel', mk.calc.spellFactoryLevel.selectedIndex);
-        mk.calc.spellFactoryLevel.options[spellFactoryIndex].selected = true;
+    var updateEl = function(el, index) {
+        el.options[index].selected = true;
+    };
 
-        mk.calc.spellFactoryBoosted.checked = (localStorage.getItem('spell-factory-boosted') === 'yes');
+    var notifyChange = function(el) {
+        events.trigger('elChange', el, true);
+    };
 
-        mk.objectIterate(mk.calc.types, function(type, objects) {
-            mk.objectIterate(objects, function(name) {
-                var levelId = name + '-level';
-                var levelEl = mk.$id(levelId);
-                levelEl.options[mk.calc.savedData.get(levelId, levelEl.selectedIndex)].selected = true;
+    events.listen('updateFromSaved', function() {
+        types.iterateTree(function(type, name) {
+            var levelId = name + '-level';
+            var levelEl = dom.id(levelId);
+            updateEl(levelEl, savedData.current.get(levelId, levelEl.selectedIndex));
+            notifyChange(levelEl);
+        });
+    });
 
-                mk.$id(name).value = mk.calc.savedData.get(name) || '';
+    events.listen('updateSetting', function(params) {
+        types.iterateTree(function(type, name, properties) {
+            var levelEl = dom.id(name + '-level');
+
+            updateEl(levelEl, params.helper(params.th, properties[4]) - 1);
+            updateSavedData(levelEl);
+            notifyChange(levelEl);
+        });
+    });
+
+    dom.listen(document.body, ['change'], function(e) {
+        if (e.target.getAttribute('data-component') === 'level') {
+            updateSavedData(e.target);
+            notifyChange(e.target);
+
+            events.trigger('calculate', {
+                'type': e.target.getAttribute('data-type')
             });
-        });
-    };
-
-    mk.Events.listen('setDefaults', setDefaults);
-
-    var triggerCalculate = function(type) {
-        mk.Events.trigger('calculate', {
-            'type': type
-        });
-    };
-
-    mk.objectIterate(mk.calc.allBarracks, function(k, v) {
-        v.getElements().forEach(function(el) {
-            mk.$Listen(el, ['change'], triggerCalculate.bind(null, 'barrack-' + k));
-        });
-    });
-    mk.$Listen(mk.calc.armyCamps, ['change'], triggerCalculate.bind(null, 'all'));
-    mk.$Listen(mk.calc.spellFactoryLevel, ['change'], triggerCalculate.bind(null, 'spells'));
-    mk.$Listen(mk.calc.spellFactoryBoosted, ['change'], function() {
-        localStorage.setItem('spell-factory-boosted', (mk.calc.spellFactoryBoosted.checked ? 'yes' : 'no'));
-        triggerCalculate('spells');
-    });
-
-    var boostedListener = function(type, e) {
-        var el = e.currentTarget;
-        localStorage.setItem(el.getAttribute('id'), (el.checked ? 'yes' : 'no'));
-        triggerCalculate(type);
-    };
-
-    mk.objectIterate(mk.calc.barracksData, function(type, data) {
-        var i = 0;
-        while (++i <= data.count) {
-            var id = data.prefix + '-boosted-' + i;
-            var boosted = mk.$id(id);
-            if (localStorage.getItem(id) === 'yes') {
-                boosted.checked = true;
-            }
-            mk.$Listen(boosted, ['change'], boostedListener.bind(null, type));
         }
     });
 
-    mk.objectIterate(mk.calc.types, function(type, objects) {
-        mk.objectIterate(objects, function(name) {
-            var triggerFunc = triggerCalculate.bind(null, type);
 
-            mk.$Listen(mk.$id(name + '-level'), ['change'], triggerFunc);
-            mk.$Listen(mk.$id(name), ['input'], triggerFunc);
+    /**
+     * QUANTITY / SUBTRACT
+     */
 
-            if (type === 'units' || type === 'dark') {
-                mk.$Listen(mk.$id(name + '-subtract'), ['input'], triggerFunc);
+    dom.listen(document.body, ['input'], function(e) {
+        var component = e.target.getAttribute('data-component');
+        if (['subtract', 'quantity'].indexOf(component) !== -1) {
+            if (component === 'quantity') {
+                var value = parseInt(e.target.value, 10) || 0;
+                if (value < 0) {
+                    value = 0;
+                }
+                e.target.value = value || '';
+
+                savedData.current.set(e.target.getAttribute('id'), value);
             }
+
+            events.trigger('calculate', {
+                'type': e.target.getAttribute('data-type')
+            });
+        }
+    });
+
+    events.listen('updateFromSaved', function() {
+        types.iterateTree(function(type, name) {
+            dom.id(name).value = savedData.current.get(name) || '';
         });
     });
 
-    mk.Events.trigger('setDefaults');
-    
-    mk.Events.trigger('calculate', {
+
+    /**
+     * INIT
+     */
+
+    events.trigger('updateFromSaved', true);
+
+    events.trigger('calculate', {
         'type': 'all',
         'computeAll': true
-    });
+    }, true);
 
-}());
+});

@@ -1,42 +1,31 @@
-(function() {
+part(['events', 'dom'], function(events, dom) {
 
     'use strict';
-    
-    var updateSettingPlaceholder = function(el) {
-        el.nextSibling.textContent = el.options[el.selectedIndex].textContent;
-    };
 
-    var $settings = mk.$('.js-setting');
-
-    $settings.iterate(function(el) {
+    dom.find('.js-setting').iterate(function(el) {
         var placeholderEl = document.createElement('span');
-        placeholderEl.classList.add('text-middle');
-        placeholderEl.classList.add('setting-mode-not-part');
+        placeholderEl.className = 'text-middle setting-mode-not-part';
 
-        mk.$insertBefore(el, placeholderEl);
+        dom.insertBefore(el, placeholderEl);
 
         el.classList.add('setting-mode-part');
-
-        updateSettingPlaceholder(el);
-
-        mk.$Listen(el, ['change'], updateSettingPlaceholder.bind(null, el));
     });
 
-    mk.Events.listen('loaded', function() {
-        $settings.iterate(updateSettingPlaceholder);
+    events.listen('elChange', function(el) {
+        el.nextSibling.textContent = el.options[el.selectedIndex].textContent;
     });
 
-    var toggleModeEl = mk.$id('settings-toggle-mode');
+    var toggleModeEl = dom.id('settings-toggle-mode');
     var toggleSettings = function() {
-        mk.$toggleClass(document.documentElement, 'setting-mode-disabled', !toggleModeEl.checked);
-        mk.$toggleClass(document.documentElement, 'setting-mode-enabled', toggleModeEl.checked);
+        dom.toggleClass(document.documentElement, 'setting-mode-disabled', !toggleModeEl.checked);
+        dom.toggleClass(document.documentElement, 'setting-mode-enabled', toggleModeEl.checked);
 
         localStorage.setItem('settingsMode', (toggleModeEl.checked ? 'on' : 'off'));
     };
 
-    mk.$Listen(toggleModeEl, ['change'], function() {
+    dom.listen(toggleModeEl, ['change'], function() {
         toggleSettings();
-        mk.Events.trigger('goal', {'id': 'SETTINGS_SWITCH'}, true);
+        events.trigger('goal', {'id': 'SETTINGS_SWITCH'}, true);
     });
 
     var settingsModeValue = localStorage.getItem('settingsMode');
@@ -46,7 +35,7 @@
     toggleModeEl.checked = (settingsModeValue === 'on');
     toggleSettings();
 
-    mk.Events.trigger('goal', {
+    events.trigger('goal', {
         'id': 'SETTINGS_INIT',
         'params': {
             'mode': settingsModeValue
@@ -61,44 +50,26 @@
     };
 
     var setLevels = function(th) {
-        mk.Events.trigger('goal', {
+        events.trigger('goal', {
             'id': 'SETTINGS_TH',
             'params': {
                 'level': 'th' + th
             }
         }, true);
 
-        mk.calc.armyCamps.value = getSettingValue(th, mk.calc.armyCampsData.th);
-        updateSettingPlaceholder(mk.calc.armyCamps);
-
-        mk.calc.spellFactoryLevel.value = getSettingValue(th, mk.calc.spellFactoryData.th);
-        updateSettingPlaceholder(mk.calc.spellFactoryLevel);
-
-        mk.calc.allBarracks.units.setLevels(
-            getSettingValue(th, mk.calc.barracksData.units.th),
-            updateSettingPlaceholder
-        );
-        mk.calc.allBarracks.dark.setLevels(
-            getSettingValue(th, mk.calc.barracksData.dark.th),
-            updateSettingPlaceholder
-        );
-
-        mk.objectIterate(mk.calc.types, function(type, items) {
-            mk.objectIterate(items, function(name, data) {
-                var levelEl = mk.$id(name + '-level');
-                levelEl.value = data[1][getSettingValue(th, data[4]) - 1];
-                updateSettingPlaceholder(levelEl);
-            });
+        events.trigger('updateSetting', {
+            'th': th,
+            'helper': getSettingValue
         });
 
-        mk.Events.trigger('calculate', {
+        events.trigger('calculate', {
             'type': 'all',
             'computeAll': true
         });
     };
 
-    mk.$('.js-settings-level').iterate(function(el) {
-        mk.$Listen(el, ['universalClick'], setLevels.bind(null, parseInt(el.textContent, 10)));
+    dom.find('.js-settings-level').iterate(function(el) {
+        dom.listen(el, ['universalClick'], setLevels.bind(null, parseInt(el.textContent, 10)));
     });
 
-}());
+});

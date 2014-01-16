@@ -1,4 +1,4 @@
-(function(){
+part(['events', 'dom'], function(events, dom) {
 
     'use strict';
 
@@ -6,19 +6,19 @@
         var resetType = e.currentTarget.getAttribute('data-reset-type');
         var scope = e.currentTarget.getAttribute('data-scope');
 
-        mk.$('input[data-field-type="' + scope + '"][data-object-type="' + resetType + '"]').iterate(function(el) {
+        dom.find('input[data-component="' + scope + '"][data-type="' + resetType + '"]').iterate(function(el) {
             el.value = '';
         });
 
-        mk.Events.trigger('calculate', {
+        events.trigger('calculate', {
             'type': resetType
         });
 
-        mk.Events.trigger('goal', {
+        events.trigger('goal', {
             'id': 'RESET'
         }, true);
     };
 
-    mk.$('.js-reset').listen(['universalClick'], resetColumn);
+    dom.find('.js-reset').listen(['universalClick'], resetColumn);
 
-}());
+});

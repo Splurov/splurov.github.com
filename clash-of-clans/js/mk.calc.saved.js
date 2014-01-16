@@ -1,32 +1,33 @@
-(function(){
+part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
+     function(savedData, types, events, dom, barracks, calculate, common) {
 
     'use strict';
 
-    var barracksAnchor = mk.$id('barracks-anchor');
+    var barracksAnchor = dom.id('barracks-anchor');
     var loadSaved = function(e) {
-        mk.Events.trigger('goal', {
+        events.trigger('goal', {
             'id': 'LOAD_SAVED'
         }, true);
 
-        var dataToLoad = mk.objectCopy(
-            mk.calc.savedDataAll.retrieve(e.currentTarget.getAttribute('data-num')).getAll()
+        var dataToLoad = common.objectCopy(
+            savedData.all.retrieve(e.currentTarget.getAttribute('data-num')).getAll()
         );
-        mk.calc.savedData = new mk.Dict(dataToLoad);
+        savedData.current = new common.Dict(dataToLoad);
 
-        mk.Events.trigger('setDefaults');
-        mk.Events.trigger('calculate', {
+        events.trigger('updateFromSaved');
+        events.trigger('calculate', {
             'type': 'all',
             'computeAll': true
         });
 
-        mk.Events.trigger('loaded');
-        mk.Events.trigger('scrollTo', barracksAnchor);
+        events.trigger('loaded');
+        events.trigger('scrollTo', barracksAnchor);
     };
 
     var savedListItemTemplate = new Hogan.Template(/* build:hogan:mustache/saved_list_item.mustache */);
     var savedListCreateItems = function() {
         var content = [];
-        mk.calc.savedDataAll.forEach(function(data, index) {
+        savedData.all.forEach(function(data, index) {
             if (index === 0) {
                 return;
             }
@@ -38,7 +39,9 @@
 
             var totalCapacity = 0;
 
-            mk.objectIterate(mk.calc.barracksData, function(type, barracksData) {
+            Object.keys(barracks).forEach(function(type) {
+                var barracksData = barracks[type].data;
+
                 var items = [];
                 var cost = 0;
                 var time = 0;
@@ -79,11 +82,11 @@
                     }
                 }
 
-                mk.calc.typesSortedLevel[type].forEach(function(troopsData, tsIndex) {
+                calculate.typesSortedLevel[type].forEach(function(troopsData, tsIndex) {
                     var quantity = parseInt(data.get(troopsData[5]), 10) || 0;
                     if (quantity > 0 && troopsData[3] <= level) {
                         items.push({
-                            'name': mk.convertToTitle(troopsData[5]),
+                            'name': common.convertToTitle(troopsData[5]),
                             'quantity': quantity,
                             'level': troopsData[3]
                         });
@@ -105,18 +108,18 @@
                 if (items.length) {
                     var avgTime = Math.max(Math.ceil(time / barracksCount), maxUnitTime);
                     var productionTime;
-                    if (mk.calc.fillBarracks(barracksQueue, distribution, avgTime, barracksCount)) {
+                    if (calculate.fillBarracks(barracksQueue, distribution, avgTime, barracksCount)) {
                         productionTime = Math.max.apply(null, barracksQueue.map(function(barrack) {
                             return barrack.time;
                         }));
-                        productionTime = mk.getFormattedTime(productionTime);
+                        productionTime = common.getFormattedTime(productionTime);
                     }
 
                     templateVars[type] = {
                         'items': items.sort(function(a, b) {
                             return a.level > b.level;
                         }),
-                        'cost': mk.numberFormat(cost),
+                        'cost': common.numberFormat(cost),
                         'time': productionTime
                     };
                 }
@@ -135,11 +138,13 @@
                 var spellsCapacity = 0;
                 var spellFactoryLevel = data.get('spellFactoryLevel');
                 var spellsTime = 0;
-                mk.objectIterate(mk.calc.types.spells, function(spellName, spellValue) {
+                Object.keys(types.data.spells).forEach(function(spellName) {
+                    var spellValue = types.data.spells[spellName];
+
                     var spellQuantity = parseInt(data.get(spellName), 10) || 0;
                     if (spellQuantity > 0 && spellValue[3] <= spellFactoryLevel) {
                         spellsItems.push({
-                            'name': mk.convertToTitle(spellName),
+                            'name': common.convertToTitle(spellName),
                             'quantity': spellQuantity
                         });
                         spellsCost += spellValue[1][data.get(spellName + '-level')] * spellQuantity;
@@ -150,10 +155,10 @@
                 if (spellsItems.length) {
                     templateVars.hasSpells = {
                         'spells': spellsItems,
-                        'spellsCost': mk.numberFormat(spellsCost),
+                        'spellsCost': common.numberFormat(spellsCost),
                         'spellsCapacity': spellsCapacity,
                         'spellsFactoryLevel': spellFactoryLevel,
-                        'spellsTime': mk.getFormattedTime(spellsTime, true)
+                        'spellsTime': common.getFormattedTime(spellsTime, true)
                     };
                 }
             }
@@ -161,42 +166,42 @@
             content.push(savedListItemTemplate.render(templateVars));
         });
 
-        var savedListContent = mk.$id('saved-list-content');
+        var savedListContent = dom.id('saved-list-content');
         savedListContent.innerHTML = content.join('');
 
-        mk.$('.js-saved-load', savedListContent).listen(['universalClick'], loadSaved);
+        dom.find('.js-saved-load', savedListContent).listen(['universalClick'], loadSaved);
 
         var deleteSaved = function(e) {
-            mk.Events.trigger('goal', {
+            events.trigger('goal', {
                 'id': 'DELETE_SAVED'
             }, true);
-            mk.calc.savedDataAll.remove(e.currentTarget.getAttribute('data-num'));
-            mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
+            savedData.all.remove(e.currentTarget.getAttribute('data-num'));
+            savedData.save();
             savedListCreateItems();
         };
 
-        mk.$('.js-saved-delete', savedListContent).listen(['universalClick'], deleteSaved);
+        dom.find('.js-saved-delete', savedListContent).listen(['universalClick'], deleteSaved);
     };
 
-    var alreadySavedMessage = mk.infoMessage('already-saved', true);
-    var savedCalculationAnchor = mk.$id('saved-anchor');
+    var alreadySavedMessage = common.infoMessage('already-saved', true);
+    var savedCalculationAnchor = dom.id('saved-anchor');
 
     var save = function(customParams) {
         var params = {
             'showMessage': true
         };
-        mk.objectIterate(customParams, function(key, value) {
-            params[key] = value;
+        Object.keys(customParams).forEach(function(key) {
+            params[key] = customParams[key];
         });
         alreadySavedMessage.hide();
 
         if (params.showMessage) {
-            mk.Events.trigger('goal', {
+            events.trigger('goal', {
                 'id': 'SAVE_COMPOSITION'
             }, true);
         }
 
-        var sourceData = mk.calc.savedDataStorage.load(true);
+        var sourceData = savedData.storage.load(true);
         if (sourceData[0]) {
             var currentJSON = JSON.stringify(sourceData[0]);
             var sdIndex = 0;
@@ -211,33 +216,33 @@
                 }
             }
 
-            var dataToSave = mk.objectCopy(mk.calc.savedData.getAll());
-            mk.calc.savedDataAll.insert(dataToSave);
-            mk.calc.savedDataStorage.save(mk.calc.savedDataAll.getAll());
+            var dataToSave = common.objectCopy(savedData.current.getAll());
+            savedData.all.insert(dataToSave);
+            savedData.save();
             savedListCreateItems();
         }
     };
 
-    mk.Events.listen('save', save);
+    events.listen('save', save);
 
     var saveHandler = function(e) {
         if (e.currentTarget.getAttribute('data-scroll') === 'yes') {
-            mk.Events.trigger('scrollTo', savedCalculationAnchor);
+            events.trigger('scrollTo', savedCalculationAnchor);
         }
 
         save();
     };
 
-    mk.$('.js-save-composition').listen(['universalClick'], saveHandler);
+    dom.find('.js-save-composition').listen(['universalClick'], saveHandler);
 
     savedListCreateItems();
 
-    var savedCount = mk.calc.savedDataAll.getLength();
-    mk.Events.trigger('goal', {
+    var savedCount = savedData.all.getLength();
+    events.trigger('goal', {
         'id': 'SAVED_COMPOSITIONS',
         'params': {
             'count': 'sc' + (savedCount ? savedCount - 1 : 0)
         }
     }, true);
 
-}());
+});
