@@ -1,5 +1,5 @@
-part(['savedData', 'types', 'events', 'dom', 'barracks', 'common', 'converter'],
-     function(savedData, types, events, dom, barracks, common, coverter) {
+part(['savedData', 'events', 'dom', 'common', 'converter'],
+     function(savedData, events, dom, common, converter) {
 
     'use strict';
 
@@ -114,32 +114,27 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'common', 'converter'],
         'spells': 'Elixir'
     };
 
-    var makeShareText = function() {
+    var makeShareText = function(result) {
         var data = savedData.current.getAll();
         var output = [];
         var prices = [];
-        Object.keys(types.data).forEach(function(type) {
-            var maxLevel;
-            if (type === 'spells') {
-                maxLevel = data.spellFactoryLevel;
-            } else {
-                maxLevel = barracks[type].getMaxLevel(savedData.current);
-            }
-            Object.keys(types.data[type]).forEach(function(itemName) {
-                if (data[itemName] > 0 && types.data[type][itemName][3] <= maxLevel) {
-                    output.push(
-                        common.convertToTitle(itemName) +
-                        superscriptNumbers[data[itemName + '-level'] + 1] +
-                        ' ×' +
-                        data[itemName]
-                    );
-                }
-            });
-            var price = dom.id(type + '-cost').textContent;
-            if (price !== '0') {
-                prices.push(price + ' ' + currencies[type]);
+
+        ['units', 'dark', 'spells'].forEach(function(type) {
+            if (result[type]) {
+                result[type].objects.forEach(function(objectResult) {
+                    if (objectResult.summaryCost > 0) {
+                        output.push(
+                            common.convertToTitle(objectResult.name) +
+                            superscriptNumbers[result[type].levelValue] +
+                            ' ×' +
+                            objectResult.summaryCost
+                        );
+                    }
+                });
+                prices.push(result[type].totalCost + ' ' + currencies[type])
             }
         });
+
         if (output.length) {
             text.value = output.join(', ') + ' — ' + prices.join(', ');
             return true;
@@ -148,9 +143,9 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'common', 'converter'],
     };
 
     var $shareObjects = dom.find('.js-share');
-    var placeShareContent = function() {
+    var placeShareContent = function(result) {
         var display = '';
-        if (makeShareText()) {
+        if (makeShareText(result)) {
             makePermalink();
         } else {
             display = 'none';
@@ -160,6 +155,6 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'common', 'converter'],
         });
     };
 
-    events.listen('calculated', placeShareContent);
+    events.listen('calculateDone', placeShareContent);
 
 });

@@ -415,31 +415,27 @@ part('calculate', [
             'params': params
         };
 
-        if (params.type === 'all' || params.type !== 'spells') {
-            result.units = calculateItems('units', {
-                'levelValue': barracksInfo.units.getMaxLevel(params.savedData),
-                'capLevel': barracksInfo.units.data.maxLevel,
-                'savedData': params.savedData,
-                'current': params.current
-            });
+        result.armyCampsSpace = params.savedData.get('armyCamps');
 
-            result.dark = calculateItems('dark', {
-                'levelValue': barracksInfo.dark.getMaxLevel(params.savedData),
-                'capLevel': barracksInfo.dark.data.maxLevel,
-                'savedData': params.savedData,
-                'current': params.current
-            });
+        result.units = calculateItems('units', {
+            'levelValue': barracksInfo.units.getMaxLevel(params.savedData),
+            'capLevel': barracksInfo.units.data.maxLevel,
+            'savedData': params.savedData,
+            'current': params.current
+        });
 
-            result.armyCampsSpace = params.savedData.get('armyCamps');
-        }
+        result.dark = calculateItems('dark', {
+            'levelValue': barracksInfo.dark.getMaxLevel(params.savedData),
+            'capLevel': barracksInfo.dark.data.maxLevel,
+            'savedData': params.savedData,
+            'current': params.current
+        });
 
-        if (params.type === 'all' || params.type === 'spells') {
-            result.spells = calculateItems('spells', {
-                'levelValue': params.savedData.get('spellFactoryLevel'),
-                'capLevel': spellFactory.max,
-                'savedData': params.savedData
-            });
-        }
+        result.spells = calculateItems('spells', {
+            'levelValue': params.savedData.get('spellFactoryLevel'),
+            'capLevel': spellFactory.max,
+            'savedData': params.savedData
+        });
 
         return result;
     };
@@ -459,7 +455,7 @@ part('calculate', [
             setQuantityAndSpace(result.armyCampsSpace, togetherSpace, 'dark');
         }
 
-        if (result.spells) {
+        if (result.params.type === 'all' || result.params.type === 'spells') {
             setQuantityAndSpace(result.spells.levelValue, result.spells.totalSpace, 'spells');
 
             if (result.spells.totalTime > 0) {
@@ -509,27 +505,29 @@ part('calculate', [
             }
         });
 
-        ['units', 'dark'].forEach(function(type) {
-            if (result[type]) {
-                var fn;
-                if (result.params.computeAll || !window.mkIsMobile) {
-                    fn = populateDistribution;
-                } else {
-                    fn = populateDistributionDebounced;
-                }
-                fn(result[type].fillSuccess, type, result[type].barracksQueue);
+        if (result.params.type === 'all' || result.params.type !== 'spells') {
+            ['units', 'dark'].forEach(function(type) {
+                if (result[type]) {
+                    var fn;
+                    if (result.params.computeAll || !window.mkIsMobile) {
+                        fn = populateDistribution;
+                    } else {
+                        fn = populateDistributionDebounced;
+                    }
+                    fn(result[type].fillSuccess, type, result[type].barracksQueue);
 
-                var subtractedCostEl = dom.id(type + '-subtracted-cost');
-                if (result[type].subtractedCost === result[type].totalCost) {
-                    subtractedCostEl.textContent = '';
-                } else {
-                    subtractedCostEl.innerHTML = '− ' +
-                                                 common.numberFormat(result[type].totalCost - result[type].subtractedCost) +
-                                                 ' = <span class="result">' +
-                                                 common.numberFormat(result[type].subtractedCost) + '</span>';
+                    var subtractedCostEl = dom.id(type + '-subtracted-cost');
+                    if (result[type].subtractedCost === result[type].totalCost) {
+                        subtractedCostEl.textContent = '';
+                    } else {
+                        subtractedCostEl.innerHTML = '− ' +
+                                                     common.numberFormat(result[type].totalCost - result[type].subtractedCost) +
+                                                     ' = <span class="result">' +
+                                                     common.numberFormat(result[type].subtractedCost) + '</span>';
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
     events.listen('calculate', function(params) {
@@ -540,12 +538,17 @@ part('calculate', [
 
         savedData.all.update(0, savedData.current);
         savedData.save();
-
-        events.trigger('calculated');
     });
 
     return {
         'typesSortedLevel': typesSortedLevel,
-        'fillBarracks': fillBarracks
+        'fillBarracks': fillBarracks,
+        'calculateSaved': function(savedData) {
+            var params = {
+                'type': 'all',
+                'savedData': savedData
+            };
+            return calculate(params);
+        }
     };
 });
