@@ -31,10 +31,6 @@ part('armyCamps', ['dom', 'events', 'savedData'], function(dom, events, savedDat
             savedData.current.set('armyCamps', parseInt(value, 10));
         };
 
-        var updateEl = function(value) {
-            el.value = value;
-        };
-
         var notifyChange = function() {
             events.trigger('elChange', el, true);
         };
@@ -51,13 +47,13 @@ part('armyCamps', ['dom', 'events', 'savedData'], function(dom, events, savedDat
         });
 
         events.listen('updateFromSaved', function() {
-            updateEl(savedData.current.get('armyCamps', el.value));
+            el.value = savedData.current.get('armyCamps', el.value);
             notifyChange();
         });
 
         events.listen('updateSetting', function(params) {
             var value = params.helper(params.th, data.th);
-            updateEl(value);
+            el.value = value;
             updateSavedData(value);
             notifyChange();
         });

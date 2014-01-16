@@ -27,10 +27,6 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
             savedData.current.set('spellFactoryLevel', parseInt(value, 10));
         };
 
-        var updateLevelEl = function(value) {
-            levelEl.value = value;
-        };
-
         var notifyLevelChange = function() {
             events.trigger('elChange', levelEl, true);
         };
@@ -53,7 +49,7 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
         });
 
         events.listen('updateFromSaved', function() {
-            updateLevelEl(savedData.current.get('spellFactoryLevel', levelEl.value));
+            levelEl.value = savedData.current.get('spellFactoryLevel', levelEl.value);
             notifyLevelChange();
 
             boostedEl.checked = (localStorage.getItem('spell-factory-boosted') === 'yes');
@@ -61,7 +57,7 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
 
         events.listen('updateSetting', function(params) {
             var value = params.helper(params.th, data.th);
-            updateLevelEl(value);
+            levelEl.value = value;
             updateLevelSavedData(value);
             notifyLevelChange();
         });
