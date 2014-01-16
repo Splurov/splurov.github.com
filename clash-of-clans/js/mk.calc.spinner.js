@@ -17,8 +17,9 @@ part(['events', 'dom'], function(events, dom) {
                 targetElement.value = current - 1;
             }
         }
-        events.trigger('calculate', {
-            'type': targetElement.getAttribute('data-type')
+        events.trigger('valueChange', {
+            'el': targetElement,
+            'calculate': true
         });
     };
 

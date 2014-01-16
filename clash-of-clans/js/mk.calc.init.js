@@ -52,24 +52,35 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
      * QUANTITY / SUBTRACT
      */
 
-    dom.listen(document.body, ['input'], function(e) {
-        var component = e.target.getAttribute('data-component');
+    var valueChangeHandler = function(params) {
+        var component = params.el.getAttribute('data-component');
         if (['subtract', 'quantity'].indexOf(component) !== -1) {
-            var value = parseInt(e.target.value, 10) || 0;
+            var value = parseInt(params.el.value, 10) || 0;
             if (value < 0) {
                 value = 0;
             }
-            e.target.value = value || '';
+            params.el.value = value || '';
 
             if (component === 'quantity') {
-                savedData.current.set(e.target.getAttribute('id'), value);
+                savedData.current.set(params.el.getAttribute('id'), value);
             }
 
-            events.trigger('calculate', {
-                'type': e.target.getAttribute('data-type')
-            });
+            if (params.calculate) {
+                events.trigger('calculate', {
+                    'type': params.el.getAttribute('data-type')
+                });
+            }
         }
+    };
+
+    dom.listen(document.body, ['input'], function(e) {
+        valueChangeHandler({
+            'el': e.target,
+            'calculate': true
+        });
     });
+
+    events.listen('valueChange', valueChangeHandler);
 
     events.listen('updateFromSaved', function() {
         types.iterateTree(function(type, name) {

@@ -8,6 +8,10 @@ part(['events', 'dom'], function(events, dom) {
 
         dom.find('input[data-component="' + scope + '"][data-type="' + resetType + '"]').iterate(function(el) {
             el.value = '';
+            events.trigger('valueChange', {
+                'el': el,
+                'calculate': false
+            });
         });
 
         events.trigger('calculate', {

@@ -123,7 +123,7 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'common', 'converter'],
             if (type === 'spells') {
                 maxLevel = data.spellFactoryLevel;
             } else {
-                maxLevel = barracks[type].getMaxLevel();
+                maxLevel = barracks[type].getMaxLevel(savedData.current);
             }
             Object.keys(types.data[type]).forEach(function(itemName) {
                 if (data[itemName] > 0 && types.data[type][itemName][3] <= maxLevel) {
