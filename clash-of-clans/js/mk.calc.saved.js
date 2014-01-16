@@ -44,7 +44,6 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
                     var items = [];
                     result[type].objects.forEach(function(objectResult) {
                         if (objectResult.quantity > 0) {
-                            console.log(objectResult.level);
                             items.push({
                                 'name': common.convertToTitle(objectResult.name),
                                 'quantity': objectResult.quantity,

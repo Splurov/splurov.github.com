@@ -19,19 +19,6 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
             dom.id(data.type + '-barrack-header-' + num).textContent = header;
         };
 
-        var getLevelsFromSaved = function(savedDataProvider) {
-            var levels = [];
-            var i = 0;
-            while (++i <= data.count) {
-                var value = savedDataProvider.get(data.prefix + '-levels-' + i);
-                if (i === 1 && data.firstRequired) {
-                    value += 1;
-                }
-                levels.push(value);
-            }
-            return levels;
-        };
-
         if (DOM_ENABLED) {
             var i = 0;
             while (++i <= data.count) {
@@ -104,39 +91,6 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
                 });
             }.bind(this));
         }
-
-        this.getMaxLevel = function(savedDataProvider) {
-            return Math.max.apply(null, getLevelsFromSaved(savedDataProvider));
-        };
-
-        this.getQueue = function(savedDataProvider, isCurrent) {
-            return getLevelsFromSaved(savedDataProvider).map(function(level, index) {
-                var num = index + 1;
-
-                var isBoosted = false;
-                if (isCurrent) {
-                    isBoosted = localStorage.getItem(data.prefix + '-boosted-' + num) === 'yes';
-                }
-
-                return {
-                    'num': num,
-                    'time': 0,
-                    'space': 0,
-                    'maxSpace': data.queue[level],
-                    'units': {},
-                    'level': level,
-                    'isBoosted': isBoosted,
-                    'getActualTime': function() {
-                        if (this.isBoosted) {
-                            return Math.floor(this.time / 4);
-                        }
-
-                        return this.time;
-                    }
-                };
-            });
-        };
-
     };
 
     return {

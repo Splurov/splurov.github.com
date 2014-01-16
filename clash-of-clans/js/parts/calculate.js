@@ -310,9 +310,25 @@ part('calculate', [
     };
 
     var calculateItems = function(type, params) {
+        var levelValue;
+        if (type === 'spells') {
+            levelValue = params.savedData.get('spellFactoryLevel');
+        } else {
+            var levels = [];
+            var i = 0;
+            while (++i <= barracksInfo[type].data.count) {
+                var level = params.savedData.get(barracksInfo[type].data.prefix + '-levels-' + i);
+                if (i === 1 && barracksInfo[type].data.firstRequired) {
+                    level += 1;
+                }
+                levels.push(level);
+            }
+            levelValue = Math.max.apply(null, levels);
+        }
+
         var typeResult = {
             'capLevel': params.capLevel,
-            'levelValue': params.levelValue,
+            'levelValue': levelValue,
             'objects': []
         };
 
@@ -329,7 +345,7 @@ part('calculate', [
             var objectResult = {};
 
             var value = typesSortedLevel[type][tsIndex];
-            if (value[3] > params.levelValue) {
+            if (value[3] > levelValue) {
                 continue;
             }
 
@@ -394,7 +410,32 @@ part('calculate', [
         if (type === 'spells') {
             typeResult.totalTime = totalTime;
         } else {
-            var barracksQueue = barracksInfo[type].getQueue(params.savedData, params.current);
+            var barracksQueue = levels.map(function(level, index) {
+                var num = index + 1;
+
+                var isBoosted = false;
+                if (params.current) {
+                    isBoosted = localStorage.getItem(barracksInfo[type].data.prefix + '-boosted-' + num) === 'yes';
+                }
+
+                return {
+                    'num': num,
+                    'time': 0,
+                    'space': 0,
+                    'maxSpace': barracksInfo[type].data.queue[level],
+                    'units': {},
+                    'level': level,
+                    'isBoosted': isBoosted,
+                    'getActualTime': function() {
+                        if (this.isBoosted) {
+                            return Math.floor(this.time / 4);
+                        }
+
+                        return this.time;
+                    }
+                };
+            });
+
             var boostedCount = barracksQueue.filter(function(barrack) {
                 return barrack.isBoosted === true;
             }).length;
@@ -425,21 +466,18 @@ part('calculate', [
         result.armyCampsSpace = params.savedData.get('armyCamps');
 
         result.units = calculateItems('units', {
-            'levelValue': barracksInfo.units.getMaxLevel(params.savedData),
             'capLevel': barracksInfo.units.data.maxLevel,
             'savedData': params.savedData,
             'current': params.current
         });
 
         result.dark = calculateItems('dark', {
-            'levelValue': barracksInfo.dark.getMaxLevel(params.savedData),
             'capLevel': barracksInfo.dark.data.maxLevel,
             'savedData': params.savedData,
             'current': params.current
         });
 
         result.spells = calculateItems('spells', {
-            'levelValue': params.savedData.get('spellFactoryLevel'),
             'capLevel': spellFactory.max,
             'savedData': params.savedData
         });
