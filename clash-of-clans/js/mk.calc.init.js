@@ -55,13 +55,13 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
     dom.listen(document.body, ['input'], function(e) {
         var component = e.target.getAttribute('data-component');
         if (['subtract', 'quantity'].indexOf(component) !== -1) {
-            if (component === 'quantity') {
-                var value = parseInt(e.target.value, 10) || 0;
-                if (value < 0) {
-                    value = 0;
-                }
-                e.target.value = value || '';
+            var value = parseInt(e.target.value, 10) || 0;
+            if (value < 0) {
+                value = 0;
+            }
+            e.target.value = value || '';
 
+            if (component === 'quantity') {
                 savedData.current.set(e.target.getAttribute('id'), value);
             }
 

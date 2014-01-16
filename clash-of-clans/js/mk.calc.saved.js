@@ -69,9 +69,7 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
                         'maxSpace': barracksData.queue[barrackLevel],
                         'units': {},
                         'level': barrackLevel,
-                        'isBoosted': function() {
-                            return false;
-                        },
+                        'isBoosted': false,
                         'getActualTime': function() {
                             return this.time;
                         }

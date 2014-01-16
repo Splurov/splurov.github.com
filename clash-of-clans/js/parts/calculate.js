@@ -28,16 +28,6 @@ part('calculate', ['spellFactory', 'savedData', 'types', 'events', 'dom', 'barra
         'dark': 0
     };
 
-    var updateBarracksHeaders = function(type) {
-        barracksInfo[type].getAllNormalized().forEach(function(barrackData, barrackIndex) {
-            var header = '';
-            if (parseInt(barrackData.level, 10) !== 0) {
-                header = barrackData.queueLength;
-            }
-            dom.id(type + '-barrack-header-' + (barrackIndex + 1)).textContent = header;
-        });
-    };
-
     var setQuantityAndSpace = function(maxSpace, totalSpace, type) {
         var spaceDiff = maxSpace - totalSpace;
         if (spaceDiff < 0) {
@@ -146,10 +136,9 @@ part('calculate', ['spellFactory', 'savedData', 'types', 'events', 'dom', 'barra
         var isAllBarracksSimilar = true;
         var totalBarracksSpace = 0;
         var barracksNums = [];
-        var firstBarrackBoosted = barracksQueue[0].isBoosted();
         barracksQueue.forEach(function(barrack) {
             if (barrack.level !== 0) {
-                var boostedLikeFirst = (barrack.isBoosted() === firstBarrackBoosted);
+                var boostedLikeFirst = (barrack.isBoosted === barracksQueue[0].isBoosted);
                 if (isSuitedForEqual && !(barrack.level >= maxUnitLevel && boostedLikeFirst)) {
                     isSuitedForEqual = false;
                 }
@@ -269,7 +258,7 @@ part('calculate', ['spellFactory', 'savedData', 'types', 'events', 'dom', 'barra
                 }
 
                 var time = (actualTime ? common.getFormattedTime(actualTime) : '');
-                if (barrack.isBoosted()) {
+                if (barrack.isBoosted) {
                     time = '<span class="boosted">' + time + '</span>';
                 }
                 times[barrack.num] = time;
@@ -364,12 +353,7 @@ part('calculate', ['spellFactory', 'savedData', 'types', 'events', 'dom', 'barra
                     dom.id('quantity-' + name + '-' + mcIndex).textContent = '';
                 }
 
-                var subtract = dom.id(name + '-subtract');
-                var subtractQuantity = parseInt(subtract.value, 10) || 0;
-                if (subtractQuantity < 0) {
-                    subtractQuantity = 0;
-                }
-                subtract.value = subtractQuantity || '';
+                var subtractQuantity = parseInt(dom.id(name + '-subtract').value, 10) || 0;
 
                 if (subtractQuantity) {
                     events.trigger('goal', {
@@ -413,14 +397,16 @@ part('calculate', ['spellFactory', 'savedData', 'types', 'events', 'dom', 'barra
         } else {
             var barracksQueue = barracksInfo[type].getQueue();
             var boostedCount = barracksQueue.filter(function(barrack) {
-                return barrack.isBoosted() === true;
+                return barrack.isBoosted === true;
             }).length;
 
             if (boostedCount) {
                 maxUnitTime = Math.ceil(maxUnitTime / 4);
             }
 
-            var activeCount = barracksInfo[type].getActiveCount();
+            var activeCount = barracksQueue.filter(function(barrack) {
+                return barrack.level > 0;
+            }).length;
             var virtualBarracksCount = activeCount + (boostedCount * 4);
             var avgTime = Math.max(Math.ceil(totalTime / virtualBarracksCount), maxUnitTime);
 
@@ -451,16 +437,6 @@ part('calculate', ['spellFactory', 'savedData', 'types', 'events', 'dom', 'barra
     var calculate = function(params) {
         if (params.type === 'all' || params.type !== 'spells') {
 
-            if (params.type === 'all' || params.type === 'barrack-units') {
-                updateBarracksHeaders('units');
-            }
-
-            if (params.type === 'all' || params.type === 'barrack-dark') {
-                updateBarracksHeaders('dark');
-
-                darkObjects.toggleClass('setting-mode-empty', (barracksInfo.dark.getMaxLevel() === 0));
-            }
-
             if (params.type === 'all' || params.type === 'units' || params.type === 'barrack-units') {
                 currentSpace.units = 0;
                 calculateItems('units', {
@@ -471,9 +447,15 @@ part('calculate', ['spellFactory', 'savedData', 'types', 'events', 'dom', 'barra
             }
 
             if (params.type === 'all' || params.type === 'dark' || params.type === 'barrack-dark') {
+                var darkBarracksMaxLevel = barracksInfo.dark.getMaxLevel();
+
+                if (params.type === 'barrack-dark') {
+                    darkObjects.toggleClass('setting-mode-empty', (darkBarracksMaxLevel === 0));
+                }
+
                 currentSpace.dark = 0;
                 calculateItems('dark', {
-                    'levelValue': barracksInfo.dark.getMaxLevel(),
+                    'levelValue': darkBarracksMaxLevel,
                     'capLevel': barracksInfo.dark.data.maxLevel,
                     'computeAll': params.computeAll
                 });
