@@ -125,13 +125,13 @@ part(['savedData', 'events', 'dom', 'common', 'converter'],
                     if (objectResult.summaryCost > 0) {
                         output.push(
                             common.convertToTitle(objectResult.name) +
-                            superscriptNumbers[result[type].levelValue] +
+                            superscriptNumbers[objectResult.level] +
                             ' ×' +
                             objectResult.summaryCost
                         );
                     }
                 });
-                prices.push(result[type].totalCost + ' ' + currencies[type])
+                prices.push(result[type].totalCost + ' ' + currencies[type]);
             }
         });
 

@@ -37,126 +37,69 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
                 'tabIndexDelete': index + 3000 + 2
             };
 
-            var totalCapacity = 0;
+            var result = calculate(data);
 
-            Object.keys(barracks).forEach(function(type) {
-                var barracksData = barracks[type].data;
-
-                var items = [];
-                var cost = 0;
-                var time = 0;
-
-                var barracksQueue = [];
-                var barracksCount = 0;
-                var maxUnitTime = 0;
-                var distribution = [];
-
-                var level = 0;
-                var i = 0;
-                while (++i <= barracksData.count) {
-                    var barrackLevel = data.get(barracksData.prefix + '-levels-' + i, barracksData.maxLevel);
-                    if (i === 1 && barracksData.firstRequired) {
-                        barrackLevel++;
-                    }
-                    if (barrackLevel > level) {
-                        level = barrackLevel;
-                    }
-
-                    barracksQueue.push({
-                        'num': i,
-                        'time': 0,
-                        'space': 0,
-                        'maxSpace': barracksData.queue[barrackLevel],
-                        'units': {},
-                        'level': barrackLevel,
-                        'isBoosted': false,
-                        'getActualTime': function() {
-                            return this.time;
+            ['units', 'dark'].forEach(function(type) {
+                if (result[type]) {
+                    var items = [];
+                    result[type].objects.forEach(function(objectResult) {
+                        if (objectResult.quantity > 0) {
+                            console.log(objectResult.level);
+                            items.push({
+                                'name': common.convertToTitle(objectResult.name),
+                                'quantity': objectResult.quantity,
+                                'minBarrackLevel': objectResult.minBarrackLevel
+                            });
                         }
                     });
 
-                    if (barrackLevel > 0) {
-                        barracksCount++;
+                    if (items.length) {
+                        var productionTime;
+                        if (result[type].fillSuccess) {
+                            productionTime = Math.max.apply(null, result[type].barracksQueue.map(function(barrack) {
+                                return barrack.time;
+                            }));
+                            productionTime = common.getFormattedTime(productionTime);
+                        }
+
+                        templateVars[type] = {
+                            'items': items.sort(function(a, b) {
+                                return a.minBarrackLevel > b.minBarrackLevel;
+                            }),
+                            'cost': common.numberFormat(result[type].totalCost),
+                            'time': productionTime
+                        };
                     }
                 }
 
-                calculate.typesSortedLevel[type].forEach(function(troopsData, tsIndex) {
-                    var quantity = parseInt(data.get(troopsData[5]), 10) || 0;
-                    if (quantity > 0 && troopsData[3] <= level) {
-                        items.push({
-                            'name': common.convertToTitle(troopsData[5]),
-                            'quantity': quantity,
-                            'level': troopsData[3]
-                        });
-                        cost += troopsData[1][data.get(troopsData[5] + '-level')] * quantity;
-                        totalCapacity += troopsData[2] * quantity;
-                        time += troopsData[0] * quantity;
-                        maxUnitTime = Math.max(troopsData[0], maxUnitTime);
-
-                        distribution.push([
-                            tsIndex,
-                            quantity,
-                            troopsData[3], // level
-                            troopsData[0], // time
-                            troopsData[2] // space
-                        ]);
-                    }
-                });
-
-                if (items.length) {
-                    var avgTime = Math.max(Math.ceil(time / barracksCount), maxUnitTime);
-                    var productionTime;
-                    if (calculate.fillBarracks(barracksQueue, distribution, avgTime, barracksCount)) {
-                        productionTime = Math.max.apply(null, barracksQueue.map(function(barrack) {
-                            return barrack.time;
-                        }));
-                        productionTime = common.getFormattedTime(productionTime);
-                    }
-
-                    templateVars[type] = {
-                        'items': items.sort(function(a, b) {
-                            return a.level > b.level;
-                        }),
-                        'cost': common.numberFormat(cost),
-                        'time': productionTime
+                var togetherSpace = result.units.totalSpace + result.dark.totalSpace;
+                if (togetherSpace > 0) {
+                    templateVars.hasCapacity = {
+                        'totalCapacity': togetherSpace,
+                        'armyCamps': result.armyCampsSpace
                     };
                 }
             });
 
-            if (totalCapacity > 0) {
-                templateVars.hasCapacity = {
-                    'totalCapacity': totalCapacity,
-                    'armyCamps': data.get('armyCamps')
-                };
-            }
+            if (result.spells) {
+                var spells = [];
 
-            if (data.get('spellFactoryLevel') > 0) {
-                var spellsItems = [];
-                var spellsCost = 0;
-                var spellsCapacity = 0;
-                var spellFactoryLevel = data.get('spellFactoryLevel');
-                var spellsTime = 0;
-                Object.keys(types.data.spells).forEach(function(spellName) {
-                    var spellValue = types.data.spells[spellName];
-
-                    var spellQuantity = parseInt(data.get(spellName), 10) || 0;
-                    if (spellQuantity > 0 && spellValue[3] <= spellFactoryLevel) {
-                        spellsItems.push({
-                            'name': common.convertToTitle(spellName),
-                            'quantity': spellQuantity
+                result.spells.objects.forEach(function(objectResult) {
+                    if (objectResult.quantity > 0) {
+                        spells.push({
+                            'name': common.convertToTitle(objectResult.name),
+                            'quantity': objectResult.quantity
                         });
-                        spellsCost += spellValue[1][data.get(spellName + '-level')] * spellQuantity;
-                        spellsCapacity += spellValue[2] * spellQuantity;
-                        spellsTime += spellValue[0] * spellQuantity;
                     }
                 });
-                if (spellsItems.length) {
+
+                if (spells.length) {
                     templateVars.hasSpells = {
-                        'spells': spellsItems,
-                        'spellsCost': common.numberFormat(spellsCost),
-                        'spellsCapacity': spellsCapacity,
-                        'spellsFactoryLevel': spellFactoryLevel,
-                        'spellsTime': common.getFormattedTime(spellsTime, true)
+                        'spells': spells,
+                        'spellsCost': common.numberFormat(result.spells.totalCost),
+                        'spellsCapacity': result.spells.totalSpace,
+                        'spellsFactoryLevel': result.spells.levelValue,
+                        'spellsTime': common.getFormattedTime(result.spells.totalTime, true)
                     };
                 }
             }

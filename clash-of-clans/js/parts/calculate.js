@@ -232,7 +232,7 @@ part('calculate', [
         return !stopDistribution;
     };
 
-    var populateDistribution = function(fillSuccess, type, barracksQueue) {
+    var populateDistribution = function(fillSuccess, type, barracksQueue, totalSpace) {
         var times = [];
         if (fillSuccess) {
             dom.id(type + '-barracks-exceeded').style.display = 'none';
@@ -297,7 +297,7 @@ part('calculate', [
                     barrackSpaceEl.textContent = '';
                 } else {
                     if (firstIteration) {
-                        space += currentSpace[type] - sumSpace;
+                        space += totalSpace - sumSpace;
                         barrackSpaceEl.innerHTML = '<span class="limit-exceeded result">' + space + '</span> / ';
 
                         firstIteration = false;
@@ -336,17 +336,22 @@ part('calculate', [
             var name = value[5];
 
             var quantity = params.savedData.get(name);
-            var costPerItem = value[1][params.savedData.get(name + '-level')];
+            var levelIndex = params.savedData.get(name + '-level');
+            var costPerItem = value[1][levelIndex];
             var summaryCost = (costPerItem * quantity);
 
             objectResult.name = name;
             objectResult.summaryCost = summaryCost;
+            objectResult.level = levelIndex + 1;
+            objectResult.minBarrackLevel = value[3];
 
             totalCost += summaryCost;
 
             totalSpace += (value[2] * quantity);
             if (type === 'spells') {
                 totalTime += (value[0] * quantity);
+
+                objectResult.quantity = quantity;
             } else {
                 var subtractQuantity = 0;
                 if (params.current) {
@@ -376,6 +381,8 @@ part('calculate', [
                 }
 
                 subtractedCost += (costPerItem * totalQuantity);
+
+                objectResult.quantity = totalQuantity;
             }
 
             typeResult.objects.push(objectResult);
@@ -514,7 +521,7 @@ part('calculate', [
                     } else {
                         fn = populateDistributionDebounced;
                     }
-                    fn(result[type].fillSuccess, type, result[type].barracksQueue);
+                    fn(result[type].fillSuccess, type, result[type].barracksQueue, result[type].totalSpace);
 
                     var subtractedCostEl = dom.id(type + '-subtracted-cost');
                     if (result[type].subtractedCost === result[type].totalCost) {
@@ -540,15 +547,12 @@ part('calculate', [
         savedData.save();
     });
 
-    return {
-        'typesSortedLevel': typesSortedLevel,
-        'fillBarracks': fillBarracks,
-        'calculateSaved': function(savedData) {
-            var params = {
-                'type': 'all',
-                'savedData': savedData
-            };
-            return calculate(params);
-        }
+    return function(savedData) {
+        var params = {
+            'type': 'all',
+            'current': false,
+            'savedData': savedData
+        };
+        return calculate(params);
     };
 });
