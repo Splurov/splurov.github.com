@@ -1,8 +1,10 @@
 .mobile .data {
-    -webkit-transform: translateZ(0);
-    -webkit-font-smoothing: subpixel-antialiased;
     -webkit-user-select: none;
 }
+    .data tr {
+        -webkit-transform: translateZ(0);
+        -webkit-font-smoothing: subpixel-antialiased;
+    }
     .data th, .data td {
         padding-left: 7px;
         padding-right: 7px;

@@ -1,7 +1,7 @@
 part('dom', function() {
     'use strict';
 
-    var RegisterUniversalClick = function(target, listener, isMiddleClickTriggers) {
+    var registerUniversalClick = function(target, listener, isMiddleClickTriggers) {
         var touchSupported = ('ontouchstart' in window);
 
         var lastEventSource;
@@ -84,9 +84,9 @@ part('dom', function() {
         while (l--) {
             var type = types[l];
             if (type === 'universalClick') {
-                RegisterUniversalClick(target, listener);
+                registerUniversalClick(target, listener);
             } else if (type === 'universalAndMiddleClick') {
-                RegisterUniversalClick(target, listener, true);
+                registerUniversalClick(target, listener, true);
             } else {
                 target.addEventListener(type, listener, false);
             }
@@ -136,10 +136,63 @@ part('dom', function() {
         }
     };
 
+    var byId = function(id) {
+        return document.getElementById(id);
+    };
+
+    var updater = (function() {
+        var current = {};
+        var deferred = {};
+
+        var types = {
+            'text': function(el, value) {
+                el.textContent = value;
+            },
+            'html': function(el, value) {
+                el.innerHTML = value;
+            },
+            'display': function(el, value) {
+                el.style.display = value;
+            }
+        };
+
+        var update = function(id, type, value) {
+            if (!current[id]) {
+                current[id] = {
+                    'el': byId(id),
+                    'type': null,
+                    'value': null
+                };
+            }
+
+            var currentItem = current[id];
+
+            if (currentItem.type !== type || currentItem.value !== type) {
+                currentItem.type = type;
+                currentItem.value = value;
+
+                types[type](currentItem.el, value);
+            }
+        };
+
+        return {
+            'defer': function(id, type, value) {
+                deferred[id] = {
+                    'type': type,
+                    'value': value
+                };
+            },
+            'runDeferred': function() {
+                Object.keys(deferred).forEach(function(id) {
+                    update(id, deferred[id].type, deferred[id].value);
+                });
+                deferred = {};
+            }
+        };
+    }());
+
     return {
-        'id': function(id) {
-            return document.getElementById(id);
-        },
+        'id': byId,
         'insertBefore': function(el, newEl) {
             if (el.nextSibling) {
                 el.parentNode.insertBefore(newEl, el.nextSibling);
@@ -154,7 +207,8 @@ part('dom', function() {
             listen(el, ['focus'], selectAll);
         },
         'listen': listen,
-        'toggleClass': toggleClass
+        'toggleClass': toggleClass,
+        'updater': updater
     };
 
 });

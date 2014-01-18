@@ -10,87 +10,36 @@ part([
 
     'use strict';
 
-    var domUpdater = (function() {
-        var real = {};
-        var proposed = [];
-
-        return {
-            'add': function(id, type, content) {
-                proposed.push([id, type, content]);
-            },
-            'commit': function() {
-                while (proposed.length) {
-                    var item = proposed.shift();
-                    var id = item[0];
-                    var type = item[1];
-                    var content = item[3];
-
-                    if (!real[id]) {
-                        real[id] = {
-                            'el': dom.id(id)
-                        };
-                    }
-
-                    if (real[id].type !== type && real[id].content !== content) {
-                        real[id].type = type;
-                        real[id].content = content;
-                        if (type === 'text') {
-                            real[id].el.textContent = content;
-                        } else {
-                            real[id].el.innerHTML = content;
-                        }
-                    }
-                }
-            }
-        };
-    }());
-
-    var debounce = function(fn, delay) {
-        var timer;
-        return function() {
-            var context = this;
-            var args = arguments;
-            clearTimeout(timer);
-            timer = setTimeout(function() {
-                fn.apply(context, args);
-            }, delay);
-        };
-    };
-
     var setQuantityAndSpace = function(maxSpace, totalSpace, type) {
         var spaceDiff = maxSpace - totalSpace;
         if (spaceDiff < 0) {
             spaceDiff = '<span class="limit-exceeded">' + spaceDiff + '</span>';
         }
-        dom.id(type + '-quantity').innerHTML = '(' + spaceDiff + ' free)';
+        dom.updater.defer(type + '-quantity', 'html', '(' + spaceDiff + ' free)');
 
         var space = totalSpace;
         if (totalSpace > maxSpace) {
             space = '<span class="limit-exceeded">' + totalSpace + '</span>';
         }
         space = space + ' / ' + (type === 'units' ? '': maxSpace);
-        dom.id(type + '-space').innerHTML = space;
+        dom.updater.defer(type + '-space', 'html', space);
 
     };
 
-    var populateDistribution = function(result, type) {
+    var populateDistribution = function(distributionResult, type) {
         var times = [];
-        if (result[type].fillSuccess) {
-            dom.id(type + '-barracks-exceeded').style.display = 'none';
+        if (distributionResult.fillSuccess) {
+            dom.updater.defer(type + '-barracks-exceeded', 'display', 'none');
             var maxTime = 0;
             var maxNum = 1;
 
-            while (result[type].barracksQueue.length) {
-                var barrack = result[type].barracksQueue.shift();
+            while (distributionResult.barracksQueue.length) {
+                var barrack = distributionResult.barracksQueue.shift();
 
                 for (var unitIndex in barrack.units) {
                     if (barrack.units[unitIndex] > 0) {
-                        dom.id(
-                            'quantity-' +
-                            result[type].typesSortedLevel[unitIndex][5] +
-                            '-' +
-                            barrack.num
-                        ).textContent = '×' + barrack.units[unitIndex];
+                        dom.updater.defer('quantity-' + distributionResult.typesSortedLevel[unitIndex][5] + '-' + barrack.num,
+                                       'text', '×' + barrack.units[unitIndex]);
                     }
                 }
 
@@ -110,22 +59,21 @@ part([
                 if (barrack.maxSpace !== 0) {
                     spaceData = barrack.space + ' / ';
                 }
-                dom.id(type + '-barrack-space-' + barrack.num).textContent = spaceData;
+                dom.updater.defer(type + '-barrack-space-' + barrack.num, 'text', spaceData);
             }
             times.forEach(function(time, num) {
-                var barrackEl = dom.id(type + '-time-barrack-' + num);
                 if (num === maxNum) {
                     time = '<span class="result">' + time + '</span>';
                 }
-                barrackEl.innerHTML = time;
+                dom.updater.defer(type + '-time-barrack-' + num, 'html', time);
             });
         } else {
-            dom.id(type + '-barracks-exceeded').style.display = '';
+            dom.updater.defer(type + '-barracks-exceeded', 'display', '');
             var spaces = [];
             var sumSpace = 0;
-            while (result[type].barracksQueue.length) {
-                var barrack = result[type].barracksQueue.shift();
-                dom.id(type + '-time-barrack-' + barrack.num).textContent = '';
+            while (distributionResult.barracksQueue.length) {
+                var barrack = distributionResult.barracksQueue.shift();
+                dom.updater.defer(type + '-time-barrack-' + barrack.num, 'text', '');
 
                 spaces[barrack.num] = barrack.space;
                 sumSpace += barrack.space;
@@ -133,40 +81,23 @@ part([
 
             var firstIteration = true;
             spaces.forEach(function(space, num) {
-                var barrackSpaceEl = dom.id(type + '-barrack-space-' + num);
+                var barrackSpaceId = type + '-barrack-space-' + num;
                 if (space === 0) {
-                    barrackSpaceEl.textContent = '';
+                    dom.updater.defer(barrackSpaceId, 'text', '');
                 } else {
                     if (firstIteration) {
-                        space += result[type].totalSpace - sumSpace;
-                        barrackSpaceEl.innerHTML = '<span class="limit-exceeded result">' + space + '</span> / ';
+                        space += distributionResult.totalSpace - sumSpace;
+                        dom.updater.defer(barrackSpaceId, 'html',
+                                       '<span class="limit-exceeded result">' + space + '</span> / ');
 
                         firstIteration = false;
                     } else {
-                        barrackSpaceEl.textContent = space + ' / ';
+                        dom.updater.defer(barrackSpaceId, 'text', space + ' / ');
                     }
                 }
             });
         }
     };
-
-    var renderDistribution = debounce(function(result) {
-        ['units', 'dark'].forEach(function(type) {
-            if (result[type]) {
-                populateDistribution(result, type);
-
-                var subtractedCostEl = dom.id(type + '-subtracted-cost');
-                if (result[type].subtractedCost === result[type].totalCost) {
-                    subtractedCostEl.textContent = '';
-                } else {
-                    subtractedCostEl.innerHTML = '− ' +
-                                                 common.numberFormat(result[type].totalCost - result[type].subtractedCost) +
-                                                 ' = <span class="result">' +
-                                                 common.numberFormat(result[type].subtractedCost) + '</span>';
-                }
-            }
-        });
-    }, 200);
 
     var darkObjects = dom.find('.js-dark-object');
     var spellsObjects = dom.find('.js-spells-object');
@@ -185,15 +116,13 @@ part([
             setQuantityAndSpace(result.spells.levelValue, result.spells.totalSpace, 'spells');
 
             if (result.spells.totalTime > 0) {
+                var spellsTimeId = 'spells-time';
                 if (localStorage.getItem('spell-factory-boosted') === 'yes') {
-                    dom.id('spells-time').innerHTML = '<span class="boosted">' +
-                                                      common.getFormattedTime(
-                                                          Math.floor(result.spells.totalTime / 4),
-                                                          true
-                                                      ) +
-                                                      '</span>';
-                } else{
-                    dom.id('spells-time').textContent = common.getFormattedTime(result.spells.totalTime, true);
+                    dom.updater.defer(spellsTimeId, 'html',
+                                   '<span class="boosted">' +
+                                   common.getFormattedTime(Math.floor(result.spells.totalTime / 4), true) + '</span>');
+                } else {
+                    dom.updater.defer(spellsTimeId, 'text', common.getFormattedTime(result.spells.totalTime, true));
                 }
             }
 
@@ -201,39 +130,45 @@ part([
         }
 
         ['units', 'dark', 'spells'].forEach(function(type) {
-            if (result[type]) {
-                var clIndex = result[type].capLevel + 1;
-                while (--clIndex > 0) {
-                    dom.id(
-                        type +
-                        '-building-level-' +
-                        clIndex
-                    ).style.display = (clIndex > result[type].levelValue ? 'none' : '');
-                }
-
-                result[type].objects.forEach(function(objectResult) {
-                    dom.id(objectResult.name + '-summary').textContent = (
-                        objectResult.summaryCost ?
-                        common.numberFormat(objectResult.summaryCost) :
-                        ''
-                    );
-
-                    if (type !== 'spells') {
-                        var mcIndex = 0; // mc - max count
-                        var mcLength = barracks[type].data.count;
-                        while (++mcIndex <= mcLength) {
-                            dom.id('quantity-' + objectResult.name + '-' + mcIndex).textContent = '';
-                        }
-                    }
-                });
-
-                dom.id(type + '-cost').textContent = common.numberFormat(result[type].totalCost);
+            var clIndex = result[type].capLevel + 1;
+            while (--clIndex > 0) {
+                dom.updater.defer(type + '-building-level-' + clIndex, 'display',
+                                 (clIndex > result[type].levelValue ? 'none' : ''));
             }
+
+            result[type].objects.forEach(function(objectResult) {
+                dom.updater.defer(objectResult.name + '-summary', 'text',
+                               objectResult.summaryCost ? common.numberFormat(objectResult.summaryCost) : '');
+
+                if (type !== 'spells') {
+                    var mcIndex = 0; // mc - max count
+                    var mcLength = barracks[type].data.count;
+                    while (++mcIndex <= mcLength) {
+                        dom.updater.defer('quantity-' + objectResult.name + '-' + mcIndex, 'text', '');
+                    }
+                }
+            });
+
+            dom.updater.defer(type + '-cost', 'text', common.numberFormat(result[type].totalCost));
         });
 
         if (result.params.type === 'all' || result.params.type !== 'spells') {
-            renderDistribution(result);
+            ['units', 'dark'].forEach(function(type) {
+                populateDistribution(result[type], type);
+
+                var subtractedCostId = type + '-subtracted-cost';
+                if (result[type].subtractedCost === result[type].totalCost) {
+                    dom.updater.defer(subtractedCostId, 'text', '');
+                } else {
+                    dom.updater.defer(subtractedCostId, 'html',
+                                   '− ' + common.numberFormat(result[type].totalCost - result[type].subtractedCost) +
+                                   ' = <span class="result">' + common.numberFormat(result[type].subtractedCost) +
+                                   '</span>');
+                }
+            });
         }
+
+        dom.updater.runDeferred();
     });
 
     events.listen('calculate', function(params) {
