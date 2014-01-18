@@ -37,7 +37,11 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
                 'tabIndexDelete': index + 3000 + 2
             };
 
-            var result = calculate(data);
+            var result = calculate({
+                'type': 'all',
+                'current': false,
+                'savedData': data
+            });
 
             ['units', 'dark'].forEach(function(type) {
                 if (result[type]) {

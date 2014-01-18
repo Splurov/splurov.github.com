@@ -105,15 +105,14 @@ part('savedData', ['common'], function(common) {
     var all = storage.load().map(function(entry) {
         return new common.Dict(entry);
     });
-    var current = all[0] || new common.Dict({});
 
     return {
         'storage': storage,
         'all': all,
-        'current': current,
+        'current': all[0] || new common.Dict({}),
         'save': function() {
-            all[0] = current;
-            storage.save(all.map(function(entry) {
+            this.all[0] = this.current;
+            storage.save(this.all.map(function(entry) {
                 return entry.getAll();
             }));
         },

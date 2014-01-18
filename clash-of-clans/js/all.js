@@ -11,9 +11,10 @@
 /* build:js:js/parts/armyCamps.js */
 /* build:js:js/parts/spellFactory.js */
 /* build:js:js/parts/barracks.js */
+/* build:js:js/parts/calculate.js */
 
 /* build:js:js/mk.calc.menu.js */
-/* build:js:js/parts/calculate.js */
+/* build:js:js/mk.calc.render.js */
 /* build:js:js/mk.calc.saved.js */
 /* build:js:js/mk.calc.share.js */
 /* build:js:js/mk.calc.init.js */
