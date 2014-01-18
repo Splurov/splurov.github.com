@@ -43,7 +43,7 @@ part(['savedData', 'events', 'dom', 'common', 'converter'],
 
             urlData = savedData.dataArrayToObject(urlData);
 
-            events.trigger('save', {'showMessage': false}, true);
+            events.trigger('saveTransparently', null, true);
             savedData.current = new common.Dict(urlData);
 
             var viewSharedMessage = common.infoMessage('view-shared');

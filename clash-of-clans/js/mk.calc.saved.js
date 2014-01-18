@@ -8,94 +8,92 @@ part([
 
     'use strict';
 
-    var savedListContent = dom.id('saved-list-content');
-    var savedListItemTemplate = new Hogan.Template(/* build:hogan:mustache/saved_list_item.mustache */);
-    var savedListCreateItems = function() {
-        var content = [];
-        savedData.all.forEach(function(data, index) {
-            if (index === 0) {
-                return;
-            }
-            var templateVars = {
-                'index': index,
-                'tabIndexLoad': index + 3000 + 1,
-                'tabIndexDelete': index + 3000 + 2
-            };
+    var tempDiv = document.createElement('div');
 
-            var result = calculate({
-                'type': 'all',
-                'current': false,
-                'savedData': data
-            });
+    var content = dom.id('saved-list-content');
+    var template = new Hogan.Template(/* build:hogan:mustache/saved_list_item.mustache */);
 
-            ['units', 'dark'].forEach(function(type) {
-                if (result[type]) {
-                    var items = [];
-                    result[type].objects.forEach(function(objectResult) {
-                        if (objectResult.quantity > 0) {
-                            items.push({
-                                'name': common.convertToTitle(objectResult.name),
-                                'quantity': objectResult.quantity,
-                                'minBarrackLevel': objectResult.minBarrackLevel
-                            });
-                        }
-                    });
+    var savedListCreateItem = function(data, index) {
+        if (index === 0) {
+            return;
+        }
+        var templateVars = {
+            'index': index,
+            'tabIndexLoad': index + 3000 + 1,
+            'tabIndexDelete': index + 3000 + 2
+        };
 
-                    if (items.length) {
-                        var productionTime;
-                        if (result[type].fillSuccess) {
-                            productionTime = Math.max.apply(null, result[type].barracksQueue.map(function(barrack) {
-                                return barrack.time;
-                            }));
-                            productionTime = common.getFormattedTime(productionTime);
-                        }
+        var result = calculate({
+            'type': 'all',
+            'current': false,
+            'savedData': data
+        });
 
-                        templateVars[type] = {
-                            'items': items.sort(function(a, b) {
-                                return a.minBarrackLevel > b.minBarrackLevel;
-                            }),
-                            'cost': common.numberFormat(result[type].totalCost),
-                            'time': productionTime
-                        };
-                    }
-                }
-
-                var togetherSpace = result.units.totalSpace + result.dark.totalSpace;
-                if (togetherSpace > 0) {
-                    templateVars.hasCapacity = {
-                        'totalCapacity': togetherSpace,
-                        'armyCamps': result.armyCampsSpace
-                    };
-                }
-            });
-
-            if (result.spells) {
-                var spells = [];
-
-                result.spells.objects.forEach(function(objectResult) {
+        ['units', 'dark'].forEach(function(type) {
+            if (result[type]) {
+                var items = [];
+                result[type].objects.forEach(function(objectResult) {
                     if (objectResult.quantity > 0) {
-                        spells.push({
+                        items.push({
                             'name': common.convertToTitle(objectResult.name),
-                            'quantity': objectResult.quantity
+                            'quantity': objectResult.quantity,
+                            'minBarrackLevel': objectResult.minBarrackLevel
                         });
                     }
                 });
 
-                if (spells.length) {
-                    templateVars.hasSpells = {
-                        'spells': spells,
-                        'spellsCost': common.numberFormat(result.spells.totalCost),
-                        'spellsCapacity': result.spells.totalSpace,
-                        'spellsFactoryLevel': result.spells.levelValue,
-                        'spellsTime': common.getFormattedTime(result.spells.totalTime, true)
+                if (items.length) {
+                    var productionTime;
+                    if (result[type].fillSuccess) {
+                        productionTime = Math.max.apply(null, result[type].barracksQueue.map(function(barrack) {
+                            return barrack.time;
+                        }));
+                        productionTime = common.getFormattedTime(productionTime);
+                    }
+
+                    templateVars[type] = {
+                        'items': items.sort(function(a, b) {
+                            return a.minBarrackLevel > b.minBarrackLevel;
+                        }),
+                        'cost': common.numberFormat(result[type].totalCost),
+                        'time': productionTime
                     };
                 }
             }
 
-            content.push(savedListItemTemplate.render(templateVars));
+            var togetherSpace = result.units.totalSpace + result.dark.totalSpace;
+            if (togetherSpace > 0) {
+                templateVars.hasCapacity = {
+                    'totalCapacity': togetherSpace,
+                    'armyCamps': result.armyCampsSpace
+                };
+            }
         });
 
-        savedListContent.innerHTML = content.join('');
+        if (result.spells) {
+            var spells = [];
+
+            result.spells.objects.forEach(function(objectResult) {
+                if (objectResult.quantity > 0) {
+                    spells.push({
+                        'name': common.convertToTitle(objectResult.name),
+                        'quantity': objectResult.quantity
+                    });
+                }
+            });
+
+            if (spells.length) {
+                templateVars.hasSpells = {
+                    'spells': spells,
+                    'spellsCost': common.numberFormat(result.spells.totalCost),
+                    'spellsCapacity': result.spells.totalSpace,
+                    'spellsFactoryLevel': result.spells.levelValue,
+                    'spellsTime': common.getFormattedTime(result.spells.totalTime, true)
+                };
+            }
+        }
+
+        return template.render(templateVars);
     };
 
     var barracksAnchor = dom.id('barracks-anchor');
@@ -111,8 +109,7 @@ part([
 
         events.trigger('updateFromSaved');
         events.trigger('calculate', {
-            'type': 'all',
-            'computeAll': true
+            'type': 'all'
         });
 
         events.trigger('loaded');
@@ -123,22 +120,41 @@ part([
         events.trigger('goal', {
             'id': 'DELETE_SAVED'
         }, true);
-        savedData.all.splice(e.target.getAttribute('data-num'), 1);
+
+        var index = e.target.getAttribute('data-num');
+
+        var el = content.querySelector('.js-saved-item[data-num="' + index + '"]');
+        el.classList.add('saved-list__item_deleted');
+        setTimeout(function() {
+            el.parentNode.removeChild(el);
+
+            dom.find('.js-saved-item', content).iterate(function(item) {
+                var oldIndex = parseInt(item.getAttribute('data-num'), 10);
+                if (oldIndex > index) {
+                    var newIndex = (oldIndex - 1).toString();
+                    item.setAttribute('data-num', newIndex);
+                    dom.find('[data-num]', item).iterate(function(sub) {
+                        sub.setAttribute('data-num', newIndex);
+                    });
+                }
+            });
+        }, 500);
+
+        savedData.all.splice(index, 1);
         savedData.save();
-        savedListCreateItems();
     });
 
-    var alreadySavedMessage = common.infoMessage('already-saved', true);
-    var savedCalculationAnchor = dom.id('saved-anchor');
+    var addedAnimation = function(index) {
+        var composition = content.querySelector('.js-saved-item[data-num="' + index + '"]');
+        composition.classList.add('saved-list__item_added');
+        setTimeout(function() {
+            composition.classList.remove('saved-list__item_added');
+        }, 2000);
+        events.trigger('scrollTo', composition);
+    };
 
-    var save = function(params) {
-        var showMessage = true;
-        if (params && params.showMessage === false) {
-            showMessage = false;
-        }
-        alreadySavedMessage.hide();
-
-        if (showMessage) {
+    var save = function(isFully) {
+        if (isFully) {
             events.trigger('goal', {
                 'id': 'SAVE_COMPOSITION'
             }, true);
@@ -152,31 +168,35 @@ part([
             while (++sdIndex < sdLength) {
                 var savedJSON = JSON.stringify(sourceData[sdIndex]);
                 if (currentJSON === savedJSON) {
-                    if (showMessage) {
-                        alreadySavedMessage.show();
+                    if (isFully) {
+                        addedAnimation(sdIndex);
                     }
                     return;
                 }
             }
 
-            var dataToSave = common.objectCopy(savedData.current.getAll());
-            savedData.all.push(new common.Dict(dataToSave));
+            var index = savedData.all.length;
+            var data = new common.Dict(common.objectCopy(savedData.current.getAll()));
+            savedData.all.push(data);
             savedData.save();
-            savedListCreateItems();
+
+            tempDiv.innerHTML = savedListCreateItem(data, index);
+            content.appendChild(tempDiv.firstChild);
+            if (isFully) {
+                addedAnimation(index);
+            }
         }
     };
 
-    events.watch('save', save);
-
-    dom.registerUniversalClickHandler('js-save-composition', function(e) {
-        if (e.target.getAttribute('data-scroll') === 'yes') {
-            events.trigger('scrollTo', savedCalculationAnchor);
-        }
-
-        save();
+    events.watch('saveTransparently', function() {
+        save(false);
     });
 
-    savedListCreateItems();
+    dom.registerUniversalClickHandler('js-save-composition', function() {
+        save(true);
+    });
+
+    content.innerHTML = savedData.all.map(savedListCreateItem).join('');
 
     var savedCount = savedData.all.length;
     events.trigger('goal', {

@@ -31,7 +31,9 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
             events.trigger('elChange', levelEl, true);
         };
 
-        dom.listen(levelEl, 'change', function() {
+        dom.listen(levelEl, 'change', function(e) {
+            e.stopPropagation();
+
             updateLevelSavedData(levelEl.value);
             notifyLevelChange();
 
@@ -40,7 +42,9 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
             });
         });
 
-        dom.listen(boostedEl, 'change', function() {
+        dom.listen(boostedEl, 'change', function(e) {
+            e.stopPropagation();
+
             localStorage.setItem('spell-factory-boosted', (boostedEl.checked ? 'yes' : 'no'));
 
             events.trigger('calculate', {

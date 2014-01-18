@@ -98,8 +98,7 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
     events.trigger('updateFromSaved');
 
     events.trigger('calculate', {
-        'type': 'all',
-        'computeAll': true
+        'type': 'all'
     }, true);
 
 });

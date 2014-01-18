@@ -35,7 +35,9 @@ part('armyCamps', ['dom', 'events', 'savedData'], function(dom, events, savedDat
             events.trigger('elChange', el, true);
         };
 
-        dom.listen(el, 'change', function() {
+        dom.listen(el, 'change', function(e) {
+            e.stopPropagation();
+
             updateSavedData(el.value);
             notifyChange();
 

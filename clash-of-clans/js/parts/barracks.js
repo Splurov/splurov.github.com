@@ -45,6 +45,8 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
                 barrack.innerHTML = options.join('');
 
                 dom.listen(barrack, 'change', function(e) {
+                    e.stopPropagation();
+
                     var el = e.currentTarget;
                     updateSavedData(el);
                     events.trigger('elChange', el);
@@ -64,6 +66,8 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
                     boostedEl.checked = true;
                 }
                 dom.listen(boostedEl, 'change', function(e) {
+                    e.stopPropagation();
+
                     var el = e.currentTarget;
                     localStorage.setItem(el.getAttribute('id'), (el.checked ? 'yes' : 'no'));
                     events.trigger('calculate', {

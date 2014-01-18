@@ -23,7 +23,9 @@ part(['events', 'dom'], function(events, dom) {
         localStorage.setItem('settingsMode', (toggleModeEl.checked ? 'on' : 'off'));
     };
 
-    dom.listen(toggleModeEl, 'change', function() {
+    dom.listen(toggleModeEl, 'change', function(e) {
+        e.stopPropagation();
+
         toggleSettings();
         events.trigger('goal', {'id': 'SETTINGS_SWITCH'}, true);
     });
@@ -63,8 +65,7 @@ part(['events', 'dom'], function(events, dom) {
         });
 
         events.trigger('calculate', {
-            'type': 'all',
-            'computeAll': true
+            'type': 'all'
         });
     };
 

@@ -252,8 +252,8 @@ part('dom', function() {
                 el.parentNode.appendChild(newEl);
             }
         },
-        'find': function(selector) {
-            return new List(document.querySelectorAll(selector));
+        'find': function(selector, context) {
+            return new List((context || document).querySelectorAll(selector));
         },
         'selectOnFocus': function(el) {
             listen(el, 'focus', selectAll);

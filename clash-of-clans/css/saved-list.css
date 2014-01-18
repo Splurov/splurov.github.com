@@ -1,3 +1,15 @@
+@keyframes blink {
+    0% {
+        background: #fff;
+    }
+    45% {
+        background: #ffd;
+    }
+    100% {
+        background: #fff;
+    }
+}
+
 .saved-list {
     font-size: 15px;
 }
@@ -10,6 +22,18 @@
         vertical-align: top;
         color: #222;
         line-height: 1.35;
+
+        opacity: 1;
+    }
+    .saved-list__item_added {
+        animation-delay: 300ms;
+        animation-name: blink;
+        animation-duration: 1700ms;
+    }
+    .saved-list__item_deleted {
+        opacity: 0;
+
+        transition: opacity 500ms;
     }
     .saved-list__item-cost {
         font-weight: bold;
