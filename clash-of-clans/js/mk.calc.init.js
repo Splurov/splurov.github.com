@@ -22,6 +22,7 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
             var levelId = name + '-level';
             var levelEl = dom.id(levelId);
             updateEl(levelEl, savedData.current.get(levelId, levelEl.selectedIndex));
+            updateSavedData(levelEl);
             notifyChange(levelEl);
         });
     });
@@ -93,7 +94,7 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
      * INIT
      */
 
-    events.trigger('updateFromSaved', true);
+    events.trigger('updateFromSaved');
 
     events.trigger('calculate', {
         'type': 'all',

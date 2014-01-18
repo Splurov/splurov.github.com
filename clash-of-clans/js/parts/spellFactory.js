@@ -50,6 +50,7 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
 
         events.listen('updateFromSaved', function() {
             levelEl.value = savedData.current.get('spellFactoryLevel', levelEl.value);
+            updateLevelSavedData(levelEl.value);
             notifyLevelChange();
 
             boostedEl.checked = (localStorage.getItem('spell-factory-boosted') === 'yes');

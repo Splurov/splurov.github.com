@@ -351,7 +351,7 @@ part('calculate', [
 
             var name = value[5];
 
-            var quantity = params.savedData.get(name);
+            var quantity = params.savedData.get(name, 0);
             var levelIndex = params.savedData.get(name + '-level');
             var costPerItem = value[1][levelIndex];
             var summaryCost = (costPerItem * quantity);
@@ -581,7 +581,6 @@ part('calculate', [
 
         events.trigger('calculateDone', calculate(params));
 
-        savedData.all.update(0, savedData.current);
         savedData.save();
     });
 

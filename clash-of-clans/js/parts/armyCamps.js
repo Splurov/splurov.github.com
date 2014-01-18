@@ -48,6 +48,7 @@ part('armyCamps', ['dom', 'events', 'savedData'], function(dom, events, savedDat
 
         events.listen('updateFromSaved', function() {
             el.value = savedData.current.get('armyCamps', el.value);
+            updateSavedData(el.value);
             notifyChange();
         });
 

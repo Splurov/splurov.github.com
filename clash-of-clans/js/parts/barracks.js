@@ -19,6 +19,10 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
             dom.id(data.type + '-barrack-header-' + num).textContent = header;
         };
 
+        var updateSavedData = function(el) {
+            savedData.current.set(el.getAttribute('id'), el.selectedIndex);
+        };
+
         if (DOM_ENABLED) {
             var i = 0;
             while (++i <= data.count) {
@@ -41,7 +45,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
 
                 dom.listen(barrack, ['change'], function(e) {
                     var el = e.currentTarget;
-                    savedData.current.set(el.getAttribute('id'), el.selectedIndex);
+                    updateSavedData(el);
                     events.trigger('elChange', el);
 
                     updateHeader(el.getAttribute('data-num'), el.value);
@@ -72,6 +76,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
                 this.barracks.forEach(function(el) {
                     var saved = savedData.current.get(el.getAttribute('id'), el.selectedIndex);
                     el.options[saved].selected = true;
+                    updateSavedData(el);
 
                     events.trigger('elChange', el, true);
 
@@ -83,7 +88,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
                 var value = params.helper(params.th, data.th);
                 this.barracks.forEach(function(el) {
                     el.value = value;
-                    savedData.current.set(el.getAttribute('id'), el.selectedIndex);
+                    updateSavedData(el);
 
                     events.trigger('elChange', el, true);
 

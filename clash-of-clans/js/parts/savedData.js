@@ -101,51 +101,21 @@ part('savedData', ['common'], function(common) {
         };
     };
 
-    var MultiDict = function(entries) {
-        this.entries = [];
-
-        this.retrieve = function(i) {
-            return this.entries[i] || new Dict({});
-        };
-
-        this.update = function(i, data) {
-            this.entries[i] = data;
-        };
-
-        this.insert = function(data) {
-            this.entries.push(new common.Dict(data));
-        };
-
-        this.remove = function(i) {
-            this.entries.splice(i, 1);
-        };
-
-        this.getAll = function() {
-            return this.entries.map(function(entry) {
-                return entry.getAll();
-            });
-        };
-
-        this.forEach = function(callback) {
-            this.entries.forEach(callback);
-        };
-
-        this.getLength = function() {
-            return this.entries.length;
-        };
-
-        entries.forEach(this.insert.bind(this));
-    };
-
     var storage = new DataStorage('data4');
-    var all = new MultiDict(storage.load());
+    var all = storage.load().map(function(entry) {
+        return new common.Dict(entry);
+    });
+    var current = all[0] || new common.Dict({});
 
     return {
         'storage': storage,
         'all': all,
-        'current': all.retrieve(0),
+        'current': current,
         'save': function() {
-            storage.save(all.getAll());
+            all[0] = current;
+            storage.save(all.map(function(entry) {
+                return entry.getAll();
+            }));
         },
         'dataArrayToObject': dataArrayToObject,
         'dataObjectToArray': dataObjectToArray

@@ -10,7 +10,7 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
         }, true);
 
         var dataToLoad = common.objectCopy(
-            savedData.all.retrieve(e.currentTarget.getAttribute('data-num')).getAll()
+            savedData.all[e.currentTarget.getAttribute('data-num')].getAll()
         );
         savedData.current = new common.Dict(dataToLoad);
 
@@ -115,7 +115,7 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
             events.trigger('goal', {
                 'id': 'DELETE_SAVED'
             }, true);
-            savedData.all.remove(e.currentTarget.getAttribute('data-num'));
+            savedData.all.splice(e.currentTarget.getAttribute('data-num'), 1);
             savedData.save();
             savedListCreateItems();
         };
@@ -157,7 +157,7 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
             }
 
             var dataToSave = common.objectCopy(savedData.current.getAll());
-            savedData.all.insert(dataToSave);
+            savedData.all.push(new common.Dict(dataToSave));
             savedData.save();
             savedListCreateItems();
         }
@@ -177,7 +177,7 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
 
     savedListCreateItems();
 
-    var savedCount = savedData.all.getLength();
+    var savedCount = savedData.all.length;
     events.trigger('goal', {
         'id': 'SAVED_COMPOSITIONS',
         'params': {
