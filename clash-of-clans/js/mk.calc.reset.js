@@ -2,9 +2,9 @@ part(['events', 'dom'], function(events, dom) {
 
     'use strict';
 
-    var resetColumn = function(e) {
-        var resetType = e.currentTarget.getAttribute('data-reset');
-        var scope = e.currentTarget.getAttribute('data-scope');
+    dom.registerUniversalClickHandler('js-reset', function(e) {
+        var resetType = e.target.getAttribute('data-reset');
+        var scope = e.target.getAttribute('data-scope');
 
         dom.find('input.js-comp-' + scope + '[data-type="' + resetType + '"]').iterate(function(el) {
             el.value = '';
@@ -21,8 +21,6 @@ part(['events', 'dom'], function(events, dom) {
         events.trigger('goal', {
             'id': 'RESET'
         }, true);
-    };
-
-    dom.find('.js-reset').listen(['universalClick'], resetColumn);
+    });
 
 });

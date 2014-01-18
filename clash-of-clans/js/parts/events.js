@@ -19,7 +19,7 @@ part('events', function() {
             }
         },
 
-        listen: function(name, cb) {
+        watch: function(name, cb) {
             if (!this.events[name]) {
                 this.events[name] = [];
             }

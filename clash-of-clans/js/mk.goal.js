@@ -2,16 +2,16 @@ part(['events', 'dom'], function(events, dom) {
 
     'use strict';
 
-    dom.find('.js-goal').listen(['universalAndMiddleClick'], function(e) {
+    dom.registerUniversalClickAndMiddleClickHandler('js-goal', function(e) {
         events.trigger('goal', {
-            'id': e.currentTarget.getAttribute('data-goal')
+            'id': e.target.getAttribute('data-goal')
         }, true);
     });
 
     var cache = [];
 
     window.yandexMetrikaLoadCallback = function(yandexMetrika) {
-        events.listen('goal', function(data) {
+        events.watch('goal', function(data) {
             if (cache.indexOf(data.id) !== -1) {
                 return;
             }

@@ -11,7 +11,7 @@ part(['events', 'dom'], function(events, dom) {
         el.classList.add('setting-mode-part');
     });
 
-    events.listen('elChange', function(el) {
+    events.watch('elChange', function(el) {
         el.nextSibling.textContent = el.options[el.selectedIndex].textContent;
     });
 
@@ -23,7 +23,7 @@ part(['events', 'dom'], function(events, dom) {
         localStorage.setItem('settingsMode', (toggleModeEl.checked ? 'on' : 'off'));
     };
 
-    dom.listen(toggleModeEl, ['change'], function() {
+    dom.listen(toggleModeEl, 'change', function() {
         toggleSettings();
         events.trigger('goal', {'id': 'SETTINGS_SWITCH'}, true);
     });
@@ -68,8 +68,8 @@ part(['events', 'dom'], function(events, dom) {
         });
     };
 
-    dom.find('.js-settings-level').listen(['universalClick'], function(e) {
-        setLevels(parseInt(e.currentTarget.textContent, 10));
+    dom.registerUniversalClickHandler('js-settings-level', function(e) {
+        setLevels(parseInt(e.target.textContent, 10));
     });
 
 });

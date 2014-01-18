@@ -8,27 +8,7 @@ part([
 
     'use strict';
 
-    var barracksAnchor = dom.id('barracks-anchor');
-    var loadSaved = function(e) {
-        events.trigger('goal', {
-            'id': 'LOAD_SAVED'
-        }, true);
-
-        var dataToLoad = common.objectCopy(
-            savedData.all[e.currentTarget.getAttribute('data-num')].getAll()
-        );
-        savedData.current = new common.Dict(dataToLoad);
-
-        events.trigger('updateFromSaved');
-        events.trigger('calculate', {
-            'type': 'all',
-            'computeAll': true
-        });
-
-        events.trigger('loaded');
-        events.trigger('scrollTo', barracksAnchor);
-    };
-
+    var savedListContent = dom.id('saved-list-content');
     var savedListItemTemplate = new Hogan.Template(/* build:hogan:mustache/saved_list_item.mustache */);
     var savedListCreateItems = function() {
         var content = [];
@@ -115,22 +95,38 @@ part([
             content.push(savedListItemTemplate.render(templateVars));
         });
 
-        var savedListContent = dom.id('saved-list-content');
         savedListContent.innerHTML = content.join('');
-
-        dom.find('.js-saved-load', savedListContent).listen(['universalClick'], loadSaved);
-
-        var deleteSaved = function(e) {
-            events.trigger('goal', {
-                'id': 'DELETE_SAVED'
-            }, true);
-            savedData.all.splice(e.currentTarget.getAttribute('data-num'), 1);
-            savedData.save();
-            savedListCreateItems();
-        };
-
-        dom.find('.js-saved-delete', savedListContent).listen(['universalClick'], deleteSaved);
     };
+
+    var barracksAnchor = dom.id('barracks-anchor');
+    dom.registerUniversalClickHandler('js-saved-load', function(e) {
+        events.trigger('goal', {
+            'id': 'LOAD_SAVED'
+        }, true);
+
+        var dataToLoad = common.objectCopy(
+            savedData.all[e.target.getAttribute('data-num')].getAll()
+        );
+        savedData.current = new common.Dict(dataToLoad);
+
+        events.trigger('updateFromSaved');
+        events.trigger('calculate', {
+            'type': 'all',
+            'computeAll': true
+        });
+
+        events.trigger('loaded');
+        events.trigger('scrollTo', barracksAnchor);
+    });
+
+    dom.registerUniversalClickHandler('js-saved-delete', function(e) {
+        events.trigger('goal', {
+            'id': 'DELETE_SAVED'
+        }, true);
+        savedData.all.splice(e.target.getAttribute('data-num'), 1);
+        savedData.save();
+        savedListCreateItems();
+    });
 
     var alreadySavedMessage = common.infoMessage('already-saved', true);
     var savedCalculationAnchor = dom.id('saved-anchor');
@@ -170,17 +166,15 @@ part([
         }
     };
 
-    events.listen('save', save);
+    events.watch('save', save);
 
-    var saveHandler = function(e) {
-        if (e.currentTarget.getAttribute('data-scroll') === 'yes') {
+    dom.registerUniversalClickHandler('js-save-composition', function(e) {
+        if (e.target.getAttribute('data-scroll') === 'yes') {
             events.trigger('scrollTo', savedCalculationAnchor);
         }
 
         save();
-    };
-
-    dom.find('.js-save-composition').listen(['universalClick'], saveHandler);
+    });
 
     savedListCreateItems();
 

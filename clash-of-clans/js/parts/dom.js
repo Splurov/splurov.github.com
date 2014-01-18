@@ -1,7 +1,7 @@
 part('dom', function() {
     'use strict';
 
-    var registerUniversalClick = function(target, listener, isMiddleClickTriggers) {
+    var registerUniversalClick = function(target, listener) {
         var touchSupported = ('ontouchstart' in window);
 
         var lastEventSource;
@@ -35,63 +35,120 @@ part('dom', function() {
         }
 
         if (!window.mkIsMobile || !touchSupported) {
-            if (isMiddleClickTriggers) {
-                var clicking;
-
-                target.addEventListener('mousedown', function() {
-                    if (lastEventSource === 'touch') {
-                        lastEventSource = null;
-                        clicking = false;
-                    } else {
-                        lastEventSource = 'mouse';
-                        clicking = true;
-                    }
-                }, false);
-
-                target.addEventListener('mousemove', function() {
-                    clicking = false;
-                }, false);
-
-                target.addEventListener('mouseup', function(e) {
-                    if (clicking && e.which !== 3) {
-                        listener(e);
-                    }
-                }, false);
-
-                target.addEventListener('keypress', function(e) {
-                    var code = e.keyCode || e.which;
-                    if ([13, 32].indexOf(code) !== -1) {
-                        listener(e);
-                    }
-                }, false);
-
-            } else {
-                target.addEventListener('click', function(e) {
-                    if (lastEventSource === 'touch') {
-                        lastEventSource = null;
-                    } else {
-                        lastEventSource = 'mouse';
-                        listener(e);
-                    }
-                }, false);
-            }
+            target.addEventListener('click', function(e) {
+                if (lastEventSource === 'touch') {
+                    lastEventSource = null;
+                } else {
+                    lastEventSource = 'mouse';
+                    listener(e);
+                }
+            }, false);
         }
 
     };
 
-    var listen = function(target, types, listener) {
-        var l = types.length;
-        while (l--) {
-            var type = types[l];
-            if (type === 'universalClick') {
-                registerUniversalClick(target, listener);
-            } else if (type === 'universalAndMiddleClick') {
-                registerUniversalClick(target, listener, true);
-            } else {
-                target.addEventListener(type, listener, false);
-            }
+    var listen = function(target, type, listener) {
+        if (type === 'universalClick') {
+            registerUniversalClick(target, listener);
+        } else {
+            target.addEventListener(type, listener, false);
         }
     };
+
+    var clickHandlers = {};
+    var middleClickHandlers = {};
+
+    var getSuitableClassNames = function(el, handlers) {
+        return Object.keys(handlers).filter(function(className) {
+            return el.classList.contains(className);
+        });
+    };
+
+    var processSuitableHandlers = function(e, suitable, handlers) {
+        var newSuitable = getSuitableClassNames(e.target, clickHandlers);
+        if (!newSuitable.length) {
+            return;
+        }
+
+        var classNames = newSuitable.filter(function(className) {
+            return suitable.indexOf(className) !== -1;
+        });
+        if (!classNames.length) {
+            return;
+        }
+
+        classNames.forEach(function(className) {
+            handlers[className](e);
+        });
+    };
+
+    var touchSupported = ('ontouchstart' in window);
+
+    var lastEventSource;
+
+    if (touchSupported) {
+        var tapSuitable;
+
+        listen(document.body, 'touchstart', function(e) {
+            if (lastEventSource === 'mouse') {
+                lastEventSource = null;
+            } else {
+                tapSuitable = getSuitableClassNames(e.target, clickHandlers);
+                lastEventSource = 'touch';
+            }
+        });
+
+        listen(document.body, 'touchmove', function() {
+            tapSuitable = null;
+        });
+
+        listen(document.body, 'touchcancel', function() {
+            tapSuitable = null;
+        });
+
+        listen(document.body, 'touchend', function(e) {
+            if (tapSuitable && tapSuitable.length) {
+                processSuitableHandlers(e, tapSuitable, clickHandlers);
+            }
+        });
+    }
+
+    if (!window.mkIsMobile || !touchSupported) {
+        var middleClickSuitable;
+
+        listen(document.body, 'mousedown', function(e) {
+            if (lastEventSource === 'touch') {
+                lastEventSource = null;
+            } else {
+                lastEventSource = 'mouse';
+                middleClickSuitable = getSuitableClassNames(e.target, middleClickHandlers);
+            }
+        });
+
+        listen(document.body, 'mousemove', function() {
+            middleClickSuitable = null;
+        });
+
+        listen(document.body, 'mouseup', function(e) {
+            if (e.which === 2 && middleClickSuitable && middleClickSuitable.length) {
+                processSuitableHandlers(e, middleClickSuitable, middleClickHandlers);
+            }
+        });
+
+        listen(document.body, 'click', function(e) {
+            if (lastEventSource === 'touch') {
+                lastEventSource = null;
+            } else {
+                Object.keys(clickHandlers).forEach(function(className) {
+                    if (e.target.classList.contains(className)) {
+                        clickHandlers[className](e);
+                    }
+                });
+
+                lastEventSource = 'mouse';
+            }
+        });
+    }
 
     var toggleClass = function(el, value, state) {
         el.classList[state ? 'add' : 'remove'](value);
@@ -103,12 +160,6 @@ part('dom', function() {
         } else {
             this.elements = [];
         }
-
-        this.listen = function(types, listener) {
-            this.iterate(function(el) {
-                listen(el, types, listener);
-            });
-        };
 
         this.iterate = function(callback) {
             var i = -1;
@@ -127,12 +178,12 @@ part('dom', function() {
 
     var selectAllTimeout;
     var selectAll = function(e) {
-        var el = e.currentTarget;
-        if (['input', 'textarea'].indexOf(el.tagName.toLowerCase()) !== -1 && el.value !== '') {
+        var el = e.target;
+        if ('setSelectionRange' in el && el.value !== '') {
             clearTimeout(selectAllTimeout);
             selectAllTimeout = setTimeout(function() {
                 el.setSelectionRange(0, el.value.length);
-            }, 1);
+            }, 0);
         }
     };
 
@@ -187,7 +238,8 @@ part('dom', function() {
                     update(id, deferred[id].type, deferred[id].value);
                 });
                 deferred = {};
-            }
+            },
+            'instantly': update
         };
     }());
 
@@ -200,11 +252,18 @@ part('dom', function() {
                 el.parentNode.appendChild(newEl);
             }
         },
-        'find': function(selector, context) {
-            return new List((context || document).querySelectorAll(selector));
+        'find': function(selector) {
+            return new List(document.querySelectorAll(selector));
         },
         'selectOnFocus': function(el) {
-            listen(el, ['focus'], selectAll);
+            listen(el, 'focus', selectAll);
+        },
+        'registerUniversalClickHandler': function(className, handler) {
+            clickHandlers[className] = handler;
+        },
+        'registerUniversalClickAndMiddleClickHandler': function(className, handler) {
+            clickHandlers[className] = handler;
+            middleClickHandlers[className] = handler;
         },
         'listen': listen,
         'toggleClass': toggleClass,

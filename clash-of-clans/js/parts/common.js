@@ -83,7 +83,7 @@ part('common', ['dom'], function(dom) {
                 el.style.display = 'none';
             };
 
-            dom.listen(el, ['universalClick'], hide);
+            dom.listen(el, 'universalClick', hide);
 
             return {
                 'show': function() {

@@ -17,7 +17,7 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
         events.trigger('elChange', el, true);
     };
 
-    events.listen('updateFromSaved', function() {
+    events.watch('updateFromSaved', function() {
         types.iterateTree(function(type, name) {
             var levelId = name + '-level';
             var levelEl = dom.id(levelId);
@@ -27,7 +27,7 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
         });
     });
 
-    events.listen('updateSetting', function(params) {
+    events.watch('updateSetting', function(params) {
         types.iterateTree(function(type, name, properties) {
             var levelEl = dom.id(name + '-level');
 
@@ -37,7 +37,7 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
         });
     });
 
-    dom.listen(document.body, ['change'], function(e) {
+    dom.listen(document.body, 'change', function(e) {
         if (e.target.classList.contains('js-comp-level')) {
             updateSavedData(e.target);
             notifyChange(e.target);
@@ -75,16 +75,16 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
         }
     };
 
-    dom.listen(document.body, ['input'], function(e) {
+    dom.listen(document.body, 'input', function(e) {
         valueChangeHandler({
             'el': e.target,
             'calculate': true
         });
     });
 
-    events.listen('valueChange', valueChangeHandler);
+    events.watch('valueChange', valueChangeHandler);
 
-    events.listen('updateFromSaved', function() {
+    events.watch('updateFromSaved', function() {
         types.iterateTree(function(type, name) {
             dom.id(name).value = savedData.current.get(name) || '';
         });

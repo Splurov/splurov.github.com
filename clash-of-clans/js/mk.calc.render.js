@@ -101,7 +101,7 @@ part([
 
     var darkObjects = dom.find('.js-dark-object');
     var spellsObjects = dom.find('.js-spells-object');
-    events.listen('calculateDone', function(result) {
+    events.watch('calculateDone', function(result) {
         if (result.params.type === 'all' || result.params.type === 'barrack-dark') {
             darkObjects.toggleClass('setting-mode-empty', (result.dark.levelValue === 0));
         }
@@ -171,7 +171,7 @@ part([
         dom.updater.runDeferred();
     });
 
-    events.listen('calculate', function(params) {
+    events.watch('calculate', function(params) {
         params.savedData = savedData.current;
         params.current = true;
 

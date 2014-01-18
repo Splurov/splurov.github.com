@@ -49,7 +49,7 @@ part(['savedData', 'events', 'dom', 'common', 'converter'],
             var viewSharedMessage = common.infoMessage('view-shared');
             viewSharedMessage.show();
 
-            events.listen('loaded', function() {
+            events.watch('loaded', function() {
                 viewSharedMessage.hide();
             });
         }
@@ -142,7 +142,7 @@ part(['savedData', 'events', 'dom', 'common', 'converter'],
         return false;
     };
 
-    var $shareObjects = dom.find('.js-share');
+    var shareObjects = dom.find('.js-share');
     var placeShareContent = function(result) {
         var display = '';
         if (makeShareText(result)) {
@@ -150,11 +150,11 @@ part(['savedData', 'events', 'dom', 'common', 'converter'],
         } else {
             display = 'none';
         }
-        $shareObjects.iterate(function(el) {
+        shareObjects.iterate(function(el) {
             el.style.display = display;
         });
     };
 
-    events.listen('calculateDone', placeShareContent);
+    events.watch('calculateDone', placeShareContent);
 
 });

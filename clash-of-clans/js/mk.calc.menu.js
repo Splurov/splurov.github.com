@@ -23,7 +23,7 @@ part(['events', 'dom'], function(events, dom){
     if (!window.mkIsMobile) {
         globalScrollOffset += menuElHeight;
 
-        dom.listen(window, ['scroll'], function() {
+        dom.listen(window, 'scroll', function() {
             dom.toggleClass(menuEl, 'menu_fixed', (window.pageYOffset >= menuTopPosition));
         });
     }
@@ -62,10 +62,10 @@ part(['events', 'dom'], function(events, dom){
         }());
     };
 
-    events.listen('scrollTo', smoothScroll);
+    events.watch('scrollTo', smoothScroll);
 
-    dom.find('.js-anchor').listen(['universalClick'], function(e) {
-        smoothScroll(dom.id(e.currentTarget.getAttribute('data-for')));
+    dom.registerUniversalClickHandler('js-anchor', function(e) {
+        smoothScroll(dom.id(e.target.getAttribute('data-for')));
     });
 
 });

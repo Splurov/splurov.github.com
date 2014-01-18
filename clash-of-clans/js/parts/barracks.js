@@ -17,7 +17,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
             if (level !== 0) {
                 header = data.queue[level];
             }
-            dom.id(data.type + '-barrack-header-' + num).textContent = header;
+            dom.updater.instantly(data.type + '-barrack-header-' + num, 'text', header);
         };
 
         var updateSavedData = function(el) {
@@ -44,7 +44,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
                 }
                 barrack.innerHTML = options.join('');
 
-                dom.listen(barrack, ['change'], function(e) {
+                dom.listen(barrack, 'change', function(e) {
                     var el = e.currentTarget;
                     updateSavedData(el);
                     events.trigger('elChange', el);
@@ -60,11 +60,10 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
 
                 var boostedId = data.prefix + '-boosted-' + i;
                 var boostedEl = dom.id(boostedId);
-                boostedEl.setAttribute('data-num', num);
                 if (localStorage.getItem(boostedId) === 'yes') {
                     boostedEl.checked = true;
                 }
-                dom.listen(boostedEl, ['change'], function(e) {
+                dom.listen(boostedEl, 'change', function(e) {
                     var el = e.currentTarget;
                     localStorage.setItem(el.getAttribute('id'), (el.checked ? 'yes' : 'no'));
                     events.trigger('calculate', {
@@ -73,7 +72,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
                 });
             }
 
-            events.listen('updateFromSaved', function() {
+            events.watch('updateFromSaved', function() {
                 barracks.forEach(function(el) {
                     var saved = savedData.current.get(el.getAttribute('id'), el.selectedIndex);
                     el.options[saved].selected = true;
@@ -85,7 +84,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
                 });
             });
 
-            events.listen('updateSetting', function(params) {
+            events.watch('updateSetting', function(params) {
                 var value = params.helper(params.th, data.th);
                 barracks.forEach(function(el) {
                     el.value = value;

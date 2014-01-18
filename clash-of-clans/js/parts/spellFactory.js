@@ -31,7 +31,7 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
             events.trigger('elChange', levelEl, true);
         };
 
-        dom.listen(levelEl, ['change'], function() {
+        dom.listen(levelEl, 'change', function() {
             updateLevelSavedData(levelEl.value);
             notifyLevelChange();
 
@@ -40,7 +40,7 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
             });
         });
 
-        dom.listen(boostedEl, ['change'], function() {
+        dom.listen(boostedEl, 'change', function() {
             localStorage.setItem('spell-factory-boosted', (boostedEl.checked ? 'yes' : 'no'));
 
             events.trigger('calculate', {
@@ -48,7 +48,7 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
             });
         });
 
-        events.listen('updateFromSaved', function() {
+        events.watch('updateFromSaved', function() {
             levelEl.value = savedData.current.get('spellFactoryLevel', levelEl.value);
             updateLevelSavedData(levelEl.value);
             notifyLevelChange();
@@ -56,7 +56,7 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
             boostedEl.checked = (localStorage.getItem('spell-factory-boosted') === 'yes');
         });
 
-        events.listen('updateSetting', function(params) {
+        events.watch('updateSetting', function(params) {
             var value = params.helper(params.th, data.th);
             levelEl.value = value;
             updateLevelSavedData(value);

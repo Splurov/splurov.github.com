@@ -47,7 +47,7 @@ part(['events', 'dom'], function(events, dom) {
     };
 
     var spinnerEventMoveStop = function(diffX, diffY) {
-        if (diffX > 10 || diffY > 10) {
+        if (diffX > 16 || diffY > 16) {
             currentSpinner.target = null;
             currentSpinner.click = false;
             clearTimeout(currentSpinner.firstTimeout);
@@ -69,26 +69,31 @@ part(['events', 'dom'], function(events, dom) {
     var touchSupported = ('ontouchstart' in window);
 
     if (!window.mkIsMobile || !touchSupported) {
-        window.addEventListener('mousemove', function(e) {
+        dom.listen(document.body, 'mousedown', function(e) {
+            if (e.target.classList.contains('js-spinner')) {
+                currentSpinner.x = e.screenX;
+                currentSpinner.y = e.screenY;
+                spinnerEventStart(e.target);
+            }
+        });
+
+        dom.listen(document.body, 'mousemove', function(e) {
             if (currentSpinner.target) {
                 var diffX = Math.abs(e.screenX - currentSpinner.x);
                 var diffY = Math.abs(e.screenY - currentSpinner.y);
                 spinnerEventMoveStop(diffX, diffY);
             }
-        }, false);
+        });
 
-        window.addEventListener('mouseup', function() {
+        dom.listen(document.body, 'mouseup', function() {
             spinnerEventStop();
-        }, false);
+        });
     }
 
-    var spinnerEvents = function(el) {
-
-        if (touchSupported) {
-            var preventTimeStamp = 0;
-            el.addEventListener('touchstart', function(e) {
-                e.stopPropagation();
-
+    if (touchSupported) {
+        var preventTimeStamp = 0;
+        dom.listen(document.body, 'touchstart', function(e) {
+            if (e.target.classList.contains('js-spinner')) {
                 if (e.timeStamp - preventTimeStamp < 500) {
                     e.preventDefault();
                 }
@@ -97,49 +102,32 @@ part(['events', 'dom'], function(events, dom) {
                 currentSpinner.x = e.touches[0].screenX;
                 currentSpinner.y = e.touches[0].screenY;
 
-                spinnerEventStart(e.currentTarget);
-            }, false);
+                spinnerEventStart(e.target);
+            }
+        });
 
-            el.addEventListener('touchmove', function(e) {
-                e.stopPropagation();
+        dom.listen(document.body, 'touchmove', function(e) {
+            if (currentSpinner.target) {
+                var diffX = Math.abs(e.touches[0].screenX - currentSpinner.x) / 2;
+                var diffY = Math.abs(e.touches[0].screenY - currentSpinner.y) / 2;
+                spinnerEventMoveStop(diffX, diffY);
+            }
+        });
 
-                if (currentSpinner.target) {
-                    var diffX = Math.abs(e.touches[0].screenX - currentSpinner.x) / 2;
-                    var diffY = Math.abs(e.touches[0].screenY - currentSpinner.y) / 2;
-                    spinnerEventMoveStop(diffX, diffY);
-                }
-            }, false);
+        dom.listen(document.body, 'touchcancel', function() {
+            spinnerEventStop();
+        });
 
-            el.addEventListener('touchcancel', function(e) {
-                e.stopPropagation();
-                spinnerEventStop();
-            }, false);
-
-            el.addEventListener('touchend', function(e) {
-                e.stopPropagation();
-                spinnerEventStop();
-            }, false);
-        }
-
-        if (!window.mkIsMobile || !touchSupported) {
-            el.addEventListener('mousedown', function(e) {
-                e.stopPropagation();
-
-                currentSpinner.x = e.screenX;
-                currentSpinner.y = e.screenY;
-                spinnerEventStart(e.currentTarget);
-            }, false);
-        }
-
-    };
+        dom.listen(document.body, 'touchend', function() {
+            spinnerEventStop();
+        });
+    }
 
     var setSpinner = function(type, el) {
         var container = document.createElement('button');
-        container.className = 'button button_spinner';
+        container.className = 'button button_spinner js-spinner';
         container.textContent = (type === 'plus' ? '+' : '−');
         container.spinnerTarget = el;
-
-        spinnerEvents(container);
 
         dom.insertBefore(el, container);
     };
@@ -160,7 +148,7 @@ part(['events', 'dom'], function(events, dom) {
         setSpinner('minus', el);
         setSpinner('plus', el);
 
-        dom.listen(el, ['keydown'], spinnerKeyboard);
+        dom.listen(el, 'keydown', spinnerKeyboard);
     });
 
 });
