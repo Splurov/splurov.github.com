@@ -1,5 +1,10 @@
-part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
-     function(savedData, types, events, dom, barracks, calculate, common) {
+part([
+    'savedData',
+    'events',
+    'dom',
+    'calculate',
+    'common'
+], function(savedData, events, dom, calculate, common) {
 
     'use strict';
 
@@ -130,16 +135,14 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
     var alreadySavedMessage = common.infoMessage('already-saved', true);
     var savedCalculationAnchor = dom.id('saved-anchor');
 
-    var save = function(customParams) {
-        var params = {
-            'showMessage': true
-        };
-        Object.keys(customParams).forEach(function(key) {
-            params[key] = customParams[key];
-        });
+    var save = function(params) {
+        var showMessage = true;
+        if (params && params.showMessage === false) {
+            showMessage = false;
+        }
         alreadySavedMessage.hide();
 
-        if (params.showMessage) {
+        if (showMessage) {
             events.trigger('goal', {
                 'id': 'SAVE_COMPOSITION'
             }, true);
@@ -153,7 +156,7 @@ part(['savedData', 'types', 'events', 'dom', 'barracks', 'calculate', 'common'],
             while (++sdIndex < sdLength) {
                 var savedJSON = JSON.stringify(sourceData[sdIndex]);
                 if (currentJSON === savedJSON) {
-                    if (params.showMessage) {
+                    if (showMessage) {
                         alreadySavedMessage.show();
                     }
                     return;

@@ -6,16 +6,6 @@ part('common', ['dom'], function(dom) {
 
     'use strict';
 
-    if (!Function.prototype.bind) {
-        Function.prototype.bind = function(context) {
-            var self = this;
-            var args = Array.prototype.slice.call(arguments, 1);
-            return function() {
-                return self.apply(context, args.concat(Array.prototype.slice.call(arguments)));
-            };
-        };
-    }
-
     return {
         'objectCopy': function(obj) {
             var newObj = obj.constructor();
@@ -97,7 +87,7 @@ part('common', ['dom'], function(dom) {
 
             return {
                 'show': function() {
-                    el.style.display = 'inline-block';
+                    el.style.display = '';
                     if (isAutoHide) {
                         timeout = setTimeout(function() {
                             el.style.display = 'none';

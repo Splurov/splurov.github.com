@@ -1,6 +1,7 @@
 .mobile .data {
     -webkit-transform: translateZ(0);
     -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-user-select: none;
 }
     .data th, .data td {
         padding-left: 7px;

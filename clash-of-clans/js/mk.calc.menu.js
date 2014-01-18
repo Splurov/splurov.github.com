@@ -64,8 +64,8 @@ part(['events', 'dom'], function(events, dom){
 
     events.listen('scrollTo', smoothScroll);
 
-    dom.find('.js-anchor').iterate(function(el) {
-        dom.listen(el, ['universalClick'], smoothScroll.bind(null, dom.id(el.getAttribute('data-anchor-target'))));
+    dom.find('.js-anchor').listen(['universalClick'], function(e) {
+        smoothScroll(dom.id(e.currentTarget.getAttribute('data-for')));
     });
 
 });

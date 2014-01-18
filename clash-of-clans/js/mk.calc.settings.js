@@ -68,8 +68,8 @@ part(['events', 'dom'], function(events, dom) {
         });
     };
 
-    dom.find('.js-settings-level').iterate(function(el) {
-        dom.listen(el, ['universalClick'], setLevels.bind(null, parseInt(el.textContent, 10)));
+    dom.find('.js-settings-level').listen(['universalClick'], function(e) {
+        setLevels(parseInt(e.currentTarget.textContent, 10));
     });
 
 });

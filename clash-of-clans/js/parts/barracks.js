@@ -9,7 +9,8 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
 
     var BarracksContainer = function(data) {
         this.data = data;
-        this.barracks = [];
+
+        var barracks = [];
 
         var updateHeader = function(num, level) {
             var header = '';
@@ -55,7 +56,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
                     });
                 });
 
-                this.barracks.push(barrack);
+                barracks.push(barrack);
 
                 var boostedId = data.prefix + '-boosted-' + i;
                 var boostedEl = dom.id(boostedId);
@@ -73,7 +74,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
             }
 
             events.listen('updateFromSaved', function() {
-                this.barracks.forEach(function(el) {
+                barracks.forEach(function(el) {
                     var saved = savedData.current.get(el.getAttribute('id'), el.selectedIndex);
                     el.options[saved].selected = true;
                     updateSavedData(el);
@@ -82,11 +83,11 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
 
                     updateHeader(el.getAttribute('data-num'), el.value);
                 });
-            }.bind(this));
+            });
 
             events.listen('updateSetting', function(params) {
                 var value = params.helper(params.th, data.th);
-                this.barracks.forEach(function(el) {
+                barracks.forEach(function(el) {
                     el.value = value;
                     updateSavedData(el);
 
@@ -94,7 +95,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
 
                     updateHeader(el.getAttribute('data-num'), el.value);
                 });
-            }.bind(this));
+            });
         }
     };
 

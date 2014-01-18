@@ -10,6 +10,41 @@ part([
 
     'use strict';
 
+    var domUpdater = (function() {
+        var real = {};
+        var proposed = [];
+
+        return {
+            'add': function(id, type, content) {
+                proposed.push([id, type, content]);
+            },
+            'commit': function() {
+                while (proposed.length) {
+                    var item = proposed.shift();
+                    var id = item[0];
+                    var type = item[1];
+                    var content = item[3];
+
+                    if (!real[id]) {
+                        real[id] = {
+                            'el': dom.id(id)
+                        };
+                    }
+
+                    if (real[id].type !== type && real[id].content !== content) {
+                        real[id].type = type;
+                        real[id].content = content;
+                        if (type === 'text') {
+                            real[id].el.textContent = content;
+                        } else {
+                            real[id].el.innerHTML = content;
+                        }
+                    }
+                }
+            }
+        };
+    }());
+
     var debounce = function(fn, delay) {
         var timer;
         return function() {
@@ -39,7 +74,6 @@ part([
     };
 
     var populateDistribution = function(result, type) {
-
         var times = [];
         if (result[type].fillSuccess) {
             dom.id(type + '-barracks-exceeded').style.display = 'none';
@@ -116,8 +150,23 @@ part([
         }
     };
 
+    var renderDistribution = debounce(function(result) {
+        ['units', 'dark'].forEach(function(type) {
+            if (result[type]) {
+                populateDistribution(result, type);
 
-    var populateDistributionDebounced = debounce(populateDistribution, 200);
+                var subtractedCostEl = dom.id(type + '-subtracted-cost');
+                if (result[type].subtractedCost === result[type].totalCost) {
+                    subtractedCostEl.textContent = '';
+                } else {
+                    subtractedCostEl.innerHTML = '− ' +
+                                                 common.numberFormat(result[type].totalCost - result[type].subtractedCost) +
+                                                 ' = <span class="result">' +
+                                                 common.numberFormat(result[type].subtractedCost) + '</span>';
+                }
+            }
+        });
+    }, 200);
 
     var darkObjects = dom.find('.js-dark-object');
     var spellsObjects = dom.find('.js-spells-object');
@@ -183,27 +232,7 @@ part([
         });
 
         if (result.params.type === 'all' || result.params.type !== 'spells') {
-            ['units', 'dark'].forEach(function(type) {
-                if (result[type]) {
-                    var fn;
-                    if (result.params.computeAll || !window.mkIsMobile) {
-                        fn = populateDistribution;
-                    } else {
-                        fn = populateDistributionDebounced;
-                    }
-                    fn(result, type);
-
-                    var subtractedCostEl = dom.id(type + '-subtracted-cost');
-                    if (result[type].subtractedCost === result[type].totalCost) {
-                        subtractedCostEl.textContent = '';
-                    } else {
-                        subtractedCostEl.innerHTML = '− ' +
-                                                     common.numberFormat(result[type].totalCost - result[type].subtractedCost) +
-                                                     ' = <span class="result">' +
-                                                     common.numberFormat(result[type].subtractedCost) + '</span>';
-                    }
-                }
-            });
+            renderDistribution(result);
         }
     });
 

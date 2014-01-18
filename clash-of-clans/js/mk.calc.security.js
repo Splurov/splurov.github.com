@@ -12,7 +12,7 @@
         window.top.location.replace(window.self.location.href);
     }
 
-    var host = ['m', 'k', 'l', 'n', '.', 'r', 'u'].join('');
+    var host = ['m', 'k', 'l'].concat(['n', '.', 'r', 'u']).join('');
     if (location.host !== host &&
         location.host.indexOf('192.168.1.') !== 0 &&
         location.host.indexOf('localhost') !== 0) {
