@@ -2,23 +2,25 @@ part(['events', 'dom'], function(events, dom) {
 
     'use strict';
 
-    var spinnerAction = function(targetElement, type) {
-        var current = parseInt(targetElement.value, 10);
+    var elements = [];
+
+    var spinnerAction = function(el, type) {
+        var current = parseInt(el.value, 10);
         if (type === '+') {
             if (isNaN(current)) {
-                targetElement.value = 1;
+                el.value = 1;
             } else {
-                targetElement.value = current + 1;
+                el.value = current + 1;
             }
         } else {
             if (isNaN(current) || current < 2) {
-                targetElement.value = '';
+                el.value = '';
             } else {
-                targetElement.value = current - 1;
+                el.value = current - 1;
             }
         }
         events.trigger('valueChange', {
-            'el': targetElement,
+            'el': el,
             'calculate': true
         });
     };
@@ -32,6 +34,11 @@ part(['events', 'dom'], function(events, dom) {
         'y': 0
     };
 
+    var spinnerEventAction = function() {
+        spinnerAction(elements[parseInt(currentSpinner.target.getAttribute('data-for'), 10)],
+                      currentSpinner.target.textContent);
+    };
+
     var spinnerEventStart = function(target) {
         currentSpinner.target = target;
         currentSpinner.click = true;
@@ -39,7 +46,7 @@ part(['events', 'dom'], function(events, dom) {
             currentSpinner.click = false;
             (function fakeInterval() {
                 currentSpinner.secondTimeout = setTimeout(function() {
-                    spinnerAction(currentSpinner.target.spinnerTarget, currentSpinner.target.textContent);
+                    spinnerEventAction();
                     fakeInterval();
                 }, 100);
             }());
@@ -58,7 +65,7 @@ part(['events', 'dom'], function(events, dom) {
     var spinnerEventStop = function() {
         if (currentSpinner.target) {
             if (currentSpinner.click) {
-                spinnerAction(currentSpinner.target.spinnerTarget, currentSpinner.target.textContent);
+                spinnerEventAction();
             }
             currentSpinner.target = null;
             clearTimeout(currentSpinner.firstTimeout);
@@ -126,29 +133,28 @@ part(['events', 'dom'], function(events, dom) {
     var setSpinner = function(type, el) {
         var container = document.createElement('button');
         container.className = 'button button_spinner js-spinner';
-        container.textContent = (type === 'plus' ? '+' : '−');
-        container.spinnerTarget = el;
+        container.textContent = type;
+        container.setAttribute('data-for', (elements.length - 1).toString());
 
         dom.insertBefore(el, container);
     };
 
-    var spinnerKeyboard = function(e) {
-        var code = e.keyCode || e.which;
-        if (code === 38) {
-            spinnerAction(e.currentTarget, '+');
+    dom.listen(document.body, 'keydown', function(e) {
+        if (e.target.classList.contains('js-number') && !e.metaKey && !e.shiftKey && !e.ctrlKey && !e.altKey &&
+                [38, 40].indexOf(e.keyCode) !== -1) {
+            spinnerAction(e.target, (e.keyCode === 38 ? '+' : '-'));
             e.preventDefault();
-        } else if (code === 40) {
-            spinnerAction(e.currentTarget, '-');
-            e.preventDefault();
+            e.stopPropagation();
         }
-    };
+    });
 
     dom.find('.js-number').iterate(function(el) {
         dom.selectOnFocus(el);
-        setSpinner('minus', el);
-        setSpinner('plus', el);
 
-        dom.listen(el, 'keydown', spinnerKeyboard);
+        elements.push(el);
+
+        setSpinner('−', el);
+        setSpinner('+', el);
     });
 
 });
