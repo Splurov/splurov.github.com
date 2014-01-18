@@ -38,7 +38,7 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
     });
 
     dom.listen(document.body, ['change'], function(e) {
-        if (e.target.getAttribute('data-component') === 'level') {
+        if (e.target.classList.contains('js-comp-level')) {
             updateSavedData(e.target);
             notifyChange(e.target);
 
@@ -54,15 +54,16 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
      */
 
     var valueChangeHandler = function(params) {
-        var component = params.el.getAttribute('data-component');
-        if (['subtract', 'quantity'].indexOf(component) !== -1) {
+        var isQuantity = params.el.classList.contains('js-comp-quantity');
+        var isSubtract = params.el.classList.contains('js-comp-subtract');
+        if (isQuantity || isSubtract) {
             var value = parseInt(params.el.value, 10) || 0;
             if (value < 0) {
                 value = 0;
             }
             params.el.value = value || '';
 
-            if (component === 'quantity') {
+            if (isQuantity) {
                 savedData.current.set(params.el.getAttribute('id'), value);
             }
 

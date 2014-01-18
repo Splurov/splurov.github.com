@@ -40,7 +40,7 @@ part(['events', 'dom'], function(events, dom){
         var step = Math.round(diff / (duration / delay));
 
         (function scrollIteration() {
-            setTimeout(function() {
+            window.requestAnimationFrame(function() {
                 if (toTop) {
                     currentScrollTop -= step;
                     if (currentScrollTop < elScrollTop) {
@@ -58,7 +58,7 @@ part(['events', 'dom'], function(events, dom){
                 if (currentScrollTop !== elScrollTop) {
                     scrollIteration();
                 }
-            }, delay);
+            });
         }());
     };
 

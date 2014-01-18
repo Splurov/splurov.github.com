@@ -47,7 +47,7 @@
 
     <!--[if lte IE 9]>
     <p class="message message_negative">
-        You are using an old version of Internet Explorer which is not supported.<br />
+        You are using an old version of Internet Explorer which is not supported.<br/>
         Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
     </p>
     <![endif]-->
@@ -141,19 +141,19 @@
                     <th>Level</th>
                     <th class="data__quantity-column">
                         Quantity <span class="small tooltip" title="Army Camps Free Capacity" id="units-quantity"></span>
-                        <br/><button class="button button_reset js-reset" data-reset-type="units" data-scope="quantity">Reset</button>
+                        <br/><button class="button button_reset js-reset" data-reset="units" data-scope="quantity">Reset</button>
                     </th>
                     <th><span class="cost cost_elixir">Total</span></th>
                     <th>
                         <span class="tooltip" title="Values from the “Subtract” columns not preserved between browser sessions nor saved in the saved compositions">Subtract</span>
-                        <br/><button class="button button_reset js-reset" data-reset-type="units" data-scope="subtract">Reset</button>
+                        <br/><button class="button button_reset js-reset" data-reset="units" data-scope="subtract">Reset</button>
                     </th>
                     <th class="data__distribution-column">
                         <select id="barracks-levels-1" tabindex="1" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="barracks-boosted-1" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br />
+                            <span class="text-middle">Boosted</span><br/>
                         </label>
                         <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="units-barrack-space-1"></span>
@@ -162,10 +162,10 @@
                     </th>
                     <th class="data__distribution-column">
                         <select id="barracks-levels-2" tabindex="5" class="js-setting">
-                        </select> <span class="text-middle">lvl</span><br />
+                        </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="barracks-boosted-2" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br />
+                            <span class="text-middle">Boosted</span><br/>
                         </label>
                         <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="units-barrack-space-2"></span>
@@ -177,7 +177,7 @@
                         </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="barracks-boosted-3" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br />
+                            <span class="text-middle">Boosted</span><br/>
                         </label>
                         <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="units-barrack-space-3"></span>
@@ -189,7 +189,7 @@
                         </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="barracks-boosted-4" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br />
+                            <span class="text-middle">Boosted</span><br/>
                         </label>
                         <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="units-barrack-space-4"></span>
@@ -209,7 +209,7 @@
                         <label for="army-camps">Army Camps:</label></td>
                     <td class="result">
                         <span id="units-space" class="text-middle"></span><!--
-                        --><select id="army-camps" data-type="all" tabindex="19" class="js-setting">
+                        --><select id="army-camps" tabindex="19" class="js-setting">
                             {{#armyCamps}}
                                 <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
                             {{/armyCamps}}
@@ -240,19 +240,19 @@
                     <th>Level</th>
                     <th class="data__quantity-column">
                         Quantity <span class="small tooltip" title="Army Camps Free Capacity" id="dark-quantity"></span>
-                        <br/><button class="button button_reset js-reset" data-reset-type="dark" data-scope="quantity">Reset</button>
+                        <br/><button class="button button_reset js-reset" data-reset="dark" data-scope="quantity">Reset</button>
                     </th>
                     <th><span class="cost cost_dark-elixir">Total</span></th>
                     <th>
                         <span class="tooltip" title="Values from the “Subtract” columns not preserved between browser sessions nor saved in the saved compositions">Subtract</span>
-                        <br/><button class="button button_reset js-reset" data-reset-type="dark" data-scope="subtract">Reset</button>
+                        <br/><button class="button button_reset js-reset" data-reset="dark" data-scope="subtract">Reset</button>
                     </th>
                     <th class="data__distribution-column">
                         <select id="dark-barracks-levels-1" tabindex="20" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="dark-barracks-boosted-1" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br />
+                            <span class="text-middle">Boosted</span><br/>
                         </label>
                         <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="dark-barrack-space-1"></span>
@@ -264,7 +264,7 @@
                         </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="dark-barracks-boosted-2" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br />
+                            <span class="text-middle">Boosted</span><br/>
                         </label>
                         <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
                             <span id="dark-barrack-space-2"></span>
@@ -301,7 +301,7 @@
                     <th>Level</th>
                     <th class="data__quantity-column">
                         Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id="spells-quantity"></span>
-                        <br/><button class="button button_reset js-reset" data-reset-type="spells" data-scope="quantity">Reset</button>
+                        <br/><button class="button button_reset js-reset" data-reset="spells" data-scope="quantity">Reset</button>
                     </th>
                     <th><span class="cost cost_elixir">Total</span></th>
                     <th>
@@ -309,10 +309,10 @@
                             {{#spellFactory}}
                                 <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
                             {{/spellFactory}}
-                        </select> <span class="text-middle">lvl</span><br />
+                        </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="spell-factory-boosted" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br />
+                            <span class="text-middle">Boosted</span><br/>
                         </label>
                     </th>
                 </tr>
@@ -414,7 +414,7 @@
 
     {{#web_only}}
     <div class="add-to-home-screen">
-        <input type="checkbox" id="add-to-home-screen" class="add-to-home-screen-flag" />
+        <input type="checkbox" id="add-to-home-screen" class="add-to-home-screen-flag"/>
         <label for="add-to-home-screen" class="add-to-home-screen__button js-goal" data-goal="ADD_TO_HOME">
             How to add Clash Calc icon to your Home screen
         </label>
@@ -454,7 +454,7 @@
                 Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
         </p>
         <p>
-            Developed by <a href="/en/">Mikhail Kalashnik</a><br />
+            Developed by <a href="/en/">Mikhail Kalashnik</a><br/>
             &copy; 2013
         </p>
     </div>

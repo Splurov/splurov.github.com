@@ -3,10 +3,10 @@ part(['events', 'dom'], function(events, dom) {
     'use strict';
 
     var resetColumn = function(e) {
-        var resetType = e.currentTarget.getAttribute('data-reset-type');
+        var resetType = e.currentTarget.getAttribute('data-reset');
         var scope = e.currentTarget.getAttribute('data-scope');
 
-        dom.find('input[data-component="' + scope + '"][data-type="' + resetType + '"]').iterate(function(el) {
+        dom.find('input.js-comp-' + scope + '[data-type="' + resetType + '"]').iterate(function(el) {
             el.value = '';
             events.trigger('valueChange', {
                 'el': el,

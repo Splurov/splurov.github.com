@@ -6,7 +6,7 @@
             </span>
         </td>
         <td class="small">
-            <select id="{{levelId}}" tabindex="{{tabIndexLevel}}" class="js-setting" data-component="level" data-type="{{objectType}}">
+            <select id="{{levelId}}" tabindex="{{tabIndexLevel}}" class="js-setting js-comp-level" data-type="{{objectType}}">
                 {{#levelContent}}
                     <option{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
                 {{/levelContent}}
@@ -16,13 +16,10 @@
             <input type="text"
                    pattern="[0-9]*"
                    data-type="{{objectType}}"
-                   min="0"
-                   max="999"
-                   class="js-number text-middle"
+                   class="js-number text-middle js-comp-quantity"
                    id="{{id}}"
                    size="3"
-                   tabindex="{{tabIndexValue}}"
-                   data-component="quantity"/>
+                   tabindex="{{tabIndexValue}}"/>
         </td>
         <td id="{{summaryId}}" class="number small">
         </td>
@@ -31,13 +28,10 @@
                 <input type="text"
                        pattern="[0-9]*"
                        data-type="{{objectType}}"
-                       min="0"
-                       max="999"
-                       class="js-number text-middle"
+                       class="js-number text-middle js-comp-subtract"
                        id="{{subtractId}}"
                        size="3"
-                       tabindex="{{tabIndexSubtract}}"
-                       data-component="subtract"/>
+                       tabindex="{{tabIndexSubtract}}"/>
             </td>
         {{/subtractId}}
         {{#barracksTimes}}
