@@ -64,12 +64,12 @@ part('navigation', ['events', 'dom'], function(events, dom){
         }());
     };
 
-    events.watch('scrollTo', smoothScroll);
-
     dom.find('.js-anchor').listen('universalClick', function(e) {
         smoothScroll(dom.id(e.currentTarget.getAttribute('data-for')));
     });
 
-    return smoothScroll;
+    return {
+        'scrollTo': smoothScroll
+    };
 
 });

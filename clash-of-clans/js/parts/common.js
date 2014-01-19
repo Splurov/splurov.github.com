@@ -69,33 +69,6 @@ part('common', ['dom'], function(dom) {
             this.getAll = function() {
                 return this.data;
             };
-        },
-
-        'infoMessage': function(id, isAutoHide) {
-            var el;
-            var hide;
-            var timeout;
-
-            el = dom.id(id);
-
-            hide = function() {
-                clearTimeout(timeout);
-                el.style.display = 'none';
-            };
-
-            dom.listen(el, 'universalClick', hide);
-
-            return {
-                'show': function() {
-                    el.style.display = '';
-                    if (isAutoHide) {
-                        timeout = setTimeout(function() {
-                            el.style.display = 'none';
-                        }, 2000);
-                    }
-                },
-                'hide': hide
-            };
         }
     };
 

@@ -1,4 +1,4 @@
-part([
+part('favorites', [
     'savedData',
     'events',
     'dom',
@@ -32,7 +32,7 @@ part([
         });
 
         events.trigger('loaded');
-        events.trigger('scrollTo', barracksAnchor);
+        navigation.scrollTo(barracksAnchor);
     };
 
     var deleteHandler = function(e) {
@@ -148,7 +148,7 @@ part([
 
     var addedAnimation = function(index) {
         var composition = content.querySelector('.js-saved-item[data-num="' + index + '"]');
-        navigation(composition, function() {
+        navigation.scrollTo(composition, function() {
             dom.listen(composition, 'animationend', function() {
                 composition.classList.remove('saved-list__item_added');
             });
@@ -156,12 +156,8 @@ part([
         });
     };
 
-    var save = function(isFully) {
-        if (isFully) {
-            events.trigger('goal', {
-                'id': 'SAVE_COMPOSITION'
-            }, true);
-        }
+    var save = function() {
+        var output = {};
 
         var sourceData = savedData.storage.load(true);
         if (sourceData[0]) {
@@ -170,11 +166,10 @@ part([
             var sdLength = sourceData.length;
             while (++sdIndex < sdLength) {
                 var savedJSON = JSON.stringify(sourceData[sdIndex]);
-                if (currentJSON === savedJSON) {
-                    if (isFully) {
-                        addedAnimation(sdIndex);
-                    }
-                    return;
+                if (ceurrentJSON === savedJSON) {
+                    output.exists = true;
+                    output.index = sdIndex;
+                    return output;
                 }
             }
 
@@ -188,18 +183,24 @@ part([
             dom.find('.js-saved-delete', tempDiv.firstChild).listen('universalClick', deleteHandler);
             content.appendChild(tempDiv.firstChild);
 
-            if (isFully) {
-                addedAnimation(index);
-            }
+            output.added = true;
+            output.index = index;
         }
+
+        return output;
     };
 
-    events.watch('saveTransparently', function() {
-        save(false);
-    });
-
     dom.find('.js-save-composition').listen('universalClick', function() {
-        save(true);
+        var result = save(true);
+        if (result.added) {
+            events.trigger('goal', {
+                'id': 'SAVE_COMPOSITION'
+            }, true);
+        }
+
+        if (result.index) {
+            addedAnimation(result.index);
+        }
     });
 
     content.innerHTML = savedData.all.map(savedListCreateItem).join('');
@@ -213,5 +214,12 @@ part([
             'count': 'sc' + (savedCount ? savedCount - 1 : 0)
         }
     }, true);
+
+    return {
+        'add': function() {
+            var result = save();
+            return result.added || results.exists;
+        }
+    };
 
 });

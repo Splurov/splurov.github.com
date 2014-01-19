@@ -1,5 +1,11 @@
-part(['savedData', 'events', 'dom', 'common', 'converter'],
-     function(savedData, events, dom, common, converter) {
+part([
+    'savedData',
+    'events',
+    'dom',
+    'common',
+    'converter',
+    'favorites'
+], function(savedData, events, dom, common, converter, favorites) {
 
     'use strict';
 
@@ -43,15 +49,22 @@ part(['savedData', 'events', 'dom', 'common', 'converter'],
 
             urlData = savedData.dataArrayToObject(urlData);
 
-            events.trigger('saveTransparently', null, true);
             savedData.current = new common.Dict(urlData);
+            savedData.save();
 
-            var viewSharedMessage = common.infoMessage('view-shared');
-            viewSharedMessage.show();
+            var isAdded = favorites.add();
 
-            events.watch('loaded', function() {
-                viewSharedMessage.hide();
-            });
+            if (isAdded) {
+                var viewSharedMessage = dom.id('view-shared');
+                var viewSharedMessageHide = function() {
+                    viewSharedMessage.style.display = 'none';
+                };
+                dom.listen(viewSharedMessage, 'universalClick', viewSharedMessageHide);
+                viewSharedMessage.style.display = '';
+                events.watch('loaded', function() {
+                    viewSharedMessageHide();
+                });
+            }
         }
     }
 
