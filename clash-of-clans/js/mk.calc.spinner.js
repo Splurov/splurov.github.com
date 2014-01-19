@@ -144,7 +144,6 @@ part(['events', 'dom'], function(events, dom) {
                 [38, 40].indexOf(e.keyCode) !== -1) {
             spinnerAction(e.target, (e.keyCode === 38 ? '+' : '-'));
             e.preventDefault();
-            e.stopPropagation();
         }
     });
 

@@ -26,14 +26,13 @@
         opacity: 1;
     }
     .saved-list__item_added {
-        animation-delay: 300ms;
         animation-name: blink;
-        animation-duration: 1700ms;
+        animation-duration: 2s;
     }
     .saved-list__item_deleted {
         opacity: 0;
 
-        transition: opacity 500ms;
+        transition: opacity 750ms;
     }
     .saved-list__item-cost {
         font-weight: bold;

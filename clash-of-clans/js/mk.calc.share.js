@@ -115,7 +115,6 @@ part(['savedData', 'events', 'dom', 'common', 'converter'],
     };
 
     var makeShareText = function(result) {
-        var data = savedData.current.getAll();
         var output = [];
         var prices = [];
 
@@ -127,7 +126,7 @@ part(['savedData', 'events', 'dom', 'common', 'converter'],
                             common.convertToTitle(objectResult.name) +
                             superscriptNumbers[objectResult.level] +
                             ' ×' +
-                            objectResult.summaryCost
+                            objectResult.quantity
                         );
                     }
                 });

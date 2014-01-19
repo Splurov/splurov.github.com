@@ -2,9 +2,9 @@ part(['events', 'dom'], function(events, dom) {
 
     'use strict';
 
-    dom.registerUniversalClickAndMiddleClickHandler('js-goal', function(e) {
+    dom.find('.js-goal').listen('universalClick', function(e) {
         events.trigger('goal', {
-            'id': e.target.getAttribute('data-goal')
+            'id': e.currentTarget.getAttribute('data-goal')
         }, true);
     });
 

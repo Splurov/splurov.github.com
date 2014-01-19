@@ -1,7 +1,7 @@
 .mobile .data {
     -webkit-user-select: none;
 }
-    .data tr {
+    .mobile .data tr {
         -webkit-transform: translateZ(0);
         -webkit-font-smoothing: subpixel-antialiased;
     }
@@ -34,9 +34,12 @@
             padding-left: 0;
         }
 
-    /*.data td */.data__distribution-column {
+    .data__distribution-column {
         min-width: 65px;
     }
-    /*.data td */.data__quantity-column {
+    .data__quantity-column {
         min-width: 115px;
+    }
+    .data__total_column {
+        min-width: 65px;
     }

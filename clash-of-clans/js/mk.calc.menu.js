@@ -1,4 +1,4 @@
-part(['events', 'dom'], function(events, dom){
+part('navigation', ['events', 'dom'], function(events, dom){
 
     'use strict';
 
@@ -28,7 +28,7 @@ part(['events', 'dom'], function(events, dom){
         });
     }
 
-    var smoothScroll = function(el) {
+    var smoothScroll = function(el, callback) {
         var currentScrollTop = window.pageYOffset;
         var elScrollTop = getTopPosition(el) - globalScrollOffset;
 
@@ -40,7 +40,7 @@ part(['events', 'dom'], function(events, dom){
         var step = Math.round(diff / (duration / delay));
 
         (function scrollIteration() {
-            window.requestAnimationFrame(function() {
+            window.setTimeout(function() {
                 if (toTop) {
                     currentScrollTop -= step;
                     if (currentScrollTop < elScrollTop) {
@@ -57,15 +57,19 @@ part(['events', 'dom'], function(events, dom){
 
                 if (currentScrollTop !== elScrollTop) {
                     scrollIteration();
+                } else if (callback) {
+                    callback();
                 }
-            });
+            }, delay);
         }());
     };
 
     events.watch('scrollTo', smoothScroll);
 
-    dom.registerUniversalClickHandler('js-anchor', function(e) {
-        smoothScroll(dom.id(e.target.getAttribute('data-for')));
+    dom.find('.js-anchor').listen('universalClick', function(e) {
+        smoothScroll(dom.id(e.currentTarget.getAttribute('data-for')));
     });
+
+    return smoothScroll;
 
 });

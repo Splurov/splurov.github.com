@@ -23,9 +23,7 @@ part(['events', 'dom'], function(events, dom) {
         localStorage.setItem('settingsMode', (toggleModeEl.checked ? 'on' : 'off'));
     };
 
-    dom.listen(toggleModeEl, 'change', function(e) {
-        e.stopPropagation();
-
+    dom.listen(toggleModeEl, 'change', function() {
         toggleSettings();
         events.trigger('goal', {'id': 'SETTINGS_SWITCH'}, true);
     });
@@ -69,8 +67,8 @@ part(['events', 'dom'], function(events, dom) {
         });
     };
 
-    dom.registerUniversalClickHandler('js-settings-level', function(e) {
-        setLevels(parseInt(e.target.textContent, 10));
+    dom.find('.js-settings-level').listen('universalClick', function(e) {
+        setLevels(parseInt(e.currentTarget.textContent, 10));
     });
 
 });

@@ -3,15 +3,65 @@ part([
     'events',
     'dom',
     'calculate',
-    'common'
-], function(savedData, events, dom, calculate, common) {
+    'common',
+    'navigation'
+], function(savedData, events, dom, calculate, common, navigation) {
 
     'use strict';
 
     var tempDiv = document.createElement('div');
 
+    var barracksAnchor = dom.id('barracks-anchor');
+
     var content = dom.id('saved-list-content');
     var template = new Hogan.Template(/* build:hogan:mustache/saved_list_item.mustache */);
+
+    var loadHandler = function(e) {
+        events.trigger('goal', {
+            'id': 'LOAD_SAVED'
+        }, true);
+
+        var dataToLoad = common.objectCopy(
+            savedData.all[e.currentTarget.getAttribute('data-num')].getAll()
+        );
+        savedData.current = new common.Dict(dataToLoad);
+
+        events.trigger('updateFromSaved');
+        events.trigger('calculate', {
+            'type': 'all'
+        });
+
+        events.trigger('loaded');
+        events.trigger('scrollTo', barracksAnchor);
+    };
+
+    var deleteHandler = function(e) {
+        events.trigger('goal', {
+            'id': 'DELETE_SAVED'
+        }, true);
+
+        var index = e.currentTarget.getAttribute('data-num');
+
+        var el = content.querySelector('.js-saved-item[data-num="' + index + '"]');
+        dom.listen(el, 'transitionend', function() {
+            el.parentNode.removeChild(el);
+
+            dom.find('.js-saved-item', content).iterate(function(item) {
+                var oldIndex = parseInt(item.getAttribute('data-num'), 10);
+                if (oldIndex > index) {
+                    var newIndex = (oldIndex - 1).toString();
+                    item.setAttribute('data-num', newIndex);
+                    dom.find('[data-num]', item).iterate(function(sub) {
+                        sub.setAttribute('data-num', newIndex);
+                    });
+                }
+            });
+        });
+        el.classList.add('saved-list__item_deleted');
+
+        savedData.all.splice(index, 1);
+        savedData.save();
+    };
 
     var savedListCreateItem = function(data, index) {
         if (index === 0) {
@@ -96,61 +146,14 @@ part([
         return template.render(templateVars);
     };
 
-    var barracksAnchor = dom.id('barracks-anchor');
-    dom.registerUniversalClickHandler('js-saved-load', function(e) {
-        events.trigger('goal', {
-            'id': 'LOAD_SAVED'
-        }, true);
-
-        var dataToLoad = common.objectCopy(
-            savedData.all[e.target.getAttribute('data-num')].getAll()
-        );
-        savedData.current = new common.Dict(dataToLoad);
-
-        events.trigger('updateFromSaved');
-        events.trigger('calculate', {
-            'type': 'all'
-        });
-
-        events.trigger('loaded');
-        events.trigger('scrollTo', barracksAnchor);
-    });
-
-    dom.registerUniversalClickHandler('js-saved-delete', function(e) {
-        events.trigger('goal', {
-            'id': 'DELETE_SAVED'
-        }, true);
-
-        var index = e.target.getAttribute('data-num');
-
-        var el = content.querySelector('.js-saved-item[data-num="' + index + '"]');
-        el.classList.add('saved-list__item_deleted');
-        setTimeout(function() {
-            el.parentNode.removeChild(el);
-
-            dom.find('.js-saved-item', content).iterate(function(item) {
-                var oldIndex = parseInt(item.getAttribute('data-num'), 10);
-                if (oldIndex > index) {
-                    var newIndex = (oldIndex - 1).toString();
-                    item.setAttribute('data-num', newIndex);
-                    dom.find('[data-num]', item).iterate(function(sub) {
-                        sub.setAttribute('data-num', newIndex);
-                    });
-                }
-            });
-        }, 500);
-
-        savedData.all.splice(index, 1);
-        savedData.save();
-    });
-
     var addedAnimation = function(index) {
         var composition = content.querySelector('.js-saved-item[data-num="' + index + '"]');
-        composition.classList.add('saved-list__item_added');
-        setTimeout(function() {
-            composition.classList.remove('saved-list__item_added');
-        }, 2000);
-        events.trigger('scrollTo', composition);
+        navigation(composition, function() {
+            dom.listen(composition, 'animationend', function() {
+                composition.classList.remove('saved-list__item_added');
+            });
+            composition.classList.add('saved-list__item_added');
+        });
     };
 
     var save = function(isFully) {
@@ -181,7 +184,10 @@ part([
             savedData.save();
 
             tempDiv.innerHTML = savedListCreateItem(data, index);
+            dom.find('.js-saved-load', tempDiv.firstChild).listen('universalClick', loadHandler);
+            dom.find('.js-saved-delete', tempDiv.firstChild).listen('universalClick', deleteHandler);
             content.appendChild(tempDiv.firstChild);
+
             if (isFully) {
                 addedAnimation(index);
             }
@@ -192,11 +198,13 @@ part([
         save(false);
     });
 
-    dom.registerUniversalClickHandler('js-save-composition', function() {
+    dom.find('.js-save-composition').listen('universalClick', function() {
         save(true);
     });
 
     content.innerHTML = savedData.all.map(savedListCreateItem).join('');
+    dom.find('.js-saved-load', content).listen('universalClick', loadHandler);
+    dom.find('.js-saved-delete', content).listen('universalClick', deleteHandler);
 
     var savedCount = savedData.all.length;
     events.trigger('goal', {

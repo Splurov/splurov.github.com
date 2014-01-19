@@ -143,7 +143,9 @@
                         Quantity <span class="small tooltip" title="Army Camps Free Capacity" id="units-quantity"></span>
                         <br/><button class="button button_reset js-reset" data-reset="units" data-scope="quantity">Reset</button>
                     </th>
-                    <th><span class="cost cost_elixir">Total</span></th>
+                    <th class="data__total_column">
+                        <span class="cost cost_elixir">Total</span>
+                    </th>
                     <th>
                         <span class="tooltip" title="Values from the “Subtract” columns not preserved between browser sessions nor saved in the saved compositions">Subtract</span>
                         <br/><button class="button button_reset js-reset" data-reset="units" data-scope="subtract">Reset</button>
@@ -242,7 +244,9 @@
                         Quantity <span class="small tooltip" title="Army Camps Free Capacity" id="dark-quantity"></span>
                         <br/><button class="button button_reset js-reset" data-reset="dark" data-scope="quantity">Reset</button>
                     </th>
-                    <th><span class="cost cost_dark-elixir">Total</span></th>
+                    <th class="data__total_column">
+                        <span class="cost cost_dark-elixir">Total</span>
+                    </th>
                     <th>
                         <span class="tooltip" title="Values from the “Subtract” columns not preserved between browser sessions nor saved in the saved compositions">Subtract</span>
                         <br/><button class="button button_reset js-reset" data-reset="dark" data-scope="subtract">Reset</button>
@@ -303,7 +307,9 @@
                         Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id="spells-quantity"></span>
                         <br/><button class="button button_reset js-reset" data-reset="spells" data-scope="quantity">Reset</button>
                     </th>
-                    <th><span class="cost cost_elixir">Total</span></th>
+                    <th class="data__total_column">
+                        <span class="cost cost_elixir">Total</span>
+                    </th>
                     <th>
                         <select id="spell-factory-level" tabindex="35" class="js-setting">
                             {{#spellFactory}}
