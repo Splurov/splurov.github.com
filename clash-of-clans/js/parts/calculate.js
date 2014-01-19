@@ -260,8 +260,6 @@ part('calculate', [
             totalSpace += (value[2] * quantity);
             if (type === 'spells') {
                 totalTime += (value[0] * quantity);
-
-                objectResult.quantity = quantity;
             } else {
                 var subtractQuantity = 0;
                 if (params.current) {
@@ -274,26 +272,26 @@ part('calculate', [
                     }, true);
                 }
 
-                var totalQuantity = quantity - subtractQuantity;
-                if (totalQuantity < 0) {
-                    totalQuantity = 0;
+                quantity -= subtractQuantity;
+                if (quantity < 0) {
+                    quantity = 0;
                 }
-                if (totalQuantity > 0) {
+                if (quantity > 0) {
                     distribution.push([
                         tsIndex,
-                        quantity - subtractQuantity,
+                        quantity,
                         value[3], // level
                         value[0], // time
                         value[2] // space
                     ]);
                     maxUnitTime = Math.max(maxUnitTime, value[0]);
-                    totalTime += (value[0] * totalQuantity);
+                    totalTime += (value[0] * quantity);
                 }
 
-                subtractedCost += (costPerItem * totalQuantity);
+                subtractedCost += (costPerItem * quantity);
 
-                objectResult.quantity = totalQuantity;
             }
+            objectResult.quantity = quantity;
 
             typeResult.objects.push(objectResult);
         }
@@ -360,21 +358,19 @@ part('calculate', [
 
         result.armyCampsSpace = params.savedData.get('armyCamps');
 
-        result.units = calculateItems('units', {
-            'capLevel': barracksInfo.units.data.maxLevel,
-            'savedData': params.savedData,
-            'current': params.current
-        });
+        ['units', 'dark', 'spells'].forEach(function(type) {
+            var capLevel;
+            if (type === 'spells') {
+                capLevel = spellFactory.max;
+            } else {
+                capLevel = barracksInfo[type].data.maxLevel;
+            }
 
-        result.dark = calculateItems('dark', {
-            'capLevel': barracksInfo.dark.data.maxLevel,
-            'savedData': params.savedData,
-            'current': params.current
-        });
-
-        result.spells = calculateItems('spells', {
-            'capLevel': spellFactory.max,
-            'savedData': params.savedData
+            result[type] = calculateItems(type, {
+                'savedData': params.savedData,
+                'current': params.current,
+                'capLevel': capLevel
+            });
         });
 
         return result;
