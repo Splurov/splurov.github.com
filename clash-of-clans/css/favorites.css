@@ -1,0 +1,68 @@
+@keyframes blink {
+    0% {
+        background: #fff;
+    }
+    45% {
+        background: #ffd;
+    }
+    100% {
+        background: #fff;
+    }
+}
+
+.favorite {
+    font-size: 15px;
+    display: inline-block;
+    margin: 0 13px 13px 0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 6px 7px 10px;
+    vertical-align: top;
+    color: #222;
+    line-height: 1.35;
+    opacity: 1;
+}
+    .favorite_added {
+        animation-name: blink;
+        animation-duration: 2s;
+    }
+    .favorite_deleted {
+        opacity: 0;
+        transition: opacity 750ms;
+    }
+
+    .favorite__capacity {
+        font-size: 13px;
+        color: #999;
+        font-weight: bold;
+        margin-bottom: 2px;
+    }
+
+    .favorite__objects {
+    }
+        .favorite__objects td {
+            padding-right: 10px;
+        }
+
+    .favorite__time {
+        margin-top: 2px;
+        font-weight: bold;
+        color: #444;
+        font-size: 13px;
+    }
+
+    .favorite__cost {
+        font-weight: bold;
+        margin-top: 2px;
+        margin-bottom: 10px;
+        color: #777;
+        font-size: 13px;
+    }
+        .favorite__cost > span {
+            display: inline-block;
+            line-height: 16px;
+        }
+
+    .favorite__actions {
+        margin-top: 10px;
+    }

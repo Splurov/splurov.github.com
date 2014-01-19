@@ -13,8 +13,8 @@ part('favorites', [
 
     var barracksAnchor = dom.id('barracks-anchor');
 
-    var content = dom.id('saved-list-content');
-    var template = new Hogan.Template(/* build:hogan:mustache/saved_list_item.mustache */);
+    var content = dom.id('favorites');
+    var template = new Hogan.Template(/* build:hogan:mustache/favorites.mustache */);
 
     var loadHandler = function(e) {
         events.trigger('goal', {
@@ -42,11 +42,11 @@ part('favorites', [
 
         var index = e.currentTarget.getAttribute('data-num');
 
-        var el = content.querySelector('.js-saved-item[data-num="' + index + '"]');
+        var el = content.querySelector('.js-favorite[data-num="' + index + '"]');
         dom.listen(el, 'transitionend', function() {
             el.parentNode.removeChild(el);
 
-            dom.find('.js-saved-item', content).iterate(function(item) {
+            dom.find('.js-favorite', content).iterate(function(item) {
                 var oldIndex = parseInt(item.getAttribute('data-num'), 10);
                 if (oldIndex > index) {
                     var newIndex = (oldIndex - 1).toString();
@@ -57,7 +57,7 @@ part('favorites', [
                 }
             });
         });
-        el.classList.add('saved-list__item_deleted');
+        el.classList.add('favorite_deleted');
 
         savedData.all.splice(index, 1);
         savedData.save();
@@ -70,7 +70,8 @@ part('favorites', [
         var templateVars = {
             'index': index,
             'tabIndexLoad': index + 3000 + 1,
-            'tabIndexDelete': index + 3000 + 2
+            'tabIndexDelete': index + 3000 + 2,
+            'types': []
         };
 
         var result = calculate({
@@ -79,20 +80,42 @@ part('favorites', [
             'savedData': data
         });
 
-        ['units', 'dark'].forEach(function(type) {
-            if (result[type]) {
-                var items = [];
-                result[type].objects.forEach(function(objectResult) {
-                    if (objectResult.quantity > 0) {
-                        items.push({
-                            'name': common.convertToTitle(objectResult.name),
-                            'quantity': objectResult.quantity,
-                            'minBarrackLevel': objectResult.minBarrackLevel
-                        });
-                    }
-                });
+        var modifiers = {
+            'units': 'elixir',
+            'dark': 'dark-elixir',
+            'spells': 'elixir'
+        };
 
-                if (items.length) {
+        ['units', 'dark', 'spells'].forEach(function(type) {
+            var items = [];
+
+            if (type !== 'spells') {
+                result[type].objects.sort(function(a, b) {
+                    return a.minBarrackLevel > b.minBarrackLevel;
+                });
+            }
+
+            result[type].objects.forEach(function(objectResult) {
+                if (objectResult.quantity > 0) {
+                    items.push({
+                        'name': common.convertToTitle(objectResult.name),
+                        'quantity': objectResult.quantity
+                    });
+                }
+            });
+
+            if (items.length) {
+                var data = {
+                    'items': items,
+                    'cost': common.numberFormat(result[type].totalCost),
+                    'costModifier': modifiers[type]
+                };
+
+                if (type === 'spells') {
+                    data.totalCapacity = result[type].totalSpace;
+                    data.maximumCapacity = result[type].levelValue;
+                    data.time = common.getFormattedTime(result[type].totalTime, true);
+                } else {
                     var productionTime;
                     if (result[type].fillSuccess) {
                         productionTime = Math.max.apply(null, result[type].barracksQueue.map(function(barrack) {
@@ -100,59 +123,30 @@ part('favorites', [
                         }));
                         productionTime = common.getFormattedTime(productionTime);
                     }
-
-                    templateVars[type] = {
-                        'items': items.sort(function(a, b) {
-                            return a.minBarrackLevel > b.minBarrackLevel;
-                        }),
-                        'cost': common.numberFormat(result[type].totalCost),
-                        'time': productionTime
-                    };
+                    data.time = productionTime;
                 }
+
+                templateVars.types.push(data);
             }
 
-            var togetherSpace = result.units.totalSpace + result.dark.totalSpace;
-            if (togetherSpace > 0) {
-                templateVars.hasCapacity = {
-                    'totalCapacity': togetherSpace,
-                    'armyCamps': result.armyCampsSpace
-                };
-            }
         });
 
-        if (result.spells) {
-            var spells = [];
-
-            result.spells.objects.forEach(function(objectResult) {
-                if (objectResult.quantity > 0) {
-                    spells.push({
-                        'name': common.convertToTitle(objectResult.name),
-                        'quantity': objectResult.quantity
-                    });
-                }
-            });
-
-            if (spells.length) {
-                templateVars.hasSpells = {
-                    'spells': spells,
-                    'spellsCost': common.numberFormat(result.spells.totalCost),
-                    'spellsCapacity': result.spells.totalSpace,
-                    'spellsFactoryLevel': result.spells.levelValue,
-                    'spellsTime': common.getFormattedTime(result.spells.totalTime, true)
-                };
-            }
+        var togetherSpace = result.units.totalSpace + result.dark.totalSpace;
+        if (togetherSpace > 0) {
+            templateVars.types[0].totalCapacity = togetherSpace;
+            templateVars.types[0].maximumCapacity = result.armyCampsSpace;
         }
 
         return template.render(templateVars);
     };
 
     var addedAnimation = function(index) {
-        var composition = content.querySelector('.js-saved-item[data-num="' + index + '"]');
+        var composition = content.querySelector('.js-favorite[data-num="' + index + '"]');
         navigation.scrollTo(composition, function() {
             dom.listen(composition, 'animationend', function() {
-                composition.classList.remove('saved-list__item_added');
+                composition.classList.remove('favorite_added');
             });
-            composition.classList.add('saved-list__item_added');
+            composition.classList.add('favorite_added');
         });
     };
 
@@ -179,8 +173,8 @@ part('favorites', [
             savedData.save();
 
             tempDiv.innerHTML = savedListCreateItem(data, index);
-            dom.find('.js-saved-load', tempDiv.firstChild).listen('universalClick', loadHandler);
-            dom.find('.js-saved-delete', tempDiv.firstChild).listen('universalClick', deleteHandler);
+            dom.find('.js-favorite-load', tempDiv.firstChild).listen('universalClick', loadHandler);
+            dom.find('.js-favorite-delete', tempDiv.firstChild).listen('universalClick', deleteHandler);
             content.appendChild(tempDiv.firstChild);
 
             output.added = true;
@@ -204,8 +198,8 @@ part('favorites', [
     });
 
     content.innerHTML = savedData.all.map(savedListCreateItem).join('');
-    dom.find('.js-saved-load', content).listen('universalClick', loadHandler);
-    dom.find('.js-saved-delete', content).listen('universalClick', deleteHandler);
+    dom.find('.js-favorite-load', content).listen('universalClick', loadHandler);
+    dom.find('.js-favorite-delete', content).listen('universalClick', deleteHandler);
 
     var savedCount = savedData.all.length;
     events.trigger('goal', {

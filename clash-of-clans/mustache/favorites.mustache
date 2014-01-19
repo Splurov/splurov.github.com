@@ -1,0 +1,34 @@
+<div class="favorite js-favorite" data-num="{{index}}">
+    {{#types}}
+        {{#totalCapacity}}
+            <div class="favorite__capacity">
+                {{totalCapacity}} / {{maximumCapacity}}
+            </div>
+        {{/totalCapacity}}
+
+        <table class="favorite__objects">
+            {{#items}}
+                <tr>
+                    <td class="number">×{{quantity}}</td>
+                    <td>{{name}}</td>
+                </tr>
+            {{/items}}
+        </table>
+        <div class="favorite__time">{{time}}</div>
+        <div class="favorite__cost">
+            <span class="cost cost_{{costModifier}}">{{cost}}</span>
+        </div>
+    {{/types}}
+
+    <div class="favorite__actions">
+        <button class="button js-favorite-load"
+                data-num="{{index}}"
+                tabindex="{{tabIndexLoad}}"
+                title="Current composition will be lost">
+            Load
+        </button>
+        <button class="button button_after js-favorite-delete" data-num="{{index}}" tabindex="{{tabIndexDelete}}">
+            Delete
+        </button>
+    </div>
+</div>
