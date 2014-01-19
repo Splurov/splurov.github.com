@@ -38,8 +38,8 @@ part([
 
                 for (var unitIndex in barrack.units) {
                     if (barrack.units[unitIndex] > 0) {
-                        dom.updater.defer('quantity-' + distributionResult.typesSortedLevel[unitIndex][5] + '-' + barrack.num,
-                                       'text', '×' + barrack.units[unitIndex]);
+                        dom.updater.defer('quantity-' + distributionResult.typesSortedLevel[unitIndex][5] + '-' +
+                                          barrack.num, 'text', '×' + barrack.units[unitIndex]);
                     }
                 }
 
@@ -88,7 +88,7 @@ part([
                     if (firstIteration) {
                         space += distributionResult.totalSpace - sumSpace;
                         dom.updater.defer(barrackSpaceId, 'html',
-                                       '<span class="limit-exceeded result">' + space + '</span> / ');
+                                          '<span class="limit-exceeded result">' + space + '</span> / ');
 
                         firstIteration = false;
                     } else {
@@ -119,8 +119,9 @@ part([
                 var spellsTimeId = 'spells-time';
                 if (localStorage.getItem('spell-factory-boosted') === 'yes') {
                     dom.updater.defer(spellsTimeId, 'html',
-                                   '<span class="boosted">' +
-                                   common.getFormattedTime(Math.floor(result.spells.totalTime / 4), true) + '</span>');
+                                      '<span class="boosted">' +
+                                      common.getFormattedTime(Math.floor(result.spells.totalTime / 4), true) +
+                                      '</span>');
                 } else {
                     dom.updater.defer(spellsTimeId, 'text', common.getFormattedTime(result.spells.totalTime, true));
                 }
@@ -138,7 +139,7 @@ part([
 
             result[type].objects.forEach(function(objectResult) {
                 dom.updater.defer(objectResult.name + '-summary', 'text',
-                               objectResult.summaryCost ? common.numberFormat(objectResult.summaryCost) : '');
+                                  objectResult.summaryCost ? common.numberFormat(objectResult.summaryCost) : '');
 
                 if (type !== 'spells') {
                     var mcIndex = 0; // mc - max count
@@ -161,9 +162,9 @@ part([
                     dom.updater.defer(subtractedCostId, 'text', '');
                 } else {
                     dom.updater.defer(subtractedCostId, 'html',
-                                   '− ' + common.numberFormat(result[type].totalCost - result[type].subtractedCost) +
-                                   ' = <span class="result">' + common.numberFormat(result[type].subtractedCost) +
-                                   '</span>');
+                                      '− ' + common.numberFormat(result[type].totalCost - result[type].subtractedCost) +
+                                      ' = <span class="result">' + common.numberFormat(result[type].subtractedCost) +
+                                      '</span>');
                 }
             });
         }

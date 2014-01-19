@@ -10,13 +10,13 @@ part(['events', 'dom'], function(events, dom) {
             if (isNaN(current)) {
                 el.value = 1;
             } else {
-                el.value = current + 1;
+                el.value = ++current;
             }
         } else {
-            if (isNaN(current) || current < 2) {
+            if (isNaN(current) || current <= 1) {
                 el.value = '';
             } else {
-                el.value = current - 1;
+                el.value = --current;
             }
         }
         events.trigger('valueChange', {
@@ -130,6 +130,14 @@ part(['events', 'dom'], function(events, dom) {
         });
     }
 
+    dom.listen(document.body, 'keydown', function(e) {
+        if (e.target.classList.contains('js-number') && !e.metaKey && !e.shiftKey && !e.ctrlKey && !e.altKey &&
+                [38, 40].indexOf(e.keyCode) !== -1) {
+            spinnerAction(e.target, (e.keyCode === 38 ? '+' : '-'));
+            e.preventDefault();
+        }
+    });
+
     var setSpinner = function(type, el) {
         var container = document.createElement('button');
         container.className = 'button button_spinner js-spinner';
@@ -138,14 +146,6 @@ part(['events', 'dom'], function(events, dom) {
 
         dom.insertBefore(el, container);
     };
-
-    dom.listen(document.body, 'keydown', function(e) {
-        if (e.target.classList.contains('js-number') && !e.metaKey && !e.shiftKey && !e.ctrlKey && !e.altKey &&
-                [38, 40].indexOf(e.keyCode) !== -1) {
-            spinnerAction(e.target, (e.keyCode === 38 ? '+' : '-'));
-            e.preventDefault();
-        }
-    });
 
     dom.find('.js-number').iterate(function(el) {
         dom.selectOnFocus(el);

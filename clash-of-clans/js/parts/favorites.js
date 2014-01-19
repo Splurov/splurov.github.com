@@ -166,7 +166,7 @@ part('favorites', [
             var sdLength = sourceData.length;
             while (++sdIndex < sdLength) {
                 var savedJSON = JSON.stringify(sourceData[sdIndex]);
-                if (ceurrentJSON === savedJSON) {
+                if (currentJSON === savedJSON) {
                     output.exists = true;
                     output.index = sdIndex;
                     return output;
@@ -218,7 +218,7 @@ part('favorites', [
     return {
         'add': function() {
             var result = save();
-            return result.added || results.exists;
+            return result.added || result.exists;
         }
     };
 

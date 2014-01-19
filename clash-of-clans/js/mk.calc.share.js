@@ -49,10 +49,10 @@ part([
 
             urlData = savedData.dataArrayToObject(urlData);
 
+            var isAdded = favorites.add();
+
             savedData.current = new common.Dict(urlData);
             savedData.save();
-
-            var isAdded = favorites.add();
 
             if (isAdded) {
                 var viewSharedMessage = dom.id('view-shared');

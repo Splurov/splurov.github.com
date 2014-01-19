@@ -145,6 +145,15 @@ part('dom', function() {
             }
         };
 
+        var updateAll = function() {
+            Object.keys(deferred).forEach(function(id) {
+                update(id, deferred[id].type, deferred[id].value);
+            });
+            deferred = {};
+        };
+
+        var renderTimeout;
+
         return {
             'defer': function(id, type, value) {
                 deferred[id] = {
@@ -152,11 +161,8 @@ part('dom', function() {
                     'value': value
                 };
             },
-            'runDeferred': function() {
-                Object.keys(deferred).forEach(function(id) {
-                    update(id, deferred[id].type, deferred[id].value);
-                });
-                deferred = {};
+            'runDeferred': function(postponed) {
+                updateAll();
             },
             'instantly': update
         };
