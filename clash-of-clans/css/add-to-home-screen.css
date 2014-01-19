@@ -3,6 +3,8 @@
 }
     .ios .add-to-home-screen {
         display: block;
+        -webkit-transform: translateZ(0);
+        -webkit-font-smoothing: subpixel-antialiased;
     }
     .ios .add-to-home-screen__share-icon {
         background-image: url('/clash-of-clans/i/safari-share-button.png');
@@ -26,14 +28,20 @@
             color: #999;
             margin-right: 5px;
             display: inline-block;
+            transform: rotate(0deg);
+            transition: transform 500ms;
         }
             .add-to-home-screen-flag:checked + .add-to-home-screen__button:before {
-                content: '▼';
+                transform: rotate(90deg);
+                transition: transform 750ms;
             }
     .add-to-home-screen__list {
-        margin: 10px 0;
-        display: none;
+        margin: 10px 0 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 500ms;
     }
         .add-to-home-screen-flag:checked ~ .add-to-home-screen__list {
-            display: block;
+            max-height: 200px;
+            transition: max-height 1s;
         }
