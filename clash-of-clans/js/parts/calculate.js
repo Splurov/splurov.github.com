@@ -276,7 +276,7 @@ part('calculate', [
                 if (quantity < 0) {
                     quantity = 0;
                 }
-                if (quantity > 0) {
+                if (quantity) {
                     distribution.push([
                         tsIndex,
                         quantity,

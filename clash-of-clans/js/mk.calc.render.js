@@ -37,7 +37,7 @@ part([
                 var barrack = distributionResult.barracksQueue.shift();
 
                 for (var unitIndex in barrack.units) {
-                    if (barrack.units[unitIndex] > 0) {
+                    if (barrack.units[unitIndex]) {
                         dom.updater.defer('quantity-' + distributionResult.typesSortedLevel[unitIndex][5] + '-' +
                                           barrack.num, 'text', '×' + barrack.units[unitIndex]);
                     }
@@ -102,6 +102,16 @@ part([
     var darkObjects = dom.find('.js-dark-object');
     var spellsObjects = dom.find('.js-spells-object');
     events.watch('calculateDone', function(result) {
+        /*
+        Types:
+            all
+            barrack-dark
+            barrack-units
+            units
+            dark
+            spells
+         */
+
         if (result.params.type === 'all' || result.params.type === 'barrack-dark') {
             darkObjects.toggleClass('setting-mode-empty', (result.dark.levelValue === 0));
         }
@@ -115,7 +125,7 @@ part([
         if (result.params.type === 'all' || result.params.type === 'spells') {
             setQuantityAndSpace(result.spells.levelValue, result.spells.totalSpace, 'spells');
 
-            if (result.spells.totalTime > 0) {
+            if (result.spells.totalTime) {
                 var spellsTimeId = 'spells-time';
                 if (localStorage.getItem('spell-factory-boosted') === 'yes') {
                     dom.updater.defer(spellsTimeId, 'html',
@@ -131,43 +141,44 @@ part([
         }
 
         ['units', 'dark', 'spells'].forEach(function(type) {
-            var clIndex = result[type].capLevel + 1;
-            while (--clIndex > 0) {
-                dom.updater.defer(type + '-building-level-' + clIndex, 'display',
-                                 (clIndex > result[type].levelValue ? 'none' : ''));
-            }
+            if (['all', 'barrack-' + type, type].indexOf(result.params.type) !== -1) {
+                var clIndex = result[type].capLevel + 1;
+                while (--clIndex > 0) {
+                    dom.updater.defer(type + '-building-level-' + clIndex, 'display',
+                                     (clIndex > result[type].levelValue ? 'none' : ''));
+                }
 
-            result[type].objects.forEach(function(objectResult) {
-                dom.updater.defer(objectResult.name + '-summary', 'text',
-                                  objectResult.summaryCost ? common.numberFormat(objectResult.summaryCost) : '');
+                result[type].objects.forEach(function(objectResult) {
+                    dom.updater.defer(objectResult.name + '-summary', 'text',
+                                      objectResult.summaryCost ? common.numberFormat(objectResult.summaryCost) : '');
+
+                    if (type !== 'spells') {
+                        var mcIndex = 0; // mc - max count
+                        var mcLength = barracks[type].data.count;
+                        while (++mcIndex <= mcLength) {
+                            dom.updater.defer('quantity-' + objectResult.name + '-' + mcIndex, 'text', '');
+                        }
+                    }
+                });
+
+                dom.updater.defer(type + '-cost', 'text', common.numberFormat(result[type].totalCost));
 
                 if (type !== 'spells') {
-                    var mcIndex = 0; // mc - max count
-                    var mcLength = barracks[type].data.count;
-                    while (++mcIndex <= mcLength) {
-                        dom.updater.defer('quantity-' + objectResult.name + '-' + mcIndex, 'text', '');
+                    populateDistribution(result[type], type);
+
+                    var subtractedCostId = type + '-subtracted-cost';
+                    if (result[type].subtractedCost === result[type].totalCost) {
+                        dom.updater.defer(subtractedCostId, 'text', '');
+                    } else {
+                        dom.updater.defer(subtractedCostId, 'html',
+                                          '− ' +
+                                          common.numberFormat(result[type].totalCost - result[type].subtractedCost) +
+                                          ' = <span class="result">' +
+                                          common.numberFormat(result[type].subtractedCost) + '</span>');
                     }
                 }
-            });
-
-            dom.updater.defer(type + '-cost', 'text', common.numberFormat(result[type].totalCost));
+            }
         });
-
-        if (result.params.type === 'all' || result.params.type !== 'spells') {
-            ['units', 'dark'].forEach(function(type) {
-                populateDistribution(result[type], type);
-
-                var subtractedCostId = type + '-subtracted-cost';
-                if (result[type].subtractedCost === result[type].totalCost) {
-                    dom.updater.defer(subtractedCostId, 'text', '');
-                } else {
-                    dom.updater.defer(subtractedCostId, 'html',
-                                      '− ' + common.numberFormat(result[type].totalCost - result[type].subtractedCost) +
-                                      ' = <span class="result">' + common.numberFormat(result[type].subtractedCost) +
-                                      '</span>');
-                }
-            });
-        }
 
         dom.updater.runDeferred();
     });

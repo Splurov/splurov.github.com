@@ -134,7 +134,7 @@ part([
         ['units', 'dark', 'spells'].forEach(function(type) {
             if (result[type]) {
                 result[type].objects.forEach(function(objectResult) {
-                    if (objectResult.summaryCost > 0) {
+                    if (objectResult.summaryCost) {
                         output.push(
                             common.convertToTitle(objectResult.name) +
                             superscriptNumbers[objectResult.level] +
@@ -143,7 +143,9 @@ part([
                         );
                     }
                 });
-                prices.push(result[type].totalCost + ' ' + currencies[type]);
+                if (result[type].totalCost) {
+                    prices.push(common.numberFormat(result[type].totalCost) + ' ' + currencies[type]);
+                }
             }
         });
 
@@ -167,6 +169,13 @@ part([
         });
     };
 
-    events.watch('calculateDone', placeShareContent);
+    // without timeout repaint of permalink.value in iOS took too much time
+    var placeShareContentTimeout;
+    events.watch('calculateDone', function(result) {
+        clearTimeout(placeShareContentTimeout);
+        placeShareContentTimeout = setTimeout(function() {
+            placeShareContent(result);
+        }, 300);
+    });
 
 });

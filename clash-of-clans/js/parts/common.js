@@ -36,7 +36,7 @@ part('common', ['dom'], function(dom) {
             if (remainingTime > 59) {
                 var minutes = Math.floor(remainingTime / 60);
                 remainingTime %= 60;
-                if (hideSeconds && remainingTime > 0) {
+                if (hideSeconds && remainingTime) {
                     minutes++;
                 }
                 formattedTime += minutes + 'm ';

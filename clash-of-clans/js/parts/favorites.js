@@ -96,7 +96,7 @@ part('favorites', [
             }
 
             result[type].objects.forEach(function(objectResult) {
-                if (objectResult.quantity > 0) {
+                if (objectResult.quantity) {
                     items.push({
                         'name': common.convertToTitle(objectResult.name),
                         'quantity': objectResult.quantity
@@ -132,7 +132,7 @@ part('favorites', [
         });
 
         var togetherSpace = result.units.totalSpace + result.dark.totalSpace;
-        if (togetherSpace > 0) {
+        if (togetherSpace) {
             templateVars.types[0].totalCapacity = togetherSpace;
             templateVars.types[0].maximumCapacity = result.armyCampsSpace;
         }
