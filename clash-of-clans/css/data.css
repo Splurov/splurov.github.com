@@ -4,6 +4,10 @@
     .mobile .data tr {
         -webkit-transform: translateZ(0);
     }
+    /* fixes a bug with second table tfoot row ugly rendering in Mobile Safari (when Setting Mode disabled) */
+    .mobile .data tfoot td {
+        -webkit-transform: translateZ(0);
+    }
     .data th, .data td {
         padding-left: 7px;
         padding-right: 7px;
