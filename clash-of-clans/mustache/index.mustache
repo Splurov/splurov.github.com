@@ -40,7 +40,7 @@
 
         <a href="https://www.facebook.com/ClashCalc"
            target="_blank"
-           class="button button_social button_after js-goal"
+           class="button button_social js-goal"
            data-goal="FACEBOOK_PAGE"><span class="icon icon_facebook">Clash Calc on Facebook</span>
         </a>
     </p>
@@ -107,15 +107,15 @@
     <p class="block-intro">
         Set the level of buildings, troops and spells in accordance with the Town Hall of level:<br/>
         <button class="button js-settings-level">1</button>
-        <button class="button button_after js-settings-level">2</button>
-        <button class="button button_after js-settings-level">3</button>
-        <button class="button button_after js-settings-level">4</button>
-        <button class="button button_after js-settings-level">5</button>
-        <button class="button button_after js-settings-level">6</button>
-        <button class="button button_after js-settings-level">7</button>
-        <button class="button button_after js-settings-level">8</button>
-        <button class="button button_after js-settings-level">9</button>
-        <button class="button button_after js-settings-level">10</button>
+        <button class="button js-settings-level">2</button>
+        <button class="button js-settings-level">3</button>
+        <button class="button js-settings-level">4</button>
+        <button class="button js-settings-level">5</button>
+        <button class="button js-settings-level">6</button>
+        <button class="button js-settings-level">7</button>
+        <button class="button js-settings-level">8</button>
+        <button class="button js-settings-level">9</button>
+        <button class="button js-settings-level">10</button>
     </p>
     <p class="block-intro">As soon as you finish to setting up levels you can turn off the Setting Mode (the last item in the menu).</p>
 </div>
@@ -151,7 +151,7 @@
                         <br/><button class="button button_reset js-reset" data-reset="units" data-scope="subtract">Reset</button>
                     </th>
                     <th class="data__distribution-column">
-                        <select id="barracks-levels-1" tabindex="1" class="js-setting">
+                        <select id="barracks-levels-1" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="barracks-boosted-1" class="text-middle"/>
@@ -163,7 +163,7 @@
                         </span>
                     </th>
                     <th class="data__distribution-column">
-                        <select id="barracks-levels-2" tabindex="5" class="js-setting">
+                        <select id="barracks-levels-2" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="barracks-boosted-2" class="text-middle"/>
@@ -175,7 +175,7 @@
                         </span>
                     </th>
                     <th class="data__distribution-column">
-                        <select id="barracks-levels-3" tabindex="10" class="js-setting">
+                        <select id="barracks-levels-3" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="barracks-boosted-3" class="text-middle"/>
@@ -187,7 +187,7 @@
                         </span>
                     </th>
                     <th class="data__distribution-column">
-                        <select id="barracks-levels-4" tabindex="15" class="js-setting">
+                        <select id="barracks-levels-4" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="barracks-boosted-4" class="text-middle"/>
@@ -211,7 +211,7 @@
                         <label for="army-camps">Army Camps:</label></td>
                     <td class="result">
                         <span id="units-space" class="text-middle"></span><!--
-                        --><select id="army-camps" tabindex="19" class="js-setting">
+                        --><select id="army-camps" class="js-setting">
                             {{#armyCamps}}
                                 <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
                             {{/armyCamps}}
@@ -252,7 +252,7 @@
                         <br/><button class="button button_reset js-reset" data-reset="dark" data-scope="subtract">Reset</button>
                     </th>
                     <th class="data__distribution-column">
-                        <select id="dark-barracks-levels-1" tabindex="20" class="js-setting">
+                        <select id="dark-barracks-levels-1" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="dark-barracks-boosted-1" class="text-middle"/>
@@ -264,7 +264,7 @@
                         </span>
                     </th>
                     <th class="data__distribution-column">
-                        <select id="dark-barracks-levels-2" tabindex="25" class="js-setting">
+                        <select id="dark-barracks-levels-2" class="js-setting">
                         </select> <span class="text-middle">lvl</span><br/>
                         <label class="setting-mode-part unimportant">
                             <input type="checkbox" id="dark-barracks-boosted-2" class="text-middle"/>
@@ -311,7 +311,7 @@
                         <span class="cost cost_elixir">Total</span>
                     </th>
                     <th>
-                        <select id="spell-factory-level" tabindex="35" class="js-setting">
+                        <select id="spell-factory-level" class="js-setting">
                             {{#spellFactory}}
                                 <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
                             {{/spellFactory}}
@@ -344,34 +344,32 @@
 <div class="js-share">
     <h2 class="block-indented" id="share-anchor">Share Composition</h2>
     <p class="fixed-content">
-        <input id="share-permalink" class="field-long" tabindex="1901"/>
+        <input id="share-permalink" class="field-long"/>
     </p>
     <p>
         <a href=""
            target="_blank"
            id="share-twitter"
            class="button button_social js-goal"
-           tabindex="1903"
            data-goal="SHARE_TWITTER">
             <span class="icon icon_twitter">Share Composition on Twitter</span>
         </a>
         <a href=""
            target="_blank"
            id="share-facebook"
-           class="button button_after button_social js-goal"
-           tabindex="1904"
+           class="button button_social js-goal"
            data-goal="SHARE_FACEBOOK">
             <span class="icon icon_facebook">Share Composition on Facebook</span>
         </a>
     </p>
     <p class="fixed-content block-indented">
-        <textarea id="share-text" class="field-long" tabindex="1905" rows="2"></textarea>
+        <textarea id="share-text" class="field-long" rows="2"></textarea>
     </p>
 </div>
 
 <h2 class="block-indented" id="saved-anchor">Saved Compositions</h2>
 <p>
-    <button class="js-save-composition button" tabindex="2000"><span class="icon icon_save">Save Composition</span></button>
+    <button class="js-save-composition button"><span class="icon icon_save">Save Composition</span></button>
 </p>
 
 <div id="favorites">

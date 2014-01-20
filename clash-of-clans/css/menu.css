@@ -44,6 +44,6 @@
         .menu li:last-child .menu__item {
             border-right: 0;
         }
-        .not-mobile .menu .menu__item:hover, .menu .menu__item:active {
+        .not-mobile .menu .menu__item:hover, .menu .menu__item:active, .menu .menu__item:focus {
             background: #efefef;
         }

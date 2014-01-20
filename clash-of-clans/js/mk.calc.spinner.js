@@ -141,6 +141,7 @@ part(['events', 'dom'], function(events, dom) {
     var setSpinner = function(type, el) {
         var container = document.createElement('button');
         container.className = 'button button_spinner js-spinner';
+        container.setAttribute('tabindex', '-1');
         container.textContent = type;
         container.setAttribute('data-for', (elements.length - 1).toString());
 

@@ -69,8 +69,6 @@ part('favorites', [
         }
         var templateVars = {
             'index': index,
-            'tabIndexLoad': index + 3000 + 1,
-            'tabIndexDelete': index + 3000 + 2,
             'types': []
         };
 

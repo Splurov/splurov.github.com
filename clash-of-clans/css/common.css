@@ -21,7 +21,7 @@ a {
         color: #63008c;
         text-decoration: none;
     }
-    .not-mobile a:hover, a:active {
+    .not-mobile a:hover, a:active, a:focus {
         text-decoration: underline;
     }
 

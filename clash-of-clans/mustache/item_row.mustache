@@ -1,41 +1,43 @@
-    <tr id="{{rowId}}">
-        <td>
-            <span class="object object_{{objectType}}">
-                <span class="object__icon object__icon_{{idDashed}}" title="{{title}}"></span>
-                <span class="object__text">{{title}}</span>
-            </span>
-        </td>
-        <td class="small">
-            <select id="{{levelId}}" tabindex="{{tabIndexLevel}}" class="js-setting js-comp-level" data-type="{{objectType}}">
-                {{#levelContent}}
-                    <option{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
-                {{/levelContent}}
-            </select>
-        </td>
+<tr id="{{rowId}}">
+    <td>
+        <span class="object-{{objectType}}">
+            <span class="object-icon __{{id}}"{{^spells}} title="{{title}}"{{/spells}}></span>
+            {{#spells}}
+                <span class="object-text">{{title}}</span>
+            {{/spells}}
+        </span>
+    </td>
+    <td class="small">
+        <select id="{{levelId}}" class="js-setting js-comp-level" data-type="{{objectType}}">
+            {{#levelContent}}
+                <option{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
+            {{/levelContent}}
+        </select>
+    </td>
+    <td>
+        <input pattern="[0-9]*"
+               data-type="{{objectType}}"
+               class="js-number text-middle js-comp-quantity"
+               id="{{id}}"
+               size="3"
+               tabindex="{{tabIndexValue}}"/>
+    </td>
+    <td id="{{summaryId}}" class="number small">
+    </td>
+    {{#subtractId}}
         <td>
             <input pattern="[0-9]*"
                    data-type="{{objectType}}"
-                   class="js-number text-middle js-comp-quantity"
-                   id="{{id}}"
+                   class="js-number text-middle js-comp-subtract"
+                   id="{{subtractId}}"
                    size="3"
-                   tabindex="{{tabIndexValue}}"/>
+                   tabindex="{{tabIndexSubtract}}"/>
         </td>
-        <td id="{{summaryId}}" class="number small">
-        </td>
-        {{#subtractId}}
-            <td>
-                <input pattern="[0-9]*"
-                       data-type="{{objectType}}"
-                       class="js-number text-middle js-comp-subtract"
-                       id="{{subtractId}}"
-                       size="3"
-                       tabindex="{{tabIndexSubtract}}"/>
-            </td>
-        {{/subtractId}}
-        {{#barracksTimes}}
-            <td id="{{barrackQuantityId}}" class="number"></td>
-        {{/barracksTimes}}
-        {{#spells}}
-            <td></td>
-        {{/spells}}
-    </tr>
+    {{/subtractId}}
+    {{#barracksTimes}}
+        <td id="{{barrackQuantityId}}" class="number"></td>
+    {{/barracksTimes}}
+    {{#spells}}
+        <td></td>
+    {{/spells}}
+</tr>

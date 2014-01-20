@@ -69,14 +69,12 @@ var setItemRowsTemplates = function(vars) {
                 levelOptions[levelOptions.length - 1].selected = true;
                 var templateVars = {
                     'id': name,
-                    'idDashed': name.replace(' ', '_'),
                     'title': convertedName,
                     'levelId': name + '-level',
                     'levelContent': levelOptions,
                     'summaryId': name + '-summary',
                     'rowId': type + '-building-level-' + value[3],
-                    'tabIndexLevel': tabIndexMultiplier + value[3],
-                    'tabIndexValue': tabIndexMultiplier + 1000 + value[3],
+                    'tabIndexValue': tabIndexMultiplier + value[3],
                     'objectType': type
                 };
                 if (type === 'spells') {
@@ -94,7 +92,7 @@ var setItemRowsTemplates = function(vars) {
                     templateVars.barracksTimes = barracksTimes;
 
                     templateVars.subtractId = name + '-subtract';
-                    templateVars.tabIndexSubtract = tabIndexMultiplier + 4000 + value[3];
+                    templateVars.tabIndexSubtract = tabIndexMultiplier + 100 + value[3];
                 }
 
                 rows.push(templateVars);
@@ -103,9 +101,9 @@ var setItemRowsTemplates = function(vars) {
             vars[type + '_rows'] = rows;
         };
 
-        createRows('units', 100);
-        createRows('dark', 200);
-        createRows('spells', 300);
+        createRows('units', 10);
+        createRows('dark', 20);
+        createRows('spells', 30);
 
         vars.armyCamps = [];
         armyCamps.base.forEach(function(value) {
