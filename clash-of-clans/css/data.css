@@ -3,7 +3,6 @@
 }
     .mobile .data tr {
         -webkit-transform: translateZ(0);
-        -webkit-font-smoothing: subpixel-antialiased;
     }
     .data th, .data td {
         padding-left: 7px;

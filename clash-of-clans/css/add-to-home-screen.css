@@ -4,7 +4,6 @@
     .ios .add-to-home-screen {
         display: block;
         -webkit-transform: translateZ(0);
-        -webkit-font-smoothing: subpixel-antialiased;
     }
     .ios .add-to-home-screen__share-icon {
         background-image: url('/clash-of-clans/i/safari-share-button.png');

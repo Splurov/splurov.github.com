@@ -91,7 +91,7 @@ part('favorites', [
 
             if (type !== 'spells') {
                 result[type].objects.sort(function(a, b) {
-                    return a.minBarrackLevel > b.minBarrackLevel;
+                    return a.minBarrackLevel - b.minBarrackLevel;
                 });
             }
 

@@ -22,6 +22,9 @@
     line-height: 1.35;
     opacity: 1;
 }
+    .mobile .favorite {
+        -webkit-transform: translateZ(0);
+    }
     .favorite_added {
         animation-name: blink;
         animation-duration: 2s;
