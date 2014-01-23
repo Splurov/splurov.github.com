@@ -21,7 +21,7 @@ part([
         if (totalSpace > maxSpace) {
             space = '<span class="limit-exceeded">' + totalSpace + '</span>';
         }
-        space = space + ' / ' + (type === 'units' ? '': maxSpace);
+        space = space + ' / ' + (type === 'light' ? '': maxSpace);
         dom.updater.defer(type + '-space', 'html', space);
 
     };
@@ -29,7 +29,7 @@ part([
     var populateDistribution = function(distributionResult, type) {
         var times = [];
         if (distributionResult.fillSuccess) {
-            dom.updater.defer(type + '-barracks-exceeded', 'display', 'none');
+            dom.updater.defer(type + '-exceeded', 'display', 'none');
             var maxTime = 0;
             var maxNum = 1;
 
@@ -59,21 +59,21 @@ part([
                 if (barrack.maxSpace !== 0) {
                     spaceData = barrack.space + ' / ';
                 }
-                dom.updater.defer(type + '-barrack-space-' + barrack.num, 'text', spaceData);
+                dom.updater.defer(type + '-space-' + barrack.num, 'text', spaceData);
             }
             times.forEach(function(time, num) {
                 if (num === maxNum) {
                     time = '<span class="result">' + time + '</span>';
                 }
-                dom.updater.defer(type + '-time-barrack-' + num, 'html', time);
+                dom.updater.defer(type + '-time-' + num, 'html', time);
             });
         } else {
-            dom.updater.defer(type + '-barracks-exceeded', 'display', '');
+            dom.updater.defer(type + '-exceeded', 'display', '');
             var spaces = [];
             var sumSpace = 0;
             while (distributionResult.barracksQueue.length) {
                 var barrack = distributionResult.barracksQueue.shift();
-                dom.updater.defer(type + '-time-barrack-' + barrack.num, 'text', '');
+                dom.updater.defer(type + '-time-' + barrack.num, 'text', '');
 
                 spaces[barrack.num] = barrack.space;
                 sumSpace += barrack.space;
@@ -81,7 +81,7 @@ part([
 
             var firstIteration = true;
             spaces.forEach(function(space, num) {
-                var barrackSpaceId = type + '-barrack-space-' + num;
+                var barrackSpaceId = type + '-space-' + num;
                 if (space === 0) {
                     dom.updater.defer(barrackSpaceId, 'text', '');
                 } else {
@@ -106,7 +106,7 @@ part([
         Types:
             all
             barrack-dark
-            barrack-units
+            barrack-light
             units
             dark
             spells
@@ -117,8 +117,8 @@ part([
         }
 
         if (result.params.type === 'all' || result.params.type !== 'spells') {
-            var togetherSpace = result.units.totalSpace + result.dark.totalSpace;
-            setQuantityAndSpace(result.armyCampsSpace, togetherSpace, 'units');
+            var togetherSpace = result.light.totalSpace + result.dark.totalSpace;
+            setQuantityAndSpace(result.armyCampsSpace, togetherSpace, 'light');
             setQuantityAndSpace(result.armyCampsSpace, togetherSpace, 'dark');
         }
 
@@ -127,7 +127,7 @@ part([
 
             if (result.spells.totalTime) {
                 var spellsTimeId = 'spells-time';
-                if (localStorage.getItem('spell-factory-boosted') === 'yes') {
+                if (localStorage.getItem('spells-boosted') === 'yes') {
                     dom.updater.defer(spellsTimeId, 'html',
                                       '<span class="boosted">' +
                                       common.getFormattedTime(Math.floor(result.spells.totalTime / 4), true) +
@@ -140,7 +140,7 @@ part([
             spellsObjects.toggleClass('setting-mode-empty', (result.spells.levelValue === 0));
         }
 
-        ['units', 'dark', 'spells'].forEach(function(type) {
+        ['light', 'dark', 'spells'].forEach(function(type) {
             if (['all', 'barrack-' + type, type].indexOf(result.params.type) !== -1) {
                 var clIndex = result[type].capLevel + 1;
                 while (--clIndex > 0) {

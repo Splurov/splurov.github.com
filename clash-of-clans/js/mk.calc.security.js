@@ -14,6 +14,7 @@
 
     var host = ['m', 'k', 'l'].concat(['n', '.', 'r', 'u']).join('');
     if (location.host !== host &&
+        location.host !== 'test.' + host &&
         location.host.indexOf('192.168.1.') !== 0 &&
         location.host.indexOf('localhost') !== 0) {
         location.replace('http://' + host + '/clash-of-clans/');

@@ -49,7 +49,7 @@ input, select, textarea, button {
     .field-long {
         width: 100%;
     }
-    button {
+    .not-mobile button {
         cursor: pointer;
     }
     button::-moz-focus-inner {

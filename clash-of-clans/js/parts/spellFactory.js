@@ -20,11 +20,11 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
     };
 
     if (DOM_ENABLED) {
-        var levelEl = dom.id('spell-factory-level');
-        var boostedEl = dom.id('spell-factory-boosted');
+        var levelEl = dom.id('spells-level');
+        var boostedEl = dom.id('spells-boosted');
 
         var updateLevelSavedData = function(value) {
-            savedData.current.set('spellFactoryLevel', parseInt(value, 10));
+            savedData.current.set('spells-level', parseInt(value, 10));
         };
 
         var notifyLevelChange = function() {
@@ -41,7 +41,7 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
         });
 
         dom.listen(boostedEl, 'change', function() {
-            localStorage.setItem('spell-factory-boosted', (boostedEl.checked ? 'yes' : 'no'));
+            localStorage.setItem('spells-boosted', (boostedEl.checked ? 'yes' : 'no'));
 
             events.trigger('calculate', {
                 'type': 'spells'
@@ -49,11 +49,11 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
         });
 
         events.watch('updateFromSaved', function() {
-            levelEl.value = savedData.current.get('spellFactoryLevel', levelEl.value);
+            levelEl.value = savedData.current.get('spells-level', levelEl.value);
             updateLevelSavedData(levelEl.value);
             notifyLevelChange();
 
-            boostedEl.checked = (localStorage.getItem('spell-factory-boosted') === 'yes');
+            boostedEl.checked = (localStorage.getItem('spells-boosted') === 'yes');
         });
 
         events.watch('updateSetting', function(params) {

@@ -33,9 +33,11 @@
         margin: 0;
         user-select: none;
         line-height: 20px;
-        cursor: pointer;
     }
-        .menu__item > input[type="checkbox"] {
+        .not-mobile .menu__item {
+            cursor: pointer;
+        }
+        .not_mobile .menu__item > input[type="checkbox"] {
             cursor: pointer;
         }
         .menu li:first-child .menu__item {

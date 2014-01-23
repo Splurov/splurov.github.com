@@ -2,14 +2,14 @@ part('savedData', ['common'], function(common) {
     'use strict';
 
     var saveMappingKeys = [
-        'barracks-levels-1',
-        'barracks-levels-2',
-        'barracks-levels-3',
-        'barracks-levels-4',
-        'dark-barracks-levels-1',
-        'dark-barracks-levels-2',
-        'armyCamps',
-        'spellFactoryLevel',
+        'light-level-1',
+        'light-level-2',
+        'light-level-3',
+        'light-level-4',
+        'dark-level-1',
+        'dark-level-2',
+        'army-camps',
+        'spells-level',
         'Barbarian',
         'Archer',
         'Goblin',

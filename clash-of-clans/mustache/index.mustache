@@ -4,93 +4,100 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=900, minimal-ui"/>
     {{#web_only}}
-    <title>{{coc_seo_title}}</title>
-    <meta name="description" content="{{coc_description}}"/>
+        <title>{{coc_seo_title}}</title>
+        <meta name="description" content="{{coc_description}}"/>
     {{/web_only}}
     <script src="js/detect-mobile.js"></script>{{#web_only}}<script src="js/mk.calc.security.js"></script>{{/web_only}}
     <link rel="stylesheet" type="text/css" href="css/all.css"/>
     {{#web_only}}
-    <link rel="icon" href="/clash-of-clans/i/favicon-v2.png"/>
+        <link rel="icon" href="/clash-of-clans/i/favicon-v2.png"/>
 
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/clash-of-clans/i/app-icons/76x76.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/clash-of-clans/i/app-icons/120x120.png"/>
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/clash-of-clans/i/app-icons/152x152.png"/>
-    <meta name="apple-mobile-web-app-title" content="{{coc_title_web_clip}}"/>
+        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/clash-of-clans/i/app-icons/76x76.png"/>
+        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/clash-of-clans/i/app-icons/120x120.png"/>
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/clash-of-clans/i/app-icons/152x152.png"/>
+        <meta name="apple-mobile-web-app-title" content="{{coc_title_web_clip}}"/>
 
-    <meta name="twitter:site" content="@ClashCalc"/>
-    <meta name="twitter:creator" content="@Splurov"/>
+        <meta name="twitter:site" content="@ClashCalc"/>
+        <meta name="twitter:creator" content="@Splurov"/>
 
-    <meta property="og:url" content="http://mkln.ru/clash-of-clans/"/>
-    <meta property="og:title" content="{{coc_title}}"/>
-    <meta property="og:description" content="{{coc_description}}"/>
+        <meta property="og:url" content="http://mkln.ru/clash-of-clans/"/>
+        <meta property="og:title" content="{{coc_title}}"/>
+        <meta property="og:description" content="{{coc_description}}"/>
     {{/web_only}}
 </head>
 <body>
 
 {{#web_only}}
-<h1>{{coc_title}}</h1>
+    <h1>{{coc_title}}</h1>
 
-<div class="fixed-content">
-    <p>{{coc_description}}</p>
-    <p>
-        <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;screen_name=ClashCalc"
-           target="_blank"
-           class="button button_social js-goal"
-           data-goal="FOLLOW_TWITTER"><span class="icon icon_twitter">Follow @ClashCalc on Twitter</span></a>
+    <div class="fixed-content">
+        <p>{{coc_description}}</p>
+        <p>
+            <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;screen_name=ClashCalc"
+               target="_blank"
+               class="button button_social js-goal"
+               data-goal="FOLLOW_TWITTER"><span class="icon icon_twitter">Follow @ClashCalc on Twitter</span></a>
 
-        <a href="https://www.facebook.com/ClashCalc"
-           target="_blank"
-           class="button button_social js-goal"
-           data-goal="FACEBOOK_PAGE"><span class="icon icon_facebook">Clash Calc on Facebook</span>
-        </a>
+            <a href="https://www.facebook.com/ClashCalc"
+               target="_blank"
+               class="button button_social js-goal"
+               data-goal="FACEBOOK_PAGE"><span class="icon icon_facebook">Clash Calc on Facebook</span>
+            </a>
+        </p>
+
+        <!--[if lte IE 9]>
+        <p class="message message_negative">
+            You are using an old version of Internet Explorer which is not supported.<br/>
+            Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
+        </p>
+        <![endif]-->
+    </div>
+
+    <p class="fixed-content only-desktop small">
+        Do you have a Dropbox account?
+        If not, please help me to get some free space by
+        <a href="https://db.tt/4D6VZnI" target="_blank" class="js-goal" data-goal="DROPBOX_LINK">signing up</a>,
+        installing the desktop app and signing in there (it’s all free).
     </p>
-
-    <!--[if lte IE 9]>
-    <p class="message message_negative">
-        You are using an old version of Internet Explorer which is not supported.<br/>
-        Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
-    </p>
-    <![endif]-->
-</div>
 {{/web_only}}
 
 {{^web_only}}
-<style>
-    .app-version-updated {
-        display: none;
-    }
-    #app_version.updated + .app-version-updated {
-        position: absolute;
-        top: 30px;
-        left: -12px;
-        border: 2px solid #900;
-        border-radius: 10px;
-        padding: 10px;
-        display: block;
-        background: #ffeeee;
-        font-weight: bold;
-        z-index: 100;
-    }
-</style>
-<p style="position: relative;">
-    Last Update:
-    <span id="app_version" class="updated"></span>
-    <span id="app-updated" class="app-version-updated">Version updated!</span>
-</p>
-<script>
-    document.getElementById('app-updated').ontouchend = function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        document.getElementById('app_version').classList.remove('updated');
-    };
-</script>
+    <style>
+        .app-version-updated {
+            display: none;
+        }
+        #app_version.updated + .app-version-updated {
+            position: absolute;
+            top: 30px;
+            left: -12px;
+            border: 2px solid #900;
+            border-radius: 10px;
+            padding: 10px;
+            display: block;
+            background: #ffeeee;
+            font-weight: bold;
+            z-index: 100;
+        }
+    </style>
+    <p style="position: relative;">
+        Last Update:
+        <span id="app_version" class="updated"></span>
+        <span id="app-updated" class="app-version-updated">Version updated!</span>
+    </p>
+    <script>
+        document.getElementById('app-updated').ontouchend = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('app_version').classList.remove('updated');
+        };
+    </script>
 {{/web_only}}
 
 <div class="menu-wrapper" id="menu-wrapper">
     <ul class="menu" id="menu">
-        <li><button class="menu__item js-anchor" data-for="barracks-anchor">Barracks</button></li><!--
+        <li><button class="menu__item js-anchor" data-for="light-anchor">Barracks</button></li><!--
         --><li class="js-dark-object"><button class="menu__item js-anchor" data-for="dark-anchor">Dark Barracks</button></li><!--
-        --><li class="js-spells-object"><button class="menu__item js-anchor" data-for="spell-anchor">Spell Factory</button></li><!--
+        --><li class="js-spells-object"><button class="menu__item js-anchor" data-for="spells-anchor">Spell Factory</button></li><!--
         --><li class="js-share"><button class="menu__item js-anchor" data-for="share-anchor">Share</button></li><!--
         --><li><button class="menu__item js-save-composition"><span class="icon icon_save">Save Composition</span></button></li><!--
         --><li><button class="menu__item js-anchor" data-for="saved-anchor">Saved Compositions</button></li><!--
@@ -103,21 +110,34 @@
     </ul>
 </div>
 
-<div class="setting-mode-part">
-    <p class="block-intro">
-        Set the level of buildings, troops and spells in accordance with the Town Hall of level:<br/>
-        <button class="button js-settings-level">1</button>
-        <button class="button js-settings-level">2</button>
-        <button class="button js-settings-level">3</button>
-        <button class="button js-settings-level">4</button>
-        <button class="button js-settings-level">5</button>
-        <button class="button js-settings-level">6</button>
-        <button class="button js-settings-level">7</button>
-        <button class="button js-settings-level">8</button>
-        <button class="button js-settings-level">9</button>
-        <button class="button js-settings-level">10</button>
-    </p>
-    <p class="block-intro">As soon as you finish to setting up levels you can turn off the Setting Mode (the last item in the menu).</p>
+<div class="fixed-content">
+    <div class="block-intro">
+        <div class="fold js-fold" data-store="fold-levels">
+            <span class="fold__switcher">
+                Change the level of buildings, troops and spells based on the Town Hall level
+            </span>
+            <div class="fold__content fold__content_125">
+                <div class="settings">
+                    <p>
+                        Set the Army Camps capacity, level of Barracks, Dark Barracks, Spell Factory,
+                        troops and spells in accordance with the Town Hall of level:
+                    </p>
+                    <p class="button-group button-group_settings">
+                        <button class="button js-settings-level">1</button><!--
+                        --><button class="button js-settings-level">2</button><!--
+                        --><button class="button js-settings-level">3</button><!--
+                        --><button class="button js-settings-level">4</button><!--
+                        --><button class="button js-settings-level">5</button><!--
+                        --><button class="button js-settings-level">6</button><!--
+                        --><button class="button js-settings-level">7</button><!--
+                        --><button class="button js-settings-level">8</button><!--
+                        --><button class="button js-settings-level">9</button><!--
+                        --><button class="button js-settings-level">10</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <p id="view-shared" style="display: none;" class="block-intro">
@@ -127,218 +147,109 @@
 </p>
 
 <div class="floated">
-    <div class="floated__item">
-        <h2 id="barracks-anchor">
-            Barracks
-            <span class="message message_negative message_after"
-                  style="display: none;"
-                  id="units-barracks-exceeded">Exceeded the maximum queue length of the barracks</span>
-        </h2>
-        <table id="units" class="data">
-            <thead>
-                <tr>
-                    <th>Troop</th>
-                    <th>Level</th>
-                    <th class="data__quantity-column">
-                        Quantity <span class="small tooltip" title="Army Camps Free Capacity" id="units-quantity"></span>
-                        <br/><button class="button button_reset js-reset" data-reset="units" data-scope="quantity">Reset</button>
-                    </th>
-                    <th class="data__total_column">
-                        <span class="cost cost_elixir">Total</span>
-                    </th>
-                    <th>
-                        <span class="tooltip" title="Values from the “Subtract” columns not preserved between browser sessions nor saved in the saved compositions">Subtract</span>
-                        <br/><button class="button button_reset js-reset" data-reset="units" data-scope="subtract">Reset</button>
-                    </th>
-                    <th class="data__distribution-column">
-                        <select id="barracks-levels-1" class="js-setting">
-                        </select> <span class="text-middle">lvl</span><br/>
-                        <label class="setting-mode-part unimportant">
-                            <input type="checkbox" id="barracks-boosted-1" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br/>
-                        </label>
-                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
-                            <span id="units-barrack-space-1"></span>
-                            <span id="units-barrack-header-1"></span>
-                        </span>
-                    </th>
-                    <th class="data__distribution-column">
-                        <select id="barracks-levels-2" class="js-setting">
-                        </select> <span class="text-middle">lvl</span><br/>
-                        <label class="setting-mode-part unimportant">
-                            <input type="checkbox" id="barracks-boosted-2" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br/>
-                        </label>
-                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
-                            <span id="units-barrack-space-2"></span>
-                            <span id="units-barrack-header-2"></span>
-                        </span>
-                    </th>
-                    <th class="data__distribution-column">
-                        <select id="barracks-levels-3" class="js-setting">
-                        </select> <span class="text-middle">lvl</span><br/>
-                        <label class="setting-mode-part unimportant">
-                            <input type="checkbox" id="barracks-boosted-3" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br/>
-                        </label>
-                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
-                            <span id="units-barrack-space-3"></span>
-                            <span id="units-barrack-header-3"></span>
-                        </span>
-                    </th>
-                    <th class="data__distribution-column">
-                        <select id="barracks-levels-4" class="js-setting">
-                        </select> <span class="text-middle">lvl</span><br/>
-                        <label class="setting-mode-part unimportant">
-                            <input type="checkbox" id="barracks-boosted-4" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br/>
-                        </label>
-                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
-                            <span id="units-barrack-space-4"></span>
-                            <span id="units-barrack-header-4"></span>
-                        </span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody id="units-body">
-                {{#units_rows}}
-                    {{> item_row}}
-                {{/units_rows}}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2" class="small number">
-                        <label for="army-camps">Army Camps:</label></td>
-                    <td class="result">
-                        <span id="units-space" class="text-middle"></span><!--
-                        --><select id="army-camps" class="js-setting">
-                            {{#armyCamps}}
-                                <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
-                            {{/armyCamps}}
-                        </select>
-                    </td>
-                    <td id="units-cost" class="number result"></td>
-                    <td id="units-subtracted-cost" class="small"></td>
-                    <td id="units-time-barrack-1" class="number"></td>
-                    <td id="units-time-barrack-2" class="number"></td>
-                    <td id="units-time-barrack-3" class="number"></td>
-                    <td id="units-time-barrack-4" class="number"></td>
-                </tr>
-            </tfoot>
-        </table>
-    </div><!--
+    {{#types}}<div class="floated__item js-{{type}}-object">
+            <h2 id="{{type}}-anchor">
+                {{title}}
+                {{^spells}}
+                    <span class="message message_negative message_after"
+                          style="display: none;"
+                          id="{{type}}-exceeded">Exceeded the maximum queue length of the barracks</span>
+                {{/spells}}
+            </h2>
+            <table class="data">
+                <thead>
+                    <tr>
+                        <th>{{objectTitle}}</th>
+                        <th>Level</th>
+                        <th class="data__quantity-column">
+                            Quantity <span class="small tooltip" title="{{capacityBuilding}} Free Capacity" id="{{type}}-quantity"></span>
+                            <br/><button class="button button_reset js-reset" data-reset="{{type}}" data-scope="quantity">Reset</button>
+                        </th>
+                        <th class="data__total_column">
+                            <span class="cost cost_{{currencyCode}}">Total</span>
+                        </th>
+                        {{^spells}}
+                            <th>
+                                <span class="tooltip" title="Values from the “Subtract” columns not preserved between browser sessions nor saved in the saved compositions">Subtract</span>
+                                <br/><button class="button button_reset js-reset" data-reset="{{type}}" data-scope="subtract">Reset</button>
+                            </th>
 
-    --><div class="floated__item js-dark-object">
-        <h2 id="dark-anchor">
-            Dark Barracks
-            <span class="message message_negative message_after"
-                  style="display: none;"
-                  id="dark-barracks-exceeded">Exceeded the maximum queue length of the barracks</span>
-        </h2>
-        <table id="dark" class="data">
-            <thead>
-                <tr>
-                    <th>Troop</th>
-                    <th>Level</th>
-                    <th class="data__quantity-column">
-                        Quantity <span class="small tooltip" title="Army Camps Free Capacity" id="dark-quantity"></span>
-                        <br/><button class="button button_reset js-reset" data-reset="dark" data-scope="quantity">Reset</button>
-                    </th>
-                    <th class="data__total_column">
-                        <span class="cost cost_dark-elixir">Total</span>
-                    </th>
-                    <th>
-                        <span class="tooltip" title="Values from the “Subtract” columns not preserved between browser sessions nor saved in the saved compositions">Subtract</span>
-                        <br/><button class="button button_reset js-reset" data-reset="dark" data-scope="subtract">Reset</button>
-                    </th>
-                    <th class="data__distribution-column">
-                        <select id="dark-barracks-levels-1" class="js-setting">
-                        </select> <span class="text-middle">lvl</span><br/>
-                        <label class="setting-mode-part unimportant">
-                            <input type="checkbox" id="dark-barracks-boosted-1" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br/>
-                        </label>
-                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
-                            <span id="dark-barrack-space-1"></span>
-                            <span id="dark-barrack-header-1"></span>
-                        </span>
-                    </th>
-                    <th class="data__distribution-column">
-                        <select id="dark-barracks-levels-2" class="js-setting">
-                        </select> <span class="text-middle">lvl</span><br/>
-                        <label class="setting-mode-part unimportant">
-                            <input type="checkbox" id="dark-barracks-boosted-2" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br/>
-                        </label>
-                        <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
-                            <span id="dark-barrack-space-2"></span>
-                            <span id="dark-barrack-header-2"></span>
-                        </span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody id="dark-body">
-                {{#dark_rows}}
-                    {{> item_row}}
-                {{/dark_rows}}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td id="dark-space" class="result"></td>
-                    <td id="dark-cost" class="number result"></td>
-                    <td id="dark-subtracted-cost" class="small"></td>
-                    <td id="dark-time-barrack-1" class="number"></td>
-                    <td id="dark-time-barrack-2" class="number"></td>
-                </tr>
-            </tfoot>
-        </table>
-    </div><!--
+                            {{#barracks}}
+                                <th class="data__distribution-column">
+                                    <span class="text-middle setting-mode-not-part" id="{{type}}-level-{{index}}-text"></span>
+                                    <select id="{{type}}-level-{{index}}" class="setting-mode-part">
+                                    </select> <span class="text-middle">lvl</span><br/>
+                                    <label class="setting-mode-part unimportant">
+                                        <input type="checkbox" id="{{type}}-boosted-{{index}}" class="text-middle"/>
+                                        <span class="text-middle">Boosted</span><br/>
+                                    </label>
+                                    <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
+                                        <span id="{{type}}-space-{{index}}"></span>
+                                        <span id="{{type}}-maxSpace-{{index}}"></span>
+                                    </span>
+                                </th>
+                            {{/barracks}}
+                        {{/spells}}
 
-    --><div class="floated__item js-spells-object">
-        <h2 id="spell-anchor">Spell Factory</h2>
-        <table id="spells" class="data">
-            <thead>
-                <tr>
-                    <th>Spell</th>
-                    <th>Level</th>
-                    <th class="data__quantity-column">
-                        Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id="spells-quantity"></span>
-                        <br/><button class="button button_reset js-reset" data-reset="spells" data-scope="quantity">Reset</button>
-                    </th>
-                    <th class="data__total_column">
-                        <span class="cost cost_elixir">Total</span>
-                    </th>
-                    <th>
-                        <select id="spell-factory-level" class="js-setting">
-                            {{#spellFactory}}
-                                <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
-                            {{/spellFactory}}
-                        </select> <span class="text-middle">lvl</span><br/>
-                        <label class="setting-mode-part unimportant">
-                            <input type="checkbox" id="spell-factory-boosted" class="text-middle"/>
-                            <span class="text-middle">Boosted</span><br/>
-                        </label>
-                    </th>
-                </tr>
-            </thead>
-            <tbody id="spells-body">
-                {{#spells_rows}}
-                    {{> item_row}}
-                {{/spells_rows}}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td class="result" id="spells-space"></td>
-                    <td id="spells-cost" class="number result"></td>
-                    <td class="result number" id="spells-time"></td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
+                        {{#spells}}
+                            <th>
+                                <span class="text-middle setting-mode-not-part" id="spells-level-text"></span>
+                                <select id="spells-level" class="setting-mode-part">
+                                    {{#spellFactory}}
+                                        <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
+                                    {{/spellFactory}}
+                                </select> <span class="text-middle">lvl</span><br/>
+                                <label class="setting-mode-part unimportant">
+                                    <input type="checkbox" id="spells-boosted" class="text-middle"/>
+                                    <span class="text-middle">Boosted</span><br/>
+                                </label>
+                            </th>
+                        {{/spells}}
+                    </tr>
+                </thead>
+                <tbody id="{{type}}-body">
+                    {{#objects}}
+                        {{> item_row}}
+                    {{/objects}}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        {{#light}}
+                            <td colspan="2" class="small number">
+                                <label for="army-camps">Army Camps:</label>
+                            </td>
+                            <td class="result">
+                                <span id="{{type}}-space" class="text-middle"></span><!--
+                                --><span class="text-middle setting-mode-not-part" id="army-camps-text"></span><!--
+                                --><select id="army-camps" class="setting-mode-part">
+                                    {{#armyCamps}}
+                                        <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
+                                    {{/armyCamps}}
+                                </select>
+                            </td>
+                        {{/light}}
+
+                        {{^light}}
+                            <td></td>
+                            <td></td>
+                            <td id="{{type}}-space" class="result"></td>
+                        {{/light}}
+
+                        <td id="{{type}}-cost" class="number result"></td>
+                        {{^spells}}
+                            <td id="{{type}}-subtracted-cost" class="small"></td>
+                            {{#barracks}}
+                                <td id="{{type}}-time-{{index}}" class="number"></td>
+                            {{/barracks}}
+                        {{/spells}}
+
+                        {{#spells}}
+                            <td class="result number" id="spells-time"></td>
+                        {{/spells}}
+                    </tr>
+                </tfoot>
+            </table>
+        </div>{{/types}}
 </div>
 
 <div class="js-share">
@@ -376,100 +287,94 @@
 </div>
 
 {{#web_only}}
-<div class="list-content list-content_small fixed-content" id="changelog">
-    {{#firstChangelog}}
-    <h3 class="block-indented">What’s New in Version {{version}} <a href="version-history.html" class="button button_after" target="_blank">Version History</a></h3>
-    {{#ch_title}}
-    <p>{{ch_title}}</p>
-    {{/ch_title}}
-    <ul>
-        {{#changes}}
-        <li>{{& change}}.</li>
-        {{/changes}}
-    </ul>
-    {{/firstChangelog}}
-</div>
-
-<h2 class="block-indented">Additionally</h2>
-<div class="fixed-content">
-    <p>
-        Please note this tool is only available at http://mkln.ru/clash-of-clans/.
-        If you’ve seen it on other sites or in the iTunes App Store or anywhere else —
-        is the result of the actions of fraudsters and thieves that have nothing to do with me
-        and use my work without my permission, violating copyright.
-    </p>
-
-    <p>
-        If you find a bug please send an e-mail to <a href="mailto:clash-of-clans@mkln.ru">clash-of-clans@mkln.ru</a>.
-    </p>
-
-    <p class="only-desktop">
-        Do you have a Dropbox account?
-        If not, please help me to get some free space by
-        <a href="https://db.tt/4D6VZnI" target="_blank" class="js-goal" data-goal="DROPBOX_LINK">signing up</a>,
-        installing the desktop app and signing in there (it’s all free).
-    </p>
-
-    {{#web_only}}
-    <div class="add-to-home-screen">
-        <input type="checkbox" id="add-to-home-screen" class="add-to-home-screen-flag"/>
-        <label for="add-to-home-screen" class="add-to-home-screen__button js-goal" data-goal="ADD_TO_HOME">
-            How to add Clash Calc icon to your Home screen
-        </label>
-        <ol class="add-to-home-screen__list">
-            <li value="0">
-                Open Safari, type <kbd>http://mkln.ru/clash-of-clans/</kbd> in the address bar, tap Go and wait until the page is loaded.
-            </li>
-            <li>
-                Tap the Share button
-                (&thinsp;<span class="add-to-home-screen__share-icon"></span>&thinsp;).
-            </li>
-            <li>Tap the icon labeled “Add to Home Screen”.</li>
-            <li>Tap the Add button in the upper right corner.</li>
-            <li>Launch Clash Calc from your Home screen by tapping its icon.</li>
-        </ol>
+    <div class="list-content list-content_small fixed-content" id="changelog">
+        {{#firstChangelog}}
+            <h3 class="block-indented">What’s New in Version {{version}} <a href="version-history.html" class="button button_after" target="_blank">Version History</a></h3>
+            {{#ch_title}}
+                <p>{{ch_title}}</p>
+            {{/ch_title}}
+            <ul>
+                {{#changes}}
+                    <li>{{& change}}.</li>
+                {{/changes}}
+            </ul>
+        {{/firstChangelog}}
     </div>
-    {{/web_only}}
-</div>
 
-<footer>
+    <h2 class="block-indented">Additionally</h2>
     <div class="fixed-content">
+        <div class="add-to-home-screen">
+            <div class="fold js-fold">
+                <div class="fold__switcher js-goal" data-goal="ADD_TO_HOME">
+                    How to add Clash Calc icon to your Home screen
+                </div>
+                <div class="fold__content fold__content_160">
+                    <ol class="add-to-home-screen__list">
+                        <li value="0">
+                            Open Safari, type <kbd>http://mkln.ru/clash-of-clans/</kbd> in the address bar, tap Go and wait until the page is loaded.
+                        </li>
+                        <li>
+                            Tap the Share button
+                            (&thinsp;<span class="add-to-home-screen__share-icon"></span>&thinsp;).
+                        </li>
+                        <li>Tap the icon labeled “Add to Home Screen”.</li>
+                        <li>Tap the Add button in the upper right corner.</li>
+                        <li>Launch Clash Calc from your Home screen by tapping its icon.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
         <p>
-            Save Icon designed by <a href="http://www.endlessicons.com/" target="_blank">Min Kim</a>.
-        </p>
-        <p>
-            Clash of Clans and its logos are trademarks of Supercell.
-            This web site is not affiliated with, endorsed, sponsored, or specifically approved by Supercell.
-            Supercell is not responsible for the operation or content of this site.
-            Use the trademarks and other intellectual property of Supercell is only as expressly permitted as set forth in Supercell’s
-            <a href="http://forum.supercell.net/showthread.php/148005-Clash-of-Clans-Fan-Kit-and-Guidelines">Fan Site Kit Agreement</a>.
-            For more information about Supercell, please visit their website at <a href="http://www.supercell.net/">www.supercell.net</a>.
+            Please note this tool is only available at http://mkln.ru/clash-of-clans/.
+            If you’ve seen it on other sites or in the iTunes App Store or anywhere else —
+            is the result of the actions of fraudsters and thieves that have nothing to do with me
+            and use my work without my permission, violating copyright.
         </p>
 
         <p>
-            This work is licensed under a
-            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">
-                Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
-        </p>
-        <p>
-            Developed by <a href="/en/">Mikhail Kalashnik</a><br/>
-            &copy; 2013
+            If you find a bug please send an e-mail to <a href="mailto:clash-of-clans@mkln.ru">clash-of-clans@mkln.ru</a>.
         </p>
     </div>
-</footer>
+
+    <footer>
+        <div class="fixed-content">
+            <p>
+                Save Icon designed by <a href="http://www.endlessicons.com/" target="_blank">Min Kim</a>.
+            </p>
+            <p>
+                Clash of Clans and its logos are trademarks of Supercell.
+                This web site is not affiliated with, endorsed, sponsored, or specifically approved by Supercell.
+                Supercell is not responsible for the operation or content of this site.
+                {{!Use the trademarks and other intellectual property of Supercell is only as expressly permitted as set forth in Supercell’s
+                <a href="http://forum.supercell.net/showthread.php/148005-Clash-of-Clans-Fan-Kit-and-Guidelines">Fan Site Kit Agreement</a>.}}
+                For more information about Supercell, please visit their website at <a href="http://www.supercell.net/">www.supercell.net</a>.
+            </p>
+
+            <p>
+                This work is licensed under a
+                <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">
+                    Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+            </p>
+            <p>
+                Developed by <a href="/en/">Mikhail Kalashnik</a><br/>
+                &copy; 2014
+            </p>
+        </div>
+    </footer>
 {{/web_only}}
 
 <script src="js/all.js"></script>
 
 {{#web_only}}
-<script src="../js/ya-metrika.js"></script>
-{{& ya_metrika_noscript}}
+    <script src="../js/ya-metrika.js"></script>
+    {{& ya_metrika_noscript}}
 
-<script src="../js/ga.js"></script>
+    <script src="../js/ga.js"></script>
 {{/web_only}}
 
 {{^web_only}}
-<script src="js/mk.ios.js"></script>
+    <script src="js/mk.ios.js"></script>
 {{/web_only}}
 
 </body>

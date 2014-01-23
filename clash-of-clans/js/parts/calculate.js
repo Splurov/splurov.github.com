@@ -206,12 +206,12 @@ part('calculate', [
     var calculateItems = function(type, params) {
         var levelValue;
         if (type === 'spells') {
-            levelValue = params.savedData.get('spellFactoryLevel');
+            levelValue = params.savedData.get('spells-level');
         } else {
             var levels = [];
             var i = 0;
             while (++i <= barracksInfo[type].data.count) {
-                var level = params.savedData.get(barracksInfo[type].data.prefix + '-levels-' + i);
+                var level = params.savedData.get(type + '-level-' + i);
                 if (i === 1 && barracksInfo[type].data.firstRequired) {
                     level += 1;
                 }
@@ -308,7 +308,7 @@ part('calculate', [
 
                 var isBoosted = false;
                 if (params.current) {
-                    isBoosted = localStorage.getItem(barracksInfo[type].data.prefix + '-boosted-' + num) === 'yes';
+                    isBoosted = localStorage.getItem(type + '-boosted-' + num) === 'yes';
                 }
 
                 return {
@@ -356,9 +356,9 @@ part('calculate', [
             'params': params
         };
 
-        result.armyCampsSpace = params.savedData.get('armyCamps');
+        result.armyCampsSpace = params.savedData.get('army-camps');
 
-        ['units', 'dark', 'spells'].forEach(function(type) {
+        ['light', 'dark', 'spells'].forEach(function(type) {
             var capLevel;
             if (type === 'spells') {
                 capLevel = spellFactory.max;

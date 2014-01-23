@@ -1,0 +1,41 @@
+.fold {
+    /* Здесь не может быть translateZ(0), т. к. в этом случае switcher прыгает слегка вниз при тапе */
+}
+    .fold__switcher {
+        display: inline-block;
+        user-select: none;
+        font-weight: bold;
+        -webkit-transform: translateZ(0);
+        padding: 5px 0;
+        margin: -5px 0;
+    }
+    .not-mobile .fold__switcher {
+        cursor: pointer;
+    }
+        .fold__switcher:before {
+            content: '▶';
+            color: #999;
+            margin-right: 5px;
+            display: inline-block;
+            transform: rotate(0deg);
+            transition: transform 500ms;
+        }
+            .fold_opened .fold__switcher:before {
+                transform: rotate(90deg);
+                transition: transform 750ms;
+            }
+    .fold__content {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 500ms;
+        -webkit-transform: translateZ(0);
+    }
+        .fold_opened .fold__content {
+            transition: max-height 1s;
+        }
+        .fold_opened .fold__content_125 {
+            max-height: 125px;
+        }
+        .fold_opened .fold__content_160 {
+            max-height: 160px;
+        }

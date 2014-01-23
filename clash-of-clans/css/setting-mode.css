@@ -3,3 +3,12 @@
 .setting-mode-disabled .setting-mode-empty {
     display: none;
 }
+
+.settings {
+    background: #f2fbf5;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #b2bbb5;
+    border-radius: 10px;
+    display: inline-block;
+}

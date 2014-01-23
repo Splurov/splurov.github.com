@@ -122,7 +122,7 @@ part([
     };
 
     var currencies = {
-        'units': 'Elixir',
+        'light': 'Elixir',
         'dark': 'Dark Elixir',
         'spells': 'Elixir'
     };
@@ -131,7 +131,7 @@ part([
         var output = [];
         var prices = [];
 
-        ['units', 'dark', 'spells'].forEach(function(type) {
+        ['light', 'dark', 'spells'].forEach(function(type) {
             if (result[type]) {
                 result[type].objects.forEach(function(objectResult) {
                     if (objectResult.summaryCost) {

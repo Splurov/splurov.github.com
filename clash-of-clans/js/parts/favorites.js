@@ -11,7 +11,7 @@ part('favorites', [
 
     var tempDiv = document.createElement('div');
 
-    var barracksAnchor = dom.id('barracks-anchor');
+    var barracksAnchor = dom.id('light-anchor');
 
     var content = dom.id('favorites');
     var template = new Hogan.Template(/* build:hogan:mustache/favorites.mustache */);
@@ -79,12 +79,12 @@ part('favorites', [
         });
 
         var modifiers = {
-            'units': 'elixir',
+            'light': 'elixir',
             'dark': 'dark-elixir',
             'spells': 'elixir'
         };
 
-        ['units', 'dark', 'spells'].forEach(function(type) {
+        ['light', 'dark', 'spells'].forEach(function(type) {
             var items = [];
 
             if (type !== 'spells') {
@@ -129,7 +129,7 @@ part('favorites', [
 
         });
 
-        var togetherSpace = result.units.totalSpace + result.dark.totalSpace;
+        var togetherSpace = result.light.totalSpace + result.dark.totalSpace;
         if (togetherSpace) {
             templateVars.types[0].totalCapacity = togetherSpace;
             templateVars.types[0].maximumCapacity = result.armyCampsSpace;

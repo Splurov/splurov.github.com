@@ -55,11 +55,43 @@ var setItemRowsTemplates = function(vars) {
 
     var part = require('../clash-of-clans/js/part.js');
 
+    var typesHelper = {
+        'light': {
+            'tabIndex': 10,
+            'title': 'Barracks',
+            'objectTitle': 'Troop',
+            'capacityBuilding': 'Army Camps',
+            'currencyCode': 'elixir',
+            'barracks': [{'index': 1}, {'index': 2}, {'index': 3}, {'index': 4}]
+        },
+        'dark': {
+            'tabIndex': 20,
+            'title': 'Dark Barracks',
+            'objectTitle': 'Troop',
+            'capacityBuilding': 'Army Camps',
+            'currencyCode': 'dark-elixir',
+            'barracks': [{'index': 1}, {'index': 2}]
+        },
+        'spells': {
+            'tabIndex': 30,
+            'title': 'Spell Factory',
+            'objectTitle': 'Spell',
+            'capacityBuilding': 'Spell Factory',
+            'currencyCode': 'elixir'
+        }
+    };
+
     part(['armyCamps', 'spellFactory', 'types', 'barracks', 'common'], function(armyCamps, spellFactory, types, barracks, common) {
-        var createRows = function(type, tabIndexMultiplier) {
-            var createLevelOption = function(value, index) {
-                return {'value': value, 'text': (index + 1)};
-            };
+        var createLevelOption = function(value, index) {
+            return {'value': value, 'text': (index + 1)};
+        };
+
+        vars.types = [];
+
+        Object.keys(typesHelper).forEach(function(type) {
+            var basicInfo = typesHelper[type];
+            basicInfo[type] = true;
+            basicInfo.type = type;
 
             var rows = [];
             Object.keys(types.data[type]).forEach(function(name) {
@@ -70,18 +102,12 @@ var setItemRowsTemplates = function(vars) {
                 var templateVars = {
                     'id': name,
                     'title': convertedName,
-                    'levelId': name + '-level',
                     'levelContent': levelOptions,
-                    'summaryId': name + '-summary',
                     'rowId': type + '-building-level-' + value[3],
-                    'tabIndexValue': tabIndexMultiplier + value[3],
-                    'objectType': type
+                    'tabIndexValue': typesHelper[type].tabIndex + value[3]
                 };
-                if (type === 'spells') {
-                    templateVars.spells = true;
-                }
 
-                if (type === 'units' || type === 'dark') {
+                if (type === 'light' || type === 'dark') {
                     var i;
                     var barracksTimes = [];
                     for (i = 1; i <= barracks[type].data.count; i++) {
@@ -92,18 +118,17 @@ var setItemRowsTemplates = function(vars) {
                     templateVars.barracksTimes = barracksTimes;
 
                     templateVars.subtractId = name + '-subtract';
-                    templateVars.tabIndexSubtract = tabIndexMultiplier + 100 + value[3];
+                    templateVars.tabIndexSubtract = typesHelper[type].tabIndex + 100 + value[3];
                 }
 
                 rows.push(templateVars);
             });
 
-            vars[type + '_rows'] = rows;
-        };
+            basicInfo.objects = rows;
 
-        createRows('units', 10);
-        createRows('dark', 20);
-        createRows('spells', 30);
+            vars.types.push(basicInfo);
+        });
+
 
         vars.armyCamps = [];
         armyCamps.base.forEach(function(value) {

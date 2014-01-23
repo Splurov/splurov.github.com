@@ -2,17 +2,8 @@ part(['events', 'dom'], function(events, dom) {
 
     'use strict';
 
-    dom.find('.js-setting').iterate(function(el) {
-        var placeholderEl = document.createElement('span');
-        placeholderEl.className = 'text-middle setting-mode-not-part';
-
-        dom.insertBefore(el, placeholderEl);
-
-        el.classList.add('setting-mode-part');
-    });
-
     events.watch('elChange', function(el) {
-        el.nextSibling.textContent = el.options[el.selectedIndex].textContent;
+        dom.updater.instantly(el.getAttribute('id') + '-text', 'text', el.options[el.selectedIndex].textContent);
     });
 
     var toggleModeEl = dom.id('settings-toggle-mode');

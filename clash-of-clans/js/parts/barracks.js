@@ -17,7 +17,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
             if (level !== 0) {
                 header = data.queue[level];
             }
-            dom.updater.instantly(data.type + '-barrack-header-' + num, 'text', header);
+            dom.updater.instantly(data.type + '-maxSpace-' + num, 'text', header);
         };
 
         var updateSavedData = function(el) {
@@ -27,7 +27,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
         if (DOM_ENABLED) {
             var i = 0;
             while (++i <= data.count) {
-                var barrack = dom.id(data.prefix + '-levels-' + i);
+                var barrack = dom.id(data.type + '-level-' + i);
                 var num = i.toString();
                 barrack.setAttribute('data-num', num);
                 var j = -1;
@@ -58,7 +58,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
 
                 barracks.push(barrack);
 
-                var boostedId = data.prefix + '-boosted-' + i;
+                var boostedId = data.type + '-boosted-' + i;
                 var boostedEl = dom.id(boostedId);
                 if (localStorage.getItem(boostedId) === 'yes') {
                     boostedEl.checked = true;
@@ -99,9 +99,8 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
     };
 
     return {
-        'units': new BarracksContainer({
-            'type': 'units',
-            'prefix': 'barracks',
+        'light': new BarracksContainer({
+            'type': 'light',
             'count': 4,
             'queue': [0, 20, 25, 30, 35, 40, 45, 50, 55, 60, 75],
             'maxLevel': 10,
@@ -119,7 +118,6 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
         }),
         'dark': new BarracksContainer({
             'type': 'dark',
-            'prefix': 'dark-barracks',
             'count': 2,
             'queue': [0, 40, 50, 60, 70, 80],
             'maxLevel': 5,

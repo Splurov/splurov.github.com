@@ -8,7 +8,7 @@
     vertical-align: middle;
     font-weight: normal;
 }
-    .message_closeable {
+    .not-mobile .message_closeable {
         cursor: pointer;
     }
     .message_after {

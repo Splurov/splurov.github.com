@@ -1,6 +1,6 @@
 <tr id="{{rowId}}">
     <td>
-        <span class="object-{{objectType}}">
+        <span class="object-{{type}}">
             <span class="object-icon __{{id}}"{{^spells}} title="{{title}}"{{/spells}}></span>
             {{#spells}}
                 <span class="object-text">{{title}}</span>
@@ -8,7 +8,8 @@
         </span>
     </td>
     <td class="small">
-        <select id="{{levelId}}" class="js-setting js-comp-level" data-type="{{objectType}}">
+        <span class="text-middle setting-mode-not-part" id="{{id}}-level-text"></span>
+        <select id="{{id}}-level" class="setting-mode-part js-comp-level" data-type="{{type}}">
             {{#levelContent}}
                 <option{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
             {{/levelContent}}
@@ -16,18 +17,18 @@
     </td>
     <td>
         <input pattern="[0-9]*"
-               data-type="{{objectType}}"
+               data-type="{{type}}"
                class="js-number text-middle js-comp-quantity"
                id="{{id}}"
                size="3"
                tabindex="{{tabIndexValue}}"/>
     </td>
-    <td id="{{summaryId}}" class="number small">
+    <td id="{{id}}-summary" class="number small">
     </td>
     {{#subtractId}}
         <td>
             <input pattern="[0-9]*"
-                   data-type="{{objectType}}"
+                   data-type="{{type}}"
                    class="js-number text-middle js-comp-subtract"
                    id="{{subtractId}}"
                    size="3"

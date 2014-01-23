@@ -9,8 +9,8 @@
     height: 32px;
     vertical-align: middle;
 }
-.object-units .object-icon {
-    background-image: url(/clash-of-clans/i/objects-units.png);
+.object-light .object-icon {
+    background-image: url(/clash-of-clans/i/objects-light.png);
     background-size: 32px 365px;
 }
     .__Archer {background-position: 0 0;}
