@@ -3,95 +3,61 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=900, minimal-ui"/>
-    {{#web_only}}
-        <title>{{coc_seo_title}}</title>
-        <meta name="description" content="{{coc_description}}"/>
-    {{/web_only}}
-    <script src="js/detect-mobile.js"></script>{{#web_only}}<script src="js/mk.calc.security.js"></script>{{/web_only}}
+
+    <title>{{coc_seo_title}}</title>
+    <meta name="description" content="{{coc_description}}"/>
+
+    <script src="js/detect-mobile.js"></script><script src="js/mk.calc.security.js"></script>
     <link rel="stylesheet" type="text/css" href="css/all.css"/>
-    {{#web_only}}
-        <link rel="icon" href="/clash-of-clans/i/favicon-v2.png"/>
 
-        <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/clash-of-clans/i/app-icons/76x76.png"/>
-        <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/clash-of-clans/i/app-icons/120x120.png"/>
-        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/clash-of-clans/i/app-icons/152x152.png"/>
-        <meta name="apple-mobile-web-app-title" content="{{coc_title_web_clip}}"/>
+    <link rel="icon" href="/clash-of-clans/i/favicon-v2.png"/>
 
-        <meta name="twitter:site" content="@ClashCalc"/>
-        <meta name="twitter:creator" content="@Splurov"/>
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/clash-of-clans/i/app-icons/76x76.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/clash-of-clans/i/app-icons/120x120.png"/>
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/clash-of-clans/i/app-icons/152x152.png"/>
 
-        <meta property="og:url" content="http://mkln.ru/clash-of-clans/"/>
-        <meta property="og:title" content="{{coc_title}}"/>
-        <meta property="og:description" content="{{coc_description}}"/>
-    {{/web_only}}
+    <meta name="apple-mobile-web-app-title" content="{{coc_title_web_clip}}"/>
+
+    <meta name="twitter:site" content="@ClashCalc"/>
+    <meta name="twitter:creator" content="@Splurov"/>
+
+    <meta property="og:url" content="http://mkln.ru/clash-of-clans/"/>
+    <meta property="og:title" content="{{coc_title}}"/>
+    <meta property="og:description" content="{{coc_description}}"/>
 </head>
 <body>
 
-{{#web_only}}
-    <h1>{{coc_title}}</h1>
+<h1>{{coc_title}}</h1>
 
-    <div class="fixed-content">
-        <p>{{coc_description}}</p>
-        <p>
-            <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;screen_name=ClashCalc"
-               target="_blank"
-               class="button button_social js-goal"
-               data-goal="FOLLOW_TWITTER"><span class="icon icon_twitter">Follow @ClashCalc on Twitter</span></a>
+<div class="fixed-content">
+    <p>{{coc_description}}</p>
+    <p>
+        <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;screen_name=ClashCalc"
+           target="_blank"
+           class="button button_social js-goal"
+           data-goal="FOLLOW_TWITTER"><span class="icon icon_twitter">Follow @ClashCalc on Twitter</span></a>
 
-            <a href="https://www.facebook.com/ClashCalc"
-               target="_blank"
-               class="button button_social js-goal"
-               data-goal="FACEBOOK_PAGE"><span class="icon icon_facebook">Clash Calc on Facebook</span>
-            </a>
-        </p>
-
-        <!--[if lte IE 9]>
-        <p class="message message_negative">
-            You are using an old version of Internet Explorer which is not supported.<br/>
-            Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
-        </p>
-        <![endif]-->
-    </div>
-
-    <p class="fixed-content only-desktop small">
-        Do you have a Dropbox account?
-        If not, please help me to get some free space by
-        <a href="https://db.tt/4D6VZnI" target="_blank" class="js-goal" data-goal="DROPBOX_LINK">signing up</a>,
-        installing the desktop app and signing in there (it’s all free).
+        <a href="https://www.facebook.com/ClashCalc"
+           target="_blank"
+           class="button button_social js-goal"
+           data-goal="FACEBOOK_PAGE"><span class="icon icon_facebook">Clash Calc on Facebook</span>
+        </a>
     </p>
-{{/web_only}}
 
-{{^web_only}}
-    <style>
-        .app-version-updated {
-            display: none;
-        }
-        #app_version.updated + .app-version-updated {
-            position: absolute;
-            top: 30px;
-            left: -12px;
-            border: 2px solid #900;
-            border-radius: 10px;
-            padding: 10px;
-            display: block;
-            background: #ffeeee;
-            font-weight: bold;
-            z-index: 100;
-        }
-    </style>
-    <p style="position: relative;">
-        Last Update:
-        <span id="app_version" class="updated"></span>
-        <span id="app-updated" class="app-version-updated">Version updated!</span>
+    <!--[if lte IE 9]>
+    <p class="message message_negative">
+        You are using an old version of Internet Explorer which is not supported.<br/>
+        Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
     </p>
-    <script>
-        document.getElementById('app-updated').ontouchend = function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            document.getElementById('app_version').classList.remove('updated');
-        };
-    </script>
-{{/web_only}}
+    <![endif]-->
+</div>
+
+<p class="fixed-content only-desktop small">
+    Do you have a Dropbox account?
+    If not, please help me to get some free space by
+    <a href="https://db.tt/4D6VZnI" target="_blank" class="js-goal" data-goal="DROPBOX_LINK">signing up</a>,
+    installing the desktop app and signing in there (it’s all free).
+</p>
 
 <div class="menu-wrapper" id="menu-wrapper">
     <ul class="menu" id="menu">
@@ -112,7 +78,7 @@
 
 <div class="fixed-content">
     <div class="block-intro">
-        <div class="fold js-fold" data-store="fold-levels">
+        <div class="fold fold_opened js-fold" data-store="fold-levels">
             <span class="fold__switcher">
                 Change the level of buildings, troops and spells based on the Town Hall level
             </span>
@@ -286,96 +252,88 @@
 <div id="favorites">
 </div>
 
-{{#web_only}}
-    <div class="list-content list-content_small fixed-content" id="changelog">
-        {{#firstChangelog}}
-            <h3 class="block-indented">What’s New in Version {{version}} <a href="version-history.html" class="button button_after" target="_blank">Version History</a></h3>
-            {{#ch_title}}
-                <p>{{ch_title}}</p>
-            {{/ch_title}}
-            <ul>
-                {{#changes}}
-                    <li>{{& change}}.</li>
-                {{/changes}}
-            </ul>
-        {{/firstChangelog}}
-    </div>
+<div class="list-content list-content_small fixed-content" id="changelog">
+    {{#firstChangelog}}
+        <h3 class="block-indented">What’s New in Version {{version}} <a href="version-history.html" class="button button_after" target="_blank">Version History</a></h3>
+        {{#ch_title}}
+            <p>{{ch_title}}</p>
+        {{/ch_title}}
+        <ul>
+            {{#changes}}
+                <li>{{& change}}.</li>
+            {{/changes}}
+        </ul>
+    {{/firstChangelog}}
+</div>
 
-    <h2 class="block-indented">Additionally</h2>
-    <div class="fixed-content">
-        <div class="add-to-home-screen">
-            <div class="fold js-fold">
-                <div class="fold__switcher js-goal" data-goal="ADD_TO_HOME">
-                    How to add Clash Calc icon to your Home screen
-                </div>
-                <div class="fold__content fold__content_160">
-                    <ol class="add-to-home-screen__list">
-                        <li value="0">
-                            Open Safari, type <kbd>http://mkln.ru/clash-of-clans/</kbd> in the address bar, tap Go and wait until the page is loaded.
-                        </li>
-                        <li>
-                            Tap the Share button
-                            (&thinsp;<span class="add-to-home-screen__share-icon"></span>&thinsp;).
-                        </li>
-                        <li>Tap the icon labeled “Add to Home Screen”.</li>
-                        <li>Tap the Add button in the upper right corner.</li>
-                        <li>Launch Clash Calc from your Home screen by tapping its icon.</li>
-                    </ol>
-                </div>
+<h2 class="block-indented">Additionally</h2>
+<div class="fixed-content">
+    <div class="add-to-home-screen">
+        <div class="fold js-fold">
+            <div class="fold__switcher js-goal" data-goal="ADD_TO_HOME">
+                How to add Clash Calc icon to your Home screen
+            </div>
+            <div class="fold__content fold__content_160">
+                <ol class="add-to-home-screen__list">
+                    <li value="0">
+                        Open Safari, type <kbd>http://mkln.ru/clash-of-clans/</kbd> in the address bar, tap Go and wait until the page is loaded.
+                    </li>
+                    <li>
+                        Tap the Share button
+                        (&thinsp;<span class="add-to-home-screen__share-icon"></span>&thinsp;).
+                    </li>
+                    <li>Tap the icon labeled “Add to Home Screen”.</li>
+                    <li>Tap the Add button in the upper right corner.</li>
+                    <li>Launch Clash Calc from your Home screen by tapping its icon.</li>
+                </ol>
             </div>
         </div>
-
-        <p>
-            Please note this tool is only available at http://mkln.ru/clash-of-clans/.
-            If you’ve seen it on other sites or in the iTunes App Store or anywhere else —
-            is the result of the actions of fraudsters and thieves that have nothing to do with me
-            and use my work without my permission, violating copyright.
-        </p>
-
-        <p>
-            If you find a bug please send an e-mail to <a href="mailto:clash-of-clans@mkln.ru">clash-of-clans@mkln.ru</a>.
-        </p>
     </div>
 
-    <footer>
-        <div class="fixed-content">
-            <p>
-                Save Icon designed by <a href="http://www.endlessicons.com/" target="_blank">Min Kim</a>.
-            </p>
-            <p>
-                Clash of Clans and its logos are trademarks of Supercell.
-                This web site is not affiliated with, endorsed, sponsored, or specifically approved by Supercell.
-                Supercell is not responsible for the operation or content of this site.
-                {{!Use the trademarks and other intellectual property of Supercell is only as expressly permitted as set forth in Supercell’s
-                <a href="http://forum.supercell.net/showthread.php/148005-Clash-of-Clans-Fan-Kit-and-Guidelines">Fan Site Kit Agreement</a>.}}
-                For more information about Supercell, please visit their website at <a href="http://www.supercell.net/">www.supercell.net</a>.
-            </p>
+    <p>
+        Please note this tool is only available at http://mkln.ru/clash-of-clans/.
+        If you’ve seen it on other sites or in the iTunes App Store or anywhere else —
+        is the result of the actions of fraudsters and thieves that have nothing to do with me
+        and use my work without my permission, violating copyright.
+    </p>
 
-            <p>
-                This work is licensed under a
-                <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">
-                    Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
-            </p>
-            <p>
-                Developed by <a href="/en/">Mikhail Kalashnik</a><br/>
-                &copy; 2014
-            </p>
-        </div>
-    </footer>
-{{/web_only}}
+    <p>
+        If you find a bug please send an e-mail to <a href="mailto:clash-of-clans@mkln.ru">clash-of-clans@mkln.ru</a>.
+    </p>
+</div>
+
+<footer>
+    <div class="fixed-content">
+        <p>
+            Save Icon designed by <a href="http://www.endlessicons.com/" target="_blank">Min Kim</a>.
+        </p>
+        <p>
+            Clash of Clans and its logos are trademarks of Supercell.
+            This web site is not affiliated with, endorsed, sponsored, or specifically approved by Supercell.
+            Supercell is not responsible for the operation or content of this site.
+            {{!Use the trademarks and other intellectual property of Supercell is only as expressly permitted as set forth in Supercell’s
+            <a href="http://forum.supercell.net/showthread.php/148005-Clash-of-Clans-Fan-Kit-and-Guidelines">Fan Site Kit Agreement</a>.}}
+            For more information about Supercell, please visit their website at <a href="http://www.supercell.net/">www.supercell.net</a>.
+        </p>
+
+        <p>
+            This work is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">
+                Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+        </p>
+        <p>
+            Developed by <a href="/en/">Mikhail Kalashnik</a><br/>
+            &copy; 2014
+        </p>
+    </div>
+</footer>
 
 <script src="js/all.js"></script>
 
-{{#web_only}}
-    <script src="../js/ya-metrika.js"></script>
-    {{& ya_metrika_noscript}}
+<script src="../js/ya-metrika.js"></script>
+{{& ya_metrika_noscript}}
 
-    <script src="../js/ga.js"></script>
-{{/web_only}}
-
-{{^web_only}}
-    <script src="js/mk.ios.js"></script>
-{{/web_only}}
+<script src="../js/ga.js"></script>
 
 </body>
 </html>

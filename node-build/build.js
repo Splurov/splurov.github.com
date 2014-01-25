@@ -19,7 +19,6 @@ var sources = {
     },
     'clash-of-clans/mustache/index.mustache': {
         'en': [1, 'first', true, 'clash-of-clans/index.html'],
-        'json': [1, true],
         'resource_dir': './clash-of-clans/'
     },
     'clash-of-clans/mustache/version-history.mustache': {
@@ -241,18 +240,12 @@ for (var file in sources) {
             continue;
         }
 
-        var jsonOutput = false;
-        if (lang === 'json') {
-            jsonOutput = true;
-            lang = 'en';
-        }
         var options = sources[file][lang];
         var translationsCurrent = {};
         for (var trName in translations) {
             translationsCurrent[trName] = translations[trName][options[0]];
         }
 
-        var changelogForJson = {};
         if (options[1]) {
             var changelog = require('../clash-of-clans/json/changelog.json');
             var changelogParsed = [];
@@ -276,9 +269,6 @@ for (var file in sources) {
 
                 changelogParsed.push(entry);
 
-                if (jsonOutput) {
-                    changelogForJson[(new Date(v[1]).getTime())] = v[2];
-                }
                 if (options[1] === 'first') {
                     break;
                 }
@@ -297,35 +287,10 @@ for (var file in sources) {
             setItemRowsTemplates(translationsCurrent);
         }
 
-        if (jsonOutput) {
-            var dataForJson = currentTemplate.render(translationsCurrent, partials);
-            dataForJson = dataForJson.replace(/^\s+/gm, '');
-            dataForJson = dataForJson.replace(/\n+/g, ' ');
-            dataForJson = dataForJson.replace(/url\('(.+?\.png)'\)/g, function(match, sp1) {
-                return 'url(' + makeDataUri(sp1.substr(1)) + ')';
-            });
+        var dataDest = currentTemplate.render(translationsCurrent, partials);
 
-            var jsonData = {
-                'clash_of_clans': {
-                    'code': {
-                        'html': dataForJson,
-                        'version': (new Date()).getTime()
-                    },
-                    'changelog': changelogForJson
-                },
-                'error': 0
-            };
-
-            fs.writeFileSync(dir + 'api/getUpdates.json', JSON.stringify(jsonData));
-            console.log('json coc done');
-        } else {
-            translationsCurrent.web_only = true;
-
-            var dataDest = currentTemplate.render(translationsCurrent, partials);
-
-            fs.writeFileSync(options[3], dataDest);
-            console.log('done: ' + lang + ' ' + file);
-        }
+        fs.writeFileSync(options[3], dataDest);
+        console.log('done: ' + lang + ' ' + file);
     }
 
 }
