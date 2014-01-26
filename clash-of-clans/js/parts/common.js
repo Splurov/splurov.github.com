@@ -2,7 +2,7 @@ if (typeof exports !== 'undefined') {
     var part = require('./../part.js');
 }
 
-part('common', ['dom'], function(dom) {
+part('common', function() {
 
     'use strict';
 

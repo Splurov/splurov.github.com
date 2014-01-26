@@ -9,7 +9,7 @@ part('dom', function() {
         if (touchSupported) {
             var tapping;
 
-            target.addEventListener('touchstart', function(e) {
+            target.addEventListener('touchstart', function() {
                 if (lastEventSource === 'mouse') {
                     lastEventSource = null;
                     tapping = false;
@@ -55,7 +55,7 @@ part('dom', function() {
                 target.addEventListener(eventName, listener, false);
             });
         } else if (type === 'animationend') {
-            ['animationend', 'webkitAnimationEnd', 'MSAnimationEnd', 'oanimationend'].forEach(function(eventName) {
+            ['animationend', 'webkitAnimationEnd', 'MSAnimationEnd'].forEach(function(eventName) {
                 target.addEventListener(eventName, listener, false);
             });
         } else {
@@ -155,8 +155,6 @@ part('dom', function() {
             deferred = {};
         };
 
-        var renderTimeout;
-
         return {
             'defer': function(id, type, value) {
                 deferred[id] = {
@@ -164,7 +162,7 @@ part('dom', function() {
                     'value': value
                 };
             },
-            'runDeferred': function(postponed) {
+            'runDeferred': function() {
                 updateAll();
             },
             'instantly': update

@@ -6,6 +6,8 @@
             "Increased calculator performance (faster loading, better responsiveness)",
             "Animated saving and deleting of saved compositions",
             "Slightly redesigned Setting Mode",
+            "Minor mobile-related improvements",
+            "Simplified keyboard navigation",
             "Dropped Opera 12.1 and Safari 5.1 support (currently supported browsers is Safari 6+, Chrome 21+, Firefox 24+, IE 10+, Android 4+ and Opera 17+)"
         ]
     ],

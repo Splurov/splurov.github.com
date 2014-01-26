@@ -40,7 +40,7 @@ part('navigation', ['events', 'dom'], function(events, dom){
         var step = Math.round(diff / (duration / delay));
 
         (function scrollIteration() {
-            window.setTimeout(function() {
+            setTimeout(function() {
                 if (toTop) {
                     currentScrollTop -= step;
                     if (currentScrollTop < elScrollTop) {
