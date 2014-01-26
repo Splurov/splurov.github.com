@@ -4,7 +4,6 @@
     padding: 3px 6px;
     border: 1px solid #999;
     border-radius: 5px;
-    background-color: #fcfcfc;
     background-image: linear-gradient(#fcfcfc, #ececec);
     line-height: 1;
     user-select: none;
@@ -38,7 +37,6 @@
         border-color: #99b;
         padding-top: 4px;
         padding-bottom: 4px;
-        background-color: #fcfcff;
         background-image: linear-gradient(#fcfcff, #ececff);
     }
     .not-mobile .button_social:hover {
@@ -64,9 +62,15 @@
 
     .button_big {
         font-size: inherit;
-        padding: 5px 8px;
+        padding: 4px 8px 6px;
     }
-
+    .button_pressed, .button_pressed:active, .button_pressed:focus {
+        color: #444;
+        background-image: linear-gradient(#e0e0e0, #ececec);
+    }
+    .not-mobile .button_pressed:hover {
+        background-image: linear-gradient(#e0e0e0, #e7e7e7);
+    }
 
 .button-group .button {
     margin: 0;
