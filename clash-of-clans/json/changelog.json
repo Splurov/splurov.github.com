@@ -3,10 +3,9 @@
         "4.0",
         "26 January, 2014",
         [
-            "Performance improvements",
-            "Faster page loading",
-            "Animated saving and deleting saved compositions",
-            "Setting Mode switcher removed from menu",
+            "Increased calculator performance (faster loading, better responsiveness)",
+            "Animated saving and deleting of saved compositions",
+            "Slightly redesigned Setting Mode",
             "Dropped Opera 12.1 and Safari 5.1 support (currently supported browsers is Safari 6+, Chrome 21+, Firefox 24+, IE 10+, Android 4+ and Opera 17+)"
         ]
     ],
