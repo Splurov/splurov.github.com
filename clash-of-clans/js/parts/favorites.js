@@ -63,6 +63,11 @@ part('favorites', [
         savedData.save();
     };
 
+    var animationEndHandler = function(e) {
+        console.log('animation end');
+        e.currentTarget.classList.remove('favorite_added');
+    };
+
     var savedListCreateItem = function(data, index) {
         if (index === 0) {
             return;
@@ -141,9 +146,6 @@ part('favorites', [
     var addedAnimation = function(index) {
         var composition = content.querySelector('.js-favorite[data-num="' + index + '"]');
         navigation.scrollTo(composition, function() {
-            dom.listen(composition, 'animationend', function() {
-                composition.classList.remove('favorite_added');
-            });
             composition.classList.add('favorite_added');
         });
     };
@@ -173,6 +175,7 @@ part('favorites', [
             tempDiv.innerHTML = savedListCreateItem(data, index);
             dom.find('.js-favorite-load', tempDiv.firstChild).listen('universalClick', loadHandler);
             dom.find('.js-favorite-delete', tempDiv.firstChild).listen('universalClick', deleteHandler);
+            dom.listen(tempDiv.firstChild, 'animationend', animationEndHandler);
             content.appendChild(tempDiv.firstChild);
 
             output.added = true;
@@ -199,6 +202,7 @@ part('favorites', [
         content.innerHTML = savedData.all.map(savedListCreateItem).join('');
         dom.find('.js-favorite-load', content).listen('universalClick', loadHandler);
         dom.find('.js-favorite-delete', content).listen('universalClick', deleteHandler);
+        dom.find('.js-favorite', content).listen('animationend', animationEndHandler);
     }, 0);
 
     var savedCount = savedData.all.length;

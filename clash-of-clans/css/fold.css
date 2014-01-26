@@ -33,9 +33,6 @@
         .fold_opened .fold__content {
             transition: max-height 1s;
         }
-        .fold_opened .fold__content_125 {
-            max-height: 125px;
-        }
         .fold_opened .fold__content_160 {
             max-height: 160px;
         }

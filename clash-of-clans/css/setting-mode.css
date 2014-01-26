@@ -5,10 +5,8 @@
 }
 
 .settings {
-    background: #f2fbf5;
-    margin-top: 5px;
-    padding: 10px;
-    border: 1px solid #b2bbb5;
+    background: #f7f7f7;
+    padding: 7px 10px;
+    border: 1px solid #bbb;
     border-radius: 10px;
-    display: inline-block;
 }

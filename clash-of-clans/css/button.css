@@ -62,6 +62,11 @@
         -webkit-touch-callout: none;
     }
 
+    .button_big {
+        font-size: inherit;
+        padding: 5px 8px;
+    }
+
 
 .button-group .button {
     margin: 0;
@@ -73,10 +78,10 @@
         text-align: center;
         width: 34px;
     }
-    .button-group .button:first-child {
+    .button-group .button:first-of-type {
         border-radius: 5px 0 0 5px;
     }
-    .button-group .button:last-child {
+    .button-group .button:last-of-type {
         border-radius: 0 5px 5px 0;
         border-right-width: 1px;
     }

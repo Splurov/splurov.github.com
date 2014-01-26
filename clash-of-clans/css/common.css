@@ -139,3 +139,15 @@ table {
 .mobile .only-desktop {
     display: none;
 }
+
+@keyframes blink {
+    0% {
+        background: transparent;
+    }
+    45% {
+        background: #ffd;
+    }
+    100% {
+        background: transparent;
+    }
+}

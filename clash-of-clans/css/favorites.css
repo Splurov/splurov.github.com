@@ -1,15 +1,3 @@
-@keyframes blink {
-    0% {
-        background: #fff;
-    }
-    45% {
-        background: #ffd;
-    }
-    100% {
-        background: #fff;
-    }
-}
-
 .favorite {
     font-size: 15px;
     display: inline-block;

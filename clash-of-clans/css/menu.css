@@ -37,9 +37,6 @@
         .not-mobile .menu__item {
             cursor: pointer;
         }
-        .not_mobile .menu__item > input[type="checkbox"] {
-            cursor: pointer;
-        }
         .menu li:first-child .menu__item {
             margin-left: -10px;
         }

@@ -66,44 +66,34 @@
         --><li class="js-spells-object"><button class="menu__item js-anchor" data-for="spells-anchor">Spell Factory</button></li><!--
         --><li class="js-share"><button class="menu__item js-anchor" data-for="share-anchor">Share</button></li><!--
         --><li><button class="menu__item js-save-composition"><span class="icon icon_save">Save Composition</span></button></li><!--
-        --><li><button class="menu__item js-anchor" data-for="saved-anchor">Saved Compositions</button></li><!--
-        --><li>
-            <label class="menu__item">
-                <input type="checkbox" id="settings-toggle-mode"/>
-                Setting Mode
-            </label>
-        </li>
+        --><li><button class="menu__item js-anchor" data-for="saved-anchor">Saved Compositions</button></li>
     </ul>
 </div>
 
-<div class="fixed-content">
-    <div class="block-intro">
-        <div class="fold fold_opened js-fold" data-store="fold-levels">
-            <span class="fold__switcher">
-                Change the level of buildings, troops and spells based on the Town Hall level
-            </span>
-            <div class="fold__content fold__content_125">
-                <div class="settings">
-                    <p>
-                        Set the Army Camps capacity, level of Barracks, Dark Barracks, Spell Factory,
-                        troops and spells in accordance with the Town Hall of level:
-                    </p>
-                    <p class="button-group button-group_settings">
-                        <button class="button js-settings-level">1</button><!--
-                        --><button class="button js-settings-level">2</button><!--
-                        --><button class="button js-settings-level">3</button><!--
-                        --><button class="button js-settings-level">4</button><!--
-                        --><button class="button js-settings-level">5</button><!--
-                        --><button class="button js-settings-level">6</button><!--
-                        --><button class="button js-settings-level">7</button><!--
-                        --><button class="button js-settings-level">8</button><!--
-                        --><button class="button js-settings-level">9</button><!--
-                        --><button class="button js-settings-level">10</button>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="block-intro">
+    <label class="button button_big">
+        <input type="checkbox" id="settings-toggle-mode" class="text-middle"/>
+        <span class="text-middle">Setting Mode</span>
+    </label>
+</div>
+
+<div class="fixed-content block-intro settings setting-mode-part">
+    <p>
+        Set the Army Camps capacity, level of Barracks, Dark Barracks, Spell Factory,
+        troops and spells in accordance with the Town Hall of level:
+    </p>
+    <p class="button-group button-group_settings">
+        <button class="button js-settings-level">1</button><!--
+        --><button class="button js-settings-level">2</button><!--
+        --><button class="button js-settings-level">3</button><!--
+        --><button class="button js-settings-level">4</button><!--
+        --><button class="button js-settings-level">5</button><!--
+        --><button class="button js-settings-level">6</button><!--
+        --><button class="button js-settings-level">7</button><!--
+        --><button class="button js-settings-level">8</button><!--
+        --><button class="button js-settings-level">9</button><!--
+        --><button class="button js-settings-level">10</button>
+    </p>
 </div>
 
 <p id="view-shared" style="display: none;" class="block-intro">
