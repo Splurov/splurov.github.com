@@ -21,7 +21,7 @@ part([
         if (totalSpace > maxSpace) {
             space = '<span class="limit-exceeded">' + totalSpace + '</span>';
         }
-        space = space + ' / ' + (type === 'light' ? '': maxSpace);
+        space = space + '&thinsp;/&thinsp;' + (type === 'light' ? '': maxSpace);
         dom.updater.defer(type + '-space', 'html', space);
 
     };
@@ -127,14 +127,15 @@ part([
 
             if (result.spells.totalTime) {
                 var spellsTimeId = 'spells-time';
+                var spellsTimeValue;
                 if (localStorage.getItem('spells-boosted') === 'yes') {
-                    dom.updater.defer(spellsTimeId, 'html',
-                                      '<span class="boosted">' +
+                    spellsTimeValue = '<span class="boosted">' +
                                       common.getFormattedTime(Math.floor(result.spells.totalTime / 4), true) +
-                                      '</span>');
+                                      '</span>';
                 } else {
-                    dom.updater.defer(spellsTimeId, 'text', common.getFormattedTime(result.spells.totalTime, true));
+                    spellsTimeValue = common.getFormattedTime(result.spells.totalTime, true);
                 }
+                dom.updater.defer(spellsTimeId, 'html', spellsTimeValue);
             }
 
             spellsObjects.toggleClass('setting-mode-empty', (result.spells.levelValue === 0));
@@ -171,9 +172,9 @@ part([
                         dom.updater.defer(subtractedCostId, 'text', '');
                     } else {
                         dom.updater.defer(subtractedCostId, 'html',
-                                          '− ' +
+                                          '−&thinsp;' +
                                           common.numberFormat(result[type].totalCost - result[type].subtractedCost) +
-                                          ' = <span class="result">' +
+                                          '&thinsp;=&thinsp;<span class="result">' +
                                           common.numberFormat(result[type].subtractedCost) + '</span>');
                     }
                 }

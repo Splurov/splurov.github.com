@@ -28,7 +28,7 @@ part('common', ['dom'], function(dom) {
             var remainingTime = time;
 
             if (remainingTime > 3599) {
-                formattedTime += Math.floor(remainingTime / 3600) + 'h ';
+                formattedTime += Math.floor(remainingTime / 3600) + 'h&thinsp;';
                 remainingTime %= 3600;
                 hideSeconds = true;
             }
@@ -39,9 +39,9 @@ part('common', ['dom'], function(dom) {
                 if (hideSeconds && remainingTime) {
                     minutes++;
                 }
-                formattedTime += minutes + 'm ';
+                formattedTime += minutes + 'm&thinsp;';
             } else {
-                formattedTime += '0m ';
+                formattedTime += '0m&thinsp;';
             }
 
             if (formattedTime === '' || !hideSeconds) {

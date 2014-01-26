@@ -7,6 +7,7 @@ var csso = require('csso');
 var uglifyjs = require('uglify-js');
 var autoprefixer = require('autoprefixer');
 var cssc = require('css-condense');
+var htmlMinifier = require('html-minifier');
 
 require('buffer');
 
@@ -307,6 +308,26 @@ for (var file in sources) {
         }
 
         var dataDest = currentTemplate.render(translationsCurrent, partials);
+
+        dataDest = htmlMinifier.minify(dataDest, {
+            'removeComments': true,
+            'removeCommentsFromCDATA': false,
+            'removeCDATASectionsFromCDATA': false,
+            'collapseWhitespace': false,
+            'collapseBooleanAttributes': true,
+            'removeAttributeQuotes': true,
+            'removeRedundantAttributes': true,
+            'useShortDoctype': true,
+            'removeEmptyAttributes': true,
+            'removeOptionalTags': false,
+            'removeEmptyElements': false,
+            'removeScriptTypeAttributes': true,
+            'removeStyleLinkTypeAttributes': true
+        });
+
+        //dataDest = dataDest.replace(/>(\s{2,})/g, '> ');
+        //dataDest = dataDest.replace(/(\s{2,})</g, ' <');
+        dataDest = dataDest.replace(/^\s+/gm, '');
 
         fs.writeFileSync(options[3], dataDest);
         console.log('done: ' + lang + ' ' + file);

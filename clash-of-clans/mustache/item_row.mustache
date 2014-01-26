@@ -1,11 +1,9 @@
 <tr id="{{rowId}}">
     <td>
-        <span class="object-{{type}}">
-            <span class="object-icon __{{id}}"{{^spells}} title="{{title}}"{{/spells}}></span>
-            {{#spells}}
-                <span class="object-text">{{title}}</span>
-            {{/spells}}
-        </span>
+        <span class="object-icon __{{id}}"{{^spells}} title="{{title}}"{{/spells}}></span>
+        {{#spells}}
+            <span class="object-text">{{title}}</span>
+        {{/spells}}
     </td>
     <td class="small">
         <span class="text-middle setting-mode-not-part" id="{{id}}-level-text"></span>

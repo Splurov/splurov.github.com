@@ -138,7 +138,7 @@ part([
                         output.push(
                             common.convertToTitle(objectResult.name) +
                             superscriptNumbers[objectResult.level] +
-                            ' ×' +
+                            '&thinsp;×' +
                             objectResult.quantity
                         );
                     }
