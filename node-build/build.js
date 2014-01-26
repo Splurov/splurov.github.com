@@ -188,7 +188,15 @@ for (var file in sources) {
             console.log('css sub: ' + buildP1);
             return fs.readFileSync(dir + buildP1, 'utf8');
         });
-        styleData = autoprefixer('ios >= 5', 'chrome >= 21', 'ff >= 17', 'safari >= 5.1', 'ie >= 10', 'android >= 4', 'opera >= 12.1').process(styleData).css;
+        styleData = autoprefixer(
+            'ios >= 6',
+            'chrome >= 21',
+            'ff >= 24',
+            'safari >= 6',
+            'ie >= 10',
+            'android >= 4',
+            'opera >= 17'
+        ).process(styleData).css;
         console.log('autoprefixer: ' + p1);
         styleData = styleData.replace(/url\(([^']+?\.png)\)/g, function(match, sp1) {
             return 'url(' + makeDataUri(sp1.substr(1)) + ')';

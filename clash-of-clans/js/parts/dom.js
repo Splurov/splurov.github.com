@@ -106,8 +106,12 @@ part('dom', function() {
         }
     };
 
+    var byIdCache = {};
     var byId = function(id) {
-        return document.getElementById(id);
+        if (!byIdCache[id]) {
+            byIdCache[id] = document.getElementById(id);
+        }
+        return byIdCache[id];
     };
 
     var updater = (function() {
@@ -129,7 +133,6 @@ part('dom', function() {
         var update = function(id, type, value) {
             if (!current[id]) {
                 current[id] = {
-                    'el': byId(id),
                     'type': null,
                     'value': null
                 };
@@ -141,7 +144,7 @@ part('dom', function() {
                 currentItem.type = type;
                 currentItem.value = value;
 
-                types[type](currentItem.el, value);
+                types[type](byId(id), value);
             }
         };
 
@@ -170,13 +173,6 @@ part('dom', function() {
 
     return {
         'id': byId,
-        'insertBefore': function(el, newEl) {
-            if (el.nextSibling) {
-                el.parentNode.insertBefore(newEl, el.nextSibling);
-            } else {
-                el.parentNode.appendChild(newEl);
-            }
-        },
         'find': function(selector, context) {
             return new List((context || document).querySelectorAll(selector));
         },

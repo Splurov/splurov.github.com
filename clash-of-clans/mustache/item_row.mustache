@@ -19,7 +19,9 @@
                class="js-number text-middle js-comp-quantity"
                id="{{id}}"
                size="3"
-               tabindex="{{tabIndexValue}}"/>
+               tabindex="{{tabIndexValue}}"/><!--
+        --><button class="button button_spinner js-spinner" tabindex="-1" data-for="{{id}}">+</button><!--
+        --><button class="button button_spinner js-spinner" tabindex="-1" data-for="{{id}}">−</button>
     </td>
     <td id="{{id}}-summary" class="number small">
     </td>
@@ -30,7 +32,9 @@
                    class="js-number text-middle js-comp-subtract"
                    id="{{subtractId}}"
                    size="3"
-                   tabindex="{{tabIndexSubtract}}"/>
+                   tabindex="{{tabIndexSubtract}}"/><!--
+        --><button class="button button_spinner js-spinner" tabindex="-1" data-for="{{subtractId}}">+</button><!--
+        --><button class="button button_spinner js-spinner" tabindex="-1" data-for="{{subtractId}}">−</button>
         </td>
     {{/subtractId}}
     {{#barracksTimes}}

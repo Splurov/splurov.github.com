@@ -61,8 +61,8 @@
     }
 
     .button_big {
-        font-size: inherit;
-        padding: 4px 8px 6px;
+        font-size: 15px;
+        padding: 3px 7px 5px;
     }
     .button_pressed, .button_pressed:active, .button_pressed:focus {
         color: #444;
@@ -80,7 +80,8 @@
     .button-group_settings .button {
         padding: 5px 0;
         text-align: center;
-        width: 34px;
+        width: 26px;
+        font-size: inherit;
     }
     .button-group .button:first-of-type {
         border-radius: 5px 0 0 5px;

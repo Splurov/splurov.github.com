@@ -2,8 +2,6 @@ part(['events', 'dom'], function(events, dom) {
 
     'use strict';
 
-    var elements = [];
-
     var spinnerAction = function(el, type) {
         var current = parseInt(el.value, 10);
         if (type === '+') {
@@ -35,8 +33,8 @@ part(['events', 'dom'], function(events, dom) {
     };
 
     var spinnerEventAction = function() {
-        spinnerAction(elements[parseInt(currentSpinner.target.getAttribute('data-for'), 10)],
-                      currentSpinner.target.textContent);
+        var targetEl = dom.id(currentSpinner.target.getAttribute('data-for'));
+        spinnerAction(targetEl, currentSpinner.target.textContent);
     };
 
     var spinnerEventStart = function(target) {
@@ -138,23 +136,6 @@ part(['events', 'dom'], function(events, dom) {
         }
     });
 
-    var setSpinner = function(type, el) {
-        var container = document.createElement('button');
-        container.className = 'button button_spinner js-spinner';
-        container.setAttribute('tabindex', '-1');
-        container.textContent = type;
-        container.setAttribute('data-for', (elements.length - 1).toString());
-
-        dom.insertBefore(el, container);
-    };
-
-    dom.find('.js-number').iterate(function(el) {
-        dom.selectOnFocus(el);
-
-        elements.push(el);
-
-        setSpinner('−', el);
-        setSpinner('+', el);
-    });
+    dom.find('.js-number').iterate(dom.selectOnFocus);
 
 });

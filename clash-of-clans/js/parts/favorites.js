@@ -64,8 +64,13 @@ part('favorites', [
     };
 
     var animationEndHandler = function(e) {
-        console.log('animation end');
         e.currentTarget.classList.remove('favorite_added');
+    };
+
+    var addListeners = function(el) {
+        dom.find('.js-favorite-load', el).listen('universalClick', loadHandler);
+        dom.find('.js-favorite-delete', el).listen('universalClick', deleteHandler);
+        dom.find('.js-favorite', el).listen('animationend', animationEndHandler);
     };
 
     var savedListCreateItem = function(data, index) {
@@ -173,9 +178,7 @@ part('favorites', [
             savedData.save();
 
             tempDiv.innerHTML = savedListCreateItem(data, index);
-            dom.find('.js-favorite-load', tempDiv.firstChild).listen('universalClick', loadHandler);
-            dom.find('.js-favorite-delete', tempDiv.firstChild).listen('universalClick', deleteHandler);
-            dom.listen(tempDiv.firstChild, 'animationend', animationEndHandler);
+            addListeners(tempDiv);
             content.appendChild(tempDiv.firstChild);
 
             output.added = true;
@@ -200,9 +203,7 @@ part('favorites', [
 
     setTimeout(function() {
         content.innerHTML = savedData.all.map(savedListCreateItem).join('');
-        dom.find('.js-favorite-load', content).listen('universalClick', loadHandler);
-        dom.find('.js-favorite-delete', content).listen('universalClick', deleteHandler);
-        dom.find('.js-favorite', content).listen('animationend', animationEndHandler);
+        addListeners(content);
     }, 0);
 
     var savedCount = savedData.all.length;

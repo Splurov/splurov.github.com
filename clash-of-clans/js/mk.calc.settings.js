@@ -12,6 +12,8 @@ part(['events', 'dom'], function(events, dom) {
         dom.toggleClass(document.documentElement, 'setting-mode-enabled', toggleModeEl.checked);
 
         localStorage.setItem('settingsMode', (toggleModeEl.checked ? 'on' : 'off'));
+
+        dom.toggleClass(toggleModeEl.parentNode, 'button_pressed', toggleModeEl.checked);
     };
 
     dom.listen(toggleModeEl, 'change', function() {
