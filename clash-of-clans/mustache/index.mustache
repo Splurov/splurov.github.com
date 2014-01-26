@@ -143,7 +143,10 @@
                             {{#barracks}}
                                 <th class="data__distribution-column">
                                     <span class="text-middle setting-mode-not-part" id="{{type}}-level-{{index}}-text"></span>
-                                    <select id="{{type}}-level-{{index}}" class="setting-mode-part">
+                                    <select id="{{type}}-level-{{index}}" class="setting-mode-part" data-num="{{index}}">
+                                        {{#options}}
+                                            <option value="{{text}}"{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
+                                        {{/options}}
                                     </select> <span class="text-middle">lvl</span><br/>
                                     <label class="setting-mode-part unimportant">
                                         <input type="checkbox" id="{{type}}-boosted-{{index}}" class="text-middle"/>

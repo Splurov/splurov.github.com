@@ -62,20 +62,21 @@
         -webkit-touch-callout: none;
     }
 
+
 .button-group .button {
     margin: 0;
     border-radius: 0;
     border-right-width: 0;
 }
-.button-group_settings .button {
-    padding: 5px 0;
-    text-align: center;
-    width: 34px;
-}
-.button-group .button:first-child {
-    border-radius: 5px 0 0 5px;
-}
-.button-group .button:last-child {
-    border-radius: 0 5px 5px 0;
-    border-right-width: 1px;
-}
+    .button-group_settings .button {
+        padding: 5px 0;
+        text-align: center;
+        width: 34px;
+    }
+    .button-group .button:first-child {
+        border-radius: 5px 0 0 5px;
+    }
+    .button-group .button:last-child {
+        border-radius: 0 5px 5px 0;
+        border-right-width: 1px;
+    }

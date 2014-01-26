@@ -195,9 +195,11 @@ part('favorites', [
         }
     });
 
-    content.innerHTML = savedData.all.map(savedListCreateItem).join('');
-    dom.find('.js-favorite-load', content).listen('universalClick', loadHandler);
-    dom.find('.js-favorite-delete', content).listen('universalClick', deleteHandler);
+    setTimeout(function() {
+        content.innerHTML = savedData.all.map(savedListCreateItem).join('');
+        dom.find('.js-favorite-load', content).listen('universalClick', loadHandler);
+        dom.find('.js-favorite-delete', content).listen('universalClick', deleteHandler);
+    }, 0);
 
     var savedCount = savedData.all.length;
     events.trigger('goal', {

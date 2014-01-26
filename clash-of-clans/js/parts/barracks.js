@@ -28,21 +28,7 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
             var i = 0;
             while (++i <= data.count) {
                 var barrack = dom.id(data.type + '-level-' + i);
-                var num = i.toString();
-                barrack.setAttribute('data-num', num);
-                var j = -1;
-                var options = [];
-                while (++j <= data.maxLevel) {
-                    if (i === 1 && j === 0 && data.firstRequired) {
-                        continue;
-                    }
-                    var selected = '';
-                    if (j === data.maxLevel) {
-                        selected = ' selected="selected"';
-                    }
-                    options.push('<option value="' + j + '"' + selected + '>' + j + '</option>');
-                }
-                barrack.innerHTML = options.join('');
+                barracks.push(barrack);
 
                 dom.listen(barrack, 'change', function(e) {
                     var el = e.currentTarget;
@@ -55,8 +41,6 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
                         'type': 'barrack-' + data.type
                     });
                 });
-
-                barracks.push(barrack);
 
                 var boostedId = data.type + '-boosted-' + i;
                 var boostedEl = dom.id(boostedId);

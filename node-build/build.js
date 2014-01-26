@@ -61,7 +61,6 @@ var setItemRowsTemplates = function(vars) {
             'objectTitle': 'Troop',
             'capacityBuilding': 'Army Camps',
             'currencyCode': 'elixir',
-            'barracks': [{'index': 1}, {'index': 2}, {'index': 3}, {'index': 4}]
         },
         'dark': {
             'tabIndex': 20,
@@ -69,7 +68,6 @@ var setItemRowsTemplates = function(vars) {
             'objectTitle': 'Troop',
             'capacityBuilding': 'Army Camps',
             'currencyCode': 'dark-elixir',
-            'barracks': [{'index': 1}, {'index': 2}]
         },
         'spells': {
             'tabIndex': 30,
@@ -124,6 +122,27 @@ var setItemRowsTemplates = function(vars) {
             });
 
             basicInfo.objects = rows;
+
+            if (['light', 'dark'].indexOf(type) !== -1) {
+                var i = 0;
+                basicInfo.barracks = [];
+                while (++i <= barracks[type].data.count) {
+                    var barrack = {'index': i, 'options': []};
+                    var j = -1;
+                    var options = [];
+                    while (++j <= barracks[type].data.maxLevel) {
+                        if (i === 1 && j === 0 && barracks[type].data.firstRequired) {
+                            continue;
+                        }
+                        var selected = '';
+                        barrack.options.push({'text': j});
+                        options.push('<option value="' + j + '"' + selected + '>' + j + '</option>');
+                    }
+                    barrack.options[barrack.options.length - 1].selected = true;
+
+                    basicInfo.barracks.push(barrack);
+                }
+            }
 
             vars.types.push(basicInfo);
         });
