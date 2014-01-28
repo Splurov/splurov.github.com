@@ -1,4 +1,4 @@
-var ya_metrika_noscript = '<noscript><div><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px;" alt="" /></div></noscript>';
+var ya_metrika_noscript = '<noscript><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px"/></noscript>';
 
 var clash_of_clans = 'Clash of Clans';
 var coc_calc_title = 'Clash Calc — ' + clash_of_clans + ' Troops and Spells Cost Calculator/Time Planner';

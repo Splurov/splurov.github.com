@@ -11,6 +11,14 @@ var htmlMinifier = require('html-minifier');
 
 require('buffer');
 
+var STATIC_PATH = './s/';
+var STATIC_URI = '/s/';
+
+var staticFiles = fs.readdirSync(STATIC_PATH);
+staticFiles.forEach(function(file) {
+    fs.unlinkSync(STATIC_PATH + file);
+});
+
 // params: [language array key, changelog entry, is main clash of clans template, target path]
 var sources = {
     'mustache/index.mustache': {
@@ -170,12 +178,18 @@ var setItemRowsTemplates = function(vars) {
 
 };
 
+var getFileMTime = function(path) {
+    return fs.statSync(path).mtime.getTime();
+};
+
 for (var file in sources) {
     console.log('started: ' + file);
     var lastChangeTime = Math.round(fs.statSync(file).mtime.getTime() / 1000);
     translations.last_change = [lastChangeTime, lastChangeTime];
 
     var dir = sources[file].resource_dir;
+
+    var latestTime = 0;
 
     var dataSource = fs.readFileSync(file, 'utf8');
     dataSource = dataSource.replace(/<link rel="stylesheet" type="text\/css" href="([^"]+)"\/>/g, function(match, p1) {
@@ -184,8 +198,12 @@ for (var file in sources) {
             return dataCache[p1];
         }
         var styleData = fs.readFileSync(dir + p1, 'utf8');
+
+        latestTime = Math.max(latestTime, getFileMTime(dir + p1));
+
         styleData = styleData.replace(/\/\* build:css:([^ ]+) \*\//g, function(buildMatch, buildP1) {
             console.log('css sub: ' + buildP1);
+            latestTime = Math.max(latestTime, getFileMTime(dir + buildP1));
             return fs.readFileSync(dir + buildP1, 'utf8');
         });
         styleData = autoprefixer(
@@ -208,29 +226,45 @@ for (var file in sources) {
         styleData = csso.justDoIt(styleData);
         console.log('csso: ' + p1);
 
-        styleData = hoganPrepare('<style>' + styleData + '</style>');
+        fs.writeFileSync(STATIC_PATH + latestTime + '.css', styleData);
+
+        styleData = '<link rel="stylesheet" href="' + STATIC_URI + latestTime + '.css"/>';
+
+        //styleData = hoganPrepare('<style>' + styleData + '</style>');
 
         dataCache[p1] = styleData;
 
         return styleData;
     });
 
-    dataSource = dataSource.replace(/<script src="([^"]+)"( data-compress="no")?><\/script>/g, function(match, p1, p2) {
+    latestTime = 0;
+
+    dataSource = dataSource.replace(/<script src="([^"]+)"( data-compress="no")?( data-main="yes")?><\/script>/g, function(match, p1, p2, p3) {
         if (dataCache[p1 + p2]) {
             console.log('cached: ' + p1 + (p2 ? ' (no compress)' : ''));
             return dataCache[p1 + p2];
         }
         console.log('js: ' + p1);
         var scriptData = fs.readFileSync(dir + p1, 'utf8');
+
+        latestTime = Math.max(latestTime, getFileMTime(dir + p1));
+
         scriptData = scriptData.replace(/\/\* build:js:([^ :]+) \*\//g, function(buildMatch, buildP1) {
             console.log('js sub: ' + buildP1);
+
+            latestTime = Math.max(latestTime, getFileMTime(dir + buildP1));
+
             return fs.readFileSync(dir + buildP1, 'utf8');
         });
         scriptData = scriptData.replace(/\/\* build:hogan:([^ ]+) \*\//g, function(hoganMatch, hoganP1) {
             var templatePath = dir + hoganP1;
             var template = fs.readFileSync(templatePath, 'utf8');
+            template = template.replace(/^\s+/gm, '');
             var compiled = hogan.compile(template, {'asString': 1});
             console.log('hogan: ' + hoganP1);
+
+            latestTime = Math.max(latestTime, getFileMTime(dir + hoganP1));
+
             return compiled;
         });
         scriptData = scriptData.replace(/if \(typeof exports !== 'undefined'\) \{[^\}]+\}/g, '');
@@ -251,10 +285,16 @@ for (var file in sources) {
 
         scriptData = scriptData.replace(/\/\* build:js:vendor:([^ ]+) \*\//g, function(buildMatch, buildP1) {
             console.log('js sub vendor: ' + buildP1);
-            return fs.readFileSync(dir + buildP1, 'utf8');
+            return fs.readFileSync(dir + buildP1, 'utf8') + '\n\n// Copyright 2014 Mikhail Kalashnik';
         });
 
-        scriptData = hoganPrepare('<script>' + scriptData + '</script>');
+        if (p3) {
+            fs.writeFileSync(STATIC_PATH + latestTime + '.js', scriptData);
+
+            scriptData = '<script src="' + STATIC_URI + latestTime + '.js" defer="defer"></script>';
+        } else {
+            scriptData = hoganPrepare('<script>' + scriptData + '</script>');
+        }
 
         dataCache[p1 + p2] = scriptData;
 
