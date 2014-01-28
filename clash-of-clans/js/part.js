@@ -1,6 +1,10 @@
 var part = (function() {
     'use strict';
 
+    var isDomReady = false;
+
+    var postponed = [];
+
     var parts = {};
 
     var buildDeps = function(deps) {
@@ -9,11 +13,31 @@ var part = (function() {
         });
     };
 
+    if (typeof window !== 'undefined') {
+        document.addEventListener('DOMContentLoaded', function() {
+            isDomReady = true;
+            while (postponed.length) {
+                var fn = postponed.shift();
+                fn();
+            }
+        }, false);
+    } else {
+        isDomReady = true;
+    }
+
     return function(nameOrDeps, depsOrFunc, func) {
-        if (typeof nameOrDeps === 'string') {
-            parts[nameOrDeps] = func ? func.apply(null, buildDeps(depsOrFunc)) : depsOrFunc();
+        var fn = function() {
+            if (typeof nameOrDeps === 'string') {
+                parts[nameOrDeps] = func ? func.apply(null, buildDeps(depsOrFunc)) : depsOrFunc();
+            } else {
+                depsOrFunc.apply(null, buildDeps(nameOrDeps));
+            }
+        };
+
+        if (isDomReady) {
+            fn();
         } else {
-            depsOrFunc.apply(null, buildDeps(nameOrDeps));
+            postponed.push(fn);
         }
     };
 }());
