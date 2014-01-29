@@ -28,7 +28,7 @@ part('spellFactory', ['dom', 'events', 'savedData', 'goal'], function(dom, event
         };
 
         var notifyLevelChange = function() {
-            events.trigger('elChange', levelEl, true);
+            events.trigger('elChange', levelEl);
         };
 
         dom.listen(levelEl, 'change', function() {

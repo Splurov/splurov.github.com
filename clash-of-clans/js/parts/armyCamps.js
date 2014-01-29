@@ -32,7 +32,7 @@ part('armyCamps', ['dom', 'events', 'savedData'], function(dom, events, savedDat
         };
 
         var notifyChange = function() {
-            events.trigger('elChange', el, true);
+            events.trigger('elChange', el);
         };
 
         dom.listen(el, 'change', function() {

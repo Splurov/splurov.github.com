@@ -14,7 +14,7 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
     };
 
     var notifyChange = function(el) {
-        events.trigger('elChange', el, true);
+        events.trigger('elChange', el);
     };
 
     events.watch('updateFromSaved', function() {
@@ -99,6 +99,6 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
 
     events.trigger('calculate', {
         'type': 'all'
-    }, true);
+    });
 
 });

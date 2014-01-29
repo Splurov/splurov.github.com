@@ -64,7 +64,7 @@ part('barracks', ['dom', 'savedData', 'events', 'goal'], function(dom, savedData
                     el.options[saved].selected = true;
                     updateSavedData(el);
 
-                    events.trigger('elChange', el, true);
+                    events.trigger('elChange', el);
 
                     updateHeader(el.getAttribute('data-num'), el.value);
                 });
@@ -76,7 +76,7 @@ part('barracks', ['dom', 'savedData', 'events', 'goal'], function(dom, savedData
                     el.value = value;
                     updateSavedData(el);
 
-                    events.trigger('elChange', el, true);
+                    events.trigger('elChange', el);
 
                     updateHeader(el.getAttribute('data-num'), el.value);
                 });

@@ -132,20 +132,24 @@ part([
         var prices = [];
 
         ['light', 'dark', 'spells'].forEach(function(type) {
-            if (result[type]) {
-                result[type].objects.forEach(function(objectResult) {
-                    if (objectResult.summaryCost) {
-                        output.push(
-                            common.convertToTitle(objectResult.name) +
-                            superscriptNumbers[objectResult.level] +
-                            ' ×' +
-                            objectResult.quantity
-                        );
-                    }
+            if (type !== 'spells') {
+                result[type].objects.sort(function(a, b) {
+                    return a.minBarrackLevel - b.minBarrackLevel;
                 });
-                if (result[type].totalCost) {
-                    prices.push(common.numberFormat(result[type].totalCost) + ' ' + currencies[type]);
+            }
+
+            result[type].objects.forEach(function(objectResult) {
+                if (objectResult.summaryCost) {
+                    output.push(
+                        common.convertToTitle(objectResult.name) +
+                        superscriptNumbers[objectResult.level] +
+                        ' ×' +
+                        objectResult.quantity
+                    );
                 }
+            });
+            if (result[type].totalCost) {
+                prices.push(common.numberFormat(result[type].totalCost) + ' ' + currencies[type]);
             }
         });
 
