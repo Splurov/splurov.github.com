@@ -5,7 +5,7 @@ part('calculate', [
     'dom',
     'barracks',
     'goal'
-], function(spellFactory, savedData, types, dom, barracksInfo, goal) {
+], function(spellFactory, savedData, types, dom, barracks, goal) {
 
     'use strict';
 
@@ -60,12 +60,12 @@ part('calculate', [
         return suitableBarracksSort(a, b);
     };
 
-    var getSuitableBarrack = function(barracks,
+    var getSuitableBarrack = function(barracksQueue,
                                       requiredLevel,
                                       requiredSpace,
                                       requiredTime,
                                       avgTime) {
-        var suitable = barracks.filter(function(barrack) {
+        var suitable = barracksQueue.filter(function(barrack) {
             return barrack.level >= requiredLevel && (barrack.space + requiredSpace) <= barrack.maxSpace;
         });
 
@@ -210,9 +210,9 @@ part('calculate', [
         } else {
             var levels = [];
             var i = 0;
-            while (++i <= barracksInfo[type].data.count) {
+            while (++i <= barracks[type].data.count) {
                 var level = params.savedData.get(type + '-level-' + i);
-                if (i === 1 && barracksInfo[type].data.firstRequired) {
+                if (i === 1 && barracks[type].data.firstRequired) {
                     level += 1;
                 }
                 levels.push(level);
@@ -313,7 +313,7 @@ part('calculate', [
                     'num': num,
                     'time': 0,
                     'space': 0,
-                    'maxSpace': barracksInfo[type].data.queue[level],
+                    'maxSpace': barracks[type].data.queue[level],
                     'units': {},
                     'level': level,
                     'isBoosted': isBoosted,
@@ -361,7 +361,7 @@ part('calculate', [
             if (type === 'spells') {
                 capLevel = spellFactory.max;
             } else {
-                capLevel = barracksInfo[type].data.maxLevel;
+                capLevel = barracks[type].data.maxLevel;
             }
 
             result[type] = calculateItems(type, {

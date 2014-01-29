@@ -1,12 +1,11 @@
 part([
     'savedData',
-    'types',
     'events',
     'dom',
     'barracks',
     'common',
     'calculate'
-], function(savedData, types, events, dom, barracks, common, calculate) {
+], function(savedData, events, dom, barracks, common, calculate) {
 
     'use strict';
 
