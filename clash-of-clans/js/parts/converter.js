@@ -1,4 +1,4 @@
-part('converter', ['events'], function(events) {
+part('converter', ['goal'], function(goal) {
 
     'use strict';
 
@@ -29,7 +29,7 @@ part('converter', ['events'], function(events) {
 
         localStorage.setItem('data4', JSON.stringify(parts));
 
-        events.trigger('goal', {'id': 'CONVERTED3TO4'}, true);
+        goal.reach('CONVERTED3TO4');
     }
 
     ['savedData', 'savedCalculations', 'data', 'data2', 'data3'].forEach(function(key) {

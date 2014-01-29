@@ -4,7 +4,7 @@ if (typeof exports !== 'undefined') {
     var part = require('../part.js');
 }
 
-part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, savedData) {
+part('spellFactory', ['dom', 'events', 'savedData', 'goal'], function(dom, events, savedData, goal) {
     'use strict';
 
     var data = {
@@ -41,6 +41,8 @@ part('spellFactory', ['dom', 'events', 'savedData'], function(dom, events, saved
         });
 
         dom.listen(boostedEl, 'change', function() {
+            goal.reach('BOOSTED', {'boostedType': data.type});
+
             localStorage.setItem('spells-boosted', (boostedEl.checked ? 'yes' : 'no'));
 
             events.trigger('calculate', {

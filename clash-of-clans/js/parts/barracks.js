@@ -4,7 +4,7 @@ if (typeof exports !== 'undefined') {
     var part = require('../part.js');
 }
 
-part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events) {
+part('barracks', ['dom', 'savedData', 'events', 'goal'], function(dom, savedData, events, goal) {
     'use strict';
 
     var BarracksContainer = function(data) {
@@ -48,6 +48,8 @@ part('barracks', ['dom', 'savedData', 'events'], function(dom, savedData, events
                     boostedEl.checked = true;
                 }
                 dom.listen(boostedEl, 'change', function(e) {
+                    goal.reach('BOOSTED', {'boostedType': data.type});
+
                     var el = e.currentTarget;
                     localStorage.setItem(el.getAttribute('id'), (el.checked ? 'yes' : 'no'));
                     events.trigger('calculate', {

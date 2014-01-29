@@ -3,6 +3,7 @@
 /* build:js:js/part.js */
 
 /* build:js:js/parts/dom.js */
+/* build:js:js/parts/goal.js */
 /* build:js:js/parts/common.js */
 /* build:js:js/parts/events.js */
 /* build:js:js/parts/converter.js */
@@ -22,4 +23,3 @@
 /* build:js:js/fold.js */
 /* build:js:js/mk.calc.spinner.js */
 /* build:js:js/mk.calc.reset.js */
-/* build:js:js/mk.goal.js */

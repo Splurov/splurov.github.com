@@ -4,8 +4,9 @@ part('favorites', [
     'dom',
     'calculate',
     'common',
-    'navigation'
-], function(savedData, events, dom, calculate, common, navigation) {
+    'navigation',
+    'goal'
+], function(savedData, events, dom, calculate, common, navigation, goal) {
 
     'use strict';
 
@@ -17,9 +18,7 @@ part('favorites', [
     var template = new Hogan.Template(/* build:hogan:mustache/favorites.mustache */);
 
     var loadHandler = function(e) {
-        events.trigger('goal', {
-            'id': 'LOAD_SAVED'
-        }, true);
+        goal.reach('LOAD_SAVED');
 
         var dataToLoad = common.objectCopy(
             savedData.all[e.currentTarget.getAttribute('data-num')].getAll()
@@ -36,9 +35,7 @@ part('favorites', [
     };
 
     var deleteHandler = function(e) {
-        events.trigger('goal', {
-            'id': 'DELETE_SAVED'
-        }, true);
+        goal.reach('DELETE_SAVED');
 
         var index = e.currentTarget.getAttribute('data-num');
 
@@ -191,9 +188,7 @@ part('favorites', [
     dom.find('.js-save-composition').listen('universalClick', function() {
         var result = save(true);
         if (result.added) {
-            events.trigger('goal', {
-                'id': 'SAVE_COMPOSITION'
-            }, true);
+            goal.reach('SAVE_COMPOSITION');
         }
 
         if (result.index) {
@@ -207,12 +202,8 @@ part('favorites', [
     }, 0);
 
     var savedCount = savedData.all.length;
-    events.trigger('goal', {
-        'id': 'SAVED_COMPOSITIONS',
-        'params': {
-            'count': 'sc' + (savedCount ? savedCount - 1 : 0)
-        }
-    }, true);
+
+    window.yandexMetrikaParams.favoritesCount = 'fc' + (savedCount ? savedCount - 1 : 0);
 
     return {
         'add': function() {

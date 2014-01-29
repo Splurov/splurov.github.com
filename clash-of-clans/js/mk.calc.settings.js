@@ -1,4 +1,4 @@
-part(['events', 'dom'], function(events, dom) {
+part(['events', 'dom', 'goal'], function(events, dom, goal) {
 
     'use strict';
 
@@ -18,7 +18,7 @@ part(['events', 'dom'], function(events, dom) {
 
     dom.listen(toggleModeEl, 'change', function() {
         toggleSettings();
-        events.trigger('goal', {'id': 'SETTINGS_SWITCH'}, true);
+        goal.reach('SETTINGS_SWITCH');
     });
 
     var settingsModeValue = localStorage.getItem('settingsMode');
@@ -28,12 +28,7 @@ part(['events', 'dom'], function(events, dom) {
     toggleModeEl.checked = (settingsModeValue === 'on');
     toggleSettings();
 
-    events.trigger('goal', {
-        'id': 'SETTINGS_INIT',
-        'params': {
-            'mode': settingsModeValue
-        }
-    }, true);
+    window.yandexMetrikaParams.settingsMode = settingsModeValue;
 
     var getSettingValue = function(selectedTh, allTh) {
         while (!allTh.hasOwnProperty(selectedTh) && selectedTh > 0) {
@@ -43,12 +38,7 @@ part(['events', 'dom'], function(events, dom) {
     };
 
     var setLevels = function(th) {
-        events.trigger('goal', {
-            'id': 'SETTINGS_TH',
-            'params': {
-                'level': 'th' + th
-            }
-        }, true);
+        goal.reach('SETTINGS_TH', {'settingsLevel': 'th' + th});
 
         events.trigger('updateSetting', {
             'th': th,

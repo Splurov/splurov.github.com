@@ -2,10 +2,10 @@ part('calculate', [
     'spellFactory',
     'savedData',
     'types',
-    'events',
     'dom',
     'barracks',
-], function(spellFactory, savedData, types, events, dom, barracksInfo) {
+    'goal'
+], function(spellFactory, savedData, types, dom, barracksInfo, goal) {
 
     'use strict';
 
@@ -267,9 +267,7 @@ part('calculate', [
                 }
 
                 if (subtractQuantity) {
-                    events.trigger('goal', {
-                        'id': 'SUBTRACT'
-                    }, true);
+                    goal.reach('SUBTRACT');
                 }
 
                 quantity -= subtractQuantity;

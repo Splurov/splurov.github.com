@@ -1,4 +1,4 @@
-part(['events', 'dom'], function(events, dom) {
+part(['events', 'dom', 'goal'], function(events, dom, goal) {
 
     'use strict';
 
@@ -18,9 +18,7 @@ part(['events', 'dom'], function(events, dom) {
             'type': resetType
         });
 
-        events.trigger('goal', {
-            'id': 'RESET'
-        }, true);
+        goal.reach('RESET');
     });
 
 });

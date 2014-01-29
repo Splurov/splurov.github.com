@@ -4,8 +4,9 @@ part([
     'dom',
     'common',
     'converter',
-    'favorites'
-], function(savedData, events, dom, common, converter, favorites) {
+    'favorites',
+    'goal'
+], function(savedData, events, dom, common, converter, favorites, goal) {
 
     'use strict';
 
@@ -22,12 +23,11 @@ part([
     if (urlParam) {
         var urlData = location.search.substr(3);
         urlData = decodeURIComponent(urlData);
+
         var goalParams = {};
-        goalParams[oldUrlParam ? 'l' : 's'] = urlData;
-        events.trigger('goal', {
-            'id': 'SHARE',
-            'params': goalParams
-        }, true);
+        goalParams[oldUrlParam ? 'shareV1' : 'shareV2'] = urlData;
+        goal.reach('SHARE', goalParams);
+
         urlData = urlData.replace(/[a-z]/g, ',');
         urlData = urlData.replace(/,(?=,)/g, ',0');
         if (urlData[0] === ',') {
