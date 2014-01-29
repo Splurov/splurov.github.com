@@ -336,13 +336,10 @@ for (var file in sources) {
                 });
 
                 changelogParsed.push(entry);
-
-                if (options[1] === 'first') {
-                    break;
-                }
             }
             if (options[1] === 'first') {
                 translationsCurrent.firstChangelog = changelogParsed[0];
+                translationsCurrent.secondChangelog = changelogParsed[1];
             } else {
                 translationsCurrent.changelog = changelogParsed;
             }

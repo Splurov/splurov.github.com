@@ -1,7 +1,17 @@
 [
     [
+        "4.1",
+        "29 January, 2014",
+        [
+            "Added Minion level 6",
+            "Added Freeze Spell level 5",
+            "Increased Hog Rider training cost"
+        ],
+        "Game version 5.172 updates:"
+    ],
+    [
         "4.0",
-        "26 January, 2014",
+        "28 January, 2014",
         [
             "Increased calculator performance (faster loading, better responsiveness)",
             "Animated saving and deleting of saved compositions",
@@ -95,7 +105,7 @@
             "Added Wizard level 6 and Freeze spell level 4",
             "Also fixed bug when part of the army did not appear in the saved compositions in some cases"
         ],
-        "4.120 updates:"
+        "Game version 4.120 updates:"
     ],
     [
         "2.17",
@@ -138,7 +148,7 @@
             "Decreased Hog Rider’s housing space from 6 to 5",
             "Decreased Valkyrie’s training cost"
         ],
-        "4.74 updates:"
+        "Game version 4.74 updates:"
     ],
     [
         "2.13",
@@ -165,7 +175,7 @@
             "P.E.K.K.A. level 4",
             "Army Camps maximum capacity increased to 240 troops"
         ],
-        "4.53 updates:"
+        "Game version 4.53 updates:"
     ],
     [
         "2.10",
@@ -230,7 +240,7 @@
             "Added Dragon level 4",
             "Added Golem level 5"
         ],
-        "4.14 updates:"
+        "Game version 4.14 updates:"
     ],
     [
         "2.7",
@@ -303,7 +313,7 @@
             "Added Golem to Dark Barracks",
             "Production time for spells decreased: Lighting/Healing — 30m, Rage/Jump — 45m"
         ],
-        "3.124 updates:"
+        "Game version 3.124 updates:"
     ],
     [
         "2.4.1",
@@ -362,7 +372,7 @@
             "P.E.K.K.A. training time reduced from 1 hour to 45 minutes",
             "P.E.K.K.A. and Dragon costs reduced"
         ],
-        "3.54 updates:"
+        "Game version 3.54 updates:"
     ],
     [
         "2.0.1",

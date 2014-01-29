@@ -262,6 +262,17 @@
             {{/changes}}
         </ul>
     {{/firstChangelog}}
+    {{#secondChangelog}}
+        <h3>{{version}}</h3>
+        {{#ch_title}}
+            <p>{{ch_title}}</p>
+        {{/ch_title}}
+        <ul>
+            {{#changes}}
+                <li>{{& change}}.</li>
+            {{/changes}}
+        </ul>
+    {{/secondChangelog}}
 </div>
 
 <h2 class="block-indented">Additionally</h2>
