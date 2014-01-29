@@ -18,7 +18,7 @@ part(['events', 'dom', 'goal'], function(events, dom, goal) {
             'type': resetType
         });
 
-        goal.reach('RESET');
+        goal.reach('RESET', {'resetType': resetType});
     });
 
 });
