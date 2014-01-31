@@ -1,4 +1,7 @@
-part(['events', 'dom'], function(events, dom) {
+part([
+    'events',
+    'dom'
+], function(events, dom) {
 
     'use strict';
 

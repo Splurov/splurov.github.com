@@ -6,7 +6,7 @@
 <title>Clash of Clans Troops and Spells Cost Calculator/Time Planner — Clash Calc</title>
 <meta name=description content="Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.">
 <script>var _gaq=_gaq||[];window.onerror=function(o,t,n){return _gaq.push(["_trackEvent","Javascript Error",o,t+":"+n+" ["+navigator.userAgent+"]",0,!0]),!1},function(){"use strict";var o=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i);window.mkIsMobile=o||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),o&&document.documentElement.classList.add("ios")}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var o=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==o&&location.host!=="test."+o&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+o+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={}}();</script>
-<script src=/s/1391025363000.js defer></script>
+<script src=/s/1391197968000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
 <link rel=stylesheet href=/s/1391007738000.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
@@ -89,7 +89,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 </th>
 <th class=data__distribution-column>
 <span class="text-middle setting-mode-not-part" id=light-level-1-text></span>
-<select id=light-level-1 class=setting-mode-part data-num=1>
+<select id=light-level-1 class="setting-mode-part js-comp-level" data-num=1>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -102,7 +102,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=10 selected>10</option>
 </select> <span class=text-middle>lvl</span><br>
 <label class="setting-mode-part unimportant">
-<input type=checkbox id=light-boosted-1 class=text-middle>
+<input type=checkbox id=light-boosted-1 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
 <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
@@ -112,7 +112,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 </th>
 <th class=data__distribution-column>
 <span class="text-middle setting-mode-not-part" id=light-level-2-text></span>
-<select id=light-level-2 class=setting-mode-part data-num=2>
+<select id=light-level-2 class="setting-mode-part js-comp-level" data-num=2>
 <option value=0>0</option>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -126,7 +126,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=10 selected>10</option>
 </select> <span class=text-middle>lvl</span><br>
 <label class="setting-mode-part unimportant">
-<input type=checkbox id=light-boosted-2 class=text-middle>
+<input type=checkbox id=light-boosted-2 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
 <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
@@ -136,7 +136,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 </th>
 <th class=data__distribution-column>
 <span class="text-middle setting-mode-not-part" id=light-level-3-text></span>
-<select id=light-level-3 class=setting-mode-part data-num=3>
+<select id=light-level-3 class="setting-mode-part js-comp-level" data-num=3>
 <option value=0>0</option>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -150,7 +150,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=10 selected>10</option>
 </select> <span class=text-middle>lvl</span><br>
 <label class="setting-mode-part unimportant">
-<input type=checkbox id=light-boosted-3 class=text-middle>
+<input type=checkbox id=light-boosted-3 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
 <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
@@ -160,7 +160,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 </th>
 <th class=data__distribution-column>
 <span class="text-middle setting-mode-not-part" id=light-level-4-text></span>
-<select id=light-level-4 class=setting-mode-part data-num=4>
+<select id=light-level-4 class="setting-mode-part js-comp-level" data-num=4>
 <option value=0>0</option>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -174,7 +174,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=10 selected>10</option>
 </select> <span class=text-middle>lvl</span><br>
 <label class="setting-mode-part unimportant">
-<input type=checkbox id=light-boosted-4 class=text-middle>
+<input type=checkbox id=light-boosted-4 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
 <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
@@ -192,12 +192,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Barbarian-level-text></span>
 <select id=Barbarian-level class="setting-mode-part js-comp-level" data-type=light>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option selected>6</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
 </select>
 </td>
 <td>
@@ -219,12 +219,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Archer-level-text></span>
 <select id=Archer-level class="setting-mode-part js-comp-level" data-type=light>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option selected>6</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
 </select>
 </td>
 <td>
@@ -246,12 +246,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Goblin-level-text></span>
 <select id=Goblin-level class="setting-mode-part js-comp-level" data-type=light>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option selected>6</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
 </select>
 </td>
 <td>
@@ -273,12 +273,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Giant-level-text></span>
 <select id=Giant-level class="setting-mode-part js-comp-level" data-type=light>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option selected>6</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
 </select>
 </td>
 <td>
@@ -300,12 +300,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Wall_Breaker-level-text></span>
 <select id=Wall_Breaker-level class="setting-mode-part js-comp-level" data-type=light>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option selected>6</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
 </select>
 </td>
 <td>
@@ -327,12 +327,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Balloon-level-text></span>
 <select id=Balloon-level class="setting-mode-part js-comp-level" data-type=light>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option selected>6</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
 </select>
 </td>
 <td>
@@ -354,12 +354,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Wizard-level-text></span>
 <select id=Wizard-level class="setting-mode-part js-comp-level" data-type=light>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option selected>6</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
 </select>
 </td>
 <td>
@@ -381,10 +381,10 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Healer-level-text></span>
 <select id=Healer-level class="setting-mode-part js-comp-level" data-type=light>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option selected>4</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4 selected>4</option>
 </select>
 </td>
 <td>
@@ -406,10 +406,10 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Dragon-level-text></span>
 <select id=Dragon-level class="setting-mode-part js-comp-level" data-type=light>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option selected>4</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4 selected>4</option>
 </select>
 </td>
 <td>
@@ -431,10 +431,10 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=P-E-K-K-A--level-text></span>
 <select id=P-E-K-K-A--level class="setting-mode-part js-comp-level" data-type=light>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option selected>4</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4 selected>4</option>
 </select>
 </td>
 <td>
@@ -456,7 +456,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <label for=army-camps>Army Camps:</label>
 </td>
 <td class=result>
-<span id=light-space class=text-middle></span><span class="text-middle setting-mode-not-part" id=army-camps-text></span><select id=army-camps class=setting-mode-part>
+<span id=light-space class=text-middle></span><span class="text-middle setting-mode-not-part" id=army-camps-text></span><select id=army-camps class="setting-mode-part js-comp-level">
 <option value=20>20</option>
 <option value=30>30</option>
 <option value=40>40</option>
@@ -534,7 +534,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 </th>
 <th class=data__distribution-column>
 <span class="text-middle setting-mode-not-part" id=dark-level-1-text></span>
-<select id=dark-level-1 class=setting-mode-part data-num=1>
+<select id=dark-level-1 class="setting-mode-part js-comp-level" data-num=1>
 <option value=0>0</option>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -543,7 +543,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <option value=5 selected>5</option>
 </select> <span class=text-middle>lvl</span><br>
 <label class="setting-mode-part unimportant">
-<input type=checkbox id=dark-boosted-1 class=text-middle>
+<input type=checkbox id=dark-boosted-1 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
 <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
@@ -553,7 +553,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 </th>
 <th class=data__distribution-column>
 <span class="text-middle setting-mode-not-part" id=dark-level-2-text></span>
-<select id=dark-level-2 class=setting-mode-part data-num=2>
+<select id=dark-level-2 class="setting-mode-part js-comp-level" data-num=2>
 <option value=0>0</option>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -562,7 +562,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <option value=5 selected>5</option>
 </select> <span class=text-middle>lvl</span><br>
 <label class="setting-mode-part unimportant">
-<input type=checkbox id=dark-boosted-2 class=text-middle>
+<input type=checkbox id=dark-boosted-2 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
 <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
@@ -580,12 +580,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Minion-level-text></span>
 <select id=Minion-level class="setting-mode-part js-comp-level" data-type=dark>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option selected>6</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
 </select>
 </td>
 <td>
@@ -605,11 +605,11 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Hog_Rider-level-text></span>
 <select id=Hog_Rider-level class="setting-mode-part js-comp-level" data-type=dark>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option selected>5</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5 selected>5</option>
 </select>
 </td>
 <td>
@@ -629,10 +629,10 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Valkyrie-level-text></span>
 <select id=Valkyrie-level class="setting-mode-part js-comp-level" data-type=dark>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option selected>4</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4 selected>4</option>
 </select>
 </td>
 <td>
@@ -652,11 +652,11 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Golem-level-text></span>
 <select id=Golem-level class="setting-mode-part js-comp-level" data-type=dark>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option selected>5</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5 selected>5</option>
 </select>
 </td>
 <td>
@@ -676,8 +676,8 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Witch-level-text></span>
 <select id=Witch-level class="setting-mode-part js-comp-level" data-type=dark>
-<option>1</option>
-<option selected>2</option>
+<option value=1>1</option>
+<option value=2 selected>2</option>
 </select>
 </td>
 <td>
@@ -721,7 +721,7 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 </th>
 <th>
 <span class="text-middle setting-mode-not-part" id=spells-level-text></span>
-<select id=spells-level class=setting-mode-part>
+<select id=spells-level class="setting-mode-part js-comp-level">
 <option value=0>0</option>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -730,7 +730,7 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <option value=5 selected>5</option>
 </select> <span class=text-middle>lvl</span><br>
 <label class="setting-mode-part unimportant">
-<input type=checkbox id=spells-boosted class=text-middle>
+<input type=checkbox id=spells-boosted class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
 </th>
@@ -745,12 +745,12 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Lightning-level-text></span>
 <select id=Lightning-level class="setting-mode-part js-comp-level" data-type=spells>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option selected>6</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
 </select>
 </td>
 <td>
@@ -767,12 +767,12 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Healing-level-text></span>
 <select id=Healing-level class="setting-mode-part js-comp-level" data-type=spells>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option selected>6</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
 </select>
 </td>
 <td>
@@ -789,11 +789,11 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Rage-level-text></span>
 <select id=Rage-level class="setting-mode-part js-comp-level" data-type=spells>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option selected>5</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5 selected>5</option>
 </select>
 </td>
 <td>
@@ -810,8 +810,8 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Jump-level-text></span>
 <select id=Jump-level class="setting-mode-part js-comp-level" data-type=spells>
-<option>1</option>
-<option selected>2</option>
+<option value=1>1</option>
+<option value=2 selected>2</option>
 </select>
 </td>
 <td>
@@ -828,11 +828,11 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <td class=small>
 <span class="text-middle setting-mode-not-part" id=Freeze-level-text></span>
 <select id=Freeze-level class="setting-mode-part js-comp-level" data-type=spells>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option selected>5</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5 selected>5</option>
 </select>
 </td>
 <td>

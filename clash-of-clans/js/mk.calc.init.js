@@ -1,51 +1,78 @@
-part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events, dom) {
+part([
+    'savedData',
+    'types',
+    'events',
+    'dom',
+    'collection',
+    'boostedCollection',
+    'calculateCurrent'
+], function(savedData, types, events, dom, collection, boostedCollection, calculateCurrent) {
     'use strict';
-
-    /**
-     * LEVELS
-     */
-
-    var updateSavedData = function(el) {
-        savedData.current.set(el.getAttribute('id'), el.selectedIndex);
-    };
-
-    var updateEl = function(el, index) {
-        el.options[index].selected = true;
-    };
-
-    var notifyChange = function(el) {
-        events.trigger('elChange', el);
-    };
-
-    events.watch('updateFromSaved', function() {
-        types.iterateTree(function(type, name) {
-            var levelId = name + '-level';
-            var levelEl = dom.id(levelId);
-            updateEl(levelEl, savedData.current.get(levelId, levelEl.selectedIndex));
-            updateSavedData(levelEl);
-            notifyChange(levelEl);
-        });
-    });
-
-    events.watch('updateSetting', function(params) {
-        types.iterateTree(function(type, name, properties) {
-            var levelEl = dom.id(name + '-level');
-
-            updateEl(levelEl, params.helper(params.th, properties[4]) - 1);
-            updateSavedData(levelEl);
-            notifyChange(levelEl);
-        });
-    });
 
     dom.listen(document.body, 'change', function(e) {
         if (e.target.classList.contains('js-comp-level')) {
-            updateSavedData(e.target);
-            notifyChange(e.target);
-
-            events.trigger('calculate', {
-                'type': e.target.getAttribute('data-type')
-            });
+            collection.update(e.target.getAttribute('id'));
+        } else if (e.target.classList.contains('js-comp-boosted')) {
+            boostedCollection.update(e.target.getAttribute('id'));
         }
+    });
+
+    collection.add('army-camps', {
+        'calculateType': 'all',
+        'th': {
+            1: 20,
+            2: 30,
+            3: 70,
+            4: 80,
+            5: 135,
+            6: 150,
+            7: 200,
+            9: 220,
+            10: 240
+        }
+    });
+
+    collection.add('spells-level', {
+        'calculateType': 'spells',
+        'th': {
+            1: 0,
+            5: 1,
+            6: 2,
+            7: 3,
+            9: 4,
+            10: 5
+        }
+    });
+
+    boostedCollection.add('spells-boosted', 'spells');
+
+    ['light', 'dark'].forEach(function(type) {
+        var barrackData = types.buildings[type];
+        var i = 0;
+        while (++i <= barrackData.count) {
+            collection.add(type + '-level-' + i, {
+                'calculateType': 'barrack-' + type,
+                'th': barrackData.th,
+                'onUpdate': function(el) {
+                    var header = '';
+                    var level = el.value;
+                    if (level !== 0) {
+                        header = barrackData.queue[level];
+                    }
+                    dom.updater.instantly(type + '-maxSpace-' + el.getAttribute('data-num'), 'text', header);
+                }
+            });
+
+            boostedCollection.add(type + '-boosted-' + i, type);
+        }
+    });
+
+    types.iterateTree(function(type, name, properties) {
+        collection.add(name + '-level', {
+            'calculateType': '__fromAttr',
+            'th': properties[4],
+            'attachEvent': false
+        });
     });
 
 
@@ -68,9 +95,7 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
             }
 
             if (params.calculate) {
-                events.trigger('calculate', {
-                    'type': params.el.getAttribute('data-type')
-                });
+                calculateCurrent(params.el.getAttribute('data-type'));
             }
         }
     };
@@ -97,8 +122,6 @@ part(['savedData', 'types', 'events', 'dom'], function(savedData, types, events,
 
     events.trigger('updateFromSaved');
 
-    events.trigger('calculate', {
-        'type': 'all'
-    });
+    calculateCurrent('all');
 
 });

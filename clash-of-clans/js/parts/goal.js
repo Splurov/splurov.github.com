@@ -1,4 +1,6 @@
-part('goal', ['dom'], function(dom) {
+part('goal', [
+    'dom'
+], function(dom) {
 
     'use strict';
 

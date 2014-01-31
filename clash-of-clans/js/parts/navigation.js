@@ -1,4 +1,6 @@
-part('navigation', ['dom'], function(dom){
+part('navigation', [
+    'dom'
+], function(dom){
 
     'use strict';
 

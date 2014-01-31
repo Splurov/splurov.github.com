@@ -5,8 +5,9 @@ part('favorites', [
     'calculate',
     'common',
     'navigation',
-    'goal'
-], function(savedData, events, dom, calculate, common, navigation, goal) {
+    'goal',
+    'calculateCurrent'
+], function(savedData, events, dom, calculate, common, navigation, goal, calculateCurrent) {
 
     'use strict';
 
@@ -26,9 +27,7 @@ part('favorites', [
         savedData.current = new common.Dict(dataToLoad);
 
         events.trigger('updateFromSaved');
-        events.trigger('calculate', {
-            'type': 'all'
-        });
+        calculateCurrent('all');
 
         events.trigger('loaded');
         navigation.scrollTo(barracksAnchor);

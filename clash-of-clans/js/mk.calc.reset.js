@@ -1,4 +1,9 @@
-part(['events', 'dom', 'goal'], function(events, dom, goal) {
+part([
+    'events',
+    'dom',
+    'goal',
+    'calculateCurrent'
+], function(events, dom, goal, calculateCurrent) {
 
     'use strict';
 
@@ -14,9 +19,7 @@ part(['events', 'dom', 'goal'], function(events, dom, goal) {
             });
         });
 
-        events.trigger('calculate', {
-            'type': resetType
-        });
+        calculateCurrent(resetType);
 
         goal.reach('RESET', {'resetType': resetType});
     });

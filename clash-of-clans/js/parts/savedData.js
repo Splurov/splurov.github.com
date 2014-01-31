@@ -1,4 +1,6 @@
-part('savedData', ['common'], function(common) {
+part('savedData', [
+    'common'
+], function(common) {
     'use strict';
 
     var saveMappingKeys = [
@@ -101,7 +103,7 @@ part('savedData', ['common'], function(common) {
         };
     };
 
-    var storage = new DataStorage('data4');
+    var storage = new DataStorage('data5');
     var all = storage.load().map(function(entry) {
         return new common.Dict(entry);
     });

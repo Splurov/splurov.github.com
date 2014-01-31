@@ -10,22 +10,21 @@ part([
 
     'use strict';
 
-    var urlParam;
-    var oldUrlParam;
-
+    var version = 0;
     if (location.search.indexOf('?l=') !== -1) {
-        urlParam = true;
-        oldUrlParam = true;
+        version = 1;
     } else if (location.search.indexOf('?s=') !== -1) {
-        urlParam = true;
+        version = 2;
+    } else if (location.search.indexOf('?s3=') !== -1) {
+        version = 3;
     }
 
-    if (urlParam) {
-        var urlData = location.search.substr(3);
+    if (version !== 0) {
+        var urlData = location.search.substr((version === 3 ? 4 : 3));
         urlData = decodeURIComponent(urlData);
 
         var goalParams = {};
-        goalParams[oldUrlParam ? 'shareV1' : 'shareV2'] = urlData;
+        goalParams['shareV' + version] = urlData;
         goal.reach('SHARE', goalParams);
 
         urlData = urlData.replace(/[a-z]/g, ',');
@@ -43,8 +42,10 @@ part([
         history.replaceState({}, '', location.protocol + '//' + location.host + location.pathname);
 
         if (urlData) {
-            if (oldUrlParam) {
+            if (version === 1) {
                 converter.oldConvert3to4(urlData);
+            } else if (version === 2) {
+                converter.oldConvert4to5(urlData);
             }
 
             urlData = savedData.dataArrayToObject(urlData);

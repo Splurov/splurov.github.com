@@ -1,10 +1,11 @@
-part(['events', 'dom', 'goal'], function(events, dom, goal) {
+part([
+    'dom',
+    'goal',
+    'collection',
+    'calculateCurrent'
+], function(dom, goal, collection, calculateCurrent) {
 
     'use strict';
-
-    events.watch('elChange', function(el) {
-        dom.updater.instantly(el.getAttribute('id') + '-text', 'text', el.options[el.selectedIndex].textContent);
-    });
 
     var toggleModeEl = dom.id('settings-toggle-mode');
     var toggleSettings = function() {
@@ -40,14 +41,9 @@ part(['events', 'dom', 'goal'], function(events, dom, goal) {
     var setLevels = function(th) {
         goal.reach('SETTINGS_TH', {'settingsLevel': 'th' + th});
 
-        events.trigger('updateSetting', {
-            'th': th,
-            'helper': getSettingValue
-        });
+        collection.updateSetting(th, getSettingValue);
 
-        events.trigger('calculate', {
-            'type': 'all'
-        });
+        calculateCurrent('all');
     };
 
     dom.find('.js-settings-level').listen('universalClick', function(e) {

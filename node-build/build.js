@@ -57,9 +57,6 @@ var setItemRowsTemplates = function(vars) {
     require('../clash-of-clans/js/parts/common.js');
 
     require('../clash-of-clans/js/parts/types.js');
-    require('../clash-of-clans/js/parts/armyCamps.js');
-    require('../clash-of-clans/js/parts/spellFactory.js');
-    require('../clash-of-clans/js/parts/barracks.js');
 
     var part = require('../clash-of-clans/js/part.js');
 
@@ -87,9 +84,15 @@ var setItemRowsTemplates = function(vars) {
         }
     };
 
-    part(['armyCamps', 'spellFactory', 'types', 'barracks', 'common'], function(armyCamps, spellFactory, types, barracks, common) {
+    part(['types', 'common'], function(types, common) {
+        var armyCamps = {
+            'base': [20, 30, 40, 50],
+            'step': 5,
+            'max': 240
+        };
+
         var createLevelOption = function(value, index) {
-            return {'value': value, 'text': (index + 1)};
+            return {'text': (index + 1)};
         };
 
         vars.types = [];
@@ -103,7 +106,7 @@ var setItemRowsTemplates = function(vars) {
             Object.keys(types.data[type]).forEach(function(name) {
                 var value = types.data[type][name];
                 var convertedName = common.convertToTitle(name);
-                var levelOptions = value[1].map(createLevelOption);
+                var levelOptions = value[1].splice(1).map(createLevelOption);
                 levelOptions[levelOptions.length - 1].selected = true;
                 var templateVars = {
                     'id': name,
@@ -116,7 +119,7 @@ var setItemRowsTemplates = function(vars) {
                 if (type === 'light' || type === 'dark') {
                     var i;
                     var barracksTimes = [];
-                    for (i = 1; i <= barracks[type].data.count; i++) {
+                    for (i = 1; i <= types.buildings[type].count; i++) {
                         barracksTimes.push({
                             'barrackQuantityId': 'quantity-' + name + '-' + i
                         });
@@ -135,17 +138,14 @@ var setItemRowsTemplates = function(vars) {
             if (['light', 'dark'].indexOf(type) !== -1) {
                 var i = 0;
                 basicInfo.barracks = [];
-                while (++i <= barracks[type].data.count) {
+                while (++i <= types.buildings[type].count) {
                     var barrack = {'index': i, 'options': []};
                     var j = -1;
-                    var options = [];
-                    while (++j <= barracks[type].data.maxLevel) {
-                        if (i === 1 && j === 0 && barracks[type].data.firstRequired) {
+                    while (++j <= types.buildings[type].maxLevel) {
+                        if (i === 1 && j === 0 && types.buildings[type].firstRequired) {
                             continue;
                         }
-                        var selected = '';
                         barrack.options.push({'text': j});
-                        options.push('<option value="' + j + '"' + selected + '>' + j + '</option>');
                     }
                     barrack.options[barrack.options.length - 1].selected = true;
 
@@ -170,7 +170,7 @@ var setItemRowsTemplates = function(vars) {
 
         vars.spellFactory = [];
         var i = -1;
-        while (++i <= spellFactory.max) {
+        while (++i <= types.buildings.spells.max) {
             vars.spellFactory.push({'value': i});
         }
         vars.spellFactory[vars.spellFactory.length - 1].selected = true;

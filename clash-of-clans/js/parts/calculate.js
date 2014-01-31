@@ -1,11 +1,9 @@
 part('calculate', [
-    'spellFactory',
     'savedData',
     'types',
     'dom',
-    'barracks',
     'goal'
-], function(spellFactory, savedData, types, dom, barracks, goal) {
+], function(savedData, types, dom, goal) {
 
     'use strict';
 
@@ -210,12 +208,8 @@ part('calculate', [
         } else {
             var levels = [];
             var i = 0;
-            while (++i <= barracks[type].data.count) {
-                var level = params.savedData.get(type + '-level-' + i);
-                if (i === 1 && barracks[type].data.firstRequired) {
-                    level += 1;
-                }
-                levels.push(level);
+            while (++i <= types.buildings[type].count) {
+                levels.push(params.savedData.get(type + '-level-' + i));
             }
             levelValue = Math.max.apply(null, levels);
         }
@@ -246,13 +240,13 @@ part('calculate', [
             var name = value[5];
 
             var quantity = params.savedData.get(name, 0);
-            var levelIndex = params.savedData.get(name + '-level');
-            var costPerItem = value[1][levelIndex];
+            var level = params.savedData.get(name + '-level');
+            var costPerItem = value[1][level];
             var summaryCost = (costPerItem * quantity);
 
             objectResult.name = name;
             objectResult.summaryCost = summaryCost;
-            objectResult.level = levelIndex + 1;
+            objectResult.level = level;
             objectResult.minBarrackLevel = value[3];
 
             totalCost += summaryCost;
@@ -313,7 +307,7 @@ part('calculate', [
                     'num': num,
                     'time': 0,
                     'space': 0,
-                    'maxSpace': barracks[type].data.queue[level],
+                    'maxSpace': types.buildings[type].queue[level],
                     'units': {},
                     'level': level,
                     'isBoosted': isBoosted,
@@ -359,9 +353,9 @@ part('calculate', [
         ['light', 'dark', 'spells'].forEach(function(type) {
             var capLevel;
             if (type === 'spells') {
-                capLevel = spellFactory.max;
+                capLevel = types.buildings.spells.max;
             } else {
-                capLevel = barracks[type].data.maxLevel;
+                capLevel = types.buildings[type].maxLevel;
             }
 
             result[type] = calculateItems(type, {

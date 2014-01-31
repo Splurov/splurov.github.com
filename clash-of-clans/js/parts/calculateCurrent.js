@@ -1,11 +1,11 @@
-part([
+part('calculateCurrent', [
     'savedData',
     'events',
     'dom',
-    'barracks',
+    'types',
     'common',
     'calculate'
-], function(savedData, events, dom, barracks, common, calculate) {
+], function(savedData, events, dom, types, common, calculate) {
 
     'use strict';
 
@@ -154,7 +154,7 @@ part([
 
                     if (type !== 'spells') {
                         var mcIndex = 0; // mc - max count
-                        var mcLength = barracks[type].data.count;
+                        var mcLength = types.buildings[type].count;
                         while (++mcIndex <= mcLength) {
                             dom.updater.defer('quantity-' + objectResult.name + '-' + mcIndex, 'text', '');
                         }
@@ -183,13 +183,16 @@ part([
         dom.updater.runDeferred();
     });
 
-    events.watch('calculate', function(params) {
-        params.savedData = savedData.current;
-        params.current = true;
+    return function(type) {
+        var params =  {
+            'type': type,
+            'savedData': savedData.current,
+            'current': true
+        }
 
         events.trigger('calculateDone', calculate(params));
 
         savedData.save();
-    });
+    };
 
 });

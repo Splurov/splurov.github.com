@@ -1,4 +1,6 @@
-part(['dom'], function(dom) {
+part([
+    'dom'
+], function(dom) {
     'use strict';
 
     dom.find('.js-fold').iterate(function(fold) {
