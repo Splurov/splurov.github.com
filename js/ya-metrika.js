@@ -1,19 +1,19 @@
-(function (d, w, c, t) {
+(function (doc, w, c) {
 
     var getParams = function() {
-        if (!window.yandexMetrikaParams || !Object.keys) {
+        if (!w.yandexMetrikaParams || !Object.keys) {
             return null;
         }
 
-        var paramsKeys = Object.keys(window.yandexMetrikaParams);
+        var paramsKeys = Object.keys(w.yandexMetrikaParams);
         if (!paramsKeys.length) {
             return null;
         }
 
         var params = {};
         paramsKeys.forEach(function(key) {
-            params[key] = window.yandexMetrikaParams[key];
-            delete window.yandexMetrikaParams[key];
+            params[key] = w.yandexMetrikaParams[key];
+            delete w.yandexMetrikaParams[key];
         });
         return params;
     };
@@ -26,11 +26,11 @@
                 accurateTrackBounce: true,
                 params: getParams()
             });
-            if (window.yandexMetrikaLoadCallback) {
-                window.yandexMetrikaLoadCallback(w.yaCounter19642528);
+            if (w.yandexMetrikaLoadCallback) {
+                w.yandexMetrikaLoadCallback(w.yaCounter19642528);
             }
 
-            window.addEventListener('load', function() {
+            w.addEventListener('load', function() {
                 var params = getParams();
                 if (params !== null) {
                     w.yaCounter19642528.params(params);
@@ -39,9 +39,7 @@
         } catch(e) {}
     });
 
-    var n = d.getElementsByTagName(t)[0],
-        s = d.createElement(t);
-    s.async = true;
+    var s = doc.createElement('script');
     s.src = '//mc.yandex.ru/metrika/watch.js';
-    n.parentNode.insertBefore(s, n);
-})(document, window, 'yandex_metrika_callbacks', 'script');
+    doc.head.appendChild(s);
+})(document, window, 'yandex_metrika_callbacks');

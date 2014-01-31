@@ -1,16 +1,19 @@
-var _gaq = _gaq || [];
-window.onerror = function(message, file, line) {
+(function() {
+
     'use strict';
 
-    // https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide
-    _gaq.push([
-        '_trackEvent',
-        'Javascript Error',
-        message,
-        file + ':' + line + ' [' + navigator.userAgent + ']',
-        0,
-        true
-    ]);
+    window.onerror = function(message, file, line) {
 
-    return false;
-};
+        // https://developers.google.com/analytics/devguides/collection/analyticsjs/events
+        ga(
+            'send',
+            'event',
+            'Javascript Error',
+            message,
+            file + ':' + line + ' [' + navigator.userAgent + ']'
+        );
+
+        return false;
+    };
+
+}());

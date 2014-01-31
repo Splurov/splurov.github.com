@@ -1,4 +1,5 @@
 (function() {
+
     'use strict';
 
     var ios = !!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i);

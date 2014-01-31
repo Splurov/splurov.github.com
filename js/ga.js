@@ -1,10 +1,14 @@
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-37991363-1']);
-_gaq.push(['_trackPageview']);
+// http://mathiasbynens.be/notes/async-analytics-snippet
+(function(w, d, n) {
+    w['GoogleAnalyticsObject'] = n;
+    w[n] = w[n] || function() {
+        (w[n].q = w[n].q || []).push(arguments);
+    };
+    w[n].l = 1 * new Date();
+    var ga = d.createElement('script');
+    ga.src = '//www.google-analytics.com/analytics.js';
+    d.head.appendChild(ga);
+})(window, document, 'ga');
 
-(function(d,t){
-    var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-    g.async=true;
-    g.src='//www.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)
-}(document,'script'));
+ga('create', 'UA-37991363-1', 'mkln.ru');
+ga('send', 'pageview');
