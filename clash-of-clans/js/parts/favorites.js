@@ -11,8 +11,6 @@ part('favorites', [
 
     'use strict';
 
-    var tempDiv = document.createElement('div');
-
     var barracksAnchor = dom.id('light-anchor');
 
     var content = dom.id('favorites');
@@ -173,9 +171,8 @@ part('favorites', [
             savedData.all.push(data);
             savedData.save();
 
-            tempDiv.innerHTML = savedListCreateItem(data, index);
-            addListeners(tempDiv);
-            content.appendChild(tempDiv.firstChild);
+            content.insertAdjacentHTML('beforeend', savedListCreateItem(data, index));
+            addListeners(content.lastChild);
 
             output.added = true;
             output.index = index;
