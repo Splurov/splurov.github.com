@@ -5,7 +5,6 @@
 /* build:js:js/parts/dom.js */
 /* build:js:js/parts/goal.js */
 /* build:js:js/parts/common.js */
-/* build:js:js/parts/events.js */
 /* build:js:js/parts/converter.js */
 /* build:js:js/parts/types.js */
 /* build:js:js/parts/savedData.js */

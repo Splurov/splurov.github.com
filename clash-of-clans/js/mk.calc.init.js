@@ -1,12 +1,11 @@
 part([
     'savedData',
     'types',
-    'events',
     'dom',
     'collection',
     'boostedCollection',
     'calculateCurrent'
-], function(savedData, types, events, dom, collection, boostedCollection, calculateCurrent) {
+], function(savedData, types, dom, collection, boostedCollection, calculateCurrent) {
     'use strict';
 
     dom.listen(document.body, 'change', function(e) {
@@ -80,36 +79,27 @@ part([
      * QUANTITY / SUBTRACT
      */
 
-    var valueChangeHandler = function(params) {
-        var isQuantity = params.el.classList.contains('js-comp-quantity');
-        var isSubtract = params.el.classList.contains('js-comp-subtract');
+    dom.listen(document.body, 'input', function(e) {
+        var el = e.target;
+        var isQuantity = el.classList.contains('js-comp-quantity');
+        var isSubtract = el.classList.contains('js-comp-subtract');
         if (isQuantity || isSubtract) {
-            var value = parseInt(params.el.value, 10) || 0;
+            var value = parseInt(el.value, 10) || 0;
             if (value < 0) {
                 value = 0;
             }
-            params.el.value = value || '';
+            el.value = value || '';
 
             if (isQuantity) {
-                savedData.current.set(params.el.getAttribute('id'), value);
+                savedData.current.set(el.getAttribute('id'), value);
             }
 
-            if (params.calculate) {
-                calculateCurrent(params.el.getAttribute('data-type'));
-            }
+            calculateCurrent(el.getAttribute('data-type'));
         }
-    };
 
-    dom.listen(document.body, 'input', function(e) {
-        valueChangeHandler({
-            'el': e.target,
-            'calculate': true
-        });
     });
 
-    events.watch('valueChange', valueChangeHandler);
-
-    events.watch('updateFromSaved', function() {
+    dom.listenCustom('storageUpdated', function() {
         types.iterateTree(function(type, name) {
             dom.id(name).value = savedData.current.get(name) || '';
         });
@@ -120,7 +110,7 @@ part([
      * INIT
      */
 
-    events.trigger('updateFromSaved');
+    dom.triggerCustom('storageUpdated');
 
     calculateCurrent('all');
 

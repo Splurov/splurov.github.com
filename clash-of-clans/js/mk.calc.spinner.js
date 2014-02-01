@@ -1,7 +1,6 @@
 part([
-    'events',
     'dom'
-], function(events, dom) {
+], function(dom) {
 
     'use strict';
 
@@ -20,10 +19,7 @@ part([
                 el.value = --current;
             }
         }
-        events.trigger('valueChange', {
-            'el': el,
-            'calculate': true
-        });
+        dom.trigger(el, 'input');
     };
 
     var currentSpinner = {

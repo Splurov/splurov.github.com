@@ -1,12 +1,11 @@
 part([
     'savedData',
-    'events',
     'dom',
     'common',
     'converter',
     'favorites',
     'goal'
-], function(savedData, events, dom, common, converter, favorites, goal) {
+], function(savedData, dom, common, converter, favorites, goal) {
 
     'use strict';
 
@@ -50,22 +49,10 @@ part([
 
             urlData = savedData.dataArrayToObject(urlData);
 
-            var isAdded = favorites.add();
+            favorites.addBeforeShare();
 
             savedData.current = new common.Dict(urlData);
             savedData.save();
-
-            if (isAdded) {
-                var viewSharedMessage = dom.id('view-shared');
-                var viewSharedMessageHide = function() {
-                    viewSharedMessage.style.display = 'none';
-                };
-                dom.listen(viewSharedMessage, 'universalClick', viewSharedMessageHide);
-                viewSharedMessage.style.display = '';
-                events.watch('loaded', function() {
-                    viewSharedMessageHide();
-                });
-            }
         }
     }
 
@@ -176,7 +163,7 @@ part([
 
     // without timeout repaint of permalink.value in iOS took too much time
     var placeShareContentTimeout;
-    events.watch('calculateDone', function(result) {
+    dom.listenCustom('calculateDone', function(result) {
         clearTimeout(placeShareContentTimeout);
         placeShareContentTimeout = setTimeout(function() {
             placeShareContent(result);

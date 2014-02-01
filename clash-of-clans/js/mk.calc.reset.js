@@ -1,9 +1,7 @@
 part([
-    'events',
     'dom',
-    'goal',
-    'calculateCurrent'
-], function(events, dom, goal, calculateCurrent) {
+    'goal'
+], function(dom, goal) {
 
     'use strict';
 
@@ -13,13 +11,8 @@ part([
 
         dom.find('input.js-comp-' + scope + '[data-type="' + resetType + '"]').iterate(function(el) {
             el.value = '';
-            events.trigger('valueChange', {
-                'el': el,
-                'calculate': false
-            });
+            dom.trigger(el, 'input');
         });
-
-        calculateCurrent(resetType);
 
         goal.reach('RESET', {'resetType': resetType});
     });

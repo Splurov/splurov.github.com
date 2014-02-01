@@ -1,11 +1,10 @@
 part('calculateCurrent', [
     'savedData',
-    'events',
     'dom',
     'types',
     'common',
     'calculate'
-], function(savedData, events, dom, types, common, calculate) {
+], function(savedData, dom, types, common, calculate) {
 
     'use strict';
 
@@ -100,7 +99,7 @@ part('calculateCurrent', [
 
     var darkObjects = dom.find('.js-dark-object');
     var spellsObjects = dom.find('.js-spells-object');
-    events.watch('calculateDone', function(result) {
+    dom.listenCustom('calculateDone', function(result) {
         /*
         Types:
             all
@@ -188,9 +187,9 @@ part('calculateCurrent', [
             'type': type,
             'savedData': savedData.current,
             'current': true
-        }
+        };
 
-        events.trigger('calculateDone', calculate(params));
+        dom.triggerCustom('calculateDone', calculate(params));
 
         savedData.save();
     };

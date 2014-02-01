@@ -1,9 +1,8 @@
 part('collection', [
     'dom',
-    'events',
     'savedData',
     'calculateCurrent'
-], function(dom, events, savedData, calculateCurrent) {
+], function(dom, savedData, calculateCurrent) {
     'use strict';
 
     var collection = (function() {
@@ -46,7 +45,7 @@ part('collection', [
                 var params = items[key];
                 params.update(key, params, 'dom', params.el.value);
             },
-            'updateStorage': function() {
+            'updateFromStorage': function() {
                 Object.keys(items).forEach(function(key) {
                     var params = items[key];
                     params.update(
@@ -66,7 +65,7 @@ part('collection', [
         };
     }());
 
-    events.watch('updateFromSaved', collection.updateStorage);
+    dom.listenCustom('storageUpdated', collection.updateFromStorage);
 
     return collection;
 

@@ -177,9 +177,26 @@ part('dom', function() {
         'selectOnFocus': function(el) {
             listen(el, 'focus', selectAll);
         },
-        'listen': listen,
         'toggleClass': toggleClass,
-        'updater': updater
+        'updater': updater,
+
+        'listen': listen,
+        'trigger': function(el, type) {
+            var event = document.createEvent('HTMLEvents');
+            event.initEvent(type, true, false);
+            el.dispatchEvent(event);
+        },
+
+        'listenCustom': function(type, listener) {
+            listen(window, type, function(e) {
+                listener(e.detail);
+            });
+        },
+        'triggerCustom': function(type, data) {
+            var event = document.createEvent('CustomEvent');
+            event.initCustomEvent(type, false, false, (data || {}));
+            window.dispatchEvent(event);
+        }
     };
 
 });

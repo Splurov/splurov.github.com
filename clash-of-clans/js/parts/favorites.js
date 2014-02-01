@@ -1,15 +1,18 @@
 part('favorites', [
     'savedData',
-    'events',
     'dom',
     'calculate',
     'common',
     'navigation',
     'goal',
     'calculateCurrent'
-], function(savedData, events, dom, calculate, common, navigation, goal, calculateCurrent) {
+], function(savedData, dom, calculate, common, navigation, goal, calculateCurrent) {
 
     'use strict';
+
+    var viewSharedMessageHide = function() {
+        dom.updater.instantly('view-shared', 'display', 'none');
+    };
 
     var barracksAnchor = dom.id('light-anchor');
 
@@ -24,10 +27,10 @@ part('favorites', [
         );
         savedData.current = new common.Dict(dataToLoad);
 
-        events.trigger('updateFromSaved');
+        dom.triggerCustom('storageUpdated');
         calculateCurrent('all');
 
-        events.trigger('loaded');
+        viewSharedMessageHide();
         navigation.scrollTo(barracksAnchor);
     };
 
@@ -202,9 +205,12 @@ part('favorites', [
     window.yandexMetrikaParams.favoritesCount = 'fc' + (savedCount ? savedCount - 1 : 0);
 
     return {
-        'add': function() {
+        'addBeforeShare': function() {
             var result = save();
-            return result.added || result.exists;
+            if (result.added || result.exists) {
+                dom.listen(dom.id('view-shared'), 'universalClick', viewSharedMessageHide);
+                dom.updater.instantly('view-shared', 'display', '');
+            }
         }
     };
 
