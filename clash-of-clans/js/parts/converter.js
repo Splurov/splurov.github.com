@@ -26,6 +26,9 @@ part('converter', [
     var oldConvert4to5 = function(data) {
         var levelIndexes = [0,18,19,20,21,22,23,24,25,26,27,32,33,34,35,40,41,42,43,45,47];
         levelIndexes.forEach(function(keyIndex) {
+            if (!data[keyIndex]) {
+                data[keyIndex] = 0;
+            }
             data[keyIndex]++;
         });
     };
