@@ -7,7 +7,7 @@
             'send',
             'event',
             'Scale Ratio',
-            Math.round(screen.width / window.innerWidth, 2),
+            (screen.width / window.innerWidth).toFixed(2),
             navigator.userAgent
         );
     }
