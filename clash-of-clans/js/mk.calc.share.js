@@ -61,7 +61,7 @@ part([
     var permalink = dom.id('share-permalink');
     dom.selectOnFocus(permalink);
     var makePermalink = function() {
-        var url = 'http://mkln.ru/clash-of-clans/?s=';
+        var url = 'http://mkln.ru/clash-of-clans/?s3=';
         var data = common.objectCopy(savedData.current.getAll());
         data.settingsMode = 1;
         data = savedData.dataObjectToArray(data);

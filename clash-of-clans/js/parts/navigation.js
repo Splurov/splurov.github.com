@@ -13,22 +13,7 @@ part('navigation', [
         return position;
     };
 
-    var menuWrapperEl = dom.id('menu-wrapper');
-    var menuEl = dom.id('menu');
-    var menuTopPosition = getTopPosition(menuEl);
-
-    var menuElHeight = menuEl.offsetHeight;
-    menuWrapperEl.style.height = menuElHeight + 'px';
-
     var globalScrollOffset = 15;
-
-    if (!window.mkIsMobile) {
-        globalScrollOffset += menuElHeight;
-
-        dom.listen(window, 'scroll', function() {
-            dom.toggleClass(menuEl, 'menu_fixed', (window.pageYOffset >= menuTopPosition));
-        });
-    }
 
     var smoothScroll = function(el, callback) {
         var currentScrollTop = window.pageYOffset;

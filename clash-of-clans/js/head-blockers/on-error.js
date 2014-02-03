@@ -4,7 +4,6 @@
 
     window.onerror = function(message, file, line) {
 
-        // https://developers.google.com/analytics/devguides/collection/analyticsjs/events
         ga(
             'send',
             'event',

@@ -6,7 +6,7 @@ body {
     font-family: 'PT Sans', Arial, sans-serif;
     margin: 13px 17px;
     line-height: 1.4;
-    font-size: 16px;
+    font-size: 15px;
     -webkit-text-size-adjust: 100%;
 }
 
@@ -65,7 +65,7 @@ label {
 }
 
 h1 {
-    font-size: 22px;
+    font-size: 17px;
     margin: 0 0 3px;
 }
 h2 {

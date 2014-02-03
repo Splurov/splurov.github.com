@@ -7,6 +7,7 @@ part([
 
     'use strict';
 
+    var toggleModeButton = dom.id('settings-toggle-button');
     var toggleModeEl = dom.id('settings-toggle-mode');
     var toggleSettings = function() {
         dom.toggleClass(document.documentElement, 'setting-mode-disabled', !toggleModeEl.checked);
@@ -14,7 +15,7 @@ part([
 
         localStorage.setItem('settingsMode', (toggleModeEl.checked ? 'on' : 'off'));
 
-        dom.toggleClass(toggleModeEl.parentNode, 'button_pressed', toggleModeEl.checked);
+        dom.toggleClass(toggleModeButton, 'button_pressed', toggleModeEl.checked);
     };
 
     dom.listen(toggleModeEl, 'change', function() {

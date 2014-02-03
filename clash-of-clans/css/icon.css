@@ -16,3 +16,9 @@
         background-image: url(/clash-of-clans/i/icon-save.png);
         background-size: 14px 14px;
     }
+    .icon_alone {
+        padding-left: 16px;
+    }
+    .icon_facebook.icon_alone {
+        padding-left: 16px;
+    }

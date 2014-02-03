@@ -12,10 +12,10 @@
 /* build:js:js/parts/calculateCurrent.js */
 /* build:js:js/parts/collection.js */
 /* build:js:js/parts/boostedCollection.js */
+/* build:js:js/parts/navigation.js */
 
 /* build:js:js/mk.calc.settings.js */
 
-/* build:js:js/parts/navigation.js */
 /* build:js:js/parts/favorites.js */
 
 /* build:js:js/mk.calc.share.js */

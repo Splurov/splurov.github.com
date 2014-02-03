@@ -339,7 +339,7 @@ for (var file in sources) {
             }
             if (options[1] === 'first') {
                 translationsCurrent.firstChangelog = changelogParsed[0];
-                translationsCurrent.secondChangelog = changelogParsed[1];
+                //translationsCurrent.secondChangelog = changelogParsed[1];
             } else {
                 translationsCurrent.changelog = changelogParsed;
             }
