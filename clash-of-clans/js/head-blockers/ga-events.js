@@ -2,13 +2,13 @@
 
     'use strict';
 
-    if (navigator.userAgent.search(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i) !== -1) {
+    if (window.mkIsIos) {
         ga(
             'send',
             'event',
-            'Scale Ratio',
-            (screen.width / window.innerWidth).toFixed(2),
-            navigator.userAgent
+            'Possible Disable',
+            ((navigator.userAgent.indexOf('Safari/') === -1) ? 'Yes' : 'No'),
+            [(screen.width / window.innerWidth).toFixed(2), navigator.userAgent].join(' / ')
         );
     }
 
