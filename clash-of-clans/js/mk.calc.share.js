@@ -56,10 +56,11 @@ part([
         }
     }
 
-    var shareTwitter = dom.id('share-twitter');
-    var shareFacebook = dom.id('share-facebook');
+    var shareLinks = dom.find('.js-share-link');
     var permalink = dom.id('share-permalink');
-    dom.selectOnFocus(permalink);
+    dom.selectOnFocus(permalink, function() {
+        goal.reach('SHARE_LINK');
+    });
     var makePermalink = function() {
         var url = 'http://mkln.ru/clash-of-clans/?s3=';
         var data = common.objectCopy(savedData.current.getAll());
@@ -84,18 +85,16 @@ part([
         permalink.value = url + data;
 
         var shareUrl = encodeURIComponent(url + data);
-        shareTwitter.setAttribute(
-            'href',
-            'https://twitter.com/share?url=' + shareUrl + '&via=ClashCalc&hashtags=ClashOfClans'
-        );
-        shareFacebook.setAttribute(
-            'href',
-            'https://www.facebook.com/sharer/sharer.php?u=' + shareUrl
-        );
+        shareLinks.iterate(function(shareLink) {
+            shareLink.setAttribute('href', shareLink.getAttribute('data-share-link').replace('{url}', shareUrl));
+        });
     };
 
+    /*
     var text = dom.id('share-text');
-    dom.selectOnFocus(text);
+    dom.selectOnFocus(text, function() {
+        goal.reach('SHARE_TEXT');
+    });
 
     var superscriptNumbers = {
         '1': '¹',
@@ -130,7 +129,8 @@ part([
                 if (objectResult.summaryCost) {
                     output.push(
                         common.convertToTitle(objectResult.name) +
-                        superscriptNumbers[objectResult.level] +
+                        ' (lvl ' + objectResult.level + ')' +
+                        //superscriptNumbers[objectResult.level] +
                         ' ×' +
                         objectResult.quantity
                     );
@@ -147,11 +147,18 @@ part([
         }
         return false;
     };
+    */
 
     var shareObjects = dom.find('.js-share');
     var placeShareContent = function(result) {
         var display = '';
-        if (makeShareText(result)) {
+        var isAvailable = ['light', 'dark', 'spells'].some(function(type) {
+            if (result[type].totalCost) {
+                return true;
+            }
+        });
+        //if (makeShareText(result)) {
+        if (isAvailable) {
             makePermalink();
         } else {
             display = 'none';

@@ -64,13 +64,17 @@ part('favorites', [
         e.currentTarget.classList.remove('favorite_added');
     };
 
-    var addListeners = function(el) {
+    var addListeners = function(el, isRoot) {
         dom.find('.js-favorite-load', el).listen('universalClick', loadHandler);
         dom.find('.js-favorite-delete', el).listen('universalClick', deleteHandler);
-        dom.find('.js-favorite', el).listen('animationend', animationEndHandler);
+        if (isRoot) {
+            dom.listen(el, 'animationend', animationEndHandler);
+        } else {
+            dom.find('.js-favorite', el).listen('animationend', animationEndHandler);
+        }
     };
 
-    var savedListCreateItem = function(data, index) {
+    var favoritesCreateItem = function(data, index) {
         if (index === 0) {
             return;
         }
@@ -152,7 +156,7 @@ part('favorites', [
         });
     };
 
-    var save = function() {
+    var add = function() {
         var output = {};
 
         var sourceData = savedData.storage.load(true);
@@ -174,8 +178,8 @@ part('favorites', [
             savedData.all.push(data);
             savedData.save();
 
-            content.insertAdjacentHTML('beforeend', savedListCreateItem(data, index));
-            addListeners(content.lastChild);
+            content.insertAdjacentHTML('beforeend', favoritesCreateItem(data, index));
+            addListeners(content.lastChild, true);
 
             output.added = true;
             output.index = index;
@@ -184,10 +188,11 @@ part('favorites', [
         return output;
     };
 
-    dom.find('.js-save-composition').listen('universalClick', function() {
-        var result = save(true);
+    dom.find('.js-favorite-add').listen('universalClick', function(e) {
+        e.preventDefault();
+        var result = add(true);
         if (result.added) {
-            goal.reach('SAVE_COMPOSITION');
+            goal.reach('SAVE_COMPOSITION', {'favoriteButton': e.target.textContent});
         }
 
         if (result.index) {
@@ -196,17 +201,17 @@ part('favorites', [
     });
 
     setTimeout(function() {
-        content.innerHTML = savedData.all.map(savedListCreateItem).join('');
+        content.innerHTML = savedData.all.map(favoritesCreateItem).join('');
         addListeners(content);
     }, 0);
 
-    var savedCount = savedData.all.length;
+    var favoritesCount = savedData.all.length;
 
-    window.yandexMetrikaParams.favoritesCount = 'fc' + (savedCount ? savedCount - 1 : 0);
+    window.yandexMetrikaParams.favoritesCount = 'fc' + (favoritesCount ? favoritesCount - 1 : 0);
 
     return {
         'addBeforeShare': function() {
-            var result = save();
+            var result = add();
             if (result.added || result.exists) {
                 dom.listen(dom.id('view-shared'), 'universalClick', viewSharedMessageHide);
                 dom.updater.instantly('view-shared', 'display', '');

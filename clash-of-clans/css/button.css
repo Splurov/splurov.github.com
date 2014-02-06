@@ -28,11 +28,14 @@
     .button_after, .button + .button {
         margin-left: 7px;
     }
+
+    /* reset */
     .button_reset {
         font-size: 13px;
         margin-bottom: 3px;
     }
 
+    /* social */
     .button_social, .button_social:link, .button_social:visited {
         border-color: #99b;
         padding-top: 4px;
@@ -46,6 +49,7 @@
         background: #e3e3ff;
     }
 
+    /* spinner */
     .button_spinner {
         padding-top: 2px;
         padding-bottom: 2px;
@@ -60,10 +64,7 @@
         -webkit-touch-callout: none;
     }
 
-    .button_big {
-        font-size: 15px;
-        padding: 3px 7px 5px;
-    }
+    /* pressed */
     .button_pressed, .button_pressed:active, .button_pressed:focus {
         color: #444;
         background-image: linear-gradient(#e0e0e0, #ececec);
@@ -72,17 +73,18 @@
         background-image: linear-gradient(#e0e0e0, #e7e7e7);
     }
 
+    /* checkbox */
+    .button__checkbox {
+        vertical-align: middle;
+        position: relative;
+        top: -2px;
+    }
+
 .button-group .button {
     margin: 0;
     border-radius: 0;
     margin-right: -1px;
 }
-    .button-group_settings .button {
-        padding: 5px 0;
-        text-align: center;
-        width: 28px;
-        font-size: inherit;
-    }
     .button-group .button:first-child {
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
@@ -90,18 +92,33 @@
     .button-group .button:last-child {
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
-        marginr-right: 0;
+        margin-right: 0;
     }
 
-    .button-group_menu .button {
-        padding: 0 7px;
-        font-size: 15px;
-        height: 27px;
-        line-height: 27px;
-        box-sizing: border-box;
+    .button-group_menu {
     }
-    .button__checkbox {
-        vertical-align: middle;
-        position: relative;
-        top: -2px;
+        .button-group_menu-fixed {
+            position: fixed;
+            top: 0;
+            z-index: 1;
+            background: #fefefe;
+            width: 100%;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .17);
+            margin: 0 -17px;
+            padding: 12px 17px 15px;
+        }
+        .button-group_menu .button {
+            padding: 0 7px;
+            font-size: inherit;
+            height: 27px;
+            line-height: 27px;
+            box-sizing: border-box;
+            -webkit-font-smoothing: subpixel-antialiased;
+        }
+
+    .button-group_settings .button {
+        padding: 5px 0;
+        text-align: center;
+        width: 28px;
+        font-size: inherit;
     }

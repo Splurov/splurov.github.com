@@ -216,9 +216,16 @@ for (var file in sources) {
             'opera >= 17'
         ).process(styleData).css;
         console.log('autoprefixer: ' + p1);
-        styleData = styleData.replace(/url\(([^']+?\.png)\)/g, function(match, sp1) {
+        styleData = styleData.replace(/url\(([^')]+?\.png)\)/g, function(match, sp1) {
             return 'url(' + makeDataUri(sp1.substr(1)) + ')';
         });
+
+//        styleData = styleData.replace(/url\(([^')]+?\.svg)\)/g, function(match, sp1) {
+//            var path = sp1.substr(1);
+//            var image = fs.readFileSync(path, 'utf8');
+//            console.log('data-uri svg: ' + path);
+//            return "url('data:image/svg+xml," + image + "')";
+//        });
 
         styleData = cssc.compress(styleData);
         console.log('cssc: ' + p1);

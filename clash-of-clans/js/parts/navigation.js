@@ -15,6 +15,31 @@ part('navigation', [
 
     var globalScrollOffset = 15;
 
+    if (!window.mkIsMobile) {
+        var FIXED_TOP_PADDING = 12;
+        var FIXED_BOTTOM_PADDING = 15;
+
+        var menuEl = dom.id('menu');
+        var menuHeight = menuEl.offsetHeight;
+        globalScrollOffset += menuHeight + FIXED_TOP_PADDING + FIXED_BOTTOM_PADDING;
+        dom.id('menu-wrapper').style.height = menuHeight + 'px';
+
+        var menuTop = getTopPosition(menuEl) - FIXED_TOP_PADDING;
+        var isFixed = false;
+        dom.listen(window, 'scroll', function() {
+            var offset = window.pageYOffset;
+            if (offset > menuTop) {
+                if (!isFixed) {
+                    menuEl.classList.add('button-group_menu-fixed');
+                    isFixed = true;
+                }
+            } else if (isFixed) {
+                menuEl.classList.remove('button-group_menu-fixed');
+                isFixed = false;
+            }
+        });
+    }
+
     var smoothScroll = function(el, callback) {
         var currentScrollTop = window.pageYOffset;
         var elScrollTop = getTopPosition(el) - globalScrollOffset;
@@ -52,6 +77,7 @@ part('navigation', [
     };
 
     dom.find('.js-anchor').listen('universalClick', function(e) {
+        e.preventDefault();
         smoothScroll(dom.id(e.currentTarget.getAttribute('data-for')));
     });
 

@@ -6,9 +6,9 @@
 <title>Clash of Clans Troops and Spells Cost Calculator/Time Planner — Clash Calc</title>
 <meta name=description content="Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.">
 <script>!function(n,t,e){n.GoogleAnalyticsObject=e,n[e]=n[e]||function(){(n[e].q=n[e].q||[]).push(arguments)},n[e].l=1*new Date;var o=t.createElement("script");o.src="//www.google-analytics.com/analytics.js",t.head.appendChild(o)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(n,t,e){return ga("send","event","Javascript Error",n,t+":"+e+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";var n=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i);window.mkIsMobile=n||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),n&&document.documentElement.classList.add("ios")}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var n=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==n&&location.host!=="test."+n&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+n+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={}}(),function(){"use strict";-1!==navigator.userAgent.search(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/i)&&ga("send","event","Scale Ratio",(screen.width/window.innerWidth).toFixed(2),navigator.userAgent)}();</script>
-<script src=/s/1391455040000.js defer></script>
+<script src=/s/1391633826000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
-<link rel=stylesheet href=/s/1391450483000.css>
+<link rel=stylesheet href=/s/1391704511000.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
 <link rel=apple-touch-icon-precomposed sizes=76x76 href=/clash-of-clans/i/app-icons/76x76.png>
 <link rel=apple-touch-icon-precomposed sizes=120x120 href=/clash-of-clans/i/app-icons/120x120.png>
@@ -24,8 +24,8 @@
 <script>!function(a,e,r){var n=function(){if(!e.yandexMetrikaParams||!Object.keys)return null;var a=Object.keys(e.yandexMetrikaParams);if(!a.length)return null;var r={};return a.forEach(function(a){r[a]=e.yandexMetrikaParams[a],delete e.yandexMetrikaParams[a]}),r};(e[r]=e[r]||[]).push(function(){try{e.yaCounter19642528=new Ya.Metrika({id:19642528,trackLinks:!0,accurateTrackBounce:!0,params:n()}),e.yandexMetrikaLoadCallback&&e.yandexMetrikaLoadCallback(e.yaCounter19642528),e.addEventListener("load",function(){var a=n();null!==a&&e.yaCounter19642528.params(a)},!1)}catch(a){}});var t=a.createElement("script");t.src="//mc.yandex.ru/metrika/watch.js",a.head.appendChild(t)}(document,window,"yandex_metrika_callbacks");</script>
 <h1>
 Clash Calc — Clash of Clans Troops and Spells Cost Calculator/Time Planner
-<a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;screen_name=ClashCalc" target=_blank class="button button_after button_social js-goal" data-goal=FOLLOW_TWITTER><span class="icon icon_twitter icon_alone" title="Follow @ClashCalc on Twitter"></span></a>
-<a href=https://www.facebook.com/ClashCalc target=_blank class="button button_social js-goal" data-goal=FACEBOOK_PAGE><span class="icon icon_facebook icon_alone" title="Like Clash Calc on Facebook"></span>
+<a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;screen_name=ClashCalc" target=_blank class="button button_after button_social js-goal" data-goal=FOLLOW_TWITTER title="Follow @ClashCalc on Twitter"><span class=icon-twitter></span></a>
+<a href=https://www.facebook.com/ClashCalc target=_blank class="button button_social js-goal" data-goal=FACEBOOK_PAGE title="Like Clash Calc on Facebook"><span class=icon-facebook></span>
 </a>
 </h1>
 <div class=fixed-content>
@@ -35,11 +35,13 @@ You are using an old version of Internet Explorer which is not supported.<br/>
 Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
 </p><![endif]-->
 </div>
-<div class="button-group button-group_menu">
+<div id=menu-wrapper>
+<div class="button-group button-group_menu" id=menu>
 <label class=button id=settings-toggle-button>
 <input type=checkbox id=settings-toggle-mode class=button__checkbox>
 Setting Mode
-</label><button class="button js-anchor" data-for=light-anchor>Barracks</button><button class="button js-anchor js-dark-object" data-for=dark-anchor>Dark Barracks</button><button class="button js-anchor js-spells-object" data-for=spells-anchor>Spell Factory</button><button class="button js-anchor js-share" data-for=share-anchor>Share</button><button class="button js-save-composition"><span class="icon icon_save">Save Composition</span></button><button class="button js-anchor" data-for=saved-anchor>Saved Compositions</button>
+</label><button class="button js-anchor" data-for=light-anchor>Barracks</button><button class="button js-anchor js-dark-object" data-for=dark-anchor>Dark Barracks</button><button class="button js-anchor js-spells-object" data-for=spells-anchor>Spell Factory</button><button class="button js-anchor js-share" data-for=share-anchor>Share</button><button class="button js-anchor" data-for=favorites-anchor>Favorites</button><button class="button js-favorite-add"><span class=icon-favorite>Add to Favorites</span></button>
+</div>
 </div>
 <div class="fixed-content block-intro settings setting-mode-part small">
 <p>
@@ -52,7 +54,7 @@ troops and spells in accordance with the Town Hall of level:
 </div>
 <p id=view-shared style="display: none" class=block-intro>
 <span class="message message_closeable" title="Click to hide">
-You are viewing shared composition (you can find previous one in the saved compositions)
+You are viewing shared army composition (you can find previous one in the favorites)
 </span>
 </p>
 <div class=floated>
@@ -71,10 +73,10 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <br><button class="button button_reset js-reset" data-reset=light data-scope=quantity>Reset</button>
 </th>
 <th class=data__total_column>
-<span class="cost cost_elixir">Total</span>
+<span class=icon-elixir>Total</span>
 </th>
 <th>
-<span class=tooltip title="Values from the “Subtract” columns not preserved between browser sessions nor saved in the saved compositions">Subtract</span>
+<span class=tooltip title="Values from the “Subtract” columns not preserved between browser sessions nor saved when you add to favorites">Subtract</span>
 <br><button class="button button_reset js-reset" data-reset=light data-scope=subtract>Reset</button>
 </th>
 <th class=data__distribution-column>
@@ -516,10 +518,10 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <br><button class="button button_reset js-reset" data-reset=dark data-scope=quantity>Reset</button>
 </th>
 <th class=data__total_column>
-<span class="cost cost_dark-elixir">Total</span>
+<span class=icon-dark-elixir>Total</span>
 </th>
 <th>
-<span class=tooltip title="Values from the “Subtract” columns not preserved between browser sessions nor saved in the saved compositions">Subtract</span>
+<span class=tooltip title="Values from the “Subtract” columns not preserved between browser sessions nor saved when you add to favorites">Subtract</span>
 <br><button class="button button_reset js-reset" data-reset=dark data-scope=subtract>Reset</button>
 </th>
 <th class=data__distribution-column>
@@ -707,7 +709,7 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <br><button class="button button_reset js-reset" data-reset=spells data-scope=quantity>Reset</button>
 </th>
 <th class=data__total_column>
-<span class="cost cost_elixir">Total</span>
+<span class=icon-elixir>Total</span>
 </th>
 <th>
 <span class="text-middle setting-mode-not-part" id=spells-level-text></span>
@@ -845,34 +847,39 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 </div>
 </div>
 <div class=js-share>
-<h2 class=block-indented id=share-anchor>Share Composition</h2>
-<p class=fixed-content>
+<h2 class=block-indented id=share-anchor>Share Army Composition</h2>
+<table class=fixed-content>
+<tr>
+<td class=share-left>
+<a href="" target=_blank class="button button_social js-goal js-share-link" data-share-link="https://twitter.com/share?url={url}&amp;via=ClashCalc&amp;hashtags=ClashOfClans" data-goal=SHARE_TWITTER title="Share on Twitter">
+<span class=icon-twitter></span>
+</a>
+<a href="" target=_blank class="button button_social js-goal js-share-link" data-share-link="https://www.facebook.com/sharer/sharer.php?u={url}" data-goal=SHARE_FACEBOOK title="Share on Facebook">
+<span class=icon-facebook></span>
+</a>
+<a href="" target=_blank class="button button_social js-goal js-share-link" data-share-link="https://plus.google.com/share?url={url}" data-goal=SHARE_GPLUS title="Share on Google+">
+<span class=icon-gplus></span>
+</a>
+</td>
+<td class=share-right>
 <input id=share-permalink class=field-long>
-</p>
-<p>
-<a href="" target=_blank id=share-twitter class="button button_social js-goal" data-goal=SHARE_TWITTER>
-<span class="icon icon_twitter">Share Composition on Twitter</span>
-</a>
-<a href="" target=_blank id=share-facebook class="button button_social js-goal" data-goal=SHARE_FACEBOOK>
-<span class="icon icon_facebook">Share Composition on Facebook</span>
-</a>
-</p>
-<p class="fixed-content block-indented">
-<textarea id=share-text class=field-long rows=2></textarea>
-</p>
+</td>
+</tr>
+</table>
 </div>
-<h2 class=block-indented id=saved-anchor>Saved Compositions</h2>
-<p>
-<button class="js-save-composition button"><span class="icon icon_save">Save Composition</span></button>
-</p>
+<h2 class=block-indented id=favorites-anchor>
+Favorites
+<button class="js-favorite-add button button_after"><span class=icon-favorite>Add</span></button>
+</h2>
 <div id=favorites>
 </div>
 <div class="list-content list-content_small fixed-content" id=changelog>
-<h3 class=block-indented>What’s New in Version 4.2 <a href=version-history.html class="button button_after" target=_blank>Version History</a></h3>
+<h3 class=block-indented>What’s New in Version 4.3 <a href=version-history.html class="button button_after" target=_blank>Version History</a></h3>
 <ul>
-<li>Narrower header.</li>
-<li>Redesigned menu.</li>
-<li>Fixed Hog Rider level 1 training cost (was 39, now 40).</li>
+<li>Saved Compositions renamed to Favorites.</li>
+<li>Added Share to Google+ button.</li>
+<li>Sticky menu (only on desktop).</li>
+<li>Removed text representation of composition.</li>
 </ul>
 </div>
 <h2 class=block-indented>Additionally</h2>
@@ -916,9 +923,6 @@ If you find a bug please send an e-mail to <a href=mailto:clash-of-clans@mkln.ru
 </div>
 <footer>
 <div class=fixed-content>
-<p>
-Save Icon designed by <a href="http://www.endlessicons.com/" target=_blank>Min Kim</a>.
-</p>
 <p>
 Clash of Clans and its logos are trademarks of Supercell.
 This web site is not affiliated with, endorsed, sponsored, or specifically approved by Supercell.

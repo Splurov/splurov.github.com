@@ -48,6 +48,7 @@ input, select, textarea, button {
     }
     .field-long {
         width: 100%;
+        box-sizing: border-box;
     }
     .not-mobile button {
         cursor: pointer;

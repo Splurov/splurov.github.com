@@ -39,12 +39,14 @@
     <a href="https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fmkln.ru%2Fclash-of-clans%2F&amp;screen_name=ClashCalc"
        target="_blank"
        class="button button_after button_social js-goal"
-       data-goal="FOLLOW_TWITTER"><span class="icon icon_twitter icon_alone" title="Follow @ClashCalc on Twitter"></span></a>
+       data-goal="FOLLOW_TWITTER"
+       title="Follow @ClashCalc on Twitter"><span class="icon-twitter"></span></a>
 
     <a href="https://www.facebook.com/ClashCalc"
        target="_blank"
        class="button button_social js-goal"
-       data-goal="FACEBOOK_PAGE"><span class="icon icon_facebook icon_alone" title="Like Clash Calc on Facebook"></span>
+       data-goal="FACEBOOK_PAGE"
+       title="Like Clash Calc on Facebook"><span class="icon-facebook"></span>
     </a>
 </h1>
 <div class="fixed-content">
@@ -58,17 +60,19 @@
     <![endif]-->
 </div>
 
-<div class="button-group button-group_menu">
-    <label class="button" id="settings-toggle-button">
-        <input type="checkbox" id="settings-toggle-mode" class="button__checkbox"/>
-        Setting Mode
-    </label><!--
-    --><button class="button js-anchor" data-for="light-anchor">Barracks</button><!--
-    --><button class="button js-anchor js-dark-object" data-for="dark-anchor">Dark Barracks</button><!--
-    --><button class="button js-anchor js-spells-object" data-for="spells-anchor">Spell Factory</button><!--
-    --><button class="button js-anchor js-share" data-for="share-anchor">Share</button><!--
-    --><button class="button js-save-composition"><span class="icon icon_save">Save Composition</span></button><!--
-    --><button class="button js-anchor" data-for="saved-anchor">Saved Compositions</button>
+<div id="menu-wrapper">
+    <div class="button-group button-group_menu" id="menu">
+        <label class="button" id="settings-toggle-button">
+            <input type="checkbox" id="settings-toggle-mode" class="button__checkbox"/>
+            Setting Mode
+        </label><!--
+        --><button class="button js-anchor" data-for="light-anchor">Barracks</button><!--
+        --><button class="button js-anchor js-dark-object" data-for="dark-anchor">Dark Barracks</button><!--
+        --><button class="button js-anchor js-spells-object" data-for="spells-anchor">Spell Factory</button><!--
+        --><button class="button js-anchor js-share" data-for="share-anchor">Share</button><!--
+        --><button class="button js-anchor" data-for="favorites-anchor">Favorites</button><!--
+        --><button class="button js-favorite-add"><span class="icon-favorite">Add to Favorites</span></button>
+    </div>
 </div>
 
 <div class="fixed-content block-intro settings setting-mode-part small">
@@ -92,7 +96,7 @@
 
 <p id="view-shared" style="display: none;" class="block-intro">
     <span class="message message_closeable" title="Click to hide">
-        You are viewing shared composition (you can find previous one in the saved compositions)
+        You are viewing shared army composition (you can find previous one in the favorites)
     </span>
 </p>
 
@@ -116,11 +120,11 @@
                             <br/><button class="button button_reset js-reset" data-reset="{{type}}" data-scope="quantity">Reset</button>
                         </th>
                         <th class="data__total_column">
-                            <span class="cost cost_{{currencyCode}}">Total</span>
+                            <span class="icon-{{currencyCode}}">Total</span>
                         </th>
                         {{^spells}}
                             <th>
-                                <span class="tooltip" title="Values from the “Subtract” columns not preserved between browser sessions nor saved in the saved compositions">Subtract</span>
+                                <span class="tooltip" title="Values from the “Subtract” columns not preserved between browser sessions nor saved when you add to favorites">Subtract</span>
                                 <br/><button class="button button_reset js-reset" data-reset="{{type}}" data-scope="subtract">Reset</button>
                             </th>
 
@@ -206,36 +210,59 @@
 </div>
 
 <div class="js-share">
-    <h2 class="block-indented" id="share-anchor">Share Composition</h2>
-    <p class="fixed-content">
-        <input id="share-permalink" class="field-long"/>
-    </p>
-    <p>
-        <a href=""
-           target="_blank"
-           id="share-twitter"
-           class="button button_social js-goal"
-           data-goal="SHARE_TWITTER">
-            <span class="icon icon_twitter">Share Composition on Twitter</span>
-        </a>
-        <a href=""
-           target="_blank"
-           id="share-facebook"
-           class="button button_social js-goal"
-           data-goal="SHARE_FACEBOOK">
-            <span class="icon icon_facebook">Share Composition on Facebook</span>
-        </a>
-    </p>
-    <p class="fixed-content block-indented">
-        <textarea id="share-text" class="field-long" rows="2"></textarea>
-    </p>
+    <h2 class="block-indented" id="share-anchor">Share Army Composition</h2>
+    <table class="fixed-content">
+        <tr>
+            <td class="share-left">
+                <a href=""
+                   target="_blank"
+                   class="button button_social js-goal js-share-link"
+                   data-share-link="https://twitter.com/share?url={url}&amp;via=ClashCalc&amp;hashtags=ClashOfClans"
+                   data-goal="SHARE_TWITTER"
+                   title="Share on Twitter">
+                    <span class="icon-twitter"></span>
+                </a>
+                <a href=""
+                   target="_blank"
+                   class="button button_social js-goal js-share-link"
+                   data-share-link="https://www.facebook.com/sharer/sharer.php?u={url}"
+                   data-goal="SHARE_FACEBOOK"
+                   title="Share on Facebook">
+                    <span class="icon-facebook"></span>
+                </a>
+                <a href=""
+                   target="_blank"
+                   class="button button_social js-goal js-share-link"
+                   data-share-link="https://plus.google.com/share?url={url}"
+                   data-goal="SHARE_GPLUS"
+                   title="Share on Google+">
+                    <span class="icon-gplus"></span>
+                </a>
+                {{!
+                <label for="share-permalink" class="share-left__label">Link:</label>
+                }}
+            </td>
+            <td class="share-right">
+                <input id="share-permalink" class="field-long"/>
+            </td>
+        </tr>
+        {{!
+        <tr>
+            <td class="share-left-second">
+                <label for="share-text">Text:</label>
+            </td>
+            <td>
+                <textarea id="share-text" class="field-long" rows="2"></textarea>
+            </td>
+        </tr>
+        }}
+    </table>
 </div>
 
-<h2 class="block-indented" id="saved-anchor">Saved Compositions</h2>
-<p>
-    <button class="js-save-composition button"><span class="icon icon_save">Save Composition</span></button>
-</p>
-
+<h2 class="block-indented" id="favorites-anchor">
+    Favorites
+    <button class="js-favorite-add button button_after"><span class="icon-favorite">Add</span></button>
+</h2>
 <div id="favorites">
 </div>
 
@@ -309,9 +336,6 @@
 
 <footer>
     <div class="fixed-content">
-        <p>
-            Save Icon designed by <a href="http://www.endlessicons.com/" target="_blank">Min Kim</a>.
-        </p>
         <p>
             Clash of Clans and its logos are trademarks of Supercell.
             This web site is not affiliated with, endorsed, sponsored, or specifically approved by Supercell.

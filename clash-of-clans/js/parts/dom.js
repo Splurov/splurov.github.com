@@ -174,8 +174,11 @@ part('dom', function() {
         'find': function(selector, context) {
             return new List((context || document).querySelectorAll(selector));
         },
-        'selectOnFocus': function(el) {
-            listen(el, 'focus', selectAll);
+        'selectOnFocus': function(el, callback) {
+            listen(el, 'focus', function(e) {
+                selectAll(e);
+                callback();
+            });
         },
         'toggleClass': toggleClass,
         'updater': updater,

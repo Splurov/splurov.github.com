@@ -14,14 +14,14 @@
         </table>
         <div class="favorite__time">{{& time}}</div>
         <div class="favorite__cost">
-            <span class="cost cost_{{costModifier}}">{{cost}}</span>
+            <span class="icon-{{costModifier}}">{{cost}}</span>
         </div>
     {{/types}}
 
     <div class="favorite__actions">
-        <button class="button js-favorite-load" data-num="{{index}}" title="Current composition will be lost">
+        <button class="button js-favorite-load" data-num="{{index}}">
             Load
         </button>
-        <button class="button js-favorite-delete" data-num="{{index}}">Delete</button>
+        <button class="button js-favorite-delete" data-num="{{index}}">Remove</button>
     </div>
 </div>
