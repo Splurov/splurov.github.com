@@ -2,7 +2,7 @@
     color: #444;
     display: inline-block;
     padding: 3px 6px;
-    border: 1px solid #999;
+    border: 1px solid #aaa;
     border-radius: 5px;
     background-image: linear-gradient(#fcfcfc, #ececec);
     line-height: 1;
@@ -37,7 +37,7 @@
 
     /* social */
     .button_social, .button_social:link, .button_social:visited {
-        border-color: #99b;
+        border-color: #aab;
         padding-top: 4px;
         padding-bottom: 4px;
         background-image: linear-gradient(#fcfcff, #ececff);
