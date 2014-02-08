@@ -1,5 +1,13 @@
 [
     [
+        "4.4",
+        "8 February, 2014",
+        [
+            "Fixed a bug related to incorrect setting the level of barracks on some Town Hall levels",
+            "Fixed a rare bug related to incorrect production time of spells when Spell Factory level was set to 0"
+        ]
+    ],
+    [
         "4.3",
         "6 February, 2014",
         [

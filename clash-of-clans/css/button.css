@@ -116,9 +116,12 @@
             -webkit-font-smoothing: subpixel-antialiased;
         }
 
-    .button-group_settings .button {
-        padding: 5px 0;
-        text-align: center;
-        width: 28px;
-        font-size: inherit;
+    .button-group_settings {
+        margin-top: 3px;
+        display: inline-block;
     }
+        .button-group_settings .button {
+            padding: 4px 9px 3px;
+            text-align: center;
+            font-size: inherit;
+        }

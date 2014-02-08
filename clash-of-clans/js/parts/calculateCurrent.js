@@ -123,9 +123,9 @@ part('calculateCurrent', [
         if (result.params.type === 'all' || result.params.type === 'spells') {
             setQuantityAndSpace(result.spells.levelValue, result.spells.totalSpace, 'spells');
 
+            var spellsTimeId = 'spells-time';
+            var spellsTimeValue = '';
             if (result.spells.totalTime) {
-                var spellsTimeId = 'spells-time';
-                var spellsTimeValue;
                 if (localStorage.getItem('spells-boosted') === 'yes') {
                     spellsTimeValue = '<span class="boosted">' +
                                       common.getFormattedTime(Math.floor(result.spells.totalTime / 4), true) +
@@ -133,8 +133,9 @@ part('calculateCurrent', [
                 } else {
                     spellsTimeValue = common.getFormattedTime(result.spells.totalTime, true);
                 }
-                dom.updater.defer(spellsTimeId, 'html', spellsTimeValue);
+
             }
+            dom.updater.defer(spellsTimeId, 'html', spellsTimeValue);
 
             spellsObjects.toggleClass('setting-mode-empty', (result.spells.levelValue === 0));
         }

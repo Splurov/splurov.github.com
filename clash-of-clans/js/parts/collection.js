@@ -9,6 +9,10 @@ part('collection', [
         var items = {};
 
         var update = function(key, params, source, newValue) {
+            if (Array.isArray(newValue)) {
+                newValue = newValue[params.index - 1];
+            }
+
             savedData.current.set(key, parseInt(newValue, 10));
 
             if (source === 'dom') {
@@ -23,7 +27,7 @@ part('collection', [
             dom.updater.instantly(key + '-text', 'text', newValue);
 
             if (params.onUpdate) {
-                params.onUpdate(params.el);
+                params.onUpdate(key, params);
             }
         };
 

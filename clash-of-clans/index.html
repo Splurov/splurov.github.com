@@ -6,10 +6,10 @@
 <title>Clash of Clans Troops and Spells Cost Calculator/Time Planner — Clash Calc</title>
 <meta name=description content="Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.">
 <script>!function(n,o,t){n.GoogleAnalyticsObject=t,n[t]=n[t]||function(){(n[t].q=n[t].q||[]).push(arguments)},n[t].l=1*new Date;var e=o.createElement("script");e.src="//www.google-analytics.com/analytics.js",o.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(n,o,t){return ga("send","event","Javascript Error",n,o+":"+t+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";window.mkIsIos=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i),window.mkIsMobile=window.mkIsIos||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),window.mkIsIos&&document.documentElement.classList.add("ios")}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var n=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==n&&location.host!=="test."+n&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+n+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={}}(),function(){"use strict";window.mkIsIos&&ga("send","event","Possible Disable",-1===navigator.userAgent.indexOf("Safari/")?"Yes":"No",[(screen.width/window.innerWidth).toFixed(2),navigator.userAgent].join(" / "))}();</script>
-<script>window.yandexMetrikaParams.version = '4.3';</script>
-<script src=/s/1391710196000.js defer></script>
+<script>window.yandexMetrikaParams.version = '4.4';</script>
+<script src=/s/1391868535000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
-<link rel=stylesheet href=/s/1391704511000.css>
+<link rel=stylesheet href=/s/1391870256000.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
 <link rel=apple-touch-icon-precomposed sizes=76x76 href=/clash-of-clans/i/app-icons/76x76.png>
 <link rel=apple-touch-icon-precomposed sizes=120x120 href=/clash-of-clans/i/app-icons/120x120.png>
@@ -45,13 +45,11 @@ Setting Mode
 </div>
 </div>
 <div class="fixed-content block-intro settings setting-mode-part small">
-<p>
-Set the Army Camps capacity, level of Barracks, Dark Barracks, Spell Factory,
-troops and spells in accordance with the Town Hall of level:
-</p>
-<p class="button-group button-group_settings">
+Set the Army Camps capacity, level of barracks, troops,
+Spell Factory and spells based on the Town Hall of level:<br>
+<span class="button-group button-group_settings">
 <button class="button js-settings-level">1</button><button class="button js-settings-level">2</button><button class="button js-settings-level">3</button><button class="button js-settings-level">4</button><button class="button js-settings-level">5</button><button class="button js-settings-level">6</button><button class="button js-settings-level">7</button><button class="button js-settings-level">8</button><button class="button js-settings-level">9</button><button class="button js-settings-level">10</button>
-</p>
+</span>
 </div>
 <p id=view-shared style="display: none" class=block-intro>
 <span class="message message_closeable" title="Click to hide">
@@ -94,7 +92,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=9>9</option>
 <option value=10 selected>10</option>
 </select> <span class=text-middle>lvl</span><br>
-<label class="setting-mode-part unimportant">
+<label class="setting-mode-part unimportant" id=light-boosted-wrapper-1>
 <input type=checkbox id=light-boosted-1 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -118,7 +116,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=9>9</option>
 <option value=10 selected>10</option>
 </select> <span class=text-middle>lvl</span><br>
-<label class="setting-mode-part unimportant">
+<label class="setting-mode-part unimportant" id=light-boosted-wrapper-2>
 <input type=checkbox id=light-boosted-2 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -142,7 +140,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=9>9</option>
 <option value=10 selected>10</option>
 </select> <span class=text-middle>lvl</span><br>
-<label class="setting-mode-part unimportant">
+<label class="setting-mode-part unimportant" id=light-boosted-wrapper-3>
 <input type=checkbox id=light-boosted-3 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -166,7 +164,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=9>9</option>
 <option value=10 selected>10</option>
 </select> <span class=text-middle>lvl</span><br>
-<label class="setting-mode-part unimportant">
+<label class="setting-mode-part unimportant" id=light-boosted-wrapper-4>
 <input type=checkbox id=light-boosted-4 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -535,7 +533,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <option value=4>4</option>
 <option value=5 selected>5</option>
 </select> <span class=text-middle>lvl</span><br>
-<label class="setting-mode-part unimportant">
+<label class="setting-mode-part unimportant" id=dark-boosted-wrapper-1>
 <input type=checkbox id=dark-boosted-1 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -554,7 +552,7 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <option value=4>4</option>
 <option value=5 selected>5</option>
 </select> <span class=text-middle>lvl</span><br>
-<label class="setting-mode-part unimportant">
+<label class="setting-mode-part unimportant" id=dark-boosted-wrapper-2>
 <input type=checkbox id=dark-boosted-2 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -722,7 +720,7 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <option value=4>4</option>
 <option value=5 selected>5</option>
 </select> <span class=text-middle>lvl</span><br>
-<label class="setting-mode-part unimportant">
+<label class="setting-mode-part unimportant" id=spells-boosted-wrapper>
 <input type=checkbox id=spells-boosted class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -875,7 +873,12 @@ Favorites
 <div id=favorites>
 </div>
 <div class="list-content list-content_small fixed-content" id=changelog>
-<h3 class=block-indented>What’s New in Version 4.3 <a href=version-history.html class="button button_after" target=_blank>Version History</a></h3>
+<h3 class=block-indented>What’s New in Version 4.4 <a href=version-history.html class="button button_after" target=_blank>Version History</a></h3>
+<ul>
+<li>Fixed a bug related to incorrect setting the level of barracks on some Town Hall levels.</li>
+<li>Fixed a rare bug related to incorrect production time of spells when Spell Factory level was set to 0.</li>
+</ul>
+<h3>4.3</h3>
 <ul>
 <li>Saved Compositions renamed to Favorites.</li>
 <li>Added Share to Google+ button.</li>

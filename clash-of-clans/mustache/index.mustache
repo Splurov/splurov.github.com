@@ -77,11 +77,9 @@
 </div>
 
 <div class="fixed-content block-intro settings setting-mode-part small">
-    <p>
-        Set the Army Camps capacity, level of Barracks, Dark Barracks, Spell Factory,
-        troops and spells in accordance with the Town Hall of level:
-    </p>
-    <p class="button-group button-group_settings">
+    Set the Army Camps capacity, level of barracks, troops,
+    Spell Factory and spells based on the Town Hall of level:<br/>
+    <span class="button-group button-group_settings">
         <button class="button js-settings-level">1</button><!--
         --><button class="button js-settings-level">2</button><!--
         --><button class="button js-settings-level">3</button><!--
@@ -92,7 +90,7 @@
         --><button class="button js-settings-level">8</button><!--
         --><button class="button js-settings-level">9</button><!--
         --><button class="button js-settings-level">10</button>
-    </p>
+    </span>
 </div>
 
 <p id="view-shared" style="display: none;" class="block-intro">
@@ -137,7 +135,7 @@
                                             <option value="{{text}}"{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
                                         {{/options}}
                                     </select> <span class="text-middle">lvl</span><br/>
-                                    <label class="setting-mode-part unimportant">
+                                    <label class="setting-mode-part unimportant" id="{{type}}-boosted-wrapper-{{index}}">
                                         <input type="checkbox" id="{{type}}-boosted-{{index}}" class="text-middle js-comp-boosted"/>
                                         <span class="text-middle">Boosted</span><br/>
                                     </label>
@@ -157,7 +155,7 @@
                                         <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
                                     {{/spellFactory}}
                                 </select> <span class="text-middle">lvl</span><br/>
-                                <label class="setting-mode-part unimportant">
+                                <label class="setting-mode-part unimportant" id="spells-boosted-wrapper">
                                     <input type="checkbox" id="spells-boosted" class="text-middle js-comp-boosted"/>
                                     <span class="text-middle">Boosted</span><br/>
                                 </label>

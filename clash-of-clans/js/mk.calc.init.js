@@ -40,6 +40,13 @@ part([
             7: 3,
             9: 4,
             10: 5
+        },
+        'onUpdate': function(key) {
+            dom.updater.instantly(
+                'spells-boosted-wrapper',
+                'display',
+                (savedData.current.get(key) === 0 ? 'none' : '')
+            );
         }
     });
 
@@ -50,15 +57,22 @@ part([
         var i = 0;
         while (++i <= barrackData.count) {
             collection.add(type + '-level-' + i, {
+                'index': i,
                 'calculateType': 'barrack-' + type,
                 'th': barrackData.th,
-                'onUpdate': function(el) {
+                'onUpdate': function(key, params) {
                     var header = '';
-                    var level = el.value;
+                    var level = savedData.current.get(key);
                     if (level !== 0) {
                         header = barrackData.queue[level];
                     }
-                    dom.updater.instantly(type + '-maxSpace-' + el.getAttribute('data-num'), 'text', header);
+                    dom.updater.instantly(type + '-maxSpace-' + params.index, 'text', header);
+
+                    dom.updater.instantly(
+                        type + '-boosted-wrapper-' + params.index,
+                        'display',
+                        (level === 0 ? 'none' : '')
+                    );
                 }
             });
 
