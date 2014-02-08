@@ -177,7 +177,9 @@ part('dom', function() {
         'selectOnFocus': function(el, callback) {
             listen(el, 'focus', function(e) {
                 selectAll(e);
-                callback();
+                if (callback) {
+                    callback();
+                }
             });
         },
         'toggleClass': toggleClass,
