@@ -1,5 +1,12 @@
 [
     [
+        "4.5",
+        "8 February, 2014",
+        [
+            "Fixed some rare bugs and improved stability"
+        ]
+    ],
+    [
         "4.4",
         "8 February, 2014",
         [
