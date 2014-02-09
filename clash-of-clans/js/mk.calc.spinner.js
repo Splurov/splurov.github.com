@@ -32,8 +32,10 @@ part([
     };
 
     var spinnerEventAction = function() {
-        var targetEl = dom.id(currentSpinner.target.getAttribute('data-for'));
-        spinnerAction(targetEl, currentSpinner.target.textContent);
+        if (currentSpinner.target) {
+            var targetEl = dom.id(currentSpinner.target.getAttribute('data-for'));
+            spinnerAction(targetEl, currentSpinner.target.textContent);
+        }
     };
 
     var spinnerEventStart = function(target) {
