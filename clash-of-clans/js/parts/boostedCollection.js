@@ -1,8 +1,10 @@
 part('boostedCollection', [
     'dom',
     'goal',
-    'calculateCurrent'
-], function(dom, goal, calculateCurrent) {
+    'calculateCurrent',
+    'localStorageSet',
+    'storage'
+], function(dom, goal, calculateCurrent, localStorageSet, storage) {
     'use strict';
 
     var boostedCollection = (function() {
@@ -20,11 +22,11 @@ part('boostedCollection', [
                 }
             },
             'update': function(key) {
-                goal.reach('BOOSTED', {'boostedType': items[key].type});
-
-                localStorage.setItem(key, (items[key].el.checked ? 'yes': 'no'));
-
-                calculateCurrent(items[key].type);
+                var setResult = localStorageSet(key, (items[key].el.checked ? 'yes': 'no'), (storage.all.length - 1));
+                if (setResult) {
+                    goal.reach('BOOSTED', {'boostedType': items[key].type});
+                    calculateCurrent(items[key].type);
+                }
             }
         };
     }());

@@ -1,6 +1,7 @@
-part('savedData', [
-    'common'
-], function(common) {
+part('storage', [
+    'common',
+    'localStorageSet'
+], function(common, localStorageSet) {
     'use strict';
 
     var saveMappingKeys = [
@@ -84,39 +85,36 @@ part('savedData', [
         return dataObject;
     };
 
-    var DataStorage = function(key) {
-        this.key = key;
+    var storageKey = 'data5';
 
-        this.load = function(isLoadSource) {
-            var data = localStorage.getItem(this.key);
-            data = (data && JSON.parse(data)) || [];
-            if (isLoadSource) {
-                return data;
-            }
-            data = data.map(dataArrayToObject);
+    var load = function(isLoadSource) {
+        var data = localStorage.getItem(storageKey);
+        data = (data && JSON.parse(data)) || [];
+        if (isLoadSource) {
             return data;
-        };
-
-        this.save = function(dataObjects) {
-            var dataArrays = dataObjects.map(dataObjectToArray);
-            localStorage.setItem(this.key, JSON.stringify(dataArrays));
-        };
+        }
+        data = data.map(dataArrayToObject);
+        return data;
     };
 
-    var storage = new DataStorage('data5');
-    var all = storage.load().map(function(entry) {
+    var all = load().map(function(entry) {
         return new common.Dict(entry);
     });
 
     return {
-        'storage': storage,
+        'getRaw': function() {
+            return load(true);
+        },
         'all': all,
         'current': all[0] || new common.Dict({}),
         'save': function() {
-            this.all[0] = this.current;
-            storage.save(this.all.map(function(entry) {
+            all[0] = this.current;
+            var dataObjects = all.map(function(entry) {
                 return entry.getAll();
-            }));
+            });
+
+            var dataArrays = dataObjects.map(dataObjectToArray);
+            return localStorageSet(storageKey, JSON.stringify(dataArrays), (all.length - 1));
         },
         'dataArrayToObject': dataArrayToObject,
         'dataObjectToArray': dataObjectToArray

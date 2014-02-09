@@ -1,8 +1,8 @@
 part('collection', [
     'dom',
-    'savedData',
+    'storage',
     'calculateCurrent'
-], function(dom, savedData, calculateCurrent) {
+], function(dom, storage, calculateCurrent) {
     'use strict';
 
     var collection = (function() {
@@ -13,7 +13,7 @@ part('collection', [
                 newValue = newValue[params.index - 1];
             }
 
-            savedData.current.set(key, parseInt(newValue, 10));
+            storage.current.set(key, parseInt(newValue, 10));
 
             if (source === 'dom') {
                 calculateCurrent(params.calculateType);
@@ -56,7 +56,7 @@ part('collection', [
                         key,
                         params,
                         'storage',
-                        savedData.current.get(key, params.el.value)
+                        storage.current.get(key, params.el.value)
                     );
                 });
             },

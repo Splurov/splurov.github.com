@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang=en>
+<html lang=en data-version=4.4>
 <head>
 <meta charset=UTF-8>
 <meta name=viewport content="width=900, minimal-ui">
 <title>Clash of Clans Troops and Spells Cost Calculator/Time Planner — Clash Calc</title>
 <meta name=description content="Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.">
-<script>!function(n,o,t){n.GoogleAnalyticsObject=t,n[t]=n[t]||function(){(n[t].q=n[t].q||[]).push(arguments)},n[t].l=1*new Date;var e=o.createElement("script");e.src="//www.google-analytics.com/analytics.js",o.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(n,o,t){return ga("send","event","Javascript Error",n,o+":"+t+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";window.mkIsIos=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i),window.mkIsMobile=window.mkIsIos||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),window.mkIsIos&&document.documentElement.classList.add("ios")}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var n=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==n&&location.host!=="test."+n&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+n+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={}}(),function(){"use strict";window.mkIsIos&&ga("send","event","Possible Disable",-1===navigator.userAgent.indexOf("Safari/")?"Yes":"No",[(screen.width/window.innerWidth).toFixed(2),navigator.userAgent].join(" / "))}();</script>
-<script>window.yandexMetrikaParams.version = '4.4';</script>
-<script src=/s/1391874233000.js defer></script>
+<script>!function(n,o,t){n.GoogleAnalyticsObject=t,n[t]=n[t]||function(){(n[t].q=n[t].q||[]).push(arguments)},n[t].l=1*new Date;var e=o.createElement("script");e.src="//www.google-analytics.com/analytics.js",o.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(n,o,t){return ga("send","event","Javascript Error",n,o+":"+t+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";window.mkIsIos=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i),window.mkIsMobile=window.mkIsIos||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),window.mkIsIos&&document.documentElement.classList.add("ios")}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var n=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==n&&location.host!=="test."+n&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+n+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={},window.yandexMetrikaParams.version=document.documentElement.getAttribute("data-version")}(),function(){"use strict";window.mkIsIos&&ga("send","event","Possible Disable",-1===navigator.userAgent.indexOf("Safari/")?"Yes":"No",[(screen.width/window.innerWidth).toFixed(2),navigator.userAgent].join(" / "))}();</script>
+<script src=/s/1391970839000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
-<link rel=stylesheet href=/s/1391873864000.css>
+<link rel=stylesheet href=/s/1391882572000.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
 <link rel=apple-touch-icon-precomposed sizes=76x76 href=/clash-of-clans/i/app-icons/76x76.png>
 <link rel=apple-touch-icon-precomposed sizes=120x120 href=/clash-of-clans/i/app-icons/120x120.png>
@@ -31,7 +30,7 @@ Clash Calc — Clash of Clans Troops and Spells Cost Calculator/Time Planner
 </h1>
 <div class=fixed-content>
 <p>Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.</p>
-<!--[if lte IE 9]><p class="message message_negative">
+<!--[if lte IE 9]><p class="message message_negative fixed-content">
 You are using an old version of Internet Explorer which is not supported.<br/>
 Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
 </p><![endif]-->
@@ -56,11 +55,15 @@ Spell Factory and spells based on the Town Hall of level:<br>
 You are viewing shared army composition (you can find previous one in the favorites)
 </span>
 </p>
+<p id=storage-quota-exceeded class="message message_negative message_important block-intro fixed-content" style="display: none">
+</p>
 <div class=floated>
 <div class="floated__item js-light-object">
 <h2 id=light-anchor>
 Barracks
-<span class="message message_negative message_after" style="display: none" id=light-exceeded>Exceeded the maximum queue length of the barracks</span>
+<span class="message message_negative message_after" style="display: none" id=light-exceeded>
+Exceeded the maximum queue length of the barracks
+</span>
 </h2>
 <table class=data>
 <thead>
@@ -505,7 +508,9 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 </div><div class="floated__item js-dark-object">
 <h2 id=dark-anchor>
 Dark Barracks
-<span class="message message_negative message_after" style="display: none" id=dark-exceeded>Exceeded the maximum queue length of the barracks</span>
+<span class="message message_negative message_after" style="display: none" id=dark-exceeded>
+Exceeded the maximum queue length of the barracks
+</span>
 </h2>
 <table class=data>
 <thead>

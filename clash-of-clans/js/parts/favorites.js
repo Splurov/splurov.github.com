@@ -1,12 +1,12 @@
 part('favorites', [
-    'savedData',
+    'storage',
     'dom',
     'calculate',
     'common',
     'navigation',
     'goal',
     'calculateCurrent'
-], function(savedData, dom, calculate, common, navigation, goal, calculateCurrent) {
+], function(storage, dom, calculate, common, navigation, goal, calculateCurrent) {
 
     'use strict';
 
@@ -23,9 +23,9 @@ part('favorites', [
         goal.reach('LOAD_SAVED');
 
         var dataToLoad = common.objectCopy(
-            savedData.all[e.currentTarget.getAttribute('data-num')].getAll()
+            storage.all[e.currentTarget.getAttribute('data-num')].getAll()
         );
-        savedData.current = new common.Dict(dataToLoad);
+        storage.current = new common.Dict(dataToLoad);
 
         dom.triggerCustom('storageUpdated');
         calculateCurrent('all');
@@ -56,8 +56,8 @@ part('favorites', [
         });
         el.classList.add('favorite_deleted');
 
-        savedData.all.splice(index, 1);
-        savedData.save();
+        storage.all.splice(index, 1);
+        storage.save();
     };
 
     var animationEndHandler = function(e) {
@@ -86,7 +86,7 @@ part('favorites', [
         var result = calculate({
             'type': 'all',
             'current': false,
-            'savedData': data
+            'storage': data
         });
 
         var modifiers = {
@@ -159,7 +159,7 @@ part('favorites', [
     var add = function() {
         var output = {};
 
-        var sourceData = savedData.storage.load(true);
+        var sourceData = storage.getRaw();
         if (sourceData[0]) {
             var currentJSON = JSON.stringify(sourceData[0]);
             var sdIndex = 0;
@@ -173,16 +173,19 @@ part('favorites', [
                 }
             }
 
-            var index = savedData.all.length;
-            var data = new common.Dict(common.objectCopy(savedData.current.getAll()));
-            savedData.all.push(data);
-            savedData.save();
+            var index = storage.all.length;
+            var data = new common.Dict(common.objectCopy(storage.current.getAll()));
+            storage.all.push(data);
 
-            content.insertAdjacentHTML('beforeend', favoritesCreateItem(data, index));
-            addListeners(content.lastChild, true);
+            if (storage.save()) {
+                content.insertAdjacentHTML('beforeend', favoritesCreateItem(data, index));
+                addListeners(content.lastChild, true);
 
-            output.added = true;
-            output.index = index;
+                output.added = true;
+                output.index = index;
+            } else {
+                storage.all.pop();
+            }
         }
 
         return output;
@@ -201,11 +204,11 @@ part('favorites', [
     });
 
     setTimeout(function() {
-        content.innerHTML = savedData.all.map(favoritesCreateItem).join('');
+        content.innerHTML = storage.all.map(favoritesCreateItem).join('');
         addListeners(content);
     }, 0);
 
-    var favoritesCount = savedData.all.length;
+    var favoritesCount = storage.all.length;
 
     window.yandexMetrikaParams.favoritesCount = 'fc' + (favoritesCount ? favoritesCount - 1 : 0);
 

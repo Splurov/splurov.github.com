@@ -4,7 +4,7 @@
     border: 1px solid #8f8;
     border-radius: 5px;
     padding: 3px 7px;
-    line-height: 1;
+    line-height: 1.5;
     vertical-align: middle;
     font-weight: normal;
 }
@@ -17,4 +17,7 @@
     .message_negative {
         background: #fdd;
         border: 1px solid #f88;
+    }
+    .message_important {
+        font-size: 15px;
     }

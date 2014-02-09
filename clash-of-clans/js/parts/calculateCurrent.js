@@ -1,10 +1,10 @@
 part('calculateCurrent', [
-    'savedData',
+    'storage',
     'dom',
     'types',
     'common',
     'calculate'
-], function(savedData, dom, types, common, calculate) {
+], function(storage, dom, types, common, calculate) {
 
     'use strict';
 
@@ -186,13 +186,15 @@ part('calculateCurrent', [
     return function(type) {
         var params =  {
             'type': type,
-            'savedData': savedData.current,
+            'storage': storage.current,
             'current': true
         };
 
-        dom.triggerCustom('calculateDone', calculate(params));
+        var calculateResult = calculate(params);
+        if (storage.save()) {
+            dom.triggerCustom('calculateDone', calculateResult);
+        }
 
-        savedData.save();
     };
 
 });

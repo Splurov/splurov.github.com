@@ -1,11 +1,11 @@
 part([
-    'savedData',
+    'storage',
     'dom',
     'common',
     'converter',
     'favorites',
     'goal'
-], function(savedData, dom, common, converter, favorites, goal) {
+], function(storage, dom, common, converter, favorites, goal) {
 
     'use strict';
 
@@ -47,12 +47,12 @@ part([
                 converter.oldConvert4to5(urlData);
             }
 
-            urlData = savedData.dataArrayToObject(urlData);
+            urlData = storage.dataArrayToObject(urlData);
 
             favorites.addBeforeShare();
 
-            savedData.current = new common.Dict(urlData);
-            savedData.save();
+            storage.current = new common.Dict(urlData);
+            storage.save();
         }
     }
 
@@ -63,9 +63,9 @@ part([
     });
     var makePermalink = function() {
         var url = 'http://mkln.ru/clash-of-clans/?s3=';
-        var data = common.objectCopy(savedData.current.getAll());
+        var data = common.objectCopy(storage.current.getAll());
         data.settingsMode = 1;
-        data = savedData.dataObjectToArray(data);
+        data = storage.dataObjectToArray(data);
         data = JSON.stringify(data);
         data = data.replace(/\b(?:null|0)\b/g, '');
         data = data.substr(1, data.length - 2);

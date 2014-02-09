@@ -1,11 +1,11 @@
 part([
-    'savedData',
+    'storage',
     'types',
     'dom',
     'collection',
     'boostedCollection',
     'calculateCurrent'
-], function(savedData, types, dom, collection, boostedCollection, calculateCurrent) {
+], function(storage, types, dom, collection, boostedCollection, calculateCurrent) {
     'use strict';
 
     dom.listen(document.body, 'change', function(e) {
@@ -45,7 +45,7 @@ part([
             dom.updater.instantly(
                 'spells-boosted-wrapper',
                 'display',
-                (savedData.current.get(key) === 0 ? 'none' : '')
+                (storage.current.get(key) === 0 ? 'none' : '')
             );
         }
     });
@@ -62,7 +62,7 @@ part([
                 'th': barrackData.th,
                 'onUpdate': function(key, params) {
                     var header = '';
-                    var level = savedData.current.get(key);
+                    var level = storage.current.get(key);
                     if (level !== 0) {
                         header = barrackData.queue[level];
                     }
@@ -105,7 +105,7 @@ part([
             el.value = value || '';
 
             if (isQuantity) {
-                savedData.current.set(el.getAttribute('id'), value);
+                storage.current.set(el.getAttribute('id'), value);
             }
 
             calculateCurrent(el.getAttribute('data-type'));
@@ -115,7 +115,7 @@ part([
 
     dom.listenCustom('storageUpdated', function() {
         types.iterateTree(function(type, name) {
-            dom.id(name).value = savedData.current.get(name) || '';
+            dom.id(name).value = storage.current.get(name) || '';
         });
     });
 

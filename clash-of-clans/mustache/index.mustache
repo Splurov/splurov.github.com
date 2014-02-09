@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" data-version="{{firstChangelog.version}}">
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=900, minimal-ui"/>
@@ -8,7 +8,6 @@
     <meta name="description" content="{{coc_description}}"/>
 
     <script src="js/-head-blockers.js"></script>
-    <script>window.yandexMetrikaParams.version = '{{firstChangelog.version}}';</script>
 
     <script src="js/-all.js" data-main="yes"></script>
 
@@ -54,7 +53,7 @@
     <p>{{coc_description}}</p>
 
     <!--[if lte IE 9]>
-    <p class="message message_negative">
+    <p class="message message_negative fixed-content">
         You are using an old version of Internet Explorer which is not supported.<br/>
         Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
     </p>
@@ -99,14 +98,17 @@
     </span>
 </p>
 
+<p id="storage-quota-exceeded" class="message message_negative message_important block-intro fixed-content" style="display: none;">
+</p>
+
 <div class="floated">
     {{#types}}<div class="floated__item js-{{type}}-object">
             <h2 id="{{type}}-anchor">
                 {{title}}
                 {{^spells}}
-                    <span class="message message_negative message_after"
-                          style="display: none;"
-                          id="{{type}}-exceeded">Exceeded the maximum queue length of the barracks</span>
+                    <span class="message message_negative message_after" style="display: none" id="{{type}}-exceeded">
+                        Exceeded the maximum queue length of the barracks
+                    </span>
                 {{/spells}}
             </h2>
             <table class="data">

@@ -2,20 +2,28 @@ part([
     'dom',
     'goal',
     'collection',
-    'calculateCurrent'
-], function(dom, goal, collection, calculateCurrent) {
+    'calculateCurrent',
+    'localStorageSet',
+    'storage'
+], function(dom, goal, collection, calculateCurrent, localStorageSet, storage) {
 
     'use strict';
 
     var toggleModeButton = dom.id('settings-toggle-button');
     var toggleModeEl = dom.id('settings-toggle-mode');
     var toggleSettings = function() {
-        dom.toggleClass(document.documentElement, 'setting-mode-disabled', !toggleModeEl.checked);
-        dom.toggleClass(document.documentElement, 'setting-mode-enabled', toggleModeEl.checked);
+        var setResult = localStorageSet(
+            'settingsMode',
+            (toggleModeEl.checked ? 'on' : 'off'),
+            (storage.all.length - 1)
+        );
 
-        localStorage.setItem('settingsMode', (toggleModeEl.checked ? 'on' : 'off'));
+        if (setResult) {
+            dom.toggleClass(document.documentElement, 'setting-mode-disabled', !toggleModeEl.checked);
+            dom.toggleClass(document.documentElement, 'setting-mode-enabled', toggleModeEl.checked);
 
-        dom.toggleClass(toggleModeButton, 'button_pressed', toggleModeEl.checked);
+            dom.toggleClass(toggleModeButton, 'button_pressed', toggleModeEl.checked);
+        }
     };
 
     dom.listen(toggleModeEl, 'change', function() {

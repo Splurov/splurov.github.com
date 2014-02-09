@@ -4,15 +4,16 @@
 
 /* build:js:js/parts/dom.js */
 /* build:js:js/parts/goal.js */
+/* build:js:js/parts/navigation.js */
+/* build:js:js/parts/localStorageSet.js */
 /* build:js:js/parts/common.js */
 /* build:js:js/parts/converter.js */
 /* build:js:js/parts/types.js */
-/* build:js:js/parts/savedData.js */
+/* build:js:js/parts/storage.js */
 /* build:js:js/parts/calculate.js */
 /* build:js:js/parts/calculateCurrent.js */
 /* build:js:js/parts/collection.js */
 /* build:js:js/parts/boostedCollection.js */
-/* build:js:js/parts/navigation.js */
 
 /* build:js:js/mk.calc.settings.js */
 
