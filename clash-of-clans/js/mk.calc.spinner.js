@@ -53,9 +53,9 @@ part([
     };
 
     var spinnerEventMoveStop = function(diffX, diffY) {
+        currentSpinner.click = false;
         if (diffX > 16 || diffY > 16) {
             currentSpinner.target = null;
-            currentSpinner.click = false;
             clearTimeout(currentSpinner.firstTimeout);
             clearTimeout(currentSpinner.secondTimeout);
         }
