@@ -48,9 +48,9 @@ part([
     };
 
     var setLevels = function(th) {
-        goal.reach('SETTINGS_TH', {'settingsLevel': 'th' + th});
-
         collection.updateSetting(th, getSettingValue);
+
+        goal.reach('SETTINGS_TH', {'settingsLevel': th.toString()});
 
         calculateCurrent('all');
     };

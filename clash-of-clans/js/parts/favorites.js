@@ -210,7 +210,7 @@ part('favorites', [
 
     var favoritesCount = storage.all.length;
 
-    window.yandexMetrikaParams.favoritesCount = 'fc' + (favoritesCount ? favoritesCount - 1 : 0);
+    window.yandexMetrikaParams.favoritesCount = (favoritesCount ? favoritesCount - 1 : 0).toString();
 
     return {
         'addBeforeShare': function() {
