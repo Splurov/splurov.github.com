@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <span style="display: inline-block; padding: 10px; background: #5f5;">
+        <span style="display: inline-block; width: 200px; height: 200px; line-height: 200px; text-align: center; background: #ccc;"
+              onclick="document.getElementById('result').innerHTML += 'CLICK<br/>';"
+              ontouchstart="document.getElementById('result').innerHTML += 'TOUCH START<br/>';">
+            Click Me
+        </span>
+    </span>
+
+    <span id="result" style="display: inline-block; margin-left: 10px; background: #f5f; padding: 10px;">
+    </span>
+
+</body>
+</html>

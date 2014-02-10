@@ -1,7 +1,14 @@
 [
     [
+        "4.5.1",
+        "10 February, 2014",
+        [
+            "Fixed missing icons in iOS 6"
+        ]
+    ],
+    [
         "4.5",
-        "8 February, 2014",
+        "9 February, 2014",
         [
             "Fixed some rare bugs and improved stability"
         ]

@@ -21,7 +21,7 @@
         background-image: linear-gradient(#fcfcfc, #e0e0e0);
         text-decoration: none;
     }
-    .button:active, .button:focus {
+    .button:active, .not-mobile .button:focus {
         color: #444;
         background: #e3e3e3;
     }
@@ -45,7 +45,7 @@
     .not-mobile .button_social:hover {
         background-image: linear-gradient(#fcfcff, #e0e0ff);
     }
-    .button_social:active, .button_social:focus {
+    .button_social:active, .not-mobile .button_social:focus {
         background: #e3e3ff;
     }
 
@@ -65,7 +65,7 @@
     }
 
     /* pressed */
-    .button_pressed, .button_pressed:active, .button_pressed:focus {
+    .button_pressed, .button_pressed:active, .not-mobile .button_pressed:focus {
         color: #444;
         background-image: linear-gradient(#e0e0e0, #ececec);
     }

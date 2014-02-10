@@ -1,29 +1,47 @@
 .icon-twitter {
-    background: url(/clash-of-clans/i/icons/twitter.png) 0 50% / 16px 13px no-repeat;
+    background-image: url(/clash-of-clans/i/icons/twitter.png);
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-size: 16px 13px;
     padding-left: 16px;
 }
 
 .icon-facebook {
-    background: url(/clash-of-clans/i/icons/facebook.png) 0 50% / 16px 16px no-repeat;
+    background-image: url(/clash-of-clans/i/icons/facebook.png);
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
     padding-left: 16px;
 }
 
 .icon-gplus {
-    background: url(/clash-of-clans/i/icons/gplus.png) 0 50% / 16px 16px no-repeat;
+    background-image: url(/clash-of-clans/i/icons/gplus.png);
+    background-position: 0 50%;
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
     padding-left: 16px;
 }
 
 .icon-favorite {
-    background: url(/clash-of-clans/i/icons/favorite.svg) -1px 0 / 1.15em 1.15em no-repeat;
+    background-image: url(/clash-of-clans/i/icons/favorite.svg);
+    background-position: -1px 0;
+    background-repeat: no-repeat;
+    background-size: 1.15em 1.15em;
     padding-left: 19px;
 }
 
 .icon-elixir {
-    background: url(/clash-of-clans/i/icons/elixir.png) 100% 50% / 14px 16px no-repeat;
+    background-image: url(/clash-of-clans/i/icons/elixir.png);
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    background-size: 14px 16px;
     padding-right: 19px;
 }
 
 .icon-dark-elixir {
-    background: url(/clash-of-clans/i/icons/dark-elixir.png) 100% 50% / 14px 16px no-repeat;
+    background-image: url(/clash-of-clans/i/icons/dark-elixir.png);
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    background-size: 14px 16px;
     padding-right: 19px;
 }
