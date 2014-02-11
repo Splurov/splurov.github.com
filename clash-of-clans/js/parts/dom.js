@@ -1,22 +1,14 @@
 part('dom', function() {
     'use strict';
 
+    var touchSupported = ('ontouchstart' in window);
+
     var registerUniversalClick = function(target, listener) {
-        var touchSupported = ('ontouchstart' in window);
-
-        var lastEventSource;
-
         if (touchSupported) {
             var tapping;
 
             target.addEventListener('touchstart', function() {
-                if (lastEventSource === 'mouse') {
-                    lastEventSource = null;
-                    tapping = false;
-                } else {
-                    lastEventSource = 'touch';
-                    tapping = true;
-                }
+                tapping = true;
             }, false);
 
             target.addEventListener('touchmove', function() {
@@ -28,23 +20,16 @@ part('dom', function() {
             }, false);
 
             target.addEventListener('touchend', function(e) {
+                e.preventDefault();
                 if (tapping) {
                     listener(e);
                 }
             }, false);
         }
 
-        if (!window.mkIsMobile || !touchSupported) {
-            target.addEventListener('click', function(e) {
-                if (lastEventSource === 'touch') {
-                    lastEventSource = null;
-                } else {
-                    lastEventSource = 'mouse';
-                    listener(e);
-                }
-            }, false);
-        }
-
+        target.addEventListener('click', function(e) {
+            listener(e);
+        }, false);
     };
 
     var listen = function(target, type, listener) {
