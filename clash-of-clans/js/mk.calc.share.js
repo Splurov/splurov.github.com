@@ -90,65 +90,6 @@ part([
         });
     };
 
-    /*
-    var text = dom.id('share-text');
-    dom.selectOnFocus(text, function() {
-        goal.reach('SHARE_TEXT');
-    });
-
-    var superscriptNumbers = {
-        '1': '¹',
-        '2': '²',
-        '3': '³',
-        '4': '⁴',
-        '5': '⁵',
-        '6': '⁶',
-        '7': '⁷',
-        '8': '⁸',
-        '9': '⁹'
-    };
-
-    var currencies = {
-        'light': 'Elixir',
-        'dark': 'Dark Elixir',
-        'spells': 'Elixir'
-    };
-
-    var makeShareText = function(result) {
-        var output = [];
-        var prices = [];
-
-        ['light', 'dark', 'spells'].forEach(function(type) {
-            if (type !== 'spells') {
-                result[type].objects.sort(function(a, b) {
-                    return a.minBarrackLevel - b.minBarrackLevel;
-                });
-            }
-
-            result[type].objects.forEach(function(objectResult) {
-                if (objectResult.summaryCost) {
-                    output.push(
-                        common.convertToTitle(objectResult.name) +
-                        ' (lvl ' + objectResult.level + ')' +
-                        //superscriptNumbers[objectResult.level] +
-                        ' ×' +
-                        objectResult.quantity
-                    );
-                }
-            });
-            if (result[type].totalCost) {
-                prices.push(common.numberFormat(result[type].totalCost) + ' ' + currencies[type]);
-            }
-        });
-
-        if (output.length) {
-            text.value = output.join(', ') + ' — ' + prices.join(', ');
-            return true;
-        }
-        return false;
-    };
-    */
-
     var shareObjects = dom.find('.js-share');
     var placeShareContent = function(result) {
         var display = '';
@@ -157,7 +98,6 @@ part([
                 return true;
             }
         });
-        //if (makeShareText(result)) {
         if (isAvailable) {
             makePermalink();
         } else {
