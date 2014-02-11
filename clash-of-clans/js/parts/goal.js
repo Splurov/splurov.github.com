@@ -18,16 +18,6 @@ part('goal', [
 
     var send = function(target, params) {
         metrika.reachGoal(target, params);
-
-        var paramsText = '';
-        if (params) {
-            var paramsTemp = [];
-            Object.keys(params).forEach(function(paramKey) {
-                paramsTemp.push(paramKey + ': ' + params[paramKey]);
-            });
-            paramsText = paramsTemp.join('; ');
-        }
-        ga('send', 'event', 'User Actions', target, paramsText);
     };
 
     var runIfReady = function() {
@@ -65,10 +55,6 @@ part('goal', [
             beforeReady[target] = params;
         }
     };
-
-    dom.find('.js-goal').listen('universalClick', function(e) {
-        reach(e.currentTarget.getAttribute('data-goal'));
-    });
 
     var afterPrint = function() {
         reach('PRINT');
