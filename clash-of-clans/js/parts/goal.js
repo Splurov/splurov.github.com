@@ -56,21 +56,6 @@ part('goal', [
         }
     };
 
-    var afterPrint = function() {
-        reach('PRINT');
-    };
-
-    if (window.matchMedia) {
-        var mediaQuery = window.matchMedia('print');
-        mediaQuery.addListener(function(mql) {
-            if (!mql.matches) {
-                afterPrint();
-            }
-        });
-    }
-
-    window.addEventListener('afterprint', afterPrint, false);
-
     return {
         'reach': reach
     };
