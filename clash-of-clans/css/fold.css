@@ -5,9 +5,11 @@
         display: inline-block;
         user-select: none;
         font-weight: bold;
-        -webkit-transform: translateZ(0);
         padding: 5px 0;
         margin: -5px 0;
+    }
+    .mobile .fold__switcher {
+        -webkit-transform: translateZ(0);
     }
     .not-mobile .fold__switcher {
         cursor: pointer;
@@ -28,8 +30,10 @@
         overflow: hidden;
         max-height: 0;
         transition: max-height 500ms;
-        -webkit-transform: translateZ(0);
     }
+        .mobile .fold__content {
+            -webkit-transform: translateZ(0);
+        }
         .fold_opened .fold__content {
             transition: max-height 1s;
         }

@@ -22,110 +22,148 @@ part([
         dom.trigger(el, 'input');
     };
 
-    var currentSpinner = {
-        'target': null,
-        'click': false,
-        'firstTimeout': null,
-        'secondTimeout': null,
-        'x': 0,
-        'y': 0
-    };
 
-    var spinnerEventAction = function() {
-        if (currentSpinner.target) {
-            var targetEl = dom.id(currentSpinner.target.getAttribute('data-for'));
-            spinnerAction(targetEl, currentSpinner.target.textContent);
-        }
-    };
+    var ActiveItem = function(touch) {
+        var self = this;
 
-    var spinnerEventStart = function(target) {
-        currentSpinner.target = target;
-        currentSpinner.click = true;
-        currentSpinner.firstTimeout = setTimeout(function() {
-            currentSpinner.click = false;
+        this.target = touch.target;
+        this.click = true;
+        this.x = touch.screenX;
+        this.y = touch.screenY;
+
+        this.firstTimeout = setTimeout(function() {
+            self.click = false;
             (function fakeInterval() {
-                currentSpinner.secondTimeout = setTimeout(function() {
-                    spinnerEventAction();
+                self.secondTimeout = setTimeout(function() {
+                    self.allowPrevent = true;
+                    self.run();
                     fakeInterval();
                 }, 100);
             }());
-        }, 500);
+        }, 300);
+
     };
 
-    var spinnerEventMoveStop = function(diffX, diffY) {
-        currentSpinner.click = false;
+    ActiveItem.prototype.run = function() {
+        var targetEl = dom.id(this.target.getAttribute('data-for'));
+        spinnerAction(targetEl, this.target.textContent);
+    };
+
+    ActiveItem.prototype.isMoved = function(touch, divisor) {
+        var diffX = Math.abs(touch.screenX - this.x) / divisor;
+        var diffY = Math.abs(touch.screenY - this.y) / divisor;
+
         if (diffX > 16 || diffY > 16) {
-            currentSpinner.target = null;
-            clearTimeout(currentSpinner.firstTimeout);
-            clearTimeout(currentSpinner.secondTimeout);
+            return true;
+        }
+
+        return false;
+    };
+
+    ActiveItem.prototype.destroy = function() {
+        this.target = null;
+        clearTimeout(this.firstTimeout);
+        clearTimeout(this.secondTimeout);
+    };
+
+
+    var activeItems = {
+        'items': {},
+        'start': function(touches) {
+            var isFirst = false;
+
+            for (var i = 0, l = touches.length; i < l; i++) {
+                var touch = touches[i];
+
+                if (touch.target.classList.contains('js-spinner')) {
+                    if (Object.keys(this.items).length === 0) {
+                        isFirst = true;
+                    }
+
+                    this.items[touch.identifier] = new ActiveItem(touch);
+                }
+            }
+
+            return isFirst;
+        },
+        'move': function(touches, divisor) {
+            divisor = divisor || 1;
+
+            var isPrevent = false;
+
+            for (var i = 0, l = touches.length; i < l; i++) {
+                var touch = touches[i];
+
+                if (touch.identifier in this.items) {
+                    this.items[touch.identifier].click = false;
+
+                    if (this.items[touch.identifier].isMoved(touch, divisor)) {
+                        this.items[touch.identifier].destroy();
+                        delete this.items[touch.identifier];
+                    } else if (this.items[touch.identifier].allowPrevent) {
+                        isPrevent = true;
+                    }
+                }
+            }
+
+            return isPrevent;
+        },
+        'end': function(touches) {
+            for (var i = 0, l = touches.length; i < l; i++) {
+                var touch = touches[i];
+
+                if (touch.identifier in this.items) {
+                    if (this.items[touch.identifier].click) {
+                        this.items[touch.identifier].run();
+                    }
+                    this.items[touch.identifier].destroy();
+                    delete this.items[touch.identifier];
+                }
+            }
         }
     };
 
-    var spinnerEventStop = function() {
-        if (currentSpinner.target) {
-            if (currentSpinner.click) {
-                spinnerEventAction();
-            }
-            currentSpinner.target = null;
-            clearTimeout(currentSpinner.firstTimeout);
-            clearTimeout(currentSpinner.secondTimeout);
-        }
-    };
 
     var touchSupported = ('ontouchstart' in window);
 
     if (!window.mkIsMobile || !touchSupported) {
         dom.listen(document.body, 'mousedown', function(e) {
-            if (e.target.classList.contains('js-spinner')) {
-                currentSpinner.x = e.screenX;
-                currentSpinner.y = e.screenY;
-                spinnerEventStart(e.target);
-            }
+            e.identifier = 'mouse';
+            activeItems.start([e]);
         });
 
         dom.listen(document.body, 'mousemove', function(e) {
-            if (currentSpinner.target) {
-                var diffX = Math.abs(e.screenX - currentSpinner.x);
-                var diffY = Math.abs(e.screenY - currentSpinner.y);
-                spinnerEventMoveStop(diffX, diffY);
-            }
+            e.identifier = 'mouse';
+            activeItems.move([e]);
         });
 
-        dom.listen(document.body, 'mouseup', function() {
-            spinnerEventStop();
+        dom.listen(document.body, 'mouseup', function(e) {
+            e.identifier = 'mouse';
+            activeItems.end([e]);
         });
     }
 
     if (touchSupported) {
         var preventTimeStamp = 0;
         dom.listen(document.body, 'touchstart', function(e) {
-            if (e.target.classList.contains('js-spinner')) {
-                if (e.timeStamp - preventTimeStamp < 500) {
+            if (activeItems.start(e.changedTouches)) {
+                if (e.timeStamp - preventTimeStamp <= 300) {
                     e.preventDefault();
                 }
                 preventTimeStamp = e.timeStamp;
-
-                currentSpinner.x = e.touches[0].screenX;
-                currentSpinner.y = e.touches[0].screenY;
-
-                spinnerEventStart(e.target);
             }
         });
 
         dom.listen(document.body, 'touchmove', function(e) {
-            if (currentSpinner.target) {
-                var diffX = Math.abs(e.touches[0].screenX - currentSpinner.x) / 2;
-                var diffY = Math.abs(e.touches[0].screenY - currentSpinner.y) / 2;
-                spinnerEventMoveStop(diffX, diffY);
+            if (activeItems.move(e.changedTouches, 2)) {
+                e.preventDefault();
             }
         });
 
-        dom.listen(document.body, 'touchcancel', function() {
-            spinnerEventStop();
-        });
-
-        dom.listen(document.body, 'touchend', function() {
-            spinnerEventStop();
+        ['touchend', 'touchcancel'].forEach(function(eventName) {
+            dom.listen(document.body, eventName, function(e) {
+                activeItems.end(e.changedTouches);
+            });
         });
     }
 

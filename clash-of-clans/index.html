@@ -6,9 +6,9 @@
 <title>Clash of Clans Troops and Spells Cost Calculator/Time Planner — Clash Calc</title>
 <meta name=description content="Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.">
 <script>!function(n,o,t){n.GoogleAnalyticsObject=t,n[t]=n[t]||function(){(n[t].q=n[t].q||[]).push(arguments)},n[t].l=1*new Date;var e=o.createElement("script");e.src="//www.google-analytics.com/analytics.js",o.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(n,o,t){return ga("send","event","Javascript Error",n,o+":"+t+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";window.mkIsIos=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i),window.mkIsMobile=window.mkIsIos||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),window.mkIsIos&&document.documentElement.classList.add("ios")}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var n=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==n&&location.host!=="test."+n&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+n+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={},window.yandexMetrikaParams.version=document.documentElement.getAttribute("data-version")}(),function(){"use strict";window.mkIsIos&&ga("send","event","Possible Disable",-1===navigator.userAgent.indexOf("Safari/")?"Yes":"No",[(screen.width/window.innerWidth).toFixed(2),navigator.userAgent].join(" / "))}();</script>
-<script src=/s/1392145680000.js defer></script>
+<script src=/s/1392232914000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
-<link rel=stylesheet href=/s/1392145125000.css>
+<link rel=stylesheet href=/s/1392234917000.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
 <link rel=apple-touch-icon-precomposed sizes=76x76 href=/clash-of-clans/i/app-icons/76x76.png>
 <link rel=apple-touch-icon-precomposed sizes=120x120 href=/clash-of-clans/i/app-icons/120x120.png>
@@ -194,12 +194,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-quantity" id=Barbarian size=3 tabindex=11><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian>−</button>
 </td>
 <td id=Barbarian-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-subtract" id=Barbarian-subtract size=3 tabindex=111><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian-subtract>−</button>
 </td>
 <td id=quantity-Barbarian-1 class=number></td>
@@ -221,12 +221,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-quantity" id=Archer size=3 tabindex=12><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer>−</button>
 </td>
 <td id=Archer-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-subtract" id=Archer-subtract size=3 tabindex=112><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer-subtract>−</button>
 </td>
 <td id=quantity-Archer-1 class=number></td>
@@ -248,12 +248,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-quantity" id=Goblin size=3 tabindex=13><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin>−</button>
 </td>
 <td id=Goblin-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-subtract" id=Goblin-subtract size=3 tabindex=113><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin-subtract>−</button>
 </td>
 <td id=quantity-Goblin-1 class=number></td>
@@ -275,12 +275,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-quantity" id=Giant size=3 tabindex=14><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant>−</button>
 </td>
 <td id=Giant-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-subtract" id=Giant-subtract size=3 tabindex=114><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant-subtract>−</button>
 </td>
 <td id=quantity-Giant-1 class=number></td>
@@ -302,12 +302,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-quantity" id=Wall_Breaker size=3 tabindex=15><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker>−</button>
 </td>
 <td id=Wall_Breaker-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-subtract" id=Wall_Breaker-subtract size=3 tabindex=115><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker-subtract>−</button>
 </td>
 <td id=quantity-Wall_Breaker-1 class=number></td>
@@ -329,12 +329,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-quantity" id=Balloon size=3 tabindex=16><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon>−</button>
 </td>
 <td id=Balloon-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-subtract" id=Balloon-subtract size=3 tabindex=116><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon-subtract>−</button>
 </td>
 <td id=quantity-Balloon-1 class=number></td>
@@ -356,12 +356,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-quantity" id=Wizard size=3 tabindex=17><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard>−</button>
 </td>
 <td id=Wizard-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-subtract" id=Wizard-subtract size=3 tabindex=117><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard-subtract>−</button>
 </td>
 <td id=quantity-Wizard-1 class=number></td>
@@ -381,12 +381,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=4 selected>4</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-quantity" id=Healer size=3 tabindex=18><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer>−</button>
 </td>
 <td id=Healer-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-subtract" id=Healer-subtract size=3 tabindex=118><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer-subtract>−</button>
 </td>
 <td id=quantity-Healer-1 class=number></td>
@@ -406,12 +406,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=4 selected>4</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-quantity" id=Dragon size=3 tabindex=19><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon>−</button>
 </td>
 <td id=Dragon-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-subtract" id=Dragon-subtract size=3 tabindex=119><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon-subtract>−</button>
 </td>
 <td id=quantity-Dragon-1 class=number></td>
@@ -431,12 +431,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=4 selected>4</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-quantity" id=P-E-K-K-A- size=3 tabindex=20><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A->+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A->−</button>
 </td>
 <td id=P-E-K-K-A--summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=light class="js-number text-middle js-comp-subtract" id=P-E-K-K-A--subtract size=3 tabindex=120><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A--subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A--subtract>−</button>
 </td>
 <td id=quantity-P-E-K-K-A--1 class=number></td>
@@ -584,12 +584,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=dark class="js-number text-middle js-comp-quantity" id=Minion size=3 tabindex=21><button class="button button_spinner js-spinner" tabindex=-1 data-for=Minion>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Minion>−</button>
 </td>
 <td id=Minion-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=dark class="js-number text-middle js-comp-subtract" id=Minion-subtract size=3 tabindex=121><button class="button button_spinner js-spinner" tabindex=-1 data-for=Minion-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Minion-subtract>−</button>
 </td>
 <td id=quantity-Minion-1 class=number></td>
@@ -608,12 +608,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <option value=5 selected>5</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=dark class="js-number text-middle js-comp-quantity" id=Hog_Rider size=3 tabindex=22><button class="button button_spinner js-spinner" tabindex=-1 data-for=Hog_Rider>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Hog_Rider>−</button>
 </td>
 <td id=Hog_Rider-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=dark class="js-number text-middle js-comp-subtract" id=Hog_Rider-subtract size=3 tabindex=122><button class="button button_spinner js-spinner" tabindex=-1 data-for=Hog_Rider-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Hog_Rider-subtract>−</button>
 </td>
 <td id=quantity-Hog_Rider-1 class=number></td>
@@ -631,12 +631,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <option value=4 selected>4</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=dark class="js-number text-middle js-comp-quantity" id=Valkyrie size=3 tabindex=23><button class="button button_spinner js-spinner" tabindex=-1 data-for=Valkyrie>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Valkyrie>−</button>
 </td>
 <td id=Valkyrie-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=dark class="js-number text-middle js-comp-subtract" id=Valkyrie-subtract size=3 tabindex=123><button class="button button_spinner js-spinner" tabindex=-1 data-for=Valkyrie-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Valkyrie-subtract>−</button>
 </td>
 <td id=quantity-Valkyrie-1 class=number></td>
@@ -655,12 +655,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <option value=5 selected>5</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=dark class="js-number text-middle js-comp-quantity" id=Golem size=3 tabindex=24><button class="button button_spinner js-spinner" tabindex=-1 data-for=Golem>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Golem>−</button>
 </td>
 <td id=Golem-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=dark class="js-number text-middle js-comp-subtract" id=Golem-subtract size=3 tabindex=124><button class="button button_spinner js-spinner" tabindex=-1 data-for=Golem-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Golem-subtract>−</button>
 </td>
 <td id=quantity-Golem-1 class=number></td>
@@ -676,12 +676,12 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <option value=2 selected>2</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=dark class="js-number text-middle js-comp-quantity" id=Witch size=3 tabindex=25><button class="button button_spinner js-spinner" tabindex=-1 data-for=Witch>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Witch>−</button>
 </td>
 <td id=Witch-summary class="number small">
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=dark class="js-number text-middle js-comp-subtract" id=Witch-subtract size=3 tabindex=125><button class="button button_spinner js-spinner" tabindex=-1 data-for=Witch-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Witch-subtract>−</button>
 </td>
 <td id=quantity-Witch-1 class=number></td>
@@ -749,7 +749,7 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=spells class="js-number text-middle js-comp-quantity" id=Lightning size=3 tabindex=31><button class="button button_spinner js-spinner" tabindex=-1 data-for=Lightning>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Lightning>−</button>
 </td>
 <td id=Lightning-summary class="number small">
@@ -771,7 +771,7 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=spells class="js-number text-middle js-comp-quantity" id=Healing size=3 tabindex=32><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healing>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healing>−</button>
 </td>
 <td id=Healing-summary class="number small">
@@ -792,7 +792,7 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <option value=5 selected>5</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=spells class="js-number text-middle js-comp-quantity" id=Rage size=3 tabindex=33><button class="button button_spinner js-spinner" tabindex=-1 data-for=Rage>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Rage>−</button>
 </td>
 <td id=Rage-summary class="number small">
@@ -810,7 +810,7 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <option value=2 selected>2</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=spells class="js-number text-middle js-comp-quantity" id=Jump size=3 tabindex=34><button class="button button_spinner js-spinner" tabindex=-1 data-for=Jump>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Jump>−</button>
 </td>
 <td id=Jump-summary class="number small">
@@ -831,7 +831,7 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <option value=5 selected>5</option>
 </select>
 </td>
-<td>
+<td class=data__spinner>
 <input pattern=[0-9]* data-type=spells class="js-number text-middle js-comp-quantity" id=Freeze size=3 tabindex=35><button class="button button_spinner js-spinner" tabindex=-1 data-for=Freeze>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Freeze>−</button>
 </td>
 <td id=Freeze-summary class="number small">
