@@ -144,8 +144,18 @@ part('calculateCurrent', [
             if (['all', 'barrack-' + type, type].indexOf(result.params.type) !== -1) {
                 var clIndex = result[type].capLevel + 1;
                 while (--clIndex > 0) {
-                    dom.updater.defer(type + '-building-level-' + clIndex, 'display',
-                                     (clIndex > result[type].levelValue ? 'none' : ''));
+                    var rowId = type + '-building-level-' + clIndex;
+                    var rowEl = dom.id(type + '-building-level-' + clIndex);
+
+                    if (clIndex > result[type].levelValue) {
+                        dom.updater.instantly(rowId, 'display', 'none');
+
+                        dom.find('td.changed-animation', rowEl).iterate(function(el) {
+                            el.classList.remove('changed-animation');
+                        });
+                    } else {
+                        dom.updater.instantly(rowId, 'display', '');
+                    }
                 }
 
                 result[type].objects.forEach(function(objectResult) {
@@ -196,7 +206,6 @@ part('calculateCurrent', [
         if (storage.save()) {
             dom.triggerCustom('calculateDone', calculateResult);
         }
-
     };
 
 });

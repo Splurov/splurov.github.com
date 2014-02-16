@@ -154,10 +154,19 @@ part('dom', function() {
         };
     }());
 
+    var findCache = {};
+
     return {
         'id': byId,
         'find': function(selector, context) {
             return new List((context || document).querySelectorAll(selector));
+        },
+        'findCache': function(selector) {
+            if (!findCache[selector]) {
+                findCache[selector] = this.find(selector);
+            }
+
+            return findCache[selector];
         },
         'selectOnFocus': function(el, callback) {
             listen(el, 'focus', function(e) {

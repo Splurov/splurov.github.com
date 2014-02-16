@@ -9,7 +9,7 @@ part([
         var resetType = e.currentTarget.getAttribute('data-reset');
         var scope = e.currentTarget.getAttribute('data-scope');
 
-        dom.find('input.js-comp-' + scope + '[data-type="' + resetType + '"]').iterate(function(el) {
+        dom.findCache('input.js-comp-' + scope + '[data-type="' + resetType + '"]').iterate(function(el) {
             el.value = '';
             dom.trigger(el, 'input');
         });

@@ -156,3 +156,9 @@ table {
         background: transparent;
     }
 }
+
+.changed-animation {
+    animation-name: blink;
+    animation-duration: 2s;
+    animation-delay: 200ms;
+}

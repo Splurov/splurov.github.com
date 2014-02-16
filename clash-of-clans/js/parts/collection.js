@@ -19,12 +19,18 @@ part('collection', [
                 calculateCurrent(params.calculateType);
             }
 
-            if (source === 'storage' || source === 'settings') {
-                params.el.value = newValue;
+            var newValueString = newValue.toString();
+
+            if ((source === 'storage' || source === 'settings') && params.el.value !== newValueString) {
+                params.el.value = newValueString;
+
+                if (source === 'settings') {
+                    params.el.parentNode.classList.add('changed-animation');
+                }
             }
 
             // update placeholder
-            dom.updater.instantly(key + '-text', 'text', newValue);
+            dom.updater.instantly(key + '-text', 'text', newValueString);
 
             if (params.onUpdate) {
                 params.onUpdate(key, params);
@@ -34,6 +40,9 @@ part('collection', [
         return {
             'add': function(key, params) {
                 params.el = dom.id(key);
+                dom.listen(params.el.parentNode, 'animationend', function(e) {
+                    e.target.classList.remove('changed-animation');
+                });
 
                 if (params.calculateType === '__fromAttr') {
                     params.calculateType = params.el.getAttribute('data-type');
