@@ -1,6 +1,9 @@
 .data {
     font-size: 16px;
 }
+    .mobile .data {
+        -webkit-user-select: none;
+    }
     .mobile .data tr {
         -webkit-transform: translateZ(0);
     }
@@ -45,8 +48,4 @@
     }
     .data__total_column {
         min-width: 65px;
-    }
-
-    .data__spinner {
-        -webkit-user-select: none;
     }
