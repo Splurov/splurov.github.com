@@ -33,6 +33,10 @@ kbd {
     border-radius: 5px;
     padding: 0 4px;
 }
+    kbd a:link, kbd a:visited, kbd a:hover, kbd a:active {
+        color: #222;
+        text-decoration: none;
+    }
 
 input, select, textarea, button {
     font-family: inherit;
