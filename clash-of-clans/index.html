@@ -6,7 +6,7 @@
 <title>Clash of Clans Troops and Spells Cost Calculator/Time Planner — Clash Calc</title>
 <meta name=description content="Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.">
 <script>!function(n,o,t){n.GoogleAnalyticsObject=t,n[t]=n[t]||function(){(n[t].q=n[t].q||[]).push(arguments)},n[t].l=1*new Date;var e=o.createElement("script");e.src="//www.google-analytics.com/analytics.js",o.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(n,o,t){return ga("send","event","Javascript Error",n,o+":"+t+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";window.mkIsIos=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i),window.mkIsMobile=window.mkIsIos||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),window.mkIsIos&&document.documentElement.classList.add("ios")}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var n=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==n&&location.host!=="test."+n&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+n+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={},window.yandexMetrikaParams.version=document.documentElement.getAttribute("data-version")}(),function(){"use strict";window.mkIsIos&&ga("send","event","Possible Disable",-1===navigator.userAgent.indexOf("Safari/")?"Yes":"No",[(screen.width/window.innerWidth).toFixed(2),navigator.userAgent].join(" / "))}();</script>
-<script src=/s/1392232914000.js defer></script>
+<script src=/s/1392236490000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
 <link rel=stylesheet href=/s/1392234917000.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
@@ -496,7 +496,9 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=light-q
 <option value=240 selected>240</option>
 </select>
 </td>
-<td id=light-cost class="number result"></td>
+<td class=number>
+<span id=light-cost class=result></span>
+</td>
 <td id=light-subtracted-cost class=small></td>
 <td id=light-time-1 class=number></td>
 <td id=light-time-2 class=number></td>
@@ -692,7 +694,9 @@ Quantity <span class="small tooltip" title="Army Camps Free Capacity" id=dark-qu
 <td></td>
 <td></td>
 <td id=dark-space class=result></td>
-<td id=dark-cost class="number result"></td>
+<td class=number>
+<span id=dark-cost class=result></span>
+</td>
 <td id=dark-subtracted-cost class=small></td>
 <td id=dark-time-1 class=number></td>
 <td id=dark-time-2 class=number></td>
@@ -843,8 +847,18 @@ Quantity <span class="small tooltip" title="Spell Factory Free Capacity" id=spel
 <td></td>
 <td></td>
 <td id=spells-space class=result></td>
-<td id=spells-cost class="number result"></td>
+<td class=number>
+<span id=spells-cost class=result></span>
+</td>
 <td class="result number" id=spells-time></td>
+</tr>
+<tr>
+<td></td>
+<td colspan=2 class="small number">
+Grand Total with Barracks:
+</td>
+<td class="small result number" id=grand-total></td>
+<td></td>
 </tr>
 </tfoot>
 </table>

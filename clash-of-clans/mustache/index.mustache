@@ -192,6 +192,7 @@
                         {{/light}}
 
                         <td id="{{type}}-cost" class="number result"></td>
+
                         {{^spells}}
                             <td id="{{type}}-subtracted-cost" class="small"></td>
                             {{#barracks}}
@@ -203,6 +204,16 @@
                             <td class="result number" id="spells-time"></td>
                         {{/spells}}
                     </tr>
+                    {{#spells}}
+                        <tr>
+                            <td></td>
+                            <td colspan="2" class="small number">
+                                Grand Total with Barracks:
+                            </td>
+                            <td class="small result number" id="grand-total"></td>
+                            <td></td>
+                        </tr>
+                    {{/spells}}
                 </tfoot>
             </table>
         </div>{{/types}}

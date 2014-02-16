@@ -180,6 +180,8 @@ part('calculateCurrent', [
             }
         });
 
+        dom.updater.defer('grand-total', 'text', common.numberFormat(result.light.totalCost + result.spells.totalCost));
+
         dom.updater.runDeferred();
     });
 

@@ -125,7 +125,7 @@ part('dom', function() {
 
             var currentItem = current[id];
 
-            if (currentItem.type !== type || currentItem.value !== type) {
+            if (currentItem.type !== type || currentItem.value !== value) {
                 currentItem.type = type;
                 currentItem.value = value;
 
