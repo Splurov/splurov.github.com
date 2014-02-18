@@ -132,10 +132,6 @@ table {
     text-shadow: #48F928 1px 1px 3px;
 }
 
-.mobile .only-desktop {
-    display: none;
-}
-
 @keyframes blink {
     0% {
         background: transparent;
