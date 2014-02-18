@@ -195,6 +195,17 @@ part('dom', function() {
             var event = document.createEvent('CustomEvent');
             event.initCustomEvent(type, false, false, (data || {}));
             window.dispatchEvent(event);
+        },
+
+        'getPosition': function(el) {
+            var topPosition = 0;
+            var leftPosition = 0;
+            do {
+                topPosition += el.offsetTop;
+                leftPosition += el.offsetLeft;
+            } while (el = el.offsetParent);
+
+            return {'top': topPosition, 'left': leftPosition};
         }
     };
 

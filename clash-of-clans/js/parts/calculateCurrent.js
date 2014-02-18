@@ -11,9 +11,9 @@ part('calculateCurrent', [
     var setQuantityAndSpace = function(maxSpace, totalSpace, type) {
         var spaceDiff = maxSpace - totalSpace;
         if (spaceDiff < 0) {
-            spaceDiff = '<span class="limit-exceeded">' + spaceDiff + '</span>';
+            spaceDiff = '<span class="limit-exceeded">' + spaceDiff.toString().replace('-', '&minus;') + '</span>';
         }
-        dom.updater.defer(type + '-quantity', 'html', '(' + spaceDiff + ' free)');
+        dom.updater.defer(type + '-quantity', 'html', spaceDiff);
 
         var space = totalSpace;
         if (totalSpace > maxSpace) {

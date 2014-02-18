@@ -4,15 +4,6 @@ part('navigation', [
 
     'use strict';
 
-    var getTopPosition = function(el) {
-        var position = 0;
-        do {
-            position += el.offsetTop;
-        } while (el = el.offsetParent);
-
-        return position;
-    };
-
     var globalScrollOffset = 15;
 
     if (!window.mkIsMobile) {
@@ -24,7 +15,7 @@ part('navigation', [
         globalScrollOffset += menuHeight + FIXED_TOP_PADDING + FIXED_BOTTOM_PADDING;
         dom.id('menu-wrapper').style.height = menuHeight + 'px';
 
-        var menuTop = getTopPosition(menuEl) - FIXED_TOP_PADDING;
+        var menuTop = dom.getPosition(menuEl).top - FIXED_TOP_PADDING;
         var isFixed = false;
         dom.listen(window, 'scroll', function() {
             var offset = window.pageYOffset;
@@ -42,7 +33,7 @@ part('navigation', [
 
     var smoothScroll = function(el, callback) {
         var currentScrollTop = window.pageYOffset;
-        var elScrollTop = getTopPosition(el) - globalScrollOffset;
+        var elScrollTop = dom.getPosition(el).top - globalScrollOffset;
 
         var toTop = (elScrollTop < currentScrollTop);
         var diff = (toTop ? (currentScrollTop - elScrollTop) : (elScrollTop - currentScrollTop));

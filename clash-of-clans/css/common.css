@@ -38,18 +38,10 @@ kbd {
         text-decoration: none;
     }
 
-input, select, textarea, button {
+input, textarea, button, select {
     font-family: inherit;
     font-size: inherit;
 }
-    select {
-        font-size: 14px;
-    }
-    @media screen and (-webkit-min-device-pixel-ratio:0) {
-        select {
-            font-size: inherit;
-        }
-    }
     .field-long {
         width: 100%;
         box-sizing: border-box;
@@ -102,6 +94,9 @@ table {
 
 
 .small {
+    font-size: 14px;
+}
+.tiny {
     font-size: 13px;
 }
 
@@ -119,10 +114,6 @@ table {
 
 .unimportant {
     font-weight: normal;
-}
-
-.tooltip {
-    cursor: help;
 }
 
 .block-indented {

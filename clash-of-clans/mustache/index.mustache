@@ -115,15 +115,48 @@
                         <th>{{objectTitle}}</th>
                         <th>Level</th>
                         <th class="data__quantity-column">
-                            Quantity <span class="small tooltip" title="{{capacityBuilding}} Free Capacity" id="{{type}}-quantity"></span>
-                            <br/><button class="button button_reset js-reset" data-reset="{{type}}" data-scope="quantity">Reset</button>
+                            <span class="tiny data__secondary-header">
+                                <span id="{{type}}-quantity" class="text-middle"></span>
+                                <span class="help-link js-help-link">
+                                    <span class="help-link__content js-help-content">
+                                        Available Space in the {{capacityBuilding}}
+                                    </span>
+                                </span>
+                            </span>
+                            Quantity
+                            <br/>
+                            <button class="button button_reset js-reset" data-reset="{{type}}" data-scope="quantity">
+                                Reset
+                            </button>
                         </th>
                         <th class="data__total_column">
                             <span class="icon-{{currencyCode}}">Total</span>
                         </th>
                         {{^spells}}
                             <th>
-                                <span class="tooltip" title="Values from the “Subtract” columns not preserved between browser sessions nor saved when you add to favorites">Subtract</span>
+                                Subtract
+                                <span class="help-link js-help-link">
+                                    <span class="help-link__content js-help-content">
+                                        Allows to “subtract” troops, which you already have.
+                                        For example, you want to get
+                                        {{#light}}100 Barbarians and 100 Archers.{{/light}}
+                                        {{#dark}}20 Minions.{{/dark}}
+                                        And you already have
+                                        {{#light}}20 Barbarians.{{/light}}
+                                        {{#dark}}5 Minions.{{/dark}}
+                                        In the column “Quantity”, as usual, make
+                                        {{#light}}100 Barbarians and 100 Archers.{{/light}}
+                                        {{#dark}}20 Minions.{{/dark}}
+                                        And in the column “Subtract”
+                                        {{#light}}20 Barbarians.{{/light}}
+                                        {{#dark}}5 Minions.{{/dark}}
+                                        Now the distribution between the barracks are considered to be only for
+                                        {{#light}}80 Barbarians and 100 Archers.{{/light}}
+                                        {{#dark}}15 Minions.{{/dark}}
+                                        This is very useful, when after the battle you have remained part of the army.<br/>
+                                        (Values from the “Subtract” columns not preserved between browser sessions nor saved when you add to favorites.)
+                                    </span>
+                                </span>
                                 <br/><button class="button button_reset js-reset" data-reset="{{type}}" data-scope="subtract">Reset</button>
                             </th>
 
@@ -135,13 +168,22 @@
                                             <option value="{{text}}"{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
                                         {{/options}}
                                     </select> <span class="text-middle">lvl</span><br/>
-                                    <label class="setting-mode-part unimportant" id="{{type}}-boosted-wrapper-{{index}}">
-                                        <input type="checkbox" id="{{type}}-boosted-{{index}}" class="text-middle js-comp-boosted"/>
-                                        <span class="text-middle">Boosted</span><br/>
-                                    </label>
-                                    <span class="unimportant small tooltip" title="Queue Length / Maximum Queue Length">
-                                        <span id="{{type}}-space-{{index}}"></span>
-                                        <span id="{{type}}-maxSpace-{{index}}"></span>
+                                    <span id="{{type}}-barrack-info-{{index}}">
+                                        <label class="setting-mode-part unimportant">
+                                            <input type="checkbox" id="{{type}}-boosted-{{index}}" class="text-middle js-comp-boosted"/>
+                                            <span class="text-middle">Boosted</span><br/>
+                                        </label>
+                                        <span class="unimportant tiny">
+                                            <span class="text-middle">
+                                                <span id="{{type}}-space-{{index}}"></span>
+                                                <span id="{{type}}-maxSpace-{{index}}"></span>
+                                            </span>
+                                            <span class="help-link js-help-link">
+                                                <span class="help-link__content js-help-content">
+                                                    Training Capacity of the {{titleSingular}}
+                                                </span>
+                                            </span>
+                                        </span>
                                     </span>
                                 </th>
                             {{/barracks}}
@@ -171,30 +213,47 @@
                 <tfoot>
                     <tr>
                         {{#light}}
-                            <td colspan="2" class="small number">
+                            <td colspan="2" class="tiny number">
                                 <label for="army-camps">Army Camps:</label>
                             </td>
                             <td class="result">
                                 <span id="{{type}}-space" class="text-middle"></span><!--
                                 --><span class="text-middle setting-mode-not-part" id="army-camps-text"></span><!--
-                                --><select id="army-camps" class="setting-mode-part js-comp-level">
+                                --><select id="army-camps" class="setting-mode-part js-comp-level small">
                                     {{#armyCamps}}
                                         <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
                                     {{/armyCamps}}
                                 </select>
+                                <span class="help-link js-help-link">
+                                    <span class="help-link__content js-help-content">
+                                        Total Troop Capacity of the Army Camps
+                                    </span>
+                                </span>
                             </td>
                         {{/light}}
 
                         {{^light}}
                             <td></td>
                             <td></td>
-                            <td id="{{type}}-space" class="result"></td>
+                            <td class="result">
+                                <span id="{{type}}-space" class="text-middle"></span>
+                                <span class="help-link js-help-link">
+                                    <span class="help-link__content js-help-content">
+                                        {{#spells}}
+                                            Spell Capacity
+                                        {{/spells}}
+                                        {{#dark}}
+                                            Total Troop Capacity of the Army Camps
+                                        {{/dark}}
+                                    </span>
+                                </span>
+                            </td>
                         {{/light}}
 
                         <td id="{{type}}-cost" class="number result"></td>
 
                         {{^spells}}
-                            <td id="{{type}}-subtracted-cost" class="small"></td>
+                            <td id="{{type}}-subtracted-cost" class="tiny"></td>
                             {{#barracks}}
                                 <td id="{{type}}-time-{{index}}" class="number"></td>
                             {{/barracks}}
@@ -207,10 +266,10 @@
                     {{#spells}}
                         <tr>
                             <td></td>
-                            <td colspan="2" class="small number">
+                            <td colspan="2" class="tiny number">
                                 Grand Total with Barracks:
                             </td>
-                            <td class="small result number" id="grand-total"></td>
+                            <td class="tiny result number" id="grand-total"></td>
                             <td></td>
                         </tr>
                     {{/spells}}

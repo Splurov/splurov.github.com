@@ -5,7 +5,7 @@
             <span class="object-text">{{title}}</span>
         {{/spells}}
     </td>
-    <td class="small">
+    <td class="tiny">
         <span class="text-middle setting-mode-not-part" id="{{id}}-level-text"></span>
         <select id="{{id}}-level" class="setting-mode-part js-comp-level" data-type="{{type}}">
             {{#levelContent}}
@@ -21,9 +21,9 @@
                size="3"
                tabindex="{{tabIndexValue}}"/><!--
         --><button class="button button_spinner js-spinner" tabindex="-1" data-for="{{id}}">+</button><!--
-        --><button class="button button_spinner js-spinner" tabindex="-1" data-for="{{id}}">−</button>
+        --><button class="button button_spinner js-spinner" tabindex="-1" data-for="{{id}}">&minus;</button>
     </td>
-    <td id="{{id}}-summary" class="number small">
+    <td id="{{id}}-summary" class="number tiny">
     </td>
     {{#subtractId}}
         <td>
@@ -34,7 +34,7 @@
                    size="3"
                    tabindex="{{tabIndexSubtract}}"/><!--
         --><button class="button button_spinner js-spinner" tabindex="-1" data-for="{{subtractId}}">+</button><!--
-        --><button class="button button_spinner js-spinner" tabindex="-1" data-for="{{subtractId}}">−</button>
+        --><button class="button button_spinner js-spinner" tabindex="-1" data-for="{{subtractId}}">&minus;</button>
         </td>
     {{/subtractId}}
     {{#barracksTimes}}

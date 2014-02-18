@@ -1,0 +1,55 @@
+.help-link {
+    background-image: url(/clash-of-clans/i/icons/help.png);
+    background-position: 50% 50%;
+    background-size: 17px 17px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    vertical-align: middle;
+    padding: 2px;
+    margin: -3px -2px -2px -2px;
+}
+    .not-mobile .help-link {
+        cursor: pointer;
+    }
+
+    .help-link__content {
+        display: none;
+    }
+
+.help-tooltip {
+    position: absolute;
+    max-width: 250px;
+    background: #feffd6;
+    padding: 5px 10px;
+    border: 1px solid #cecfc6;
+    border-radius: 5px;
+    font-size: 13px;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .17);
+    opacity: 0;
+    transition: opacity 125ms;
+}
+    .help-tooltip:after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-width: 1px 0 0 1px;
+        border-color: #cecfc6;
+        border-style: solid;
+        background: #feffd6;
+        top: -6px;
+        left: 19px;
+        transform: rotate(45deg);
+    }
+        .help-tooltip_right:after {
+            right: 19px;
+            left: auto;
+        }
+
+    .help-tooltip_visible {
+        opacity: 1;
+        transition: opacity 250ms;
+    }

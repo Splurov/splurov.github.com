@@ -68,11 +68,8 @@ part([
                     }
                     dom.updater.instantly(type + '-maxSpace-' + params.index, 'text', header);
 
-                    dom.updater.instantly(
-                        type + '-boosted-wrapper-' + params.index,
-                        'display',
-                        (level === 0 ? 'none' : '')
-                    );
+                    dom.updater.instantly(type + '-barrack-info-' + params.index, 'display',
+                                          (level === 0 ? 'none' : ''));
                 }
             });
 

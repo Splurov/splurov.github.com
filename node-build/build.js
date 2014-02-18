@@ -64,16 +64,18 @@ var setItemRowsTemplates = function(vars) {
         'light': {
             'tabIndex': 10,
             'title': 'Barracks',
+            'titleSingular': 'Barrack',
             'objectTitle': 'Troop',
             'capacityBuilding': 'Army Camps',
-            'currencyCode': 'elixir',
+            'currencyCode': 'elixir'
         },
         'dark': {
             'tabIndex': 20,
             'title': 'Dark Barracks',
+            'titleSingular': 'Dark Barrack',
             'objectTitle': 'Troop',
             'capacityBuilding': 'Army Camps',
-            'currencyCode': 'dark-elixir',
+            'currencyCode': 'dark-elixir'
         },
         'spells': {
             'tabIndex': 30,
