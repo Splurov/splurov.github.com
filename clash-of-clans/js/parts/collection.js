@@ -29,9 +29,6 @@ part('collection', [
                 }
             }
 
-            // update placeholder
-            dom.updater.instantly(key + '-text', 'text', newValueString);
-
             if (params.onUpdate) {
                 params.onUpdate(key, params);
             }

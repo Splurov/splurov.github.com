@@ -77,18 +77,16 @@ part('calculateCurrent', [
                 sumSpace += barrack.space;
             }
 
-            var firstIteration = true;
             spaces.forEach(function(space, num) {
                 var barrackSpaceId = type + '-space-' + num;
                 if (space === 0) {
                     dom.updater.defer(barrackSpaceId, 'text', '');
                 } else {
-                    if (firstIteration) {
+                    if (num === 1) {
                         space += distributionResult.totalSpace - sumSpace;
                         dom.updater.defer(barrackSpaceId, 'html',
                                           '<span class="limit-exceeded result">' + space + '</span> / ');
 
-                        firstIteration = false;
                     } else {
                         dom.updater.defer(barrackSpaceId, 'text', space + ' / ');
                     }
@@ -111,7 +109,7 @@ part('calculateCurrent', [
          */
 
         if (result.params.type === 'all' || result.params.type === 'barrack-dark') {
-            darkObjects.toggleClass('setting-mode-empty', (result.dark.levelValue === 0));
+            darkObjects.toggleClass('inactive', (result.dark.levelValue === 0));
         }
 
         if (result.params.type === 'all' || result.params.type !== 'spells') {
@@ -137,7 +135,7 @@ part('calculateCurrent', [
             }
             dom.updater.defer(spellsTimeId, 'html', spellsTimeValue);
 
-            spellsObjects.toggleClass('setting-mode-empty', (result.spells.levelValue === 0));
+            spellsObjects.toggleClass('inactive', (result.spells.levelValue === 0));
         }
 
         ['light', 'dark', 'spells'].forEach(function(type) {

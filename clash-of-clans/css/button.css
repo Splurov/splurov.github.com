@@ -72,13 +72,6 @@
         background-image: linear-gradient(#e0e0e0, #e7e7e7);
     }
 
-    /* checkbox */
-    .button__checkbox {
-        vertical-align: middle;
-        position: relative;
-        top: -2px;
-    }
-
 .button-group .button {
     margin: 0;
     border-radius: 0;
@@ -107,11 +100,8 @@
             padding: 12px 17px 15px;
         }
         .button-group_menu .button {
-            padding: 0 7px;
+            padding: 6px 7px 5px;
             font-size: inherit;
-            height: 27px;
-            line-height: 27px;
-            box-sizing: border-box;
             -webkit-font-smoothing: subpixel-antialiased;
         }
 

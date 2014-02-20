@@ -64,7 +64,6 @@ part([
     var makePermalink = function() {
         var url = 'http://mkln.ru/clash-of-clans/?s3=';
         var data = common.objectCopy(storage.current.getAll());
-        data.settingsMode = 1;
         data = storage.dataObjectToArray(data);
         data = JSON.stringify(data);
         data = data.replace(/\b(?:null|0)\b/g, '');

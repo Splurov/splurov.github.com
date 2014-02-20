@@ -1,7 +1,0 @@
-.floated {
-    margin: 0 -17px;
-}
-    .floated__item {
-        display: inline-block;
-        margin: 0 28px 0 17px;
-    }

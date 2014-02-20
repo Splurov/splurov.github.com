@@ -6,9 +6,9 @@
 <title>Clash of Clans Troops and Spells Cost Calculator/Time Planner — Clash Calc</title>
 <meta name=description content="Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.">
 <script>!function(n,o,t){n.GoogleAnalyticsObject=t,n[t]=n[t]||function(){(n[t].q=n[t].q||[]).push(arguments)},n[t].l=1*new Date;var e=o.createElement("script");e.src="//www.google-analytics.com/analytics.js",o.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(n,o,t){return ga("send","event","Javascript Error",n,o+":"+t+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";window.mkIsIos=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i),window.mkIsMobile=window.mkIsIos||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),window.mkIsIos&&document.documentElement.classList.add("ios")}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var n=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==n&&location.host!=="test."+n&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+n+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={},window.yandexMetrikaParams.version=document.documentElement.getAttribute("data-version")}(),function(){"use strict";window.mkIsIos&&ga("send","event","Possible Disable",-1===navigator.userAgent.indexOf("Safari/")?"Yes":"No",[(screen.width/window.innerWidth).toFixed(2),navigator.userAgent].join(" / "))}();</script>
-<script src=/s/1392749082000.js defer></script>
+<script src=/s/1392911427000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
-<link rel=stylesheet href=/s/1392750075000.css>
+<link rel=stylesheet href=/s/1392914595000.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
 <link rel=apple-touch-icon-precomposed sizes=76x76 href=/clash-of-clans/i/app-icons/76x76.png>
 <link rel=apple-touch-icon-precomposed sizes=120x120 href=/clash-of-clans/i/app-icons/120x120.png>
@@ -30,20 +30,17 @@ Clash Calc — Clash of Clans Troops and Spells Cost Calculator/Time Planner
 </h1>
 <div class=fixed-content>
 <p>Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.</p>
-<!--[if lte IE 9]><p class="message message_negative fixed-content">
+<!--[if lte IE 9]><p class="message message_negative message_block fixed-content">
 You are using an old version of Internet Explorer which is not supported.<br/>
 Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
 </p><![endif]-->
 </div>
 <div id=menu-wrapper>
 <div class="button-group button-group_menu" id=menu>
-<label class=button id=settings-toggle-button>
-<input type=checkbox id=settings-toggle-mode class=button__checkbox>
-Setting Mode
-</label><button class="button js-anchor" data-for=light-anchor>Barracks</button><button class="button js-anchor js-dark-object" data-for=dark-anchor>Dark Barracks</button><button class="button js-anchor js-spells-object" data-for=spells-anchor>Spell Factory</button><button class="button js-anchor js-share" data-for=share-anchor>Share</button><button class="button js-anchor" data-for=favorites-anchor>Favorites</button><button class="button js-favorite-add"><span class=icon-favorite>Add to Favorites</span></button>
+<button class="button js-anchor" data-for=light-anchor>Barracks</button><button class="button js-anchor js-dark-object" data-for=dark-anchor>Dark Barracks</button><button class="button js-anchor js-spells-object" data-for=spells-anchor>Spell Factory</button><button class="button js-anchor js-share" data-for=share-anchor>Share</button><button class="button js-anchor" data-for=favorites-anchor>Favorites</button><button class="button js-favorite-add"><span class=icon-favorite>Add to Favorites</span></button>
 </div>
 </div>
-<div class="fixed-content block-intro settings setting-mode-part">
+<div class="fixed-content block-intro settings">
 Set the Army Camps capacity, level of barracks, troops,
 Spell Factory and spells based on the Town Hall of level:<br>
 <span class="button-group button-group_settings">
@@ -55,18 +52,83 @@ Spell Factory and spells based on the Town Hall of level:<br>
 You are viewing shared army composition (you can find previous one in the favorites)
 </span>
 </p>
-<p id=storage-quota-exceeded class="message message_negative message_important block-intro fixed-content" style="display: none">
+<p id=storage-quota-exceeded class="message message_block message_negative message_important block-intro fixed-content" style="display: none">
 </p>
-<div class=floated>
-<div class="floated__item js-light-object">
-<h2 id=light-anchor>
-Barracks
-<span class="message message_negative message_after" style="display: none" id=light-exceeded>
-Exceeded the maximum queue length of the barracks
-</span>
-</h2>
-<table class=data>
+<table class="data js-light-object">
 <thead>
+<tr>
+<th colspan=5 class="data__top-cell data__top-cell_title">
+<span id=light-anchor class=data__title>
+Barracks
+</span>
+<span class="message message_negative message_after" style="display: none" id=light-exceeded>
+Exceeded training capacity of the Barracks
+</span>
+</th>
+<th class="data__distribution-column data__top-cell">
+<select id=light-level-1 class=js-comp-level data-num=1>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6>6</option>
+<option value=7>7</option>
+<option value=8>8</option>
+<option value=9>9</option>
+<option value=10 selected>10</option>
+</select>
+<span class=text-middle>lvl</span>
+</th>
+<th class="data__distribution-column data__top-cell">
+<select id=light-level-2 class=js-comp-level data-num=2>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6>6</option>
+<option value=7>7</option>
+<option value=8>8</option>
+<option value=9>9</option>
+<option value=10 selected>10</option>
+</select>
+<span class=text-middle>lvl</span>
+</th>
+<th class="data__distribution-column data__top-cell">
+<select id=light-level-3 class=js-comp-level data-num=3>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6>6</option>
+<option value=7>7</option>
+<option value=8>8</option>
+<option value=9>9</option>
+<option value=10 selected>10</option>
+</select>
+<span class=text-middle>lvl</span>
+</th>
+<th class="data__distribution-column data__top-cell">
+<select id=light-level-4 class=js-comp-level data-num=4>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6>6</option>
+<option value=7>7</option>
+<option value=8>8</option>
+<option value=9>9</option>
+<option value=10 selected>10</option>
+</select>
+<span class=text-middle>lvl</span>
+</th>
+</tr>
 <tr>
 <th>Troop</th>
 <th>Level</th>
@@ -110,21 +172,8 @@ This is very useful, when after the battle you have remained part of the army.<b
 <br><button class="button button_reset js-reset" data-reset=light data-scope=subtract>Reset</button>
 </th>
 <th class=data__distribution-column>
-<span class="text-middle setting-mode-not-part" id=light-level-1-text></span>
-<select id=light-level-1 class="setting-mode-part js-comp-level" data-num=1>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6>6</option>
-<option value=7>7</option>
-<option value=8>8</option>
-<option value=9>9</option>
-<option value=10 selected>10</option>
-</select> <span class=text-middle>lvl</span><br>
 <span id=light-barrack-info-1>
-<label class="setting-mode-part unimportant">
+<label class=unimportant>
 <input type=checkbox id=light-boosted-1 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -142,22 +191,8 @@ Training Capacity of the Barrack
 </span>
 </th>
 <th class=data__distribution-column>
-<span class="text-middle setting-mode-not-part" id=light-level-2-text></span>
-<select id=light-level-2 class="setting-mode-part js-comp-level" data-num=2>
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6>6</option>
-<option value=7>7</option>
-<option value=8>8</option>
-<option value=9>9</option>
-<option value=10 selected>10</option>
-</select> <span class=text-middle>lvl</span><br>
 <span id=light-barrack-info-2>
-<label class="setting-mode-part unimportant">
+<label class=unimportant>
 <input type=checkbox id=light-boosted-2 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -175,22 +210,8 @@ Training Capacity of the Barrack
 </span>
 </th>
 <th class=data__distribution-column>
-<span class="text-middle setting-mode-not-part" id=light-level-3-text></span>
-<select id=light-level-3 class="setting-mode-part js-comp-level" data-num=3>
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6>6</option>
-<option value=7>7</option>
-<option value=8>8</option>
-<option value=9>9</option>
-<option value=10 selected>10</option>
-</select> <span class=text-middle>lvl</span><br>
 <span id=light-barrack-info-3>
-<label class="setting-mode-part unimportant">
+<label class=unimportant>
 <input type=checkbox id=light-boosted-3 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -208,22 +229,8 @@ Training Capacity of the Barrack
 </span>
 </th>
 <th class=data__distribution-column>
-<span class="text-middle setting-mode-not-part" id=light-level-4-text></span>
-<select id=light-level-4 class="setting-mode-part js-comp-level" data-num=4>
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6>6</option>
-<option value=7>7</option>
-<option value=8>8</option>
-<option value=9>9</option>
-<option value=10 selected>10</option>
-</select> <span class=text-middle>lvl</span><br>
 <span id=light-barrack-info-4>
-<label class="setting-mode-part unimportant">
+<label class=unimportant>
 <input type=checkbox id=light-boosted-4 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -248,8 +255,7 @@ Training Capacity of the Barrack
 <span class="object-icon __Barbarian" title=Barbarian></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Barbarian-level-text></span>
-<select id=Barbarian-level class="setting-mode-part js-comp-level" data-type=light>
+<select id=Barbarian-level class=js-comp-level data-type=light>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -270,13 +276,13 @@ Training Capacity of the Barrack
 <td id=quantity-Barbarian-2 class=number></td>
 <td id=quantity-Barbarian-3 class=number></td>
 <td id=quantity-Barbarian-4 class=number></td>
-</tr>                    <tr id=light-building-level-2>
+</tr>
+<tr id=light-building-level-2>
 <td>
 <span class="object-icon __Archer" title=Archer></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Archer-level-text></span>
-<select id=Archer-level class="setting-mode-part js-comp-level" data-type=light>
+<select id=Archer-level class=js-comp-level data-type=light>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -297,13 +303,13 @@ Training Capacity of the Barrack
 <td id=quantity-Archer-2 class=number></td>
 <td id=quantity-Archer-3 class=number></td>
 <td id=quantity-Archer-4 class=number></td>
-</tr>                    <tr id=light-building-level-3>
+</tr>
+<tr id=light-building-level-3>
 <td>
 <span class="object-icon __Goblin" title=Goblin></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Goblin-level-text></span>
-<select id=Goblin-level class="setting-mode-part js-comp-level" data-type=light>
+<select id=Goblin-level class=js-comp-level data-type=light>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -324,13 +330,13 @@ Training Capacity of the Barrack
 <td id=quantity-Goblin-2 class=number></td>
 <td id=quantity-Goblin-3 class=number></td>
 <td id=quantity-Goblin-4 class=number></td>
-</tr>                    <tr id=light-building-level-4>
+</tr>
+<tr id=light-building-level-4>
 <td>
 <span class="object-icon __Giant" title=Giant></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Giant-level-text></span>
-<select id=Giant-level class="setting-mode-part js-comp-level" data-type=light>
+<select id=Giant-level class=js-comp-level data-type=light>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -351,13 +357,13 @@ Training Capacity of the Barrack
 <td id=quantity-Giant-2 class=number></td>
 <td id=quantity-Giant-3 class=number></td>
 <td id=quantity-Giant-4 class=number></td>
-</tr>                    <tr id=light-building-level-5>
+</tr>
+<tr id=light-building-level-5>
 <td>
 <span class="object-icon __Wall_Breaker" title="Wall Breaker"></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Wall_Breaker-level-text></span>
-<select id=Wall_Breaker-level class="setting-mode-part js-comp-level" data-type=light>
+<select id=Wall_Breaker-level class=js-comp-level data-type=light>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -378,13 +384,13 @@ Training Capacity of the Barrack
 <td id=quantity-Wall_Breaker-2 class=number></td>
 <td id=quantity-Wall_Breaker-3 class=number></td>
 <td id=quantity-Wall_Breaker-4 class=number></td>
-</tr>                    <tr id=light-building-level-6>
+</tr>
+<tr id=light-building-level-6>
 <td>
 <span class="object-icon __Balloon" title=Balloon></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Balloon-level-text></span>
-<select id=Balloon-level class="setting-mode-part js-comp-level" data-type=light>
+<select id=Balloon-level class=js-comp-level data-type=light>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -405,13 +411,13 @@ Training Capacity of the Barrack
 <td id=quantity-Balloon-2 class=number></td>
 <td id=quantity-Balloon-3 class=number></td>
 <td id=quantity-Balloon-4 class=number></td>
-</tr>                    <tr id=light-building-level-7>
+</tr>
+<tr id=light-building-level-7>
 <td>
 <span class="object-icon __Wizard" title=Wizard></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Wizard-level-text></span>
-<select id=Wizard-level class="setting-mode-part js-comp-level" data-type=light>
+<select id=Wizard-level class=js-comp-level data-type=light>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -432,13 +438,13 @@ Training Capacity of the Barrack
 <td id=quantity-Wizard-2 class=number></td>
 <td id=quantity-Wizard-3 class=number></td>
 <td id=quantity-Wizard-4 class=number></td>
-</tr>                    <tr id=light-building-level-8>
+</tr>
+<tr id=light-building-level-8>
 <td>
 <span class="object-icon __Healer" title=Healer></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Healer-level-text></span>
-<select id=Healer-level class="setting-mode-part js-comp-level" data-type=light>
+<select id=Healer-level class=js-comp-level data-type=light>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -457,13 +463,13 @@ Training Capacity of the Barrack
 <td id=quantity-Healer-2 class=number></td>
 <td id=quantity-Healer-3 class=number></td>
 <td id=quantity-Healer-4 class=number></td>
-</tr>                    <tr id=light-building-level-9>
+</tr>
+<tr id=light-building-level-9>
 <td>
 <span class="object-icon __Dragon" title=Dragon></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Dragon-level-text></span>
-<select id=Dragon-level class="setting-mode-part js-comp-level" data-type=light>
+<select id=Dragon-level class=js-comp-level data-type=light>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -482,13 +488,13 @@ Training Capacity of the Barrack
 <td id=quantity-Dragon-2 class=number></td>
 <td id=quantity-Dragon-3 class=number></td>
 <td id=quantity-Dragon-4 class=number></td>
-</tr>                    <tr id=light-building-level-10>
+</tr>
+<tr id=light-building-level-10>
 <td>
 <span class="object-icon __P-E-K-K-A-" title=P.E.K.K.A.></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=P-E-K-K-A--level-text></span>
-<select id=P-E-K-K-A--level class="setting-mode-part js-comp-level" data-type=light>
+<select id=P-E-K-K-A--level class=js-comp-level data-type=light>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -507,14 +513,15 @@ Training Capacity of the Barrack
 <td id=quantity-P-E-K-K-A--2 class=number></td>
 <td id=quantity-P-E-K-K-A--3 class=number></td>
 <td id=quantity-P-E-K-K-A--4 class=number></td>
-</tr>            </tbody>
+</tr>
+</tbody>
 <tfoot>
 <tr>
 <td colspan=2 class="tiny number">
 <label for=army-camps>Army Camps:</label>
 </td>
 <td class=result>
-<span id=light-space class=text-middle></span><span class="text-middle setting-mode-not-part" id=army-camps-text></span><select id=army-camps class="setting-mode-part js-comp-level small">
+<span id=light-space class=text-middle></span><select id=army-camps class="js-comp-level small">
 <option value=20>20</option>
 <option value=30>30</option>
 <option value=40>40</option>
@@ -574,15 +581,40 @@ Total Troop Capacity of the Army Camps
 </tr>
 </tfoot>
 </table>
-</div><div class="floated__item js-dark-object">
-<h2 id=dark-anchor>
-Dark Barracks
-<span class="message message_negative message_after" style="display: none" id=dark-exceeded>
-Exceeded the maximum queue length of the barracks
-</span>
-</h2>
-<table class=data>
+<table class="data js-dark-object">
 <thead>
+<tr>
+<th colspan=5 class="data__top-cell data__top-cell_title">
+<span id=dark-anchor class=data__title>
+Dark Barracks
+</span>
+<span class="message message_negative message_after" style="display: none" id=dark-exceeded>
+Exceeded training capacity of the Dark Barracks
+</span>
+</th>
+<th class="data__distribution-column data__top-cell">
+<select id=dark-level-1 class=js-comp-level data-num=1>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5 selected>5</option>
+</select>
+<span class=text-middle>lvl</span>
+</th>
+<th class="data__distribution-column data__top-cell">
+<select id=dark-level-2 class=js-comp-level data-num=2>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5 selected>5</option>
+</select>
+<span class=text-middle>lvl</span>
+</th>
+</tr>
 <tr>
 <th>Troop</th>
 <th>Level</th>
@@ -626,17 +658,8 @@ This is very useful, when after the battle you have remained part of the army.<b
 <br><button class="button button_reset js-reset" data-reset=dark data-scope=subtract>Reset</button>
 </th>
 <th class=data__distribution-column>
-<span class="text-middle setting-mode-not-part" id=dark-level-1-text></span>
-<select id=dark-level-1 class="setting-mode-part js-comp-level" data-num=1>
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5 selected>5</option>
-</select> <span class=text-middle>lvl</span><br>
 <span id=dark-barrack-info-1>
-<label class="setting-mode-part unimportant">
+<label class=unimportant>
 <input type=checkbox id=dark-boosted-1 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -654,17 +677,8 @@ Training Capacity of the Dark Barrack
 </span>
 </th>
 <th class=data__distribution-column>
-<span class="text-middle setting-mode-not-part" id=dark-level-2-text></span>
-<select id=dark-level-2 class="setting-mode-part js-comp-level" data-num=2>
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5 selected>5</option>
-</select> <span class=text-middle>lvl</span><br>
 <span id=dark-barrack-info-2>
-<label class="setting-mode-part unimportant">
+<label class=unimportant>
 <input type=checkbox id=dark-boosted-2 class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -689,8 +703,7 @@ Training Capacity of the Dark Barrack
 <span class="object-icon __Minion" title=Minion></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Minion-level-text></span>
-<select id=Minion-level class="setting-mode-part js-comp-level" data-type=dark>
+<select id=Minion-level class=js-comp-level data-type=dark>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -709,13 +722,13 @@ Training Capacity of the Dark Barrack
 </td>
 <td id=quantity-Minion-1 class=number></td>
 <td id=quantity-Minion-2 class=number></td>
-</tr>                    <tr id=dark-building-level-2>
+</tr>
+<tr id=dark-building-level-2>
 <td>
 <span class="object-icon __Hog_Rider" title="Hog Rider"></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Hog_Rider-level-text></span>
-<select id=Hog_Rider-level class="setting-mode-part js-comp-level" data-type=dark>
+<select id=Hog_Rider-level class=js-comp-level data-type=dark>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -733,13 +746,13 @@ Training Capacity of the Dark Barrack
 </td>
 <td id=quantity-Hog_Rider-1 class=number></td>
 <td id=quantity-Hog_Rider-2 class=number></td>
-</tr>                    <tr id=dark-building-level-3>
+</tr>
+<tr id=dark-building-level-3>
 <td>
 <span class="object-icon __Valkyrie" title=Valkyrie></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Valkyrie-level-text></span>
-<select id=Valkyrie-level class="setting-mode-part js-comp-level" data-type=dark>
+<select id=Valkyrie-level class=js-comp-level data-type=dark>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -756,13 +769,13 @@ Training Capacity of the Dark Barrack
 </td>
 <td id=quantity-Valkyrie-1 class=number></td>
 <td id=quantity-Valkyrie-2 class=number></td>
-</tr>                    <tr id=dark-building-level-4>
+</tr>
+<tr id=dark-building-level-4>
 <td>
 <span class="object-icon __Golem" title=Golem></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Golem-level-text></span>
-<select id=Golem-level class="setting-mode-part js-comp-level" data-type=dark>
+<select id=Golem-level class=js-comp-level data-type=dark>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -780,13 +793,13 @@ Training Capacity of the Dark Barrack
 </td>
 <td id=quantity-Golem-1 class=number></td>
 <td id=quantity-Golem-2 class=number></td>
-</tr>                    <tr id=dark-building-level-5>
+</tr>
+<tr id=dark-building-level-5>
 <td>
 <span class="object-icon __Witch" title=Witch></span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Witch-level-text></span>
-<select id=Witch-level class="setting-mode-part js-comp-level" data-type=dark>
+<select id=Witch-level class=js-comp-level data-type=dark>
 <option value=1>1</option>
 <option value=2 selected>2</option>
 </select>
@@ -801,7 +814,8 @@ Training Capacity of the Dark Barrack
 </td>
 <td id=quantity-Witch-1 class=number></td>
 <td id=quantity-Witch-2 class=number></td>
-</tr>            </tbody>
+</tr>
+</tbody>
 <tfoot>
 <tr>
 <td></td>
@@ -821,12 +835,25 @@ Total Troop Capacity of the Army Camps
 </tr>
 </tfoot>
 </table>
-</div><div class="floated__item js-spells-object">
-<h2 id=spells-anchor>
-Spell Factory
-</h2>
-<table class=data>
+<table class="data js-spells-object">
 <thead>
+<tr>
+<th colspan=4 class="data__top-cell data__top-cell_title">
+<span id=spells-anchor class=data__title>
+Spell Factory
+</span>
+</th>
+<th class=data__top-cell>
+<select id=spells-level class=js-comp-level>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5 selected>5</option>
+</select> <span class=text-middle>lvl</span>
+</th>
+</tr>
 <tr>
 <th>Spell</th>
 <th>Level</th>
@@ -849,16 +876,7 @@ Reset
 <span class=icon-elixir>Total</span>
 </th>
 <th>
-<span class="text-middle setting-mode-not-part" id=spells-level-text></span>
-<select id=spells-level class="setting-mode-part js-comp-level">
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5 selected>5</option>
-</select> <span class=text-middle>lvl</span><br>
-<label class="setting-mode-part unimportant" id=spells-boosted-wrapper>
+<label class=unimportant id=spells-boosted-wrapper>
 <input type=checkbox id=spells-boosted class="text-middle js-comp-boosted">
 <span class=text-middle>Boosted</span><br>
 </label>
@@ -872,8 +890,7 @@ Reset
 <span class=object-text>Lightning</span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Lightning-level-text></span>
-<select id=Lightning-level class="setting-mode-part js-comp-level" data-type=spells>
+<select id=Lightning-level class=js-comp-level data-type=spells>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -888,14 +905,14 @@ Reset
 <td id=Lightning-summary class="number tiny">
 </td>
 <td></td>
-</tr>                    <tr id=spells-building-level-2>
+</tr>
+<tr id=spells-building-level-2>
 <td>
 <span class="object-icon __Healing"></span>
 <span class=object-text>Healing</span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Healing-level-text></span>
-<select id=Healing-level class="setting-mode-part js-comp-level" data-type=spells>
+<select id=Healing-level class=js-comp-level data-type=spells>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -910,14 +927,14 @@ Reset
 <td id=Healing-summary class="number tiny">
 </td>
 <td></td>
-</tr>                    <tr id=spells-building-level-3>
+</tr>
+<tr id=spells-building-level-3>
 <td>
 <span class="object-icon __Rage"></span>
 <span class=object-text>Rage</span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Rage-level-text></span>
-<select id=Rage-level class="setting-mode-part js-comp-level" data-type=spells>
+<select id=Rage-level class=js-comp-level data-type=spells>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -931,14 +948,14 @@ Reset
 <td id=Rage-summary class="number tiny">
 </td>
 <td></td>
-</tr>                    <tr id=spells-building-level-4>
+</tr>
+<tr id=spells-building-level-4>
 <td>
 <span class="object-icon __Jump"></span>
 <span class=object-text>Jump</span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Jump-level-text></span>
-<select id=Jump-level class="setting-mode-part js-comp-level" data-type=spells>
+<select id=Jump-level class=js-comp-level data-type=spells>
 <option value=1>1</option>
 <option value=2 selected>2</option>
 </select>
@@ -949,14 +966,14 @@ Reset
 <td id=Jump-summary class="number tiny">
 </td>
 <td></td>
-</tr>                    <tr id=spells-building-level-5>
+</tr>
+<tr id=spells-building-level-5>
 <td>
 <span class="object-icon __Freeze"></span>
 <span class=object-text>Freeze</span>
 </td>
 <td class=tiny>
-<span class="text-middle setting-mode-not-part" id=Freeze-level-text></span>
-<select id=Freeze-level class="setting-mode-part js-comp-level" data-type=spells>
+<select id=Freeze-level class=js-comp-level data-type=spells>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -970,7 +987,8 @@ Reset
 <td id=Freeze-summary class="number tiny">
 </td>
 <td></td>
-</tr>            </tbody>
+</tr>
+</tbody>
 <tfoot>
 <tr>
 <td></td>
@@ -996,8 +1014,6 @@ Grand Total with Barracks:
 </tr>
 </tfoot>
 </table>
-</div>
-</div>
 <div class=js-share>
 <h2 class=block-indented id=share-anchor>Share Army Composition</h2>
 <table class=fixed-content>

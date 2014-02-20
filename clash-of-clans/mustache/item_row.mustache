@@ -6,8 +6,7 @@
         {{/spells}}
     </td>
     <td class="tiny">
-        <span class="text-middle setting-mode-not-part" id="{{id}}-level-text"></span>
-        <select id="{{id}}-level" class="setting-mode-part js-comp-level" data-type="{{type}}">
+        <select id="{{id}}-level" class="js-comp-level" data-type="{{type}}">
             {{#levelContent}}
                 <option value="{{text}}"{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
             {{/levelContent}}

@@ -13,8 +13,7 @@ part('localStorageSet', [
         'light-boosted-4',
         'dark-boosted-1',
         'dark-boosted-2',
-        'spells-boosted',
-        'settingsMode'
+        'spells-boosted'
     ];
 
     var memoryMessageId = 'storage-quota-exceeded';

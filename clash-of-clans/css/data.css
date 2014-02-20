@@ -1,4 +1,5 @@
 .data {
+    margin-top: 20px;
     font-size: 16px;
 }
     .mobile .data {
@@ -51,3 +52,21 @@
         float: right;
         padding-top: 1px;
     }
+
+    .data th.data__top-cell {
+        vertical-align: bottom;
+        border-bottom: 0;
+        padding-bottom: 5px;
+    }
+    .data th.data__top-cell_title {
+        border-right: 0;
+    }
+
+    .data__title {
+        font-size: 16px;
+        margin-bottom: 1px;
+    }
+
+.inactive thead tr:last-child, .inactive tbody, .inactive tfoot {
+    display: none
+}

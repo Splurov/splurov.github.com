@@ -4,7 +4,7 @@ part('converter', [
 
     'use strict';
 
-    var oldConvert3to4 = function(data, replaceSettingsMode) {
+    var oldConvert3to4 = function(data) {
         var subtractIndexes = [28,29,30,31,32,33,34,35,36,37,54,55,56,57,62];
         var settingsModeIndex = 63;
 
@@ -16,9 +16,6 @@ part('converter', [
             }
         });
         if (typeof data[settingsModeIndex - indexDiff] !== 'undefined') {
-            if (replaceSettingsMode) {
-                localStorage.setItem('settingsMode', data[settingsModeIndex - indexDiff] === 2 ? 'off' : 'on');
-            }
             data.splice(settingsModeIndex - indexDiff, 1);
         }
     };
@@ -36,7 +33,7 @@ part('converter', [
     if (localStorage.getItem('data3') && !localStorage.getItem('data4')) {
         var parts3 = JSON.parse(localStorage.getItem('data3'));
         parts3.forEach(function(part, partIndex) {
-            oldConvert3to4(part, (partIndex === 0));
+            oldConvert3to4(part);
         });
 
         localStorage.setItem('data4', JSON.stringify(parts3));
@@ -53,7 +50,7 @@ part('converter', [
         goal.reach('CONVERTED4TO5');
     }
 
-    ['savedData', 'savedCalculations', 'data', 'data2', 'data3', 'data4'].forEach(function(key) {
+    ['savedData', 'savedCalculations', 'data', 'data2', 'data3', 'data4', 'settingsMode'].forEach(function(key) {
         localStorage.removeItem(key);
     });
 
