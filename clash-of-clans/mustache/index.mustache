@@ -110,7 +110,7 @@
                     {{/spells}}
                 </th>
                 {{#barracks}}
-                    <th class="data__building-info data__top-cell">
+                    <th class="data__top-cell">
                         <select id="{{type}}-level-{{index}}" class="js-comp-level" data-num="{{index}}">
                             {{#options}}
                                 <option value="{{text}}"{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
@@ -125,7 +125,8 @@
                             {{#spellFactory}}
                                 <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
                             {{/spellFactory}}
-                        </select> <span class="text-middle">lvl</span>
+                        </select>
+                        <span class="text-middle">lvl</span>
                     </th>
                 {{/spells}}
             </tr>

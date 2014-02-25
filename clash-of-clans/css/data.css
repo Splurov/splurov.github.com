@@ -27,6 +27,7 @@
     }
         .data td > input {
             text-align: right;
+            vertical-align: middle;
         }
         .data tfoot tr:last-child td {
             border-bottom: 0;
