@@ -1,3 +1,7 @@
+.share {
+    max-width: 50em;
+}
+
 .share-left {
     width: 1%;
     white-space: nowrap;
@@ -8,4 +12,9 @@
 .share-right {
     width: 100%;
     vertical-align: middle;
+}
+
+.share-permalink {
+    width: 100%;
+    box-sizing: border-box;
 }

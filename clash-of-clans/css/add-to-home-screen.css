@@ -1,6 +1,7 @@
 .add-to-home-screen {
     display: none;
     margin: 0 0 10px;
+    max-width: 50em;
 }
     .ios .add-to-home-screen {
         display: block;

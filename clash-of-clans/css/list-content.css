@@ -1,5 +1,6 @@
 .list-content {
     margin-bottom: 10px;
+    max-width: 50em;
 }
     .list-content ul {
         padding: 0;

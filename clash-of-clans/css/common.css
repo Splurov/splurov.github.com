@@ -33,7 +33,7 @@ kbd {
     border-radius: 5px;
     padding: 0 4px;
 }
-    kbd a:link, kbd a:visited, kbd a:hover, kbd a:active {
+    kbd a:link, kbd a:visited, .not-mobile kbd a:hover, kbd a:active, .not-mobile kbd a:focus {
         color: #222;
         text-decoration: none;
     }
@@ -42,13 +42,6 @@ input, textarea, button, select {
     font-family: inherit;
     font-size: inherit;
 }
-    .field-long {
-        width: 100%;
-        box-sizing: border-box;
-    }
-    .not-mobile button {
-        cursor: pointer;
-    }
     button::-moz-focus-inner {
         border: 0;
         padding: 0;
@@ -68,16 +61,17 @@ h1 {
 
 h2 {
     font-size: 16px;
-    margin: 13px 0 8px;
+    margin: 30px 0 8px;
 }
 
 h3 {
     font-size: 14px;
-    margin: 17px 0 2px;
+    margin: 15px 0 2px;
 }
 
 p {
     margin: 0 0 10px;
+    max-width: 50em;
 }
 
 table {
@@ -103,20 +97,12 @@ table {
     color: #d00;
 }
 
-.fixed-content {
-    max-width: 50em;
-}
-
 .result {
     font-weight: bold;
 }
 
 .unimportant {
     font-weight: normal;
-}
-
-.block-indented {
-    margin-top: 30px;
 }
 
 .text-middle {

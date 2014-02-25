@@ -8,7 +8,7 @@
 <script>!function(n,o,t){n.GoogleAnalyticsObject=t,n[t]=n[t]||function(){(n[t].q=n[t].q||[]).push(arguments)},n[t].l=1*new Date;var e=o.createElement("script");e.src="//www.google-analytics.com/analytics.js",o.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(n,o,t){return ga("send","event","Javascript Error",n,o+":"+t+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";window.mkIsIos=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i),window.mkIsMobile=window.mkIsIos||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),window.mkIsIos&&document.documentElement.classList.add("ios")}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var n=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==n&&location.host!=="test."+n&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+n+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={},window.yandexMetrikaParams.version=document.documentElement.getAttribute("data-version")}(),function(){"use strict";window.mkIsIos&&ga("send","event","Possible Disable",-1===navigator.userAgent.indexOf("Safari/")?"Yes":"No",[(screen.width/window.innerWidth).toFixed(2),navigator.userAgent].join(" / "))}();</script>
 <script src=/s/1392911427000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
-<link rel=stylesheet href=/s/1393350162000.css>
+<link rel=stylesheet href=/s/1393355020000.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
 <link rel=apple-touch-icon-precomposed sizes=76x76 href=/clash-of-clans/i/app-icons/76x76.png>
 <link rel=apple-touch-icon-precomposed sizes=120x120 href=/clash-of-clans/i/app-icons/120x120.png>
@@ -28,19 +28,17 @@ Clash Calc — Clash of Clans Troops and Spells Cost Calculator/Time Planner
 <a href=https://www.facebook.com/ClashCalc target=_blank class="button button_social" title="Like Clash Calc on Facebook"><span class=icon-facebook></span>
 </a>
 </h1>
-<div class=fixed-content>
 <p>Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.</p>
-<!--[if lte IE 9]><p class="message message_negative message_block fixed-content">
+<!--[if lte IE 9]><p class="message message_negative">
 You are using an old version of Internet Explorer which is not supported.<br/>
 Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
 </p><![endif]-->
-</div>
 <div id=menu-wrapper>
 <div class="button-group button-group_menu" id=menu>
 <button class="button js-anchor" data-for=light-anchor>Barracks</button><button class="button js-anchor js-dark-object" data-for=dark-anchor>Dark Barracks</button><button class="button js-anchor js-spells-object" data-for=spells-anchor>Spell Factory</button><button class="button js-anchor js-share" data-for=share-anchor>Share</button><button class="button js-anchor" data-for=favorites-anchor>Favorites</button><button class="button js-favorite-add"><span class=icon-favorite>Add to Favorites</span></button>
 </div>
 </div>
-<div class="fixed-content block-intro settings">
+<div class="block-intro settings">
 Set the Army Camps capacity, level of barracks, troops,
 Spell Factory and spells based on the Town Hall of level:<br>
 <span class="button-group button-group_settings">
@@ -52,7 +50,7 @@ Spell Factory and spells based on the Town Hall of level:<br>
 You are viewing shared army composition (you can find previous one in the favorites)
 </span>
 </p>
-<p id=storage-quota-exceeded class="message message_block message_negative message_important block-intro fixed-content" style="display: none">
+<p id=storage-quota-exceeded class="message message_negative message_important block-intro" style="display: none">
 </p>
 <table class="data js-light-object">
 <thead>
@@ -1015,8 +1013,8 @@ Grand Total with Barracks:
 </tfoot>
 </table>
 <div class=js-share>
-<h2 class=block-indented id=share-anchor>Share Army Composition</h2>
-<table class=fixed-content>
+<h2 id=share-anchor>Share Army Composition</h2>
+<table class=share>
 <tr>
 <td class=share-left>
 <a href="" target=_blank class="button button_social js-share-link" data-share-link="https://twitter.com/share?url={url}&amp;via=ClashCalc&amp;hashtags=ClashOfClans" title="Share on Twitter">
@@ -1030,26 +1028,28 @@ Grand Total with Barracks:
 </a>
 </td>
 <td class=share-right>
-<input id=share-permalink class=field-long>
+<input id=share-permalink class=share-permalink>
 </td>
 </tr>
 </table>
 </div>
-<h2 class=block-indented id=favorites-anchor>
+<h2 id=favorites-anchor>
 Favorites
 <button class="js-favorite-add button button_after"><span class=icon-favorite>Add</span></button>
 </h2>
 <div id=favorites>
 </div>
-<div class="list-content fixed-content" id=changelog>
-<h2 class=block-indented>What’s New in Version 4.6 <a href=version-history.html class="button button_after" target=_blank>Version History</a></h2>
+<div class=list-content>
+<h2>
+What’s New in Version 4.6
+<a href=version-history.html class="button button_after" target=_blank>Version History</a>
+</h2>
 <ul>
 <li>In the Spell Factory table added row with the grand total cost for troops and spells.</li>
 <li>Optimized performance and improved usability of +/- buttons.</li>
 </ul>
 </div>
-<h2 class=block-indented>Additionally</h2>
-<div class=fixed-content>
+<h2>Additionally</h2>
 <div class=add-to-home-screen>
 <div class="fold js-fold">
 <div class="fold__switcher js-fold-switcher" data-goal=ADD_TO_HOME>
@@ -1082,9 +1082,7 @@ and use my work without my permission, violating copyright.
 <p>
 If you find a bug please send an e-mail to <a href=mailto:clashcalc@mkln.ru>clashcalc@mkln.ru</a>.
 </p>
-</div>
 <footer>
-<div class=fixed-content>
 <p>
 Clash of Clans and its logos are trademarks of Supercell.
 This web site is not affiliated with, endorsed, sponsored, or specifically approved by Supercell.
@@ -1100,7 +1098,6 @@ Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International Licen
 Developed by <a href="/en/">Mikhail Kalashnik</a><br>
 © 2014
 </p>
-</div>
 </footer>
 <noscript><img src=//mc.yandex.ru/watch/19642528 style="position:absolute; left:-9999px"></noscript>
 </body>
