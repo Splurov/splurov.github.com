@@ -51,13 +51,13 @@
 <p>{{coc_description}}</p>
 
 <!--[if lte IE 9]>
-<p class="message message_negative">
+<p class="message message_negative message_centered">
     You are using an old version of Internet Explorer which is not supported.<br/>
     Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
 </p>
 <![endif]-->
 
-<div id="menu-wrapper">
+<div id="menu-wrapper" class="menu">
     <div class="button-group button-group_menu" id="menu">
         <button class="button js-anchor" data-for="light-anchor">Barracks</button><!--
         --><button class="button js-anchor js-dark-object" data-for="dark-anchor">Dark Barracks</button><!--
@@ -68,7 +68,7 @@
     </div>
 </div>
 
-<div class="block-intro settings">
+<div class="settings">
     Set the Army Camps capacity, level of barracks, troops,
     Spell Factory and spells based on the Town Hall of level:<br/>
     <span class="button-group button-group_settings">
@@ -85,13 +85,14 @@
     </span>
 </div>
 
-<p id="view-shared" style="display: none;" class="block-intro">
-    <span class="message message_closeable" title="Click to hide">
-        You are viewing shared army composition (you can find previous one in the favorites)
-    </span>
+<p id="view-shared"
+   class="message message_closeable message_root message_centered"
+   title="Click to hide"
+   style="display: none;">
+    You are viewing shared army composition (you can find previous one in the favorites)
 </p>
 
-<p id="storage-quota-exceeded" class="message message_negative message_important block-intro" style="display: none;">
+<p id="storage-quota-exceeded" class="message message_negative message_root" style="display: none;">
 </p>
 
 {{#types}}

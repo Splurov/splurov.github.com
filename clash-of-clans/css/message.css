@@ -1,7 +1,7 @@
 .message {
     font-size: 14px;
-    background: #cfc;
-    border: 1px solid #8f8;
+    background: #d3ffd3;
+    border: 1px solid #7f7;
     border-radius: 5px;
     padding: 3px 7px;
     font-weight: normal;
@@ -16,6 +16,11 @@
         background: #ffe3e3;
         border: 1px solid #f99;
     }
-    .message_important {
-        font-size: 15px;
+
+    .message_root {
+        margin-bottom: 15px;
+    }
+
+    .message_centered {
+        text-align: center;
     }
