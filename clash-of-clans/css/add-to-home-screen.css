@@ -1,9 +1,9 @@
 .add-to-home-screen {
     display: none;
+    margin: 0 0 10px;
 }
     .ios .add-to-home-screen {
         display: block;
-        margin: 0 0 10px;
     }
     .ios .add-to-home-screen__share-icon {
         background-image: url('/clash-of-clans/i/safari-share-button.png');
