@@ -110,7 +110,7 @@
                     {{/spells}}
                 </th>
                 {{#barracks}}
-                    <th class="data__distribution-column data__top-cell">
+                    <th class="data__building-info data__top-cell">
                         <select id="{{type}}-level-{{index}}" class="js-comp-level" data-num="{{index}}">
                             {{#options}}
                                 <option value="{{text}}"{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
@@ -179,13 +179,13 @@
                     </th>
 
                     {{#barracks}}
-                        <th class="data__distribution-column">
+                        <th class="data__building-info">
                             <span id="{{type}}-barrack-info-{{index}}">
-                                <label class="unimportant">
+                                <label>
                                     <input type="checkbox" id="{{type}}-boosted-{{index}}" class="text-middle js-comp-boosted"/>
                                     <span class="text-middle">Boosted</span><br/>
                                 </label>
-                                <span class="unimportant tiny">
+                                <span class="tiny">
                                     <span class="text-middle">
                                         <span id="{{type}}-space-{{index}}"></span>
                                         <span id="{{type}}-maxSpace-{{index}}"></span>
@@ -202,8 +202,8 @@
                 {{/spells}}
 
                 {{#spells}}
-                    <th>
-                        <label class="unimportant" id="spells-boosted-wrapper">
+                    <th class="data__building-info">
+                        <label id="spells-boosted-wrapper">
                             <input type="checkbox" id="spells-boosted" class="text-middle js-comp-boosted"/>
                             <span class="text-middle">Boosted</span><br/>
                         </label>

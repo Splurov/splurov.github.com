@@ -38,8 +38,8 @@
             padding-left: 0;
         }
 
-    .data__distribution-column {
-        min-width: 65px;
+    .data__building-info {
+        font-weight: normal;
     }
     .data__quantity-column {
         min-width: 115px;
