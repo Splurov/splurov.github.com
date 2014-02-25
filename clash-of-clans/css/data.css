@@ -9,8 +9,9 @@
         -webkit-transform: translateZ(0);
     }
     .data th, .data td {
-        padding-left: 7px;
         padding-right: 7px;
+        padding-bottom: 2px;
+        padding-left: 7px;
         white-space: nowrap;
         border-bottom: 1px solid #ddd;
         border-right: 1px solid #ddd;
@@ -18,12 +19,10 @@
     .data th {
         text-align: left;
         font-size: 14px;
-        padding-bottom: 2px;
+        vertical-align: top;
     }
     .data td {
         padding-top: 2px;
-        padding-bottom: 2px;
-        vertical-align: middle;
     }
         .data td > input {
             text-align: right;
