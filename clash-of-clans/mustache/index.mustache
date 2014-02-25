@@ -99,12 +99,15 @@
     <table class="data js-{{type}}-object">
         <thead>
             <tr>
-                <th colspan="{{^spells}}5{{/spells}}{{#spells}}4{{/spells}}" class="data__top-cell data__top-cell_title">
+                <th colspan="{{^spells}}5{{/spells}}{{#spells}}4{{/spells}}"
+                    class="data__top-cell data__top-cell_title">
                     <span id="{{type}}-anchor" class="data__title">
                         {{title}}
                     </span>
                     {{^spells}}
-                        <span class="message message_negative message_after" style="display: none" id="{{type}}-exceeded">
+                        <span class="message message_negative message_after"
+                              style="display: none"
+                              id="{{type}}-exceeded">
                             Exceeded training capacity of the {{title}}
                         </span>
                     {{/spells}}
@@ -173,17 +176,23 @@
                                 {{#light}}80 Barbarians and 100 Archers.{{/light}}
                                 {{#dark}}15 Minions.{{/dark}}
                                 This is very useful, when after the battle you have remained part of the army.<br/>
-                                (Values from the “Subtract” columns not preserved between browser sessions nor saved when you add to favorites.)
+                                (Values from the “Subtract” columns not preserved between browser sessions nor saved
+                                when you add to favorites.)
                             </span>
                         </span>
-                        <br/><button class="button button_reset js-reset" data-reset="{{type}}" data-scope="subtract">Reset</button>
+                        <br/>
+                        <button class="button button_reset js-reset" data-reset="{{type}}" data-scope="subtract">
+                            Reset
+                        </button>
                     </th>
 
                     {{#barracks}}
                         <th class="data__building-info">
                             <span id="{{type}}-barrack-info-{{index}}">
                                 <label>
-                                    <input type="checkbox" id="{{type}}-boosted-{{index}}" class="text-middle js-comp-boosted"/>
+                                    <input type="checkbox"
+                                           id="{{type}}-boosted-{{index}}"
+                                           class="text-middle js-comp-boosted"/>
                                     <span class="text-middle">Boosted</span><br/>
                                 </label>
                                 <span class="tiny">
@@ -395,7 +404,8 @@
         Supercell is not responsible for the operation or content of this site.
         {{!Use the trademarks and other intellectual property of Supercell is only as expressly permitted as set forth in Supercell’s
         <a href="http://forum.supercell.net/showthread.php/148005-Clash-of-Clans-Fan-Kit-and-Guidelines">Fan Site Kit Agreement</a>.}}
-        For more information about Supercell, please visit their website at <a href="http://www.supercell.net/">www.supercell.net</a>.
+        For more information about Supercell, please visit their website at
+        <a href="http://www.supercell.net/">www.supercell.net</a>.
     </p>
 
     <p>
