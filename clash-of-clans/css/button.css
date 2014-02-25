@@ -1,5 +1,4 @@
-.button, .button:link, .button:visited {
-    color: #444;
+.button {
     display: inline-block;
     padding: 3px 6px;
     border: 1px solid #aaa;
@@ -8,14 +7,15 @@
     line-height: 1;
     user-select: none;
     font-weight: normal;
-    text-decoration: none;
     font-size: 14px;
+    margin: 0;
 }
-    .not-mobile .button, .not-mobile .button input[type="checkbox"] {
-        cursor: pointer;
+    .button, .button:link, .button:visited {
+        color: #444;
+        text-decoration: none;
     }
-    .button {
-        margin: 0;
+    .not-mobile .button {
+        cursor: pointer;
     }
     .not-mobile .button:hover {
         background-image: linear-gradient(#fcfcfc, #e0e0e0);
@@ -37,7 +37,7 @@
     }
 
     /* social */
-    .button_social, .button_social:link, .button_social:visited {
+    .button_social {
         border-color: #aab;
         padding-top: 4px;
         padding-bottom: 4px;
@@ -63,19 +63,11 @@
         font-size: 16px;
     }
 
-    /* pressed */
-    .button_pressed, .button_pressed:active, .not-mobile .button_pressed:focus {
-        color: #444;
-        background-image: linear-gradient(#e0e0e0, #ececec);
-    }
-    .not-mobile .button_pressed:hover {
-        background-image: linear-gradient(#e0e0e0, #e7e7e7);
-    }
-
 .button-group .button {
-    margin: 0;
     border-radius: 0;
+    margin-left: 0;
     margin-right: -1px;
+    font-size: inherit;
 }
     .button-group .button:first-child {
         border-top-left-radius: 5px;
@@ -100,8 +92,7 @@
             padding: 12px 17px 15px;
         }
         .button-group_menu .button {
-            padding: 6px 7px 5px;
-            font-size: inherit;
+            padding: 5px 7px;
             -webkit-font-smoothing: subpixel-antialiased;
         }
 
@@ -110,7 +101,5 @@
         display: inline-block;
     }
         .button-group_settings .button {
-            padding: 4px 9px 3px;
-            text-align: center;
-            font-size: inherit;
+            padding: 4px 9px;
         }
