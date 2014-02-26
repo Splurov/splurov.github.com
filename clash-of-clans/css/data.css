@@ -60,11 +60,7 @@
     }
     .data th.data__top-cell_title {
         border-right: 0;
-    }
-
-    .data__title {
         font-size: 16px;
-        margin-bottom: 1px;
     }
 
 .inactive thead tr:last-child, .inactive tbody, .inactive tfoot {

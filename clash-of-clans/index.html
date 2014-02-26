@@ -8,7 +8,7 @@
 <script>!function(n,o,t){n.GoogleAnalyticsObject=t,n[t]=n[t]||function(){(n[t].q=n[t].q||[]).push(arguments)},n[t].l=1*new Date;var e=o.createElement("script");e.src="//www.google-analytics.com/analytics.js",o.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(n,o,t){return ga("send","event","Javascript Error",n,o+":"+t+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";window.mkIsIos=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i),window.mkIsMobile=window.mkIsIos||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),document.documentElement.classList.add(window.mkIsIos?"ios":"not-ios"),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile")}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var n=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==n&&location.host!=="test."+n&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+n+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={},window.yandexMetrikaParams.version=document.documentElement.getAttribute("data-version")}(),function(){"use strict";window.mkIsIos&&ga("send","event","Possible Disable",-1===navigator.userAgent.indexOf("Safari/")?"Yes":"No",[(screen.width/window.innerWidth).toFixed(2),navigator.userAgent].join(" / "))}();</script>
 <script src=/s/1393437310000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
-<link rel=stylesheet href=/s/1393439174000.css>
+<link rel=stylesheet href=/s/1393439640000.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
 <link rel=apple-touch-icon-precomposed sizes=76x76 href=/clash-of-clans/i/app-icons/76x76.png>
 <link rel=apple-touch-icon-precomposed sizes=120x120 href=/clash-of-clans/i/app-icons/120x120.png>
@@ -35,7 +35,7 @@ Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_b
 </p><![endif]-->
 <div id=menu-wrapper class=menu>
 <div class="button-group button-group_menu" id=menu>
-<button class="button js-anchor" data-for=light-anchor>Barracks</button><button class="button js-anchor js-dark-object" data-for=dark-anchor>Dark Barracks</button><button class="button js-anchor js-spells-object" data-for=spells-anchor>Spell Factory</button><button class="button js-anchor js-share" data-for=share-anchor>Share</button><button class="button js-anchor" data-for=favorites-anchor>Favorites</button><button class="button js-favorite-add"><span class=icon-favorite>Add to Favorites</span></button>
+<button class="button js-anchor" data-for=light-anchor>Barracks</button><button class="button js-anchor" data-for=dark-anchor>Dark Barracks</button><button class="button js-anchor" data-for=spells-anchor>Spell Factory</button><button class="button js-anchor js-share" data-for=share-anchor>Share</button><button class="button js-anchor" data-for=favorites-anchor>Favorites</button><button class="button js-favorite-add"><span class=icon-favorite>Add to Favorites</span></button>
 </div>
 </div>
 <div class=settings>
@@ -53,10 +53,8 @@ You are viewing shared army composition (you can find previous one in the favori
 <table class="data js-light-object">
 <thead>
 <tr>
-<th colspan=5 class="data__top-cell data__top-cell_title">
-<span id=light-anchor class=data__title>
+<th colspan=5 class="data__top-cell data__top-cell_title" id=light-anchor>
 Barracks
-</span>
 <span class="message message_negative message_after" style="display: none" id=light-exceeded>
 Exceeded training capacity of the Barracks
 </span>
@@ -249,7 +247,7 @@ Training Capacity of the Barrack
 </th>
 </tr>
 </thead>
-<tbody id=light-body class=object-light>
+<tbody class=object-light>
 <tr id=light-building-level-1>
 <td>
 <span class="object-icon __Barbarian" title=Barbarian></span>
@@ -584,10 +582,8 @@ Total Troop Capacity of the Army Camps
 <table class="data js-dark-object">
 <thead>
 <tr>
-<th colspan=5 class="data__top-cell data__top-cell_title">
-<span id=dark-anchor class=data__title>
+<th colspan=5 class="data__top-cell data__top-cell_title" id=dark-anchor>
 Dark Barracks
-</span>
 <span class="message message_negative message_after" style="display: none" id=dark-exceeded>
 Exceeded training capacity of the Dark Barracks
 </span>
@@ -701,7 +697,7 @@ Training Capacity of the Dark Barrack
 </th>
 </tr>
 </thead>
-<tbody id=dark-body class=object-dark>
+<tbody class=object-dark>
 <tr id=dark-building-level-1>
 <td>
 <span class="object-icon __Minion" title=Minion></span>
@@ -842,10 +838,8 @@ Total Troop Capacity of the Army Camps
 <table class="data js-spells-object">
 <thead>
 <tr>
-<th colspan=4 class="data__top-cell data__top-cell_title">
-<span id=spells-anchor class=data__title>
+<th colspan=4 class="data__top-cell data__top-cell_title" id=spells-anchor>
 Spell Factory
-</span>
 </th>
 <th class=data__top-cell>
 <select id=spells-level class=js-comp-level>
@@ -888,7 +882,7 @@ Reset
 </th>
 </tr>
 </thead>
-<tbody id=spells-body class=object-spells>
+<tbody class=object-spells>
 <tr id=spells-building-level-1>
 <td>
 <span class="object-icon __Lightning"></span>
