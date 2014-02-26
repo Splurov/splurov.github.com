@@ -1,11 +1,6 @@
-.add-to-home-screen {
+.not-ios .add-to-home-screen {
     display: none;
-    margin: 0 0 10px;
-    max-width: 50em;
 }
-    .ios .add-to-home-screen {
-        display: block;
-    }
     .ios .add-to-home-screen__share-icon {
         background-image: url('/clash-of-clans/i/safari-share-button.png');
         background-size: 12px 16px;
@@ -14,7 +9,4 @@
         width: 12px;
         height: 16px;
         vertical-align: text-top;
-    }
-    .add-to-home-screen__list {
-        margin: 5px 0 0;
     }

@@ -74,6 +74,12 @@ p {
     max-width: 50em;
 }
 
+ol {
+    padding: 0 0 0 21px;
+    margin: 0 0 10px;
+    max-width: 50em;
+}
+
 table {
     border-spacing: 0;
 }

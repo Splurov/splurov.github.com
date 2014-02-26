@@ -21,7 +21,6 @@
 
 /* build:js:js/mk.calc.share.js */
 /* build:js:js/mk.calc.init.js */
-/* build:js:js/fold.js */
 /* build:js:js/mk.calc.spinner.js */
 /* build:js:js/mk.calc.reset.js */
 /* build:js:js/help.js */
