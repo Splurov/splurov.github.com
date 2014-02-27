@@ -14,10 +14,39 @@ require('buffer');
 var STATIC_PATH = './s/';
 var STATIC_URI = '/s/';
 
-var staticFiles = fs.readdirSync(STATIC_PATH);
-staticFiles.forEach(function(file) {
-    fs.unlinkSync(STATIC_PATH + file);
-});
+var currentStaticFiles = [];
+
+var unlinkStatic = function() {
+    fs.readdir(STATIC_PATH, function(error, staticFiles) {
+        if (error) {
+            throw error;
+        }
+
+        staticFiles.forEach(function(file) {
+            if (currentStaticFiles.indexOf(file) === -1) {
+                console.log('unlink: ' + file);
+                fs.unlink(STATIC_PATH + file, function(error) {
+                    if (error) {
+                        throw error;
+                    }
+                });
+            }
+        });
+    });
+};
+
+var queue = {
+    'n': 0,
+    'add': function() {
+        this.n++;
+    },
+    'remove': function() {
+        this.n--;
+        if (this.n === 0) {
+            unlinkStatic();
+        }
+    }
+};
 
 // params: [language array key, changelog entry, is main clash of clans template, target path]
 var sources = {
@@ -184,209 +213,221 @@ var getFileMTime = function(path) {
     return fs.statSync(path).mtime.getTime();
 };
 
-for (var file in sources) {
+Object.keys(sources).forEach(function(file) {
+    queue.add();
+
     console.log('started: ' + file);
-    var lastChangeTime = Math.round(fs.statSync(file).mtime.getTime() / 1000);
-    translations.last_change = [lastChangeTime, lastChangeTime];
 
     var dir = sources[file].resource_dir;
 
-    var latestTime = 0;
-
-    var dataSource = fs.readFileSync(file, 'utf8');
-    dataSource = dataSource.replace(/<link rel="stylesheet" type="text\/css" href="([^"]+)"\/>/g, function(match, p1) {
-        if (dataCache[p1]) {
-            console.log('cached: ' + p1);
-            return dataCache[p1];
-        }
-        var styleData = fs.readFileSync(dir + p1, 'utf8');
-
-        latestTime = Math.max(latestTime, getFileMTime(dir + p1));
-
-        styleData = styleData.replace(/\/\* build:css:([^ ]+) \*\//g, function(buildMatch, buildP1) {
-            console.log('css sub: ' + buildP1);
-            latestTime = Math.max(latestTime, getFileMTime(dir + buildP1));
-            return fs.readFileSync(dir + buildP1, 'utf8');
-        });
-        styleData = autoprefixer(
-            'ios >= 6',
-            'chrome >= 21',
-            'ff >= 24',
-            'safari >= 6',
-            'ie >= 10',
-            'android >= 4',
-            'opera >= 17'
-        ).process(styleData).css;
-        console.log('autoprefixer: ' + p1);
-        styleData = styleData.replace(/url\(([^')]+?\.png)\)/g, function(match, sp1) {
-            return 'url(' + makeDataUri(sp1.substr(1)) + ')';
-        });
-
-//        styleData = styleData.replace(/url\(([^')]+?\.svg)\)/g, function(match, sp1) {
-//            var path = sp1.substr(1);
-//            var image = fs.readFileSync(path, 'utf8');
-//            console.log('data-uri svg: ' + path);
-//            return "url('data:image/svg+xml," + image + "')";
-//        });
-
-        styleData = cssc.compress(styleData);
-        console.log('cssc: ' + p1);
-
-        styleData = csso.justDoIt(styleData);
-        console.log('csso: ' + p1);
-
-        fs.writeFileSync(STATIC_PATH + latestTime + '.css', styleData);
-
-        styleData = '<link rel="stylesheet" href="' + STATIC_URI + latestTime + '.css"/>';
-
-        //styleData = hoganPrepare('<style>' + styleData + '</style>');
-
-        dataCache[p1] = styleData;
-
-        return styleData;
-    });
-
-    latestTime = 0;
-
-    dataSource = dataSource.replace(/<script src="([^"]+)"( data-compress="no")?( data-main="yes")?><\/script>/g, function(match, p1, p2, p3) {
-        if (dataCache[p1 + p2]) {
-            console.log('cached: ' + p1 + (p2 ? ' (no compress)' : ''));
-            return dataCache[p1 + p2];
-        }
-        console.log('js: ' + p1);
-        var scriptData = fs.readFileSync(dir + p1, 'utf8');
-
-        latestTime = Math.max(latestTime, getFileMTime(dir + p1));
-
-        scriptData = scriptData.replace(/\/\* build:js:([^ :]+) \*\//g, function(buildMatch, buildP1) {
-            console.log('js sub: ' + buildP1);
-
-            latestTime = Math.max(latestTime, getFileMTime(dir + buildP1));
-
-            return fs.readFileSync(dir + buildP1, 'utf8');
-        });
-        scriptData = scriptData.replace(/\/\* build:hogan:([^ ]+) \*\//g, function(hoganMatch, hoganP1) {
-            var templatePath = dir + hoganP1;
-            var template = fs.readFileSync(templatePath, 'utf8');
-            template = template.replace(/^\s+/gm, '');
-            var compiled = hogan.compile(template, {'asString': 1});
-            console.log('hogan: ' + hoganP1);
-
-            latestTime = Math.max(latestTime, getFileMTime(dir + hoganP1));
-
-            return compiled;
-        });
-        scriptData = scriptData.replace(/if \(typeof exports !== 'undefined'\) \{[^\}]+\}/g, '');
-        if (!p2) {
-            scriptData = uglifyjs.minify(scriptData, {
-                'fromString': true,
-                'output': {
-                    'screw_ie8': true,
-                    'comments': /build:js:vendor:/
-                },
-                'compress': {
-                    'screw_ie8': true,
-                    'unsafe': true
-                }
-            }).code;
-            scriptData = scriptData.replace('"use strict";', '');
+    fs.readFile(file, 'utf8', function(error, dataSource) {
+        if (error) {
+            throw error;
         }
 
-        scriptData = scriptData.replace(/\/\* build:js:vendor:([^ ]+) \*\//g, function(buildMatch, buildP1) {
-            console.log('js sub vendor: ' + buildP1);
-            return fs.readFileSync(dir + buildP1, 'utf8') + '\n\n// Copyright 2014 Mikhail Kalashnik';
-        });
+        dataSource = dataSource.replace(/<link rel="stylesheet" type="text\/css" href="([^"]+)"\/>/g, function(match, p1) {
+            if (dataCache[p1]) {
+                console.log('cached: ' + p1);
+                return dataCache[p1];
+            }
+            var styleData = fs.readFileSync(dir + p1, 'utf8');
 
-        if (p3) {
-            fs.writeFileSync(STATIC_PATH + latestTime + '.js', scriptData);
+            var latestTime = getFileMTime(dir + p1);
 
-            scriptData = '<script src="' + STATIC_URI + latestTime + '.js" defer="defer"></script>';
-        } else {
-            scriptData = hoganPrepare('<script>' + scriptData + '</script>');
-        }
+            styleData = styleData.replace(/\/\* build:css:([^ ]+) \*\//g, function(buildMatch, buildP1) {
+                console.log('css sub: ' + buildP1);
+                latestTime = Math.max(latestTime, getFileMTime(dir + buildP1));
+                return fs.readFileSync(dir + buildP1, 'utf8');
+            });
 
-        dataCache[p1 + p2] = scriptData;
+            var fileName = latestTime + '.css';
 
-        return scriptData;
-    });
-
-    var currentTemplate = hogan.compile(dataSource);
-
-    for (var lang in sources[file]) {
-        if (lang === 'resource_dir') {
-            continue;
-        }
-
-        var options = sources[file][lang];
-        var translationsCurrent = {};
-        for (var trName in translations) {
-            translationsCurrent[trName] = translations[trName][options[0]];
-        }
-
-        if (options[1]) {
-            var changelog = require('../clash-of-clans/json/changelog.json');
-            var changelogParsed = [];
-            var clIndex;
-            var clLength;
-            for (clIndex = 0, clLength = changelog.length; clIndex < clLength; clIndex++) {
-                var v = changelog[clIndex];
-                var entry = {
-                    'version': v[0],
-                    'date': v[1],
-                    'changes': []
-                };
-
-                if (v[3]) {
-                    entry.ch_title = v[3];
-                }
-
-                v[2].forEach(function(sv) {
-                    entry.changes.push({'change': sv});
+            if (!fs.existsSync(STATIC_PATH + fileName)) {
+                styleData = autoprefixer(
+                    'ios >= 6',
+                    'chrome >= 21',
+                    'ff >= 24',
+                    'safari >= 6',
+                    'ie >= 10',
+                    'android >= 4',
+                    'opera >= 17'
+                ).process(styleData).css;
+                console.log('autoprefixer: ' + p1);
+                styleData = styleData.replace(/url\(([^')]+?\.png)\)/g, function(match, sp1) {
+                    return 'url(' + makeDataUri(sp1.substr(1)) + ')';
                 });
 
-                changelogParsed.push(entry);
+                styleData = cssc.compress(styleData);
+                console.log('cssc: ' + p1);
+
+                styleData = csso.justDoIt(styleData);
+                console.log('csso: ' + p1);
+
+                fs.writeFileSync(STATIC_PATH + fileName, styleData);
             }
-            if (options[1] === 'first') {
-                translationsCurrent.firstChangelog = changelogParsed[0];
-                //translationsCurrent.secondChangelog = changelogParsed[1];
-            } else {
-                translationsCurrent.changelog = changelogParsed;
-            }
-        }
 
-        var partials = {};
-        if (options[2]) {
-            partials.item_row = fs.readFileSync(dir + 'mustache/item_row.mustache', 'utf8');
+            currentStaticFiles.push(fileName);
 
-            setItemRowsTemplates(translationsCurrent);
-        }
+            var output = '<link rel="stylesheet" href="' + STATIC_URI + fileName + '"/>';
 
-        var dataDest = currentTemplate.render(translationsCurrent, partials);
+            dataCache[p1] = output;
 
-        dataDest = htmlMinifier.minify(dataDest, {
-            'removeComments': true,
-            'removeCommentsFromCDATA': false,
-            'removeCDATASectionsFromCDATA': false,
-            'collapseWhitespace': false,
-            'collapseBooleanAttributes': true,
-            'removeAttributeQuotes': true,
-            'removeRedundantAttributes': true,
-            'useShortDoctype': true,
-            'removeEmptyAttributes': true,
-            'removeOptionalTags': false,
-            'removeEmptyElements': false,
-            'removeScriptTypeAttributes': true,
-            'removeStyleLinkTypeAttributes': true
+            return output;
         });
 
-        //dataDest = dataDest.replace(/>(\s{2,})/g, '> ');
-        //dataDest = dataDest.replace(/(\s{2,})</g, ' <');
-        dataDest = dataDest.replace(/^\s+/gm, '');
+        dataSource = dataSource.replace(/<script src="([^"]+)"( data-compress="no")?( data-main="yes")?><\/script>/g, function(match, p1, p2, p3) {
+            if (dataCache[p1 + p2]) {
+                console.log('cached: ' + p1 + (p2 ? ' (no compress)' : ''));
+                return dataCache[p1 + p2];
+            }
+            console.log('js: ' + p1);
+            var scriptData = fs.readFileSync(dir + p1, 'utf8');
 
-        fs.writeFileSync(options[3], dataDest);
-        console.log('done: ' + lang + ' ' + file);
-    }
+            var latestTime = getFileMTime(dir + p1);
 
-}
+            scriptData = scriptData.replace(/\/\* build:js:([^ :]+) \*\//g, function(buildMatch, buildP1) {
+                console.log('js sub: ' + buildP1);
 
-console.log('all done');
+                latestTime = Math.max(latestTime, getFileMTime(dir + buildP1));
+
+                return fs.readFileSync(dir + buildP1, 'utf8');
+            });
+            scriptData = scriptData.replace(/\/\* build:hogan:([^ ]+) \*\//g, function(hoganMatch, hoganP1) {
+                var templatePath = dir + hoganP1;
+                var template = fs.readFileSync(templatePath, 'utf8');
+                template = template.replace(/^\s+/gm, '');
+                var compiled = hogan.compile(template, {'asString': 1});
+                console.log('hogan: ' + hoganP1);
+
+                latestTime = Math.max(latestTime, getFileMTime(dir + hoganP1));
+
+                return compiled;
+            });
+
+            var fileName = latestTime + '.js';
+
+            if (!p3 || !fs.existsSync(STATIC_PATH + fileName)) {
+                scriptData = scriptData.replace(/if \(typeof exports !== 'undefined'\) \{[^\}]+\}/g, '');
+                if (!p2) {
+                    scriptData = uglifyjs.minify(scriptData, {
+                        'fromString': true,
+                        'output': {
+                            'screw_ie8': true,
+                            'comments': /build:js:vendor:/
+                        },
+                        'compress': {
+                            'screw_ie8': true,
+                            'unsafe': true
+                        }
+                    }).code;
+                    scriptData = scriptData.replace('"use strict";', '');
+                }
+
+                scriptData = scriptData.replace(/\/\* build:js:vendor:([^ ]+) \*\//g, function(buildMatch, buildP1) {
+                    console.log('js sub vendor: ' + buildP1);
+                    return fs.readFileSync(dir + buildP1, 'utf8') + '\n\n// Copyright 2014 Mikhail Kalashnik';
+                });
+
+                if (p3) {
+                    fs.writeFileSync(STATIC_PATH + fileName, scriptData);
+                }
+            }
+
+            var output;
+            if (p3) {
+                currentStaticFiles.push(fileName);
+
+                output = '<script src="' + STATIC_URI + fileName + '" defer="defer"></script>';
+            } else {
+                output = hoganPrepare('<script>' + scriptData + '</script>');
+            }
+
+
+            dataCache[p1 + p2] = output;
+
+            return output;
+        });
+
+        var currentTemplate = hogan.compile(dataSource);
+
+        Object.keys(sources[file]).forEach(function(lang) {
+            if (lang === 'resource_dir') {
+                return;
+            }
+
+            var options = sources[file][lang];
+            var translationsCurrent = {};
+            for (var trName in translations) {
+                translationsCurrent[trName] = translations[trName][options[0]];
+            }
+
+            if (options[1]) {
+                var changelog = require('../clash-of-clans/json/changelog.json');
+                var changelogParsed = [];
+                var clIndex;
+                var clLength;
+                for (clIndex = 0, clLength = changelog.length; clIndex < clLength; clIndex++) {
+                    var v = changelog[clIndex];
+                    var entry = {
+                        'version': v[0],
+                        'date': v[1],
+                        'changes': []
+                    };
+
+                    if (v[3]) {
+                        entry.ch_title = v[3];
+                    }
+
+                    v[2].forEach(function(sv) {
+                        entry.changes.push({'change': sv});
+                    });
+
+                    changelogParsed.push(entry);
+                }
+                if (options[1] === 'first') {
+                    translationsCurrent.firstChangelog = changelogParsed[0];
+                    //translationsCurrent.secondChangelog = changelogParsed[1];
+                } else {
+                    translationsCurrent.changelog = changelogParsed;
+                }
+            }
+
+            var partials = {};
+            if (options[2]) {
+                partials.item_row = fs.readFileSync(dir + 'mustache/item_row.mustache', 'utf8');
+
+                setItemRowsTemplates(translationsCurrent);
+            }
+
+            var dataDest = currentTemplate.render(translationsCurrent, partials);
+
+            dataDest = htmlMinifier.minify(dataDest, {
+                'removeComments': true,
+                'removeCommentsFromCDATA': false,
+                'removeCDATASectionsFromCDATA': false,
+                'collapseWhitespace': false,
+                'collapseBooleanAttributes': true,
+                'removeAttributeQuotes': true,
+                'removeRedundantAttributes': true,
+                'useShortDoctype': true,
+                'removeEmptyAttributes': true,
+                'removeOptionalTags': false,
+                'removeEmptyElements': false,
+                'removeScriptTypeAttributes': true,
+                'removeStyleLinkTypeAttributes': true
+            });
+
+            dataDest = dataDest.replace(/^\s+/gm, '');
+
+            fs.writeFile(options[3], dataDest, function(error) {
+                if (error) {
+                    throw error;
+                }
+                console.log('done: ' + lang + ' ' + file);
+                queue.remove();
+            });
+
+        });
+    });
+
+});
