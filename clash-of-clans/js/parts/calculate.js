@@ -114,6 +114,10 @@ part('calculate', [
                     isSuitedForEqual = false;
                 }
 
+                if (isSuitedForEqual && (totalUnitsSpace / activeCount) > barrack.maxSpace) {
+                    isSuitedForEqual = false;
+                }
+
                 if (isAllBarracksSimilar && !(barrack.level === barracksQueue[0].level && boostedLikeFirst)) {
                     isAllBarracksSimilar = false;
                 }
