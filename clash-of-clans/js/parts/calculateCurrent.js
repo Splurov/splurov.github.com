@@ -188,7 +188,7 @@ part('calculateCurrent', [
             }
         });
 
-        dom.updater.defer('grand-total', 'text', common.numberFormat(result.light.totalCost + result.spells.totalCost));
+        dom.updater.defer('grand-total', 'text', common.numberFormat(result.light.subtractedCost + result.spells.totalCost));
 
         dom.updater.runDeferred();
     });
