@@ -2,5 +2,6 @@
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
     <ShortName>All Search Engines</ShortName>
     <Url type="text/html" template="http://mkln.ru/search/?q={searchTerms}"/>
+    <Url type="application/x-suggestions+json" template="https://www.google.com/complete/search?client=firefox&amp;q={searchTerms}"/>
     <InputEncoding>UTF-8</InputEncoding>
 </OpenSearchDescription>
