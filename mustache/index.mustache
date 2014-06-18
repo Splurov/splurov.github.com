@@ -2,28 +2,28 @@
 <html lang="{{lang}}" class="js-root">
 <head>
     <meta charset="UTF-8"/>
-    <meta class="js-viewport" name="viewport" content="width=600"/>
-    <script src="js/viewport.js"></script>
-    <title>{{title}} (Splurov)</title>
+    <meta class="js-viewport" name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>{{title}}</title>
     <link rel="stylesheet" type="text/css" href="css/design.css"/>
     <link rel="profile" href="http://microformats.org/profile/hcard"/>
-    <link rel="icon" href="/i/favicon.png"/>
+    <link rel="icon" href="/i/favicon-2014-04.png"/>
     <meta property="fb:admins" content="506720931"/>
 </head>
 <body>
 
 <div class="content vcard">
-    <p class="lang-switcher">
+    <div class="photo-wrapper">
+        <img class="photo js-photo" src="/i/photo-2014-04.jpg" alt="{{photo_alt}}"/>
+    </div>
+
+    <p>
         <a href="{{lang_switcher_href}}">{{lang_switcher_title}}</a>
     </p>
 
-    <img class="photo js-photo" src="/i/photo-2012-05.jpg" alt="{{photo_alt}}" width="180" height="180"/>
-    <script src="js/photo.js"></script>
-
     <h1><a href="http://mkln.ru/" class="title">{{title}}</a></h1>
 
-    <p>{{born_info}}</p>
-    <p>{{work_info}}<a href="http://hh.ru/">{{work_info_company}}</a>.</p>
+    <p>{{work_info}} <a href="http://hh.ru/">{{work_info_company}}</a>.</p>
+    <p>{{location_info}}</p>
 
     <h2>{{contacts}}</h2>
     <p>
@@ -34,7 +34,7 @@
     <h2>{{resume}}</h2>
     <p>
         <a href="http://hh.ru/resume/8a501e32ff00d6db7b0039ed1f69566d394f6c">{{hh_link_title}}</a>,
-        <a href="https://splurov.moikrug.ru/">{{moikrug_link_title}}</a>,
+        <!--<a href="https://splurov.moikrug.ru/">{{moikrug_link_title}}</a>,-->
         <a href="http://ru.linkedin.com/in/splurov">{{linkedin_link_title}}</a>
     </p>
 
@@ -42,23 +42,12 @@
     <p>
         <a href="https://twitter.com/Splurov">{{twitter}}</a>,
         <a href="http://instagram.com/splurov">{{instagram}}</a>,
-        <a href="https://vk.com/splurov">{{vk}}</a>,
+        <a href="https://github.com/Splurov">{{github}}</a>,
         <a href="https://www.facebook.com/splurov">{{facebook}}</a>,
-        <a href="https://friendfeed.com/splurov">{{friendfeed}}</a>,
+        <a href="https://vk.com/splurov">{{vk}}</a>,
         <a href="http://habrahabr.ru/users/splurov/">{{habr}}</a>,
         <a href="http://leprosorium.ru/users/Splurov">{{lepra}}</a>,
-        <a href="https://plus.google.com/110489397186262146677?rel=author">{{google_plus}}</a>,
-        <a href="http://splurov.livejournal.com/">{{lj}}</a>,
-        <a href="http://pinterest.com/splurov/">{{pinterest}}</a>,
-        <a href="https://github.com/Splurov">{{github}}</a>
-    </p>
-
-    <h2>{{movies_music}}</h2>
-    <p>
-        <a href="http://www.imdb.com/user/ur6599773/ratings">{{imdb_viewed}}</a>,
-        <a href="http://www.imdb.com/user/ur6599773/watchlist">{{imdb_watchlist}}</a>,
-        <a href="http://www.lastfm.ru/user/Splurov">{{last_fm}}</a>,
-        <a href="http://myshows.ru/Splurov">{{tv_shows}}</a>
+        <a href="https://plus.google.com/110489397186262146677?rel=author">{{google_plus}}</a>
     </p>
 
     <h2>{{firefox_addons}}</h2>
@@ -69,11 +58,9 @@
 
     <h2>{{firefox_userscripts}}</h2>
     <p>
-        <a href="http://userscripts.org/scripts/show/67744">Linkification</a><br />
-        <a href="http://userscripts.org/scripts/show/67743">Ctrl+Enter Submit Any Form</a><br />
-        <a href="http://userscripts.org/scripts/show/52390">Lepra More Posts Autoloader</a><br />
-        <!--<a href="http://userscripts.org/scripts/show/58883">Lepra Misc</a><br />-->
-        <a href="http://userscripts.org/scripts/show/67745">TargetKiller</a><br />
+        <a href="https://github.com/Splurov/user-scripts/blob/master/linkification.js">Linkification</a><br />
+        <a href="https://github.com/Splurov/user-scripts/blob/master/ctrl-enter-submit-any-form.js">Ctrl+Enter Submit Any Form</a><br />
+        <a href="https://github.com/Splurov/user-scripts/blob/master/target-killer.js">TargetKiller</a><br />
     </p>
 
     <h2>{{coc_name}}</h2>
