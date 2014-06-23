@@ -1,0 +1,157 @@
+html, body {
+    background: #fefefe;
+    color: #222;
+}
+body {
+    font-family: 'PT Sans', Arial, sans-serif;
+    margin: 0;
+    padding: 15px 20px;
+    line-height: 1.4;
+    -webkit-text-size-adjust: 100%;
+
+    @media @mobile-media-query {
+        padding: @mobile-page-indent;
+        line-height: 1.3;
+    }
+
+    .font-size('normal');
+}
+
+a:link {
+    color: #4100f1;
+    text-decoration: none;
+}
+a:visited {
+    color: #63008c;
+    text-decoration: none;
+}
+.not-mobile a:hover, a:active, .not-mobile a:focus {
+    text-decoration: underline;
+}
+
+
+kbd {
+    font-family: inherit;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 0 4px;
+}
+    kbd a:link, kbd a:visited, .not-mobile kbd a:hover, kbd a:active, .not-mobile kbd a:focus {
+        color: #222;
+        text-decoration: none;
+    }
+
+input, textarea, button, select {
+    font-family: inherit;
+    font-size: inherit;
+}
+    button::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+    input[type="checkbox"] {
+        margin: 0;
+    }
+
+@media @mobile-media-query {
+    select {
+        font-size: @font-size-tiny-mobile;
+    }
+}
+
+label {
+    user-select: none;
+}
+
+h1 {
+    font-size: 17px;
+    margin: 0 0 3px;
+
+    @media @mobile-media-query {
+        font-size: 16px;
+    }
+}
+
+h2 {
+    margin: 20px 0 8px;
+
+    .font-size('normal');
+}
+
+h3 {
+    margin: 15px 0 2px;
+
+    .font-size('small');
+}
+
+p {
+    margin: 0 0 10px;
+
+    .content-max-width();
+}
+
+ol {
+    padding: 0 0 0 21px;
+    margin: 0 0 10px;
+
+    .content-max-width();
+}
+
+table {
+    border-spacing: 0;
+}
+    table td, table th {
+        padding: 0;
+    }
+    .number {
+        text-align: right;
+    }
+
+
+.small {
+    .font-size('small');
+
+    @media @mobile-media-query {
+        select& {
+            font-size: @font-size-tiny-mobile;
+        }
+    }
+}
+.tiny {
+    .font-size('tiny');
+}
+
+.limit-exceeded {
+    color: #d00;
+}
+
+.result {
+    font-weight: bold;
+}
+
+.text-middle {
+    vertical-align: middle;
+}
+
+.boosted {
+    text-shadow: #48F928 1px 1px 3px;
+}
+
+@keyframes blink {
+    0% {
+        background: transparent;
+    }
+    45% {
+        background: #ffd;
+    }
+    100% {
+        background: transparent;
+    }
+}
+
+.changed-animation {
+    animation-name: blink;
+    animation-duration: 2s;
+    animation-delay: 200ms;
+}

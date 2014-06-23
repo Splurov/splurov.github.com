@@ -75,17 +75,19 @@ part([
         var width = el.offsetWidth;
         var scrollLeft = window.scrollX;
         var windowWidth = window.innerWidth;
-        var elPosition = dom.getPosition(linkEl);
+        var elPosition = linkEl.getBoundingClientRect();
+        var elPositionLeft = elPosition.left + scrollLeft;
+        var elPositionTop = elPosition.top + window.scrollY;
 
-        var left = elPosition.left - X_OFFSET;
+        var left = elPositionLeft - X_OFFSET;
         if ((left + width) > (scrollLeft + windowWidth) && (windowWidth / 2) < (left - scrollLeft)) {
-            left = elPosition.left - width + linkEl.offsetWidth + X_OFFSET;
+            left = elPositionLeft - width + linkEl.offsetWidth + X_OFFSET;
             el.classList.add(RIGHT_CLASS);
         } else {
             el.classList.remove(RIGHT_CLASS);
         }
 
-        el.style.top = (elPosition.top + linkEl.offsetHeight + Y_OFFSET) + 'px';
+        el.style.top = (elPositionTop + linkEl.offsetHeight + Y_OFFSET) + 'px';
         el.style.left = left + 'px';
         el.classList.add(VISIBLE_CLASS);
     });

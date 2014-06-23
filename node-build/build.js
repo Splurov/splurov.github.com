@@ -8,6 +8,8 @@ var uglifyjs = require('uglify-js');
 var autoprefixer = require('autoprefixer');
 var cssc = require('css-condense');
 var htmlMinifier = require('html-minifier');
+var less = require('less');
+var CleanCSS = require('clean-css');
 
 require('buffer');
 
@@ -225,7 +227,7 @@ Object.keys(sources).forEach(function(file) {
             throw error;
         }
 
-        dataSource = dataSource.replace(/<link rel="stylesheet" type="text\/css" href="([^"]+)"\/>/g, function(match, p1) {
+        dataSource = dataSource.replace(/<link rel="stylesheet" type="text\/(css|less)" href="([^"]+)"\/>/g, function(match, type, p1) {
             if (dataCache[p1]) {
                 console.log('cached: ' + p1);
                 return dataCache[p1];
@@ -233,37 +235,58 @@ Object.keys(sources).forEach(function(file) {
             var styleData = fs.readFileSync(dir + p1, 'utf8');
 
             var latestTime = getFileMTime(dir + p1);
-
-            styleData = styleData.replace(/\/\* build:css:([^ ]+) \*\//g, function(buildMatch, buildP1) {
-                console.log('css sub: ' + buildP1);
-                latestTime = Math.max(latestTime, getFileMTime(dir + buildP1));
-                return fs.readFileSync(dir + buildP1, 'utf8');
-            });
+            if (type === 'less') {
+                latestTime = new Date().getTime();
+            } else {
+                styleData = styleData.replace(/\/\* build:css:([^ ]+) \*\//g, function(buildMatch, buildP1) {
+                    console.log('css sub: ' + buildP1);
+                    latestTime = Math.max(latestTime, getFileMTime(dir + buildP1));
+                    return fs.readFileSync(dir + buildP1, 'utf8');
+                });
+            }
 
             var fileName = latestTime + '.css';
 
             if (!fs.existsSync(STATIC_PATH + fileName)) {
-                styleData = autoprefixer(
-                    'ios >= 6',
-                    'chrome >= 21',
-                    'ff >= 24',
-                    'safari >= 6',
-                    'ie >= 10',
-                    'android >= 4',
-                    'opera >= 17'
-                ).process(styleData).css;
-                console.log('autoprefixer: ' + p1);
-                styleData = styleData.replace(/url\(([^')]+?\.png)\)/g, function(match, sp1) {
-                    return 'url(' + makeDataUri(sp1.substr(1)) + ')';
-                });
+                var processCss = function(e, styleData) {
+                    if (e) {
+                        console.log(e);
+                    }
+                    styleData = autoprefixer(
+                        'ios >= 6',
+                        'chrome >= 21',
+                        'ff >= 24',
+                        'safari >= 6',
+                        'ie >= 10',
+                        'android >= 4',
+                        'opera >= 17'
+                    ).process(styleData).css;
+                    console.log('autoprefixer: ' + p1);
+                    styleData = styleData.replace(/url\(([^')]+?\.png)\)/g, function(match, sp1) {
+                        return 'url(' + makeDataUri(sp1.substr(1)) + ')';
+                    });
 
-                styleData = cssc.compress(styleData);
-                console.log('cssc: ' + p1);
+//                    styleData = new CleanCSS().minify(styleData);
 
-                styleData = csso.justDoIt(styleData);
-                console.log('csso: ' + p1);
+                    styleData = cssc.compress(styleData);
+                    console.log('cssc: ' + p1);
 
-                fs.writeFileSync(STATIC_PATH + fileName, styleData);
+                    styleData = csso.justDoIt(styleData);
+                    console.log('csso: ' + p1);
+
+
+                    fs.writeFileSync(STATIC_PATH + fileName, styleData);
+                };
+
+                if (type === 'less') {
+                    console.log('less: ' + p1);
+                    less.render(styleData, {
+                        'paths': dir + 'css'
+                    }, processCss);
+                } else {
+                    processCss(null, styleData);
+                }
+
             }
 
             currentStaticFiles.push(fileName);

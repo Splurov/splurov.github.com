@@ -1,0 +1,11 @@
+.content-max-width() {
+    max-width: 50em;
+}
+
+.font-size(@type) {
+    font-size: ~"@{font-size-@{type}}";
+
+    @media @mobile-media-query {
+        font-size: ~"@{font-size-@{type}-mobile}";
+    }
+}

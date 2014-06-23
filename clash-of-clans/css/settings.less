@@ -1,0 +1,19 @@
+.settings {
+    background: #f4fff4;
+    padding: 6px 10px 10px;
+    border: 1px solid #bcb;
+    border-radius: 10px;
+    margin-bottom: 15px;
+
+    .content-max-width();
+    .font-size('small');
+
+    @media @mobile-media-query {
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+        margin-left: -@mobile-page-indent;
+        margin-right: -@mobile-page-indent;
+        margin-bottom: 0;
+    }
+}

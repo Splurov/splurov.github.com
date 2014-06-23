@@ -1,0 +1,20 @@
+footer {
+    border-top: 1px solid #ddd;
+    padding-top: 20px;
+    margin-top: 20px;
+    color: #999;
+
+    .font-size('small');
+
+    @media @mobile-media-query {
+        padding-top: 15px;
+        margin-top: 15px;
+    }
+}
+    footer a:link, footer a:visited {
+        text-decoration: underline;
+        color: inherit;
+    }
+    .not-mobile footer a:hover, footer a:active, .not-mobile footer a:focus {
+        text-decoration: none;
+    }

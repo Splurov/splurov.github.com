@@ -1,4 +1,4 @@
-/* build:js:vendor:js/template-2.0.0.min.js */
+/* build:js:vendor:js/template-3.0.2.min.js */
 
 /* build:js:js/part.js */
 

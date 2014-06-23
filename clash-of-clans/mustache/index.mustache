@@ -2,7 +2,7 @@
 <html lang="en" data-version="{{firstChangelog.version}}">
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=900, minimal-ui"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimal-ui"/>
 
     <title>{{coc_seo_title}}</title>
     <meta name="description" content="{{coc_description}}"/>
@@ -13,7 +13,7 @@
 
     <script src="js/preload-images.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="css/all.css"/>
+    <link rel="stylesheet" type="text/less" href="css/all.less"/>
 
     <link rel="icon" href="/clash-of-clans/i/favicon-v2.png"/>
 
@@ -96,6 +96,7 @@
 </p>
 
 {{#types}}
+    <div class="data-wrapper">
     <table class="data js-{{type}}-object">
         <thead>
             <tr>
@@ -289,6 +290,7 @@
             {{/spells}}
         </tfoot>
     </table>
+    </div>
 {{/types}}
 
 <div class="js-share">
