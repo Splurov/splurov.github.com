@@ -137,7 +137,7 @@ var setItemRowsTemplates = function(vars) {
             Object.keys(types.data[type]).forEach(function(name) {
                 var value = types.data[type][name];
                 var convertedName = common.convertToTitle(name);
-                var levelOptions = value[1].splice(1).map(createLevelOption);
+                var levelOptions = value[1].slice(1).map(createLevelOption);
                 levelOptions[levelOptions.length - 1].selected = true;
                 var templateVars = {
                     'id': name,
