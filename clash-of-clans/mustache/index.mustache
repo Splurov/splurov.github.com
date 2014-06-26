@@ -98,16 +98,16 @@
 
 <h2 id="settings-anchor">Settings</h2>
 <div class="data-wrapper">
-    <table class="data data__buildings">
+    <table class="data data_buildings">
         <tfoot>
             {{#types}}
                 <tr>
                     <td>
-                        {{title}} <wbr/>Level{{^spells}}s{{/spells}}
+                        {{title}} Level{{^spells}}s{{/spells}}
                     </td>
                     <td class="small">
                         {{#barracks}}
-                            <wbr/><select id="{{type}}-level-{{index}}" class="js-comp-level data__building" data-num="{{index}}">
+                            <select id="{{type}}-level-{{index}}" class="js-comp-level" data-num="{{index}}">
                                 {{#options}}
                                     <option value="{{text}}"{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
                                 {{/options}}
@@ -125,7 +125,7 @@
             {{/types}}
             <tr>
                 <td>
-                    Army Camps <wbr/>Troop Capacity
+                    Army Camps Troop Capacity
                 </td>
                 <td class="small">
                     <select id="army-camps" class="js-comp-level">
@@ -157,7 +157,7 @@
                 </div>
             {{/spells}}
             {{#spells}}
-                <label id="spells-boosted-wrapper" class="data__setting">
+                <label id="spells-boosted-wrapper" class="after">
                     <input type="checkbox" id="spells-boosted" class="text-middle js-comp-boosted"/>
                     <span class="text-middle">Boost</span>
                 </label>
@@ -170,7 +170,7 @@
                         <th><span class="data__object-title">{{objectTitle}}</span></th>
                         <th class="js-col-{{type}}-level">Level</th>
                         <th class="data__quantity-column js-col-{{type}}-quantity">
-                            <span class="tiny data__secondary-header">
+                            <span class="tiny data__right">
                                 <span id="{{type}}-quantity" class="text-middle"></span>
                                 <span class="help-link js-help-link">
                                     <span class="help-link__content js-help-content">
@@ -220,9 +220,9 @@
                             </th>
 
                             {{#barracks}}
-                                <th class="data__building-info js-col-{{type}}-distribution">
+                                <td class="js-col-{{type}}-distribution">
                                     <span id="{{type}}-barrack-info-{{index}}">
-                                        <span id="{{type}}-levelText-{{index}}"></span>
+                                        <span class="small" id="{{type}}-levelText-{{index}}"></span>
                                         lvl
                                         <br/>
                                         <label class="tiny">
@@ -245,7 +245,7 @@
                                             {{/isFirst}}
                                         </span>
                                     </span>
-                                </th>
+                                </td>
                             {{/barracks}}
                         {{/spells}}
                     </tr>
@@ -260,10 +260,6 @@
                         <td></td>
                         <td class="js-col-{{type}}-level"></td>
                         <td class="result js-col-{{type}}-quantity">
-                            {{#spells}}
-                                <span id="spells-time" class="data__time"></span>
-                            {{/spells}}
-
                             <span id="{{type}}-space" class="text-middle"></span>
                             <span class="help-link js-help-link">
                                 <span class="help-link__content js-help-content">
@@ -288,8 +284,13 @@
                     </tr>
                     {{#spells}}
                         <tr>
-                            <td></td>
-                            <td colspan="2" class="tiny number">
+                            <td colspan="3" class="small number">
+                                Time:
+                            </td>
+                            <td class="result number" id="spells-time"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="tiny number">
                                 Grand Total with Barracks:
                             </td>
                             <td class="tiny result number" id="grand-total"></td>

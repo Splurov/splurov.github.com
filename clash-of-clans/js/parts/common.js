@@ -28,7 +28,7 @@ part('common', function() {
             var remainingTime = time;
 
             if (remainingTime > 3599) {
-                formattedTime += Math.floor(remainingTime / 3600) + 'h&thinsp;';
+                formattedTime += Math.floor(remainingTime / 3600) + 'h';
                 remainingTime %= 3600;
                 hideSeconds = true;
             }
@@ -39,13 +39,13 @@ part('common', function() {
                 if (hideSeconds && remainingTime) {
                     minutes++;
                 }
-                formattedTime += minutes + 'm&thinsp;';
+                formattedTime += '&thinsp;' + minutes + 'm';
             } else {
-                formattedTime += '0m&thinsp;';
+                formattedTime += '&thinsp;0m';
             }
 
             if (formattedTime === '' || !hideSeconds) {
-                formattedTime += remainingTime + 's';
+                formattedTime += '&thinsp;' + remainingTime + 's';
             }
 
             return formattedTime;

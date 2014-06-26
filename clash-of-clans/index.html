@@ -6,9 +6,9 @@
 <title>Clash of Clans Troops and Spells Cost Calculator/Time Planner — Clash Calc</title>
 <meta name=description content="Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.">
 <script>!function(t,n,o){t.GoogleAnalyticsObject=o,t[o]=t[o]||function(){(t[o].q=t[o].q||[]).push(arguments)},t[o].l=1*new Date;var e=n.createElement("script");e.src="//www.google-analytics.com/analytics.js",n.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(t,n,o){return ga("send","event","Javascript Error",t,n+":"+o+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";var t=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i);window.mkIsMobile=t||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),t&&document.documentElement.classList.add("ios"),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),window.mkIsSmallScreen=window.matchMedia("(max-width: 640px)").matches}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var t=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==t&&location.host!=="test."+t&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+t+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={},window.yandexMetrikaParams.version=document.documentElement.getAttribute("data-version")}();</script>
-<script src=/s/1403731505000.js defer></script>
+<script src=/s/1403810155000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
-<link rel=stylesheet href=/s/1403807468915.css>
+<link rel=stylesheet href=/s/1403811618228.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
 <link rel=apple-touch-icon-precomposed sizes=76x76 href=/clash-of-clans/i/app-icons/76x76.png>
 <link rel=apple-touch-icon-precomposed sizes=120x120 href=/clash-of-clans/i/app-icons/120x120.png>
@@ -52,14 +52,14 @@ You are viewing shared army composition (you can find previous one in the favori
 </p>
 <h2 id=settings-anchor>Settings</h2>
 <div class=data-wrapper>
-<table class="data data__buildings">
+<table class="data data_buildings">
 <tfoot>
 <tr>
 <td>
-Barracks <wbr>Levels
+Barracks Levels
 </td>
 <td class=small>
-<wbr><select id=light-level-1 class="js-comp-level data__building" data-num=1>
+<select id=light-level-1 class=js-comp-level data-num=1>
 <option value=1>1</option>
 <option value=2>2</option>
 <option value=3>3</option>
@@ -71,7 +71,7 @@ Barracks <wbr>Levels
 <option value=9>9</option>
 <option value=10 selected>10</option>
 </select>
-<wbr><select id=light-level-2 class="js-comp-level data__building" data-num=2>
+<select id=light-level-2 class=js-comp-level data-num=2>
 <option value=0>0</option>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -84,7 +84,7 @@ Barracks <wbr>Levels
 <option value=9>9</option>
 <option value=10 selected>10</option>
 </select>
-<wbr><select id=light-level-3 class="js-comp-level data__building" data-num=3>
+<select id=light-level-3 class=js-comp-level data-num=3>
 <option value=0>0</option>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -97,7 +97,7 @@ Barracks <wbr>Levels
 <option value=9>9</option>
 <option value=10 selected>10</option>
 </select>
-<wbr><select id=light-level-4 class="js-comp-level data__building" data-num=4>
+<select id=light-level-4 class=js-comp-level data-num=4>
 <option value=0>0</option>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -114,10 +114,10 @@ Barracks <wbr>Levels
 </tr>
 <tr>
 <td>
-Dark Barracks <wbr>Levels
+Dark Barracks Levels
 </td>
 <td class=small>
-<wbr><select id=dark-level-1 class="js-comp-level data__building" data-num=1>
+<select id=dark-level-1 class=js-comp-level data-num=1>
 <option value=0>0</option>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -125,7 +125,7 @@ Dark Barracks <wbr>Levels
 <option value=4>4</option>
 <option value=5 selected>5</option>
 </select>
-<wbr><select id=dark-level-2 class="js-comp-level data__building" data-num=2>
+<select id=dark-level-2 class=js-comp-level data-num=2>
 <option value=0>0</option>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -137,7 +137,7 @@ Dark Barracks <wbr>Levels
 </tr>
 <tr>
 <td>
-Spell Factory <wbr>Level
+Spell Factory Level
 </td>
 <td class=small>
 <select id=spells-level class=js-comp-level>
@@ -152,7 +152,7 @@ Spell Factory <wbr>Level
 </tr>
 <tr>
 <td>
-Army Camps <wbr>Troop Capacity
+Army Camps Troop Capacity
 </td>
 <td class=small>
 <select id=army-camps class=js-comp-level>
@@ -222,7 +222,7 @@ Exceeded training capacity of the Barracks
 <th><span class=data__object-title>Troop</span></th>
 <th class=js-col-light-level>Level</th>
 <th class="data__quantity-column js-col-light-quantity">
-<span class="tiny data__secondary-header">
+<span class="tiny data__right">
 <span id=light-quantity class=text-middle></span>
 <span class="help-link js-help-link">
 <span class="help-link__content js-help-content">
@@ -264,9 +264,9 @@ when you add to favorites.)
 Reset
 </button>
 </th>
-<th class="data__building-info js-col-light-distribution">
+<td class=js-col-light-distribution>
 <span id=light-barrack-info-1>
-<span id=light-levelText-1></span>
+<span class=small id=light-levelText-1></span>
 lvl
 <br>
 <label class=tiny>
@@ -285,10 +285,10 @@ Training Capacity of the Barrack
 </span>
 </span>
 </span>
-</th>
-<th class="data__building-info js-col-light-distribution">
+</td>
+<td class=js-col-light-distribution>
 <span id=light-barrack-info-2>
-<span id=light-levelText-2></span>
+<span class=small id=light-levelText-2></span>
 lvl
 <br>
 <label class=tiny>
@@ -302,10 +302,10 @@ lvl
 </span>
 </span>
 </span>
-</th>
-<th class="data__building-info js-col-light-distribution">
+</td>
+<td class=js-col-light-distribution>
 <span id=light-barrack-info-3>
-<span id=light-levelText-3></span>
+<span class=small id=light-levelText-3></span>
 lvl
 <br>
 <label class=tiny>
@@ -319,10 +319,10 @@ lvl
 </span>
 </span>
 </span>
-</th>
-<th class="data__building-info js-col-light-distribution">
+</td>
+<td class=js-col-light-distribution>
 <span id=light-barrack-info-4>
-<span id=light-levelText-4></span>
+<span class=small id=light-levelText-4></span>
 lvl
 <br>
 <label class=tiny>
@@ -336,7 +336,7 @@ lvl
 </span>
 </span>
 </span>
-</th>
+</td>
 </tr>
 </thead>
 <tbody class=object-light>
@@ -644,7 +644,7 @@ Exceeded training capacity of the Dark Barracks
 <th><span class=data__object-title>Troop</span></th>
 <th class=js-col-dark-level>Level</th>
 <th class="data__quantity-column js-col-dark-quantity">
-<span class="tiny data__secondary-header">
+<span class="tiny data__right">
 <span id=dark-quantity class=text-middle></span>
 <span class="help-link js-help-link">
 <span class="help-link__content js-help-content">
@@ -686,9 +686,9 @@ when you add to favorites.)
 Reset
 </button>
 </th>
-<th class="data__building-info js-col-dark-distribution">
+<td class=js-col-dark-distribution>
 <span id=dark-barrack-info-1>
-<span id=dark-levelText-1></span>
+<span class=small id=dark-levelText-1></span>
 lvl
 <br>
 <label class=tiny>
@@ -707,10 +707,10 @@ Training Capacity of the Dark Barrack
 </span>
 </span>
 </span>
-</th>
-<th class="data__building-info js-col-dark-distribution">
+</td>
+<td class=js-col-dark-distribution>
 <span id=dark-barrack-info-2>
-<span id=dark-levelText-2></span>
+<span class=small id=dark-levelText-2></span>
 lvl
 <br>
 <label class=tiny>
@@ -724,7 +724,7 @@ lvl
 </span>
 </span>
 </span>
-</th>
+</td>
 </tr>
 </thead>
 <tbody class=object-dark>
@@ -870,7 +870,7 @@ Total Troop Capacity of the Army Camps
 <div class=js-spells-object>
 <h2 id=spells-anchor>
 Spell Factory
-<label id=spells-boosted-wrapper class=data__setting>
+<label id=spells-boosted-wrapper class=after>
 <input type=checkbox id=spells-boosted class="text-middle js-comp-boosted">
 <span class=text-middle>Boost</span>
 </label>
@@ -882,7 +882,7 @@ Spell Factory
 <th><span class=data__object-title>Spell</span></th>
 <th class=js-col-spells-level>Level</th>
 <th class="data__quantity-column js-col-spells-quantity">
-<span class="tiny data__secondary-header">
+<span class="tiny data__right">
 <span id=spells-quantity class=text-middle></span>
 <span class="help-link js-help-link">
 <span class="help-link__content js-help-content">
@@ -1007,7 +1007,6 @@ Reset
 <td></td>
 <td class=js-col-spells-level></td>
 <td class="result js-col-spells-quantity">
-<span id=spells-time class=data__time></span>
 <span id=spells-space class=text-middle></span>
 <span class="help-link js-help-link">
 <span class="help-link__content js-help-content">
@@ -1018,8 +1017,13 @@ Spell Capacity
 <td id=spells-cost class="number result js-col-spells-total"></td>
 </tr>
 <tr>
-<td></td>
-<td colspan=2 class="tiny number">
+<td colspan=3 class="small number">
+Time:
+</td>
+<td class="result number" id=spells-time></td>
+</tr>
+<tr>
+<td colspan=3 class="tiny number">
 Grand Total with Barracks:
 </td>
 <td class="tiny result number" id=grand-total></td>

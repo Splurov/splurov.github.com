@@ -112,12 +112,8 @@ table {
 .small {
     .font-size('small');
 
-    @media @mobile-media-query {
-        select& {
-            font-size: @font-size-tiny-mobile;
-        }
-    }
 }
+
 .tiny {
     .font-size('tiny');
 }
@@ -136,6 +132,14 @@ table {
 
 .boosted {
     text-shadow: #48F928 1px 1px 3px;
+}
+
+.inactive {
+    display: none
+}
+
+.after {
+    margin-left: 12px;
 }
 
 @keyframes blink {

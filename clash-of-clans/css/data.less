@@ -5,17 +5,13 @@
 }
 
 .data {
-    margin: 0 0 25px;
+    margin-bottom: 25px;
 
     @media @mobile-media-query {
         width: 100%;
-        margin-right: -1px;
     }
-}
-    .ios .data {
-        -webkit-user-select: none;
-    }
-    .data th, .data td {
+
+    th, td {
         padding-right: 7px;
         padding-bottom: 2px;
         padding-left: 7px;
@@ -28,40 +24,71 @@
             padding-right: 5px;
         }
     }
-    .data th {
+    th {
         text-align: left;
         vertical-align: top;
 
         .font-size('small');
     }
-    .data td {
+    td {
         padding-top: 2px;
-    }
-        .data td > input {
+
+        > input {
             text-align: right;
             vertical-align: middle;
         }
-        .data tfoot tr:last-child td {
-            border-bottom: 0;
-        }
-        .data th:last-child, .data td:last-child {
-            border-right: 0;
+    }
 
+    th:first-child, td:first-child {
+        padding-left: 0;
+
+        @media @mobile-media-query {
+            padding-left: @mobile-page-indent;
         }
-        .data th.data__last, .data td.data__last {
+    }
+
+    th:last-child, td:last-child {
+        border-right: 0;
+
+        @media @mobile-media-query {
             padding-right: @mobile-page-indent;
         }
-        .data th:first-child, .data td:first-child {
-            padding-left: 0;
+    }
 
-            @media @mobile-media-query {
-                padding-left: @mobile-page-indent;
-            }
+    tfoot tr:last-child td {
+        border-bottom: 0;
+    }
+
+    th.data__last, td.data__last {
+        padding-right: @mobile-page-indent;
+        border-right: 0;
+    }
+
+}
+    .data_buildings {
+        font-size: @font-size-small;
+
+        @media @mobile-media-query {
+            font-size: @font-size-tiny-mobile;
         }
 
-    .data__building-info {
-        font-weight: normal;
+        td, th {
+            white-space: normal;
+        }
+
+        select {
+            margin-right: 8px;
+
+            @media @mobile-media-query {
+                margin-right: 4px;
+            }
+        }
     }
+
+    .ios .data {
+        -webkit-user-select: none;
+    }
+
     .data__quantity-column {
         min-width: 115px;
     }
@@ -69,36 +96,9 @@
         min-width: 65px;
     }
 
-    .data__secondary-header {
+    .data__right {
         float: right;
         padding-top: 1px;
-    }
-
-    .data__time {
-        float: right;
-        padding-top: 2px;
-
-        .font-size('small');
-    }
-
-    .data__setting {
-        margin-left: 12px;
-    }
-
-    .data__building {
-        margin-right: 8px;
-
-        @media @mobile-media-query {
-            margin-right: 4px;
-        }
-    }
-
-    .data__buildings {
-        font-size: @font-size-small;
-
-        @media @mobile-media-query {
-            font-size: @font-size-tiny-mobile;
-        }
     }
 
     @media @mobile-media-query {
@@ -106,7 +106,3 @@
             display: none;
         }
     }
-
-.inactive {
-    display: none
-}
