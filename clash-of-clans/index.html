@@ -2,13 +2,13 @@
 <html lang=en data-version=5.2>
 <head>
 <meta charset=UTF-8>
-<meta name=viewport content="width=device-width,initial-scale=1,minimal-ui">
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
 <title>Clash of Clans Troops and Spells Cost Calculator/Time Planner — Clash Calc</title>
 <meta name=description content="Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.">
 <script>!function(t,n,o){t.GoogleAnalyticsObject=o,t[o]=t[o]||function(){(t[o].q=t[o].q||[]).push(arguments)},t[o].l=1*new Date;var e=n.createElement("script");e.src="//www.google-analytics.com/analytics.js",n.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(t,n,o){return ga("send","event","Javascript Error",t,n+":"+o+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";var t=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i);window.mkIsMobile=t||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),t&&document.documentElement.classList.add("ios"),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),window.mkIsSmallScreen=window.matchMedia("(max-width: 640px)").matches}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var t=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==t&&location.host!=="test."+t&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+t+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={},window.yandexMetrikaParams.version=document.documentElement.getAttribute("data-version")}();</script>
-<script src=/s/1403812538000.js defer></script>
+<script src=/s/1403817787000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
-<link rel=stylesheet href=/s/1403813967567.css>
+<link rel=stylesheet href=/s/1403817787623.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
 <link rel=apple-touch-icon-precomposed sizes=76x76 href=/clash-of-clans/i/app-icons/76x76.png>
 <link rel=apple-touch-icon-precomposed sizes=120x120 href=/clash-of-clans/i/app-icons/120x120.png>
@@ -33,9 +33,11 @@ Clash Calc — Clash of Clans Troops and Spells Cost Calculator/Time Planner
 You are using an old version of Internet Explorer which is not supported.<br/>
 Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_blank">Firefox</a>.
 </p><![endif]-->
-<div id=menu-wrapper class=menu>
-<div class="button-group button-group_menu" id=menu>
-<button class="button js-anchor" data-for=settings-anchor>Settings</button><button class="button js-anchor" data-for=light-anchor>Barracks</button><button class="button js-anchor" data-for=dark-anchor>Dark Barracks</button><button class="button js-anchor" data-for=spells-anchor>Spell Factory</button><button class="button js-anchor js-share" data-for=share-anchor>Share</button><button class="button js-anchor" data-for=favorites-anchor>Favorites</button><button class="button js-favorite-add"><span class=icon-favorite>Add to Favorites</span></button>
+<div id=menu-wrapper class=menu-wrapper>
+<div id=menu class=menu>
+<div class="button-group button-group_menu">
+<span class=menu__first-row><button class="button js-anchor" data-for=settings-anchor>Settings</button><button class="button js-anchor" data-for=light-anchor>Barracks</button><button class="button js-anchor" data-for=dark-anchor>Dark Barracks</button><button class="button js-anchor" data-for=spells-anchor>Spell Factory</button></span><span class=menu__second-row><button class="button js-anchor js-share" data-for=share-anchor>Share</button><button class="button js-anchor" data-for=favorites-anchor>Favorites</button><button class="button js-favorite-add"><span class=icon-favorite>Add to Favorites</span></button></span>
+</div>
 </div>
 </div>
 <div class=settings>
