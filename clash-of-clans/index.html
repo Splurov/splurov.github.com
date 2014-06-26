@@ -6,9 +6,9 @@
 <title>Clash of Clans Troops and Spells Cost Calculator/Time Planner — Clash Calc</title>
 <meta name=description content="Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.">
 <script>!function(t,n,o){t.GoogleAnalyticsObject=o,t[o]=t[o]||function(){(t[o].q=t[o].q||[]).push(arguments)},t[o].l=1*new Date;var e=n.createElement("script");e.src="//www.google-analytics.com/analytics.js",n.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(t,n,o){return ga("send","event","Javascript Error",t,n+":"+o+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";var t=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i);window.mkIsMobile=t||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),t&&document.documentElement.classList.add("ios"),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),window.mkIsSmallScreen=window.matchMedia("(max-width: 640px)").matches}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var t=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==t&&location.host!=="test."+t&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+t+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={},window.yandexMetrikaParams.version=document.documentElement.getAttribute("data-version")}();</script>
-<script src=/s/1403810155000.js defer></script>
+<script src=/s/1403812538000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
-<link rel=stylesheet href=/s/1403811618228.css>
+<link rel=stylesheet href=/s/1403813967567.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
 <link rel=apple-touch-icon-precomposed sizes=76x76 href=/clash-of-clans/i/app-icons/76x76.png>
 <link rel=apple-touch-icon-precomposed sizes=120x120 href=/clash-of-clans/i/app-icons/120x120.png>
@@ -266,13 +266,16 @@ Reset
 </th>
 <td class=js-col-light-distribution>
 <span id=light-barrack-info-1>
-<span class=small id=light-levelText-1></span>
+<span class=small>
+<span id=light-levelText-1></span>
 lvl
+</span>
 <br>
-<label class=tiny>
-<input type=checkbox id=light-boosted-1 class="text-middle js-comp-boosted">
-<span class=text-middle>Boost</span><br>
+<label class="tiny field-checkbox">
+<input type=checkbox id=light-boosted-1 class=js-comp-boosted>
+Boost
 </label>
+<br>
 <span class=tiny>
 <span class=text-middle>
 <span id=light-space-1></span>
@@ -288,13 +291,16 @@ Training Capacity of the Barrack
 </td>
 <td class=js-col-light-distribution>
 <span id=light-barrack-info-2>
-<span class=small id=light-levelText-2></span>
+<span class=small>
+<span id=light-levelText-2></span>
 lvl
+</span>
 <br>
-<label class=tiny>
-<input type=checkbox id=light-boosted-2 class="text-middle js-comp-boosted">
-<span class=text-middle>Boost</span><br>
+<label class="tiny field-checkbox">
+<input type=checkbox id=light-boosted-2 class=js-comp-boosted>
+Boost
 </label>
+<br>
 <span class=tiny>
 <span class=text-middle>
 <span id=light-space-2></span>
@@ -305,13 +311,16 @@ lvl
 </td>
 <td class=js-col-light-distribution>
 <span id=light-barrack-info-3>
-<span class=small id=light-levelText-3></span>
+<span class=small>
+<span id=light-levelText-3></span>
 lvl
+</span>
 <br>
-<label class=tiny>
-<input type=checkbox id=light-boosted-3 class="text-middle js-comp-boosted">
-<span class=text-middle>Boost</span><br>
+<label class="tiny field-checkbox">
+<input type=checkbox id=light-boosted-3 class=js-comp-boosted>
+Boost
 </label>
+<br>
 <span class=tiny>
 <span class=text-middle>
 <span id=light-space-3></span>
@@ -322,13 +331,16 @@ lvl
 </td>
 <td class=js-col-light-distribution>
 <span id=light-barrack-info-4>
-<span class=small id=light-levelText-4></span>
+<span class=small>
+<span id=light-levelText-4></span>
 lvl
+</span>
 <br>
-<label class=tiny>
-<input type=checkbox id=light-boosted-4 class="text-middle js-comp-boosted">
-<span class=text-middle>Boost</span><br>
+<label class="tiny field-checkbox">
+<input type=checkbox id=light-boosted-4 class=js-comp-boosted>
+Boost
 </label>
+<br>
 <span class=tiny>
 <span class=text-middle>
 <span id=light-space-4></span>
@@ -618,10 +630,10 @@ lvl
 </td>
 <td id=light-cost class="number result js-col-light-total"></td>
 <td id=light-subtracted-cost class="tiny js-col-light-subtract"></td>
-<td id=light-time-1 class="number js-col-light-distribution"></td>
-<td id=light-time-2 class="number js-col-light-distribution"></td>
-<td id=light-time-3 class="number js-col-light-distribution"></td>
-<td id=light-time-4 class="number js-col-light-distribution"></td>
+<td id=light-time-1 class="number data__time js-col-light-distribution"></td>
+<td id=light-time-2 class="number data__time js-col-light-distribution"></td>
+<td id=light-time-3 class="number data__time js-col-light-distribution"></td>
+<td id=light-time-4 class="number data__time js-col-light-distribution"></td>
 </tr>
 </tfoot>
 </table>
@@ -688,13 +700,16 @@ Reset
 </th>
 <td class=js-col-dark-distribution>
 <span id=dark-barrack-info-1>
-<span class=small id=dark-levelText-1></span>
+<span class=small>
+<span id=dark-levelText-1></span>
 lvl
+</span>
 <br>
-<label class=tiny>
-<input type=checkbox id=dark-boosted-1 class="text-middle js-comp-boosted">
-<span class=text-middle>Boost</span><br>
+<label class="tiny field-checkbox">
+<input type=checkbox id=dark-boosted-1 class=js-comp-boosted>
+Boost
 </label>
+<br>
 <span class=tiny>
 <span class=text-middle>
 <span id=dark-space-1></span>
@@ -710,13 +725,16 @@ Training Capacity of the Dark Barrack
 </td>
 <td class=js-col-dark-distribution>
 <span id=dark-barrack-info-2>
-<span class=small id=dark-levelText-2></span>
+<span class=small>
+<span id=dark-levelText-2></span>
 lvl
+</span>
 <br>
-<label class=tiny>
-<input type=checkbox id=dark-boosted-2 class="text-middle js-comp-boosted">
-<span class=text-middle>Boost</span><br>
+<label class="tiny field-checkbox">
+<input type=checkbox id=dark-boosted-2 class=js-comp-boosted>
+Boost
 </label>
+<br>
 <span class=tiny>
 <span class=text-middle>
 <span id=dark-space-2></span>
@@ -860,8 +878,8 @@ Total Troop Capacity of the Army Camps
 </td>
 <td id=dark-cost class="number result js-col-dark-total"></td>
 <td id=dark-subtracted-cost class="tiny js-col-dark-subtract"></td>
-<td id=dark-time-1 class="number js-col-dark-distribution"></td>
-<td id=dark-time-2 class="number js-col-dark-distribution"></td>
+<td id=dark-time-1 class="number data__time js-col-dark-distribution"></td>
+<td id=dark-time-2 class="number data__time js-col-dark-distribution"></td>
 </tr>
 </tfoot>
 </table>
@@ -871,8 +889,8 @@ Total Troop Capacity of the Army Camps
 <h2 id=spells-anchor>
 Spell Factory
 <label id=spells-boosted-wrapper class=after>
-<input type=checkbox id=spells-boosted class="text-middle js-comp-boosted">
-<span class=text-middle>Boost</span>
+<input type=checkbox id=spells-boosted class=js-comp-boosted>
+Boost
 </label>
 </h2>
 <div class=data-wrapper>

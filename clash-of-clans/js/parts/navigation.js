@@ -17,7 +17,8 @@ part('navigation', [
 
         var menuTop = dom.getPosition(menuEl).top - FIXED_TOP_PADDING;
         var isFixed = false;
-        dom.listen(window, 'scroll', function() {
+
+        var moveMenu = function() {
             var offset = window.pageYOffset;
             if (offset > menuTop) {
                 if (!isFixed) {
@@ -28,7 +29,11 @@ part('navigation', [
                 menuEl.classList.remove('button-group_menu-fixed');
                 isFixed = false;
             }
-        });
+        };
+
+        dom.listen(window, 'scroll', moveMenu);
+
+        moveMenu();
     }
 
     var smoothScroll = function(el, callback) {

@@ -24,11 +24,11 @@ part('common', function() {
         },
 
         'getFormattedTime': function(time, hideSeconds) {
-            var formattedTime = '';
+            var formattedTime = [];
             var remainingTime = time;
 
             if (remainingTime > 3599) {
-                formattedTime += Math.floor(remainingTime / 3600) + 'h';
+                formattedTime.push(Math.floor(remainingTime / 3600) + 'h');
                 remainingTime %= 3600;
                 hideSeconds = true;
             }
@@ -39,16 +39,16 @@ part('common', function() {
                 if (hideSeconds && remainingTime) {
                     minutes++;
                 }
-                formattedTime += '&thinsp;' + minutes + 'm';
+                formattedTime.push(minutes + 'm');
             } else {
-                formattedTime += '&thinsp;0m';
+                formattedTime.push('0m');
             }
 
             if (formattedTime === '' || !hideSeconds) {
-                formattedTime += '&thinsp;' + remainingTime + 's';
+                formattedTime.push(remainingTime + 's');
             }
 
-            return formattedTime;
+            return formattedTime.join('&thinsp;');
         },
 
         'Dict': function(data) {
