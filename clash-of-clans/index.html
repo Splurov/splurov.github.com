@@ -5,10 +5,10 @@
 <meta name=viewport content="width=device-width,initial-scale=1,minimal-ui">
 <title>Clash of Clans Troops and Spells Cost Calculator/Time Planner — Clash Calc</title>
 <meta name=description content="Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.">
-<script>!function(n,o,t){n.GoogleAnalyticsObject=t,n[t]=n[t]||function(){(n[t].q=n[t].q||[]).push(arguments)},n[t].l=1*new Date;var e=o.createElement("script");e.src="//www.google-analytics.com/analytics.js",o.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(n,o,t){return ga("send","event","Javascript Error",n,o+":"+t+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";window.mkIsIos=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i),window.mkIsMobile=window.mkIsIos||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),document.documentElement.classList.add(window.mkIsIos?"ios":"not-ios"),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile")}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var n=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==n&&location.host!=="test."+n&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+n+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={},window.yandexMetrikaParams.version=document.documentElement.getAttribute("data-version")}(),function(){"use strict";window.mkIsIos&&ga("send","event","Possible Disable",-1===navigator.userAgent.indexOf("Safari/")?"Yes":"No",[(screen.width/window.innerWidth).toFixed(2),navigator.userAgent].join(" / "))}();</script>
-<script src=/s/1403541341000.js defer></script>
+<script>!function(t,n,o){t.GoogleAnalyticsObject=o,t[o]=t[o]||function(){(t[o].q=t[o].q||[]).push(arguments)},t[o].l=1*new Date;var e=n.createElement("script");e.src="//www.google-analytics.com/analytics.js",n.head.appendChild(e)}(window,document,"ga"),ga("create","UA-37991363-1","mkln.ru"),ga("send","pageview"),function(){window.onerror=function(t,n,o){return ga("send","event","Javascript Error",t,n+":"+o+" ["+navigator.userAgent+"]"),!1}}(),function(){"use strict";var t=!!navigator.userAgent.match(/(?:iPad|iPhone|iPod)/i);window.mkIsMobile=t||!!navigator.userAgent.match(/(?:Android|IEMobile)/i),t&&document.documentElement.classList.add("ios"),document.documentElement.classList.add(window.mkIsMobile?"mobile":"not-mobile"),window.mkIsSmallScreen=window.matchMedia("(max-width: 640px)").matches}(),function(){"use strict";window.top!==window.self&&window.top.location.replace(window.self.location.href);var t=["m","k","l"].concat(["n",".","r","u"]).join("");location.host!==t&&location.host!=="test."+t&&0!==location.host.indexOf("192.168.1.")&&0!==location.host.indexOf("localhost")&&location.replace("http://"+t+"/clash-of-clans/")}(),function(){"use strict";window.yandexMetrikaParams={},window.yandexMetrikaParams.version=document.documentElement.getAttribute("data-version")}();</script>
+<script src=/s/1403731505000.js defer></script>
 <script>!function(){["/clash-of-clans/i/objects-light.png"].forEach(function(c){var n=new Image;n.src=c})}();</script>
-<link rel=stylesheet href=/s/1403555613628.css>
+<link rel=stylesheet href=/s/1403807468915.css>
 <link rel=icon href=/clash-of-clans/i/favicon-v2.png>
 <link rel=apple-touch-icon-precomposed sizes=76x76 href=/clash-of-clans/i/app-icons/76x76.png>
 <link rel=apple-touch-icon-precomposed sizes=120x120 href=/clash-of-clans/i/app-icons/120x120.png>
@@ -35,7 +35,7 @@ Upgrade to a modern browser, such as <a href="http://getfirefox.com/" target="_b
 </p><![endif]-->
 <div id=menu-wrapper class=menu>
 <div class="button-group button-group_menu" id=menu>
-<button class="button js-anchor" data-for=light-anchor>Barracks</button><button class="button js-anchor" data-for=dark-anchor>Dark Barracks</button><button class="button js-anchor" data-for=spells-anchor>Spell Factory</button><button class="button js-anchor js-share" data-for=share-anchor>Share</button><button class="button js-anchor" data-for=favorites-anchor>Favorites</button><button class="button js-favorite-add"><span class=icon-favorite>Add to Favorites</span></button>
+<button class="button js-anchor" data-for=settings-anchor>Settings</button><button class="button js-anchor" data-for=light-anchor>Barracks</button><button class="button js-anchor" data-for=dark-anchor>Dark Barracks</button><button class="button js-anchor" data-for=spells-anchor>Spell Factory</button><button class="button js-anchor js-share" data-for=share-anchor>Share</button><button class="button js-anchor" data-for=favorites-anchor>Favorites</button><button class="button js-favorite-add"><span class=icon-favorite>Add to Favorites</span></button>
 </div>
 </div>
 <div class=settings>
@@ -50,477 +50,112 @@ You are viewing shared army composition (you can find previous one in the favori
 </p>
 <p id=storage-quota-exceeded class="message message_negative message_root" style="display: none">
 </p>
+<h2 id=settings-anchor>Settings</h2>
 <div class=data-wrapper>
-<table class="data js-light-object">
-<thead>
-<tr>
-<th colspan=5 class="data__top-cell data__top-cell_title" id=light-anchor>
-Barracks
-<span class="message message_negative message_after" style="display: none" id=light-exceeded>
-Exceeded training capacity of the Barracks
-</span>
-</th>
-<th class=data__top-cell>
-<select id=light-level-1 class="js-comp-level text-middle" data-num=1>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6>6</option>
-<option value=7>7</option>
-<option value=8>8</option>
-<option value=9>9</option>
-<option value=10 selected>10</option>
-</select>
-<span class=text-middle>lvl</span>
-</th>
-<th class=data__top-cell>
-<select id=light-level-2 class="js-comp-level text-middle" data-num=2>
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6>6</option>
-<option value=7>7</option>
-<option value=8>8</option>
-<option value=9>9</option>
-<option value=10 selected>10</option>
-</select>
-<span class=text-middle>lvl</span>
-</th>
-<th class=data__top-cell>
-<select id=light-level-3 class="js-comp-level text-middle" data-num=3>
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6>6</option>
-<option value=7>7</option>
-<option value=8>8</option>
-<option value=9>9</option>
-<option value=10 selected>10</option>
-</select>
-<span class=text-middle>lvl</span>
-</th>
-<th class=data__top-cell>
-<select id=light-level-4 class="js-comp-level text-middle" data-num=4>
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6>6</option>
-<option value=7>7</option>
-<option value=8>8</option>
-<option value=9>9</option>
-<option value=10 selected>10</option>
-</select>
-<span class=text-middle>lvl</span>
-</th>
-</tr>
-<tr>
-<th>Troop</th>
-<th>Level</th>
-<th class=data__quantity-column>
-<span class="tiny data__secondary-header">
-<span id=light-quantity class=text-middle></span>
-<span class="help-link js-help-link">
-<span class="help-link__content js-help-content">
-Available Space in the Army Camps
-</span>
-</span>
-</span>
-Quantity
-<br>
-<button class="button button_reset js-reset" data-reset=light data-scope=quantity>
-Reset
-</button>
-</th>
-<th class=data__total_column>
-<span class=icon-elixir>Total</span>
-</th>
-<th>
-Subtract
-<span class="help-link js-help-link">
-<span class="help-link__content js-help-content">
-Allows to “subtract” troops, which you already have.
-For example, you want to get
-100 Barbarians and 100 Archers.
-And you already have
-20 Barbarians.
-In the column “Quantity”, as usual, make
-100 Barbarians and 100 Archers.
-And in the column “Subtract”
-20 Barbarians.
-Now the distribution between the barracks are considered to be only for
-80 Barbarians and 100 Archers.
-This is very useful, when after the battle you have remained part of the army.<br>
-(Values from the “Subtract” columns not preserved between browser sessions nor saved
-when you add to favorites.)
-</span>
-</span>
-<br>
-<button class="button button_reset js-reset" data-reset=light data-scope=subtract>
-Reset
-</button>
-</th>
-<th class=data__building-info>
-<span id=light-barrack-info-1>
-<label>
-<input type=checkbox id=light-boosted-1 class="text-middle js-comp-boosted">
-<span class=text-middle>Boosted</span><br>
-</label>
-<span class=tiny>
-<span class=text-middle>
-<span id=light-space-1></span>
-<span id=light-maxSpace-1></span>
-</span>
-<span class="help-link js-help-link">
-<span class="help-link__content js-help-content">
-Training Capacity of the Barrack
-</span>
-</span>
-</span>
-</span>
-</th>
-<th class=data__building-info>
-<span id=light-barrack-info-2>
-<label>
-<input type=checkbox id=light-boosted-2 class="text-middle js-comp-boosted">
-<span class=text-middle>Boosted</span><br>
-</label>
-<span class=tiny>
-<span class=text-middle>
-<span id=light-space-2></span>
-<span id=light-maxSpace-2></span>
-</span>
-<span class="help-link js-help-link">
-<span class="help-link__content js-help-content">
-Training Capacity of the Barrack
-</span>
-</span>
-</span>
-</span>
-</th>
-<th class=data__building-info>
-<span id=light-barrack-info-3>
-<label>
-<input type=checkbox id=light-boosted-3 class="text-middle js-comp-boosted">
-<span class=text-middle>Boosted</span><br>
-</label>
-<span class=tiny>
-<span class=text-middle>
-<span id=light-space-3></span>
-<span id=light-maxSpace-3></span>
-</span>
-<span class="help-link js-help-link">
-<span class="help-link__content js-help-content">
-Training Capacity of the Barrack
-</span>
-</span>
-</span>
-</span>
-</th>
-<th class=data__building-info>
-<span id=light-barrack-info-4>
-<label>
-<input type=checkbox id=light-boosted-4 class="text-middle js-comp-boosted">
-<span class=text-middle>Boosted</span><br>
-</label>
-<span class=tiny>
-<span class=text-middle>
-<span id=light-space-4></span>
-<span id=light-maxSpace-4></span>
-</span>
-<span class="help-link js-help-link">
-<span class="help-link__content js-help-content">
-Training Capacity of the Barrack
-</span>
-</span>
-</span>
-</span>
-</th>
-</tr>
-</thead>
-<tbody class=object-light>
-<tr id=light-building-level-1>
-<td>
-<span class="object-icon __Barbarian" title=Barbarian></span>
-</td>
-<td class=tiny>
-<select id=Barbarian-level class=js-comp-level data-type=light>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6 selected>6</option>
-</select>
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Barbarian size=3 tabindex=11><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian>&minus;</button>
-</td>
-<td id=Barbarian-summary class="number tiny">
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Barbarian-subtract size=3 tabindex=111><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian-subtract>&minus;</button>
-</td>
-<td id=quantity-Barbarian-1 class=number></td>
-<td id=quantity-Barbarian-2 class=number></td>
-<td id=quantity-Barbarian-3 class=number></td>
-<td id=quantity-Barbarian-4 class=number></td>
-</tr>
-<tr id=light-building-level-2>
-<td>
-<span class="object-icon __Archer" title=Archer></span>
-</td>
-<td class=tiny>
-<select id=Archer-level class=js-comp-level data-type=light>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6 selected>6</option>
-</select>
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Archer size=3 tabindex=12><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer>&minus;</button>
-</td>
-<td id=Archer-summary class="number tiny">
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Archer-subtract size=3 tabindex=112><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer-subtract>&minus;</button>
-</td>
-<td id=quantity-Archer-1 class=number></td>
-<td id=quantity-Archer-2 class=number></td>
-<td id=quantity-Archer-3 class=number></td>
-<td id=quantity-Archer-4 class=number></td>
-</tr>
-<tr id=light-building-level-3>
-<td>
-<span class="object-icon __Goblin" title=Goblin></span>
-</td>
-<td class=tiny>
-<select id=Goblin-level class=js-comp-level data-type=light>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6 selected>6</option>
-</select>
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Goblin size=3 tabindex=13><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin>&minus;</button>
-</td>
-<td id=Goblin-summary class="number tiny">
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Goblin-subtract size=3 tabindex=113><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin-subtract>&minus;</button>
-</td>
-<td id=quantity-Goblin-1 class=number></td>
-<td id=quantity-Goblin-2 class=number></td>
-<td id=quantity-Goblin-3 class=number></td>
-<td id=quantity-Goblin-4 class=number></td>
-</tr>
-<tr id=light-building-level-4>
-<td>
-<span class="object-icon __Giant" title=Giant></span>
-</td>
-<td class=tiny>
-<select id=Giant-level class=js-comp-level data-type=light>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6 selected>6</option>
-</select>
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Giant size=3 tabindex=14><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant>&minus;</button>
-</td>
-<td id=Giant-summary class="number tiny">
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Giant-subtract size=3 tabindex=114><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant-subtract>&minus;</button>
-</td>
-<td id=quantity-Giant-1 class=number></td>
-<td id=quantity-Giant-2 class=number></td>
-<td id=quantity-Giant-3 class=number></td>
-<td id=quantity-Giant-4 class=number></td>
-</tr>
-<tr id=light-building-level-5>
-<td>
-<span class="object-icon __Wall_Breaker" title="Wall Breaker"></span>
-</td>
-<td class=tiny>
-<select id=Wall_Breaker-level class=js-comp-level data-type=light>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6 selected>6</option>
-</select>
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Wall_Breaker size=3 tabindex=15><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker>&minus;</button>
-</td>
-<td id=Wall_Breaker-summary class="number tiny">
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Wall_Breaker-subtract size=3 tabindex=115><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker-subtract>&minus;</button>
-</td>
-<td id=quantity-Wall_Breaker-1 class=number></td>
-<td id=quantity-Wall_Breaker-2 class=number></td>
-<td id=quantity-Wall_Breaker-3 class=number></td>
-<td id=quantity-Wall_Breaker-4 class=number></td>
-</tr>
-<tr id=light-building-level-6>
-<td>
-<span class="object-icon __Balloon" title=Balloon></span>
-</td>
-<td class=tiny>
-<select id=Balloon-level class=js-comp-level data-type=light>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6 selected>6</option>
-</select>
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Balloon size=3 tabindex=16><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon>&minus;</button>
-</td>
-<td id=Balloon-summary class="number tiny">
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Balloon-subtract size=3 tabindex=116><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon-subtract>&minus;</button>
-</td>
-<td id=quantity-Balloon-1 class=number></td>
-<td id=quantity-Balloon-2 class=number></td>
-<td id=quantity-Balloon-3 class=number></td>
-<td id=quantity-Balloon-4 class=number></td>
-</tr>
-<tr id=light-building-level-7>
-<td>
-<span class="object-icon __Wizard" title=Wizard></span>
-</td>
-<td class=tiny>
-<select id=Wizard-level class=js-comp-level data-type=light>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5>5</option>
-<option value=6 selected>6</option>
-</select>
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Wizard size=3 tabindex=17><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard>&minus;</button>
-</td>
-<td id=Wizard-summary class="number tiny">
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Wizard-subtract size=3 tabindex=117><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard-subtract>&minus;</button>
-</td>
-<td id=quantity-Wizard-1 class=number></td>
-<td id=quantity-Wizard-2 class=number></td>
-<td id=quantity-Wizard-3 class=number></td>
-<td id=quantity-Wizard-4 class=number></td>
-</tr>
-<tr id=light-building-level-8>
-<td>
-<span class="object-icon __Healer" title=Healer></span>
-</td>
-<td class=tiny>
-<select id=Healer-level class=js-comp-level data-type=light>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4 selected>4</option>
-</select>
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Healer size=3 tabindex=18><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer>&minus;</button>
-</td>
-<td id=Healer-summary class="number tiny">
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Healer-subtract size=3 tabindex=118><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer-subtract>&minus;</button>
-</td>
-<td id=quantity-Healer-1 class=number></td>
-<td id=quantity-Healer-2 class=number></td>
-<td id=quantity-Healer-3 class=number></td>
-<td id=quantity-Healer-4 class=number></td>
-</tr>
-<tr id=light-building-level-9>
-<td>
-<span class="object-icon __Dragon" title=Dragon></span>
-</td>
-<td class=tiny>
-<select id=Dragon-level class=js-comp-level data-type=light>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4 selected>4</option>
-</select>
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Dragon size=3 tabindex=19><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon>&minus;</button>
-</td>
-<td id=Dragon-summary class="number tiny">
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Dragon-subtract size=3 tabindex=119><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon-subtract>&minus;</button>
-</td>
-<td id=quantity-Dragon-1 class=number></td>
-<td id=quantity-Dragon-2 class=number></td>
-<td id=quantity-Dragon-3 class=number></td>
-<td id=quantity-Dragon-4 class=number></td>
-</tr>
-<tr id=light-building-level-10>
-<td>
-<span class="object-icon __P-E-K-K-A-" title=P.E.K.K.A.></span>
-</td>
-<td class=tiny>
-<select id=P-E-K-K-A--level class=js-comp-level data-type=light>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4 selected>4</option>
-</select>
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=P-E-K-K-A- size=3 tabindex=20><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A->+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A->&minus;</button>
-</td>
-<td id=P-E-K-K-A--summary class="number tiny">
-</td>
-<td>
-<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=P-E-K-K-A--subtract size=3 tabindex=120><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A--subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A--subtract>&minus;</button>
-</td>
-<td id=quantity-P-E-K-K-A--1 class=number></td>
-<td id=quantity-P-E-K-K-A--2 class=number></td>
-<td id=quantity-P-E-K-K-A--3 class=number></td>
-<td id=quantity-P-E-K-K-A--4 class=number></td>
-</tr>
-</tbody>
+<table class="data data__buildings">
 <tfoot>
 <tr>
-<td colspan=2 class="tiny number">
-<label for=army-camps>Army Camps:</label>
+<td>
+Barracks <wbr>Levels
 </td>
-<td class=result>
-<span id=light-space class=text-middle></span><select id=army-camps class="js-comp-level small">
+<td class=small>
+<wbr><select id=light-level-1 class="js-comp-level data__building" data-num=1>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6>6</option>
+<option value=7>7</option>
+<option value=8>8</option>
+<option value=9>9</option>
+<option value=10 selected>10</option>
+</select>
+<wbr><select id=light-level-2 class="js-comp-level data__building" data-num=2>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6>6</option>
+<option value=7>7</option>
+<option value=8>8</option>
+<option value=9>9</option>
+<option value=10 selected>10</option>
+</select>
+<wbr><select id=light-level-3 class="js-comp-level data__building" data-num=3>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6>6</option>
+<option value=7>7</option>
+<option value=8>8</option>
+<option value=9>9</option>
+<option value=10 selected>10</option>
+</select>
+<wbr><select id=light-level-4 class="js-comp-level data__building" data-num=4>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6>6</option>
+<option value=7>7</option>
+<option value=8>8</option>
+<option value=9>9</option>
+<option value=10 selected>10</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+Dark Barracks <wbr>Levels
+</td>
+<td class=small>
+<wbr><select id=dark-level-1 class="js-comp-level data__building" data-num=1>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5 selected>5</option>
+</select>
+<wbr><select id=dark-level-2 class="js-comp-level data__building" data-num=2>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5 selected>5</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+Spell Factory <wbr>Level
+</td>
+<td class=small>
+<select id=spells-level class=js-comp-level>
+<option value=0>0</option>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5 selected>5</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>
+Army Camps <wbr>Troop Capacity
+</td>
+<td class=small>
+<select id=army-camps class=js-comp-level>
 <option value=20>20</option>
 <option value=30>30</option>
 <option value=40>40</option>
@@ -565,59 +200,450 @@ Training Capacity of the Barrack
 <option value=235>235</option>
 <option value=240 selected>240</option>
 </select>
-<span class="help-link js-help-link">
-<span class="help-link__content js-help-content">
-Total Troop Capacity of the Army Camps
-</span>
-</span>
 </td>
-<td id=light-cost class="number result"></td>
-<td id=light-subtracted-cost class=tiny></td>
-<td id=light-time-1 class=number></td>
-<td id=light-time-2 class=number></td>
-<td id=light-time-3 class=number></td>
-<td id=light-time-4 class=number></td>
 </tr>
 </tfoot>
 </table>
 </div>
+<div class=js-light-object>
+<h2 id=light-anchor>
+Barracks
+<span class="message message_negative message_after" style="display: none" id=light-exceeded>
+Exceeded training capacity of the Barracks
+</span>
+<div class="button-group button-group_switcher">
+<button class="button js-cols-switcher" data-type=light data-view=quantity>Quantity</button><button class="button js-cols-switcher" data-type=light data-view=subtract>Subtract</button><button class="button js-cols-switcher" data-type=light data-view=distribution>Distribution</button>
+</div>
+</h2>
 <div class=data-wrapper>
-<table class="data js-dark-object">
+<table class=data>
 <thead>
 <tr>
-<th colspan=5 class="data__top-cell data__top-cell_title" id=dark-anchor>
+<th><span class=data__object-title>Troop</span></th>
+<th class=js-col-light-level>Level</th>
+<th class="data__quantity-column js-col-light-quantity">
+<span class="tiny data__secondary-header">
+<span id=light-quantity class=text-middle></span>
+<span class="help-link js-help-link">
+<span class="help-link__content js-help-content">
+Available Space in the Army Camps
+</span>
+</span>
+</span>
+Quantity
+<br>
+<button class="button button_reset js-reset" data-reset=light data-scope=quantity>
+Reset
+</button>
+</th>
+<th class="data__total_column js-col-light-total">
+<span class=icon-elixir>Total</span>
+</th>
+<th class=js-col-light-subtract>
+Subtract
+<span class="help-link js-help-link">
+<span class="help-link__content js-help-content">
+Allows to “subtract” troops, which you already have.
+For example, you want to get
+100 Barbarians and 100 Archers.
+And you already have
+20 Barbarians.
+In the column “Quantity”, as usual, make
+100 Barbarians and 100 Archers.
+And in the column “Subtract”
+20 Barbarians.
+Now the distribution between the barracks are considered to be only for
+80 Barbarians and 100 Archers.
+This is very useful, when after the battle you have remained part of the army.<br>
+(Values from the “Subtract” columns not preserved between browser sessions nor saved
+when you add to favorites.)
+</span>
+</span>
+<br>
+<button class="button button_reset js-reset" data-reset=light data-scope=subtract>
+Reset
+</button>
+</th>
+<th class="data__building-info js-col-light-distribution">
+<span id=light-barrack-info-1>
+<span id=light-levelText-1></span>
+lvl
+<br>
+<label class=tiny>
+<input type=checkbox id=light-boosted-1 class="text-middle js-comp-boosted">
+<span class=text-middle>Boost</span><br>
+</label>
+<span class=tiny>
+<span class=text-middle>
+<span id=light-space-1></span>
+<span id=light-maxSpace-1></span>
+</span>
+<span class="help-link js-help-link">
+<span class="help-link__content js-help-content">
+Training Capacity of the Barrack
+</span>
+</span>
+</span>
+</span>
+</th>
+<th class="data__building-info js-col-light-distribution">
+<span id=light-barrack-info-2>
+<span id=light-levelText-2></span>
+lvl
+<br>
+<label class=tiny>
+<input type=checkbox id=light-boosted-2 class="text-middle js-comp-boosted">
+<span class=text-middle>Boost</span><br>
+</label>
+<span class=tiny>
+<span class=text-middle>
+<span id=light-space-2></span>
+<span id=light-maxSpace-2></span>
+</span>
+</span>
+</span>
+</th>
+<th class="data__building-info js-col-light-distribution">
+<span id=light-barrack-info-3>
+<span id=light-levelText-3></span>
+lvl
+<br>
+<label class=tiny>
+<input type=checkbox id=light-boosted-3 class="text-middle js-comp-boosted">
+<span class=text-middle>Boost</span><br>
+</label>
+<span class=tiny>
+<span class=text-middle>
+<span id=light-space-3></span>
+<span id=light-maxSpace-3></span>
+</span>
+</span>
+</span>
+</th>
+<th class="data__building-info js-col-light-distribution">
+<span id=light-barrack-info-4>
+<span id=light-levelText-4></span>
+lvl
+<br>
+<label class=tiny>
+<input type=checkbox id=light-boosted-4 class="text-middle js-comp-boosted">
+<span class=text-middle>Boost</span><br>
+</label>
+<span class=tiny>
+<span class=text-middle>
+<span id=light-space-4></span>
+<span id=light-maxSpace-4></span>
+</span>
+</span>
+</span>
+</th>
+</tr>
+</thead>
+<tbody class=object-light>
+<tr id=light-building-level-1>
+<td>
+<span class="object-icon __Barbarian" title=Barbarian></span>
+</td>
+<td class="tiny js-col-light-level">
+<select id=Barbarian-level class=js-comp-level data-type=light>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
+</select>
+</td>
+<td class=js-col-light-quantity>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Barbarian size=3 tabindex=11><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian>&minus;</button>
+</td>
+<td id=Barbarian-summary class="number tiny js-col-light-total">
+</td>
+<td class=js-col-light-subtract>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Barbarian-subtract size=3 tabindex=111><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Barbarian-subtract>&minus;</button>
+</td>
+<td id=quantity-Barbarian-1 class="number js-col-light-distribution"></td>
+<td id=quantity-Barbarian-2 class="number js-col-light-distribution"></td>
+<td id=quantity-Barbarian-3 class="number js-col-light-distribution"></td>
+<td id=quantity-Barbarian-4 class="number js-col-light-distribution"></td>
+</tr>
+<tr id=light-building-level-2>
+<td>
+<span class="object-icon __Archer" title=Archer></span>
+</td>
+<td class="tiny js-col-light-level">
+<select id=Archer-level class=js-comp-level data-type=light>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
+</select>
+</td>
+<td class=js-col-light-quantity>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Archer size=3 tabindex=12><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer>&minus;</button>
+</td>
+<td id=Archer-summary class="number tiny js-col-light-total">
+</td>
+<td class=js-col-light-subtract>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Archer-subtract size=3 tabindex=112><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Archer-subtract>&minus;</button>
+</td>
+<td id=quantity-Archer-1 class="number js-col-light-distribution"></td>
+<td id=quantity-Archer-2 class="number js-col-light-distribution"></td>
+<td id=quantity-Archer-3 class="number js-col-light-distribution"></td>
+<td id=quantity-Archer-4 class="number js-col-light-distribution"></td>
+</tr>
+<tr id=light-building-level-3>
+<td>
+<span class="object-icon __Goblin" title=Goblin></span>
+</td>
+<td class="tiny js-col-light-level">
+<select id=Goblin-level class=js-comp-level data-type=light>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
+</select>
+</td>
+<td class=js-col-light-quantity>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Goblin size=3 tabindex=13><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin>&minus;</button>
+</td>
+<td id=Goblin-summary class="number tiny js-col-light-total">
+</td>
+<td class=js-col-light-subtract>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Goblin-subtract size=3 tabindex=113><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Goblin-subtract>&minus;</button>
+</td>
+<td id=quantity-Goblin-1 class="number js-col-light-distribution"></td>
+<td id=quantity-Goblin-2 class="number js-col-light-distribution"></td>
+<td id=quantity-Goblin-3 class="number js-col-light-distribution"></td>
+<td id=quantity-Goblin-4 class="number js-col-light-distribution"></td>
+</tr>
+<tr id=light-building-level-4>
+<td>
+<span class="object-icon __Giant" title=Giant></span>
+</td>
+<td class="tiny js-col-light-level">
+<select id=Giant-level class=js-comp-level data-type=light>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
+</select>
+</td>
+<td class=js-col-light-quantity>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Giant size=3 tabindex=14><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant>&minus;</button>
+</td>
+<td id=Giant-summary class="number tiny js-col-light-total">
+</td>
+<td class=js-col-light-subtract>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Giant-subtract size=3 tabindex=114><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Giant-subtract>&minus;</button>
+</td>
+<td id=quantity-Giant-1 class="number js-col-light-distribution"></td>
+<td id=quantity-Giant-2 class="number js-col-light-distribution"></td>
+<td id=quantity-Giant-3 class="number js-col-light-distribution"></td>
+<td id=quantity-Giant-4 class="number js-col-light-distribution"></td>
+</tr>
+<tr id=light-building-level-5>
+<td>
+<span class="object-icon __Wall_Breaker" title="Wall Breaker"></span>
+</td>
+<td class="tiny js-col-light-level">
+<select id=Wall_Breaker-level class=js-comp-level data-type=light>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
+</select>
+</td>
+<td class=js-col-light-quantity>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Wall_Breaker size=3 tabindex=15><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker>&minus;</button>
+</td>
+<td id=Wall_Breaker-summary class="number tiny js-col-light-total">
+</td>
+<td class=js-col-light-subtract>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Wall_Breaker-subtract size=3 tabindex=115><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wall_Breaker-subtract>&minus;</button>
+</td>
+<td id=quantity-Wall_Breaker-1 class="number js-col-light-distribution"></td>
+<td id=quantity-Wall_Breaker-2 class="number js-col-light-distribution"></td>
+<td id=quantity-Wall_Breaker-3 class="number js-col-light-distribution"></td>
+<td id=quantity-Wall_Breaker-4 class="number js-col-light-distribution"></td>
+</tr>
+<tr id=light-building-level-6>
+<td>
+<span class="object-icon __Balloon" title=Balloon></span>
+</td>
+<td class="tiny js-col-light-level">
+<select id=Balloon-level class=js-comp-level data-type=light>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
+</select>
+</td>
+<td class=js-col-light-quantity>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Balloon size=3 tabindex=16><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon>&minus;</button>
+</td>
+<td id=Balloon-summary class="number tiny js-col-light-total">
+</td>
+<td class=js-col-light-subtract>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Balloon-subtract size=3 tabindex=116><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Balloon-subtract>&minus;</button>
+</td>
+<td id=quantity-Balloon-1 class="number js-col-light-distribution"></td>
+<td id=quantity-Balloon-2 class="number js-col-light-distribution"></td>
+<td id=quantity-Balloon-3 class="number js-col-light-distribution"></td>
+<td id=quantity-Balloon-4 class="number js-col-light-distribution"></td>
+</tr>
+<tr id=light-building-level-7>
+<td>
+<span class="object-icon __Wizard" title=Wizard></span>
+</td>
+<td class="tiny js-col-light-level">
+<select id=Wizard-level class=js-comp-level data-type=light>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4>4</option>
+<option value=5>5</option>
+<option value=6 selected>6</option>
+</select>
+</td>
+<td class=js-col-light-quantity>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Wizard size=3 tabindex=17><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard>&minus;</button>
+</td>
+<td id=Wizard-summary class="number tiny js-col-light-total">
+</td>
+<td class=js-col-light-subtract>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Wizard-subtract size=3 tabindex=117><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Wizard-subtract>&minus;</button>
+</td>
+<td id=quantity-Wizard-1 class="number js-col-light-distribution"></td>
+<td id=quantity-Wizard-2 class="number js-col-light-distribution"></td>
+<td id=quantity-Wizard-3 class="number js-col-light-distribution"></td>
+<td id=quantity-Wizard-4 class="number js-col-light-distribution"></td>
+</tr>
+<tr id=light-building-level-8>
+<td>
+<span class="object-icon __Healer" title=Healer></span>
+</td>
+<td class="tiny js-col-light-level">
+<select id=Healer-level class=js-comp-level data-type=light>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4 selected>4</option>
+</select>
+</td>
+<td class=js-col-light-quantity>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Healer size=3 tabindex=18><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer>&minus;</button>
+</td>
+<td id=Healer-summary class="number tiny js-col-light-total">
+</td>
+<td class=js-col-light-subtract>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Healer-subtract size=3 tabindex=118><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healer-subtract>&minus;</button>
+</td>
+<td id=quantity-Healer-1 class="number js-col-light-distribution"></td>
+<td id=quantity-Healer-2 class="number js-col-light-distribution"></td>
+<td id=quantity-Healer-3 class="number js-col-light-distribution"></td>
+<td id=quantity-Healer-4 class="number js-col-light-distribution"></td>
+</tr>
+<tr id=light-building-level-9>
+<td>
+<span class="object-icon __Dragon" title=Dragon></span>
+</td>
+<td class="tiny js-col-light-level">
+<select id=Dragon-level class=js-comp-level data-type=light>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4 selected>4</option>
+</select>
+</td>
+<td class=js-col-light-quantity>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=Dragon size=3 tabindex=19><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon>&minus;</button>
+</td>
+<td id=Dragon-summary class="number tiny js-col-light-total">
+</td>
+<td class=js-col-light-subtract>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=Dragon-subtract size=3 tabindex=119><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Dragon-subtract>&minus;</button>
+</td>
+<td id=quantity-Dragon-1 class="number js-col-light-distribution"></td>
+<td id=quantity-Dragon-2 class="number js-col-light-distribution"></td>
+<td id=quantity-Dragon-3 class="number js-col-light-distribution"></td>
+<td id=quantity-Dragon-4 class="number js-col-light-distribution"></td>
+</tr>
+<tr id=light-building-level-10>
+<td>
+<span class="object-icon __P-E-K-K-A-" title=P.E.K.K.A.></span>
+</td>
+<td class="tiny js-col-light-level">
+<select id=P-E-K-K-A--level class=js-comp-level data-type=light>
+<option value=1>1</option>
+<option value=2>2</option>
+<option value=3>3</option>
+<option value=4 selected>4</option>
+</select>
+</td>
+<td class=js-col-light-quantity>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-quantity" id=P-E-K-K-A- size=3 tabindex=20><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A->+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A->&minus;</button>
+</td>
+<td id=P-E-K-K-A--summary class="number tiny js-col-light-total">
+</td>
+<td class=js-col-light-subtract>
+<input pattern=[0-9]* data-type=light class="js-number js-comp-subtract" id=P-E-K-K-A--subtract size=3 tabindex=120><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A--subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=P-E-K-K-A--subtract>&minus;</button>
+</td>
+<td id=quantity-P-E-K-K-A--1 class="number js-col-light-distribution"></td>
+<td id=quantity-P-E-K-K-A--2 class="number js-col-light-distribution"></td>
+<td id=quantity-P-E-K-K-A--3 class="number js-col-light-distribution"></td>
+<td id=quantity-P-E-K-K-A--4 class="number js-col-light-distribution"></td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td></td>
+<td class=js-col-light-level></td>
+<td class="result js-col-light-quantity">
+<span id=light-space class=text-middle></span>
+<span class="help-link js-help-link">
+<span class="help-link__content js-help-content">
+</span>
+</span>
+</td>
+<td id=light-cost class="number result js-col-light-total"></td>
+<td id=light-subtracted-cost class="tiny js-col-light-subtract"></td>
+<td id=light-time-1 class="number js-col-light-distribution"></td>
+<td id=light-time-2 class="number js-col-light-distribution"></td>
+<td id=light-time-3 class="number js-col-light-distribution"></td>
+<td id=light-time-4 class="number js-col-light-distribution"></td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+<div class=js-dark-object>
+<h2 id=dark-anchor>
 Dark Barracks
 <span class="message message_negative message_after" style="display: none" id=dark-exceeded>
 Exceeded training capacity of the Dark Barracks
 </span>
-</th>
-<th class=data__top-cell>
-<select id=dark-level-1 class="js-comp-level text-middle" data-num=1>
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5 selected>5</option>
-</select>
-<span class=text-middle>lvl</span>
-</th>
-<th class=data__top-cell>
-<select id=dark-level-2 class="js-comp-level text-middle" data-num=2>
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5 selected>5</option>
-</select>
-<span class=text-middle>lvl</span>
-</th>
-</tr>
+<div class="button-group button-group_switcher">
+<button class="button js-cols-switcher" data-type=dark data-view=quantity>Quantity</button><button class="button js-cols-switcher" data-type=dark data-view=subtract>Subtract</button><button class="button js-cols-switcher" data-type=dark data-view=distribution>Distribution</button>
+</div>
+</h2>
+<div class=data-wrapper>
+<table class=data>
+<thead>
 <tr>
-<th>Troop</th>
-<th>Level</th>
-<th class=data__quantity-column>
+<th><span class=data__object-title>Troop</span></th>
+<th class=js-col-dark-level>Level</th>
+<th class="data__quantity-column js-col-dark-quantity">
 <span class="tiny data__secondary-header">
 <span id=dark-quantity class=text-middle></span>
 <span class="help-link js-help-link">
@@ -632,10 +658,10 @@ Quantity
 Reset
 </button>
 </th>
-<th class=data__total_column>
+<th class="data__total_column js-col-dark-total">
 <span class=icon-dark-elixir>Total</span>
 </th>
-<th>
+<th class=js-col-dark-subtract>
 Subtract
 <span class="help-link js-help-link">
 <span class="help-link__content js-help-content">
@@ -660,11 +686,14 @@ when you add to favorites.)
 Reset
 </button>
 </th>
-<th class=data__building-info>
+<th class="data__building-info js-col-dark-distribution">
 <span id=dark-barrack-info-1>
-<label>
+<span id=dark-levelText-1></span>
+lvl
+<br>
+<label class=tiny>
 <input type=checkbox id=dark-boosted-1 class="text-middle js-comp-boosted">
-<span class=text-middle>Boosted</span><br>
+<span class=text-middle>Boost</span><br>
 </label>
 <span class=tiny>
 <span class=text-middle>
@@ -679,21 +708,19 @@ Training Capacity of the Dark Barrack
 </span>
 </span>
 </th>
-<th class=data__building-info>
+<th class="data__building-info js-col-dark-distribution">
 <span id=dark-barrack-info-2>
-<label>
+<span id=dark-levelText-2></span>
+lvl
+<br>
+<label class=tiny>
 <input type=checkbox id=dark-boosted-2 class="text-middle js-comp-boosted">
-<span class=text-middle>Boosted</span><br>
+<span class=text-middle>Boost</span><br>
 </label>
 <span class=tiny>
 <span class=text-middle>
 <span id=dark-space-2></span>
 <span id=dark-maxSpace-2></span>
-</span>
-<span class="help-link js-help-link">
-<span class="help-link__content js-help-content">
-Training Capacity of the Dark Barrack
-</span>
 </span>
 </span>
 </span>
@@ -705,7 +732,7 @@ Training Capacity of the Dark Barrack
 <td>
 <span class="object-icon __Minion" title=Minion></span>
 </td>
-<td class=tiny>
+<td class="tiny js-col-dark-level">
 <select id=Minion-level class=js-comp-level data-type=dark>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -715,22 +742,22 @@ Training Capacity of the Dark Barrack
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=js-col-dark-quantity>
 <input pattern=[0-9]* data-type=dark class="js-number js-comp-quantity" id=Minion size=3 tabindex=21><button class="button button_spinner js-spinner" tabindex=-1 data-for=Minion>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Minion>&minus;</button>
 </td>
-<td id=Minion-summary class="number tiny">
+<td id=Minion-summary class="number tiny js-col-dark-total">
 </td>
-<td>
+<td class=js-col-dark-subtract>
 <input pattern=[0-9]* data-type=dark class="js-number js-comp-subtract" id=Minion-subtract size=3 tabindex=121><button class="button button_spinner js-spinner" tabindex=-1 data-for=Minion-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Minion-subtract>&minus;</button>
 </td>
-<td id=quantity-Minion-1 class=number></td>
-<td id=quantity-Minion-2 class=number></td>
+<td id=quantity-Minion-1 class="number js-col-dark-distribution"></td>
+<td id=quantity-Minion-2 class="number js-col-dark-distribution"></td>
 </tr>
 <tr id=dark-building-level-2>
 <td>
 <span class="object-icon __Hog_Rider" title="Hog Rider"></span>
 </td>
-<td class=tiny>
+<td class="tiny js-col-dark-level">
 <select id=Hog_Rider-level class=js-comp-level data-type=dark>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -739,22 +766,22 @@ Training Capacity of the Dark Barrack
 <option value=5 selected>5</option>
 </select>
 </td>
-<td>
+<td class=js-col-dark-quantity>
 <input pattern=[0-9]* data-type=dark class="js-number js-comp-quantity" id=Hog_Rider size=3 tabindex=22><button class="button button_spinner js-spinner" tabindex=-1 data-for=Hog_Rider>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Hog_Rider>&minus;</button>
 </td>
-<td id=Hog_Rider-summary class="number tiny">
+<td id=Hog_Rider-summary class="number tiny js-col-dark-total">
 </td>
-<td>
+<td class=js-col-dark-subtract>
 <input pattern=[0-9]* data-type=dark class="js-number js-comp-subtract" id=Hog_Rider-subtract size=3 tabindex=122><button class="button button_spinner js-spinner" tabindex=-1 data-for=Hog_Rider-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Hog_Rider-subtract>&minus;</button>
 </td>
-<td id=quantity-Hog_Rider-1 class=number></td>
-<td id=quantity-Hog_Rider-2 class=number></td>
+<td id=quantity-Hog_Rider-1 class="number js-col-dark-distribution"></td>
+<td id=quantity-Hog_Rider-2 class="number js-col-dark-distribution"></td>
 </tr>
 <tr id=dark-building-level-3>
 <td>
 <span class="object-icon __Valkyrie" title=Valkyrie></span>
 </td>
-<td class=tiny>
+<td class="tiny js-col-dark-level">
 <select id=Valkyrie-level class=js-comp-level data-type=dark>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -762,22 +789,22 @@ Training Capacity of the Dark Barrack
 <option value=4 selected>4</option>
 </select>
 </td>
-<td>
+<td class=js-col-dark-quantity>
 <input pattern=[0-9]* data-type=dark class="js-number js-comp-quantity" id=Valkyrie size=3 tabindex=23><button class="button button_spinner js-spinner" tabindex=-1 data-for=Valkyrie>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Valkyrie>&minus;</button>
 </td>
-<td id=Valkyrie-summary class="number tiny">
+<td id=Valkyrie-summary class="number tiny js-col-dark-total">
 </td>
-<td>
+<td class=js-col-dark-subtract>
 <input pattern=[0-9]* data-type=dark class="js-number js-comp-subtract" id=Valkyrie-subtract size=3 tabindex=123><button class="button button_spinner js-spinner" tabindex=-1 data-for=Valkyrie-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Valkyrie-subtract>&minus;</button>
 </td>
-<td id=quantity-Valkyrie-1 class=number></td>
-<td id=quantity-Valkyrie-2 class=number></td>
+<td id=quantity-Valkyrie-1 class="number js-col-dark-distribution"></td>
+<td id=quantity-Valkyrie-2 class="number js-col-dark-distribution"></td>
 </tr>
 <tr id=dark-building-level-4>
 <td>
 <span class="object-icon __Golem" title=Golem></span>
 </td>
-<td class=tiny>
+<td class="tiny js-col-dark-level">
 <select id=Golem-level class=js-comp-level data-type=dark>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -786,44 +813,44 @@ Training Capacity of the Dark Barrack
 <option value=5 selected>5</option>
 </select>
 </td>
-<td>
+<td class=js-col-dark-quantity>
 <input pattern=[0-9]* data-type=dark class="js-number js-comp-quantity" id=Golem size=3 tabindex=24><button class="button button_spinner js-spinner" tabindex=-1 data-for=Golem>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Golem>&minus;</button>
 </td>
-<td id=Golem-summary class="number tiny">
+<td id=Golem-summary class="number tiny js-col-dark-total">
 </td>
-<td>
+<td class=js-col-dark-subtract>
 <input pattern=[0-9]* data-type=dark class="js-number js-comp-subtract" id=Golem-subtract size=3 tabindex=124><button class="button button_spinner js-spinner" tabindex=-1 data-for=Golem-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Golem-subtract>&minus;</button>
 </td>
-<td id=quantity-Golem-1 class=number></td>
-<td id=quantity-Golem-2 class=number></td>
+<td id=quantity-Golem-1 class="number js-col-dark-distribution"></td>
+<td id=quantity-Golem-2 class="number js-col-dark-distribution"></td>
 </tr>
 <tr id=dark-building-level-5>
 <td>
 <span class="object-icon __Witch" title=Witch></span>
 </td>
-<td class=tiny>
+<td class="tiny js-col-dark-level">
 <select id=Witch-level class=js-comp-level data-type=dark>
 <option value=1>1</option>
 <option value=2 selected>2</option>
 </select>
 </td>
-<td>
+<td class=js-col-dark-quantity>
 <input pattern=[0-9]* data-type=dark class="js-number js-comp-quantity" id=Witch size=3 tabindex=25><button class="button button_spinner js-spinner" tabindex=-1 data-for=Witch>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Witch>&minus;</button>
 </td>
-<td id=Witch-summary class="number tiny">
+<td id=Witch-summary class="number tiny js-col-dark-total">
 </td>
-<td>
+<td class=js-col-dark-subtract>
 <input pattern=[0-9]* data-type=dark class="js-number js-comp-subtract" id=Witch-subtract size=3 tabindex=125><button class="button button_spinner js-spinner" tabindex=-1 data-for=Witch-subtract>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Witch-subtract>&minus;</button>
 </td>
-<td id=quantity-Witch-1 class=number></td>
-<td id=quantity-Witch-2 class=number></td>
+<td id=quantity-Witch-1 class="number js-col-dark-distribution"></td>
+<td id=quantity-Witch-2 class="number js-col-dark-distribution"></td>
 </tr>
 </tbody>
 <tfoot>
 <tr>
 <td></td>
-<td></td>
-<td class=result>
+<td class=js-col-dark-level></td>
+<td class="result js-col-dark-quantity">
 <span id=dark-space class=text-middle></span>
 <span class="help-link js-help-link">
 <span class="help-link__content js-help-content">
@@ -831,37 +858,30 @@ Total Troop Capacity of the Army Camps
 </span>
 </span>
 </td>
-<td id=dark-cost class="number result"></td>
-<td id=dark-subtracted-cost class=tiny></td>
-<td id=dark-time-1 class=number></td>
-<td id=dark-time-2 class=number></td>
+<td id=dark-cost class="number result js-col-dark-total"></td>
+<td id=dark-subtracted-cost class="tiny js-col-dark-subtract"></td>
+<td id=dark-time-1 class="number js-col-dark-distribution"></td>
+<td id=dark-time-2 class="number js-col-dark-distribution"></td>
 </tr>
 </tfoot>
 </table>
 </div>
+</div>
+<div class=js-spells-object>
+<h2 id=spells-anchor>
+Spell Factory
+<label id=spells-boosted-wrapper class=data__setting>
+<input type=checkbox id=spells-boosted class="text-middle js-comp-boosted">
+<span class=text-middle>Boost</span>
+</label>
+</h2>
 <div class=data-wrapper>
-<table class="data js-spells-object">
+<table class=data>
 <thead>
 <tr>
-<th colspan=4 class="data__top-cell data__top-cell_title" id=spells-anchor>
-Spell Factory
-</th>
-<th class=data__top-cell>
-<select id=spells-level class=js-comp-level>
-<option value=0>0</option>
-<option value=1>1</option>
-<option value=2>2</option>
-<option value=3>3</option>
-<option value=4>4</option>
-<option value=5 selected>5</option>
-</select>
-<span class=text-middle>lvl</span>
-</th>
-</tr>
-<tr>
-<th>Spell</th>
-<th>Level</th>
-<th class=data__quantity-column>
+<th><span class=data__object-title>Spell</span></th>
+<th class=js-col-spells-level>Level</th>
+<th class="data__quantity-column js-col-spells-quantity">
 <span class="tiny data__secondary-header">
 <span id=spells-quantity class=text-middle></span>
 <span class="help-link js-help-link">
@@ -876,14 +896,8 @@ Quantity
 Reset
 </button>
 </th>
-<th class=data__total_column>
+<th class="data__total_column js-col-spells-total">
 <span class=icon-elixir>Total</span>
-</th>
-<th class=data__building-info>
-<label id=spells-boosted-wrapper>
-<input type=checkbox id=spells-boosted class="text-middle js-comp-boosted">
-<span class=text-middle>Boosted</span><br>
-</label>
 </th>
 </tr>
 </thead>
@@ -893,7 +907,7 @@ Reset
 <span class="object-icon __Lightning"></span>
 <span class=object-text>Lightning</span>
 </td>
-<td class=tiny>
+<td class="tiny js-col-spells-level">
 <select id=Lightning-level class=js-comp-level data-type=spells>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -903,19 +917,18 @@ Reset
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=js-col-spells-quantity>
 <input pattern=[0-9]* data-type=spells class="js-number js-comp-quantity" id=Lightning size=3 tabindex=31><button class="button button_spinner js-spinner" tabindex=-1 data-for=Lightning>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Lightning>&minus;</button>
 </td>
-<td id=Lightning-summary class="number tiny">
+<td id=Lightning-summary class="number tiny js-col-spells-total">
 </td>
-<td></td>
 </tr>
 <tr id=spells-building-level-2>
 <td>
 <span class="object-icon __Healing"></span>
 <span class=object-text>Healing</span>
 </td>
-<td class=tiny>
+<td class="tiny js-col-spells-level">
 <select id=Healing-level class=js-comp-level data-type=spells>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -925,19 +938,18 @@ Reset
 <option value=6 selected>6</option>
 </select>
 </td>
-<td>
+<td class=js-col-spells-quantity>
 <input pattern=[0-9]* data-type=spells class="js-number js-comp-quantity" id=Healing size=3 tabindex=32><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healing>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Healing>&minus;</button>
 </td>
-<td id=Healing-summary class="number tiny">
+<td id=Healing-summary class="number tiny js-col-spells-total">
 </td>
-<td></td>
 </tr>
 <tr id=spells-building-level-3>
 <td>
 <span class="object-icon __Rage"></span>
 <span class=object-text>Rage</span>
 </td>
-<td class=tiny>
+<td class="tiny js-col-spells-level">
 <select id=Rage-level class=js-comp-level data-type=spells>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -946,37 +958,35 @@ Reset
 <option value=5 selected>5</option>
 </select>
 </td>
-<td>
+<td class=js-col-spells-quantity>
 <input pattern=[0-9]* data-type=spells class="js-number js-comp-quantity" id=Rage size=3 tabindex=33><button class="button button_spinner js-spinner" tabindex=-1 data-for=Rage>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Rage>&minus;</button>
 </td>
-<td id=Rage-summary class="number tiny">
+<td id=Rage-summary class="number tiny js-col-spells-total">
 </td>
-<td></td>
 </tr>
 <tr id=spells-building-level-4>
 <td>
 <span class="object-icon __Jump"></span>
 <span class=object-text>Jump</span>
 </td>
-<td class=tiny>
+<td class="tiny js-col-spells-level">
 <select id=Jump-level class=js-comp-level data-type=spells>
 <option value=1>1</option>
 <option value=2 selected>2</option>
 </select>
 </td>
-<td>
+<td class=js-col-spells-quantity>
 <input pattern=[0-9]* data-type=spells class="js-number js-comp-quantity" id=Jump size=3 tabindex=34><button class="button button_spinner js-spinner" tabindex=-1 data-for=Jump>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Jump>&minus;</button>
 </td>
-<td id=Jump-summary class="number tiny">
+<td id=Jump-summary class="number tiny js-col-spells-total">
 </td>
-<td></td>
 </tr>
 <tr id=spells-building-level-5>
 <td>
 <span class="object-icon __Freeze"></span>
 <span class=object-text>Freeze</span>
 </td>
-<td class=tiny>
+<td class="tiny js-col-spells-level">
 <select id=Freeze-level class=js-comp-level data-type=spells>
 <option value=1>1</option>
 <option value=2>2</option>
@@ -985,19 +995,19 @@ Reset
 <option value=5 selected>5</option>
 </select>
 </td>
-<td>
+<td class=js-col-spells-quantity>
 <input pattern=[0-9]* data-type=spells class="js-number js-comp-quantity" id=Freeze size=3 tabindex=35><button class="button button_spinner js-spinner" tabindex=-1 data-for=Freeze>+</button><button class="button button_spinner js-spinner" tabindex=-1 data-for=Freeze>&minus;</button>
 </td>
-<td id=Freeze-summary class="number tiny">
+<td id=Freeze-summary class="number tiny js-col-spells-total">
 </td>
-<td></td>
 </tr>
 </tbody>
 <tfoot>
 <tr>
 <td></td>
-<td></td>
-<td class=result>
+<td class=js-col-spells-level></td>
+<td class="result js-col-spells-quantity">
+<span id=spells-time class=data__time></span>
 <span id=spells-space class=text-middle></span>
 <span class="help-link js-help-link">
 <span class="help-link__content js-help-content">
@@ -1005,8 +1015,7 @@ Spell Capacity
 </span>
 </span>
 </td>
-<td id=spells-cost class="number result"></td>
-<td class="result number" id=spells-time></td>
+<td id=spells-cost class="number result js-col-spells-total"></td>
 </tr>
 <tr>
 <td></td>
@@ -1014,10 +1023,10 @@ Spell Capacity
 Grand Total with Barracks:
 </td>
 <td class="tiny result number" id=grand-total></td>
-<td></td>
 </tr>
 </tfoot>
 </table>
+</div>
 </div>
 <div class=js-share>
 <h2 id=share-anchor>Share Army Composition</h2>

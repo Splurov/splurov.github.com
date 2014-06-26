@@ -19,7 +19,7 @@ part('calculateCurrent', [
         if (totalSpace > maxSpace) {
             space = '<span class="limit-exceeded">' + totalSpace + '</span>';
         }
-        space = space + '&thinsp;/&thinsp;' + (type === 'light' ? '': maxSpace);
+        space = space + '&thinsp;/&thinsp;' + maxSpace;
         dom.updater.defer(type + '-space', 'html', space);
 
     };

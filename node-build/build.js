@@ -172,7 +172,7 @@ var setItemRowsTemplates = function(vars) {
                 var i = 0;
                 basicInfo.barracks = [];
                 while (++i <= types.buildings[type].count) {
-                    var barrack = {'index': i, 'options': []};
+                    var barrack = {'index': i, 'options': [], 'isFirst': (i === 1)};
                     var j = -1;
                     while (++j <= types.buildings[type].maxLevel) {
                         if (i === 1 && j === 0 && types.buildings[type].firstRequired) {

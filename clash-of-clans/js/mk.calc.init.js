@@ -67,9 +67,11 @@ part([
                         header = barrackData.queue[level];
                     }
                     dom.updater.instantly(type + '-maxSpace-' + params.index, 'text', header);
+                    dom.updater.instantly(type + '-levelText-' + params.index, 'text', level);
 
                     dom.updater.instantly(type + '-barrack-info-' + params.index, 'display',
                                           (level === 0 ? 'none' : ''));
+
                 }
             });
 

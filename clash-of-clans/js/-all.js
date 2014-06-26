@@ -10,6 +10,7 @@
 /* build:js:js/parts/converter.js */
 /* build:js:js/parts/types.js */
 /* build:js:js/parts/storage.js */
+/* build:js:js/parts/cols-switcher.js */
 /* build:js:js/parts/calculate.js */
 /* build:js:js/parts/calculateCurrent.js */
 /* build:js:js/parts/collection.js */

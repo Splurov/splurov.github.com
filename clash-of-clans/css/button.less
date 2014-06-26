@@ -22,7 +22,7 @@
         background-image: linear-gradient(#fcfcfc, #e0e0e0);
         text-decoration: none;
     }
-    .button:active, .not-mobile .button:focus {
+    .button:active, .not-mobile .button:focus, .button_selected {
         color: #444;
         background: #e3e3e3;
         text-decoration: none;
@@ -87,6 +87,9 @@
     }
 
     .button-group_menu {
+        @media @mobile-media-query {
+            display: none;
+        }
     }
         .button-group_menu-fixed {
             position: fixed;
@@ -110,3 +113,14 @@
         .button-group_settings .button {
             padding: 4px 9px;
         }
+
+    .button-group_switcher {
+        display: none;
+
+        @media @mobile-media-query {
+            margin-top: 5px;
+            display: block;
+
+            .font-size('tiny');
+        }
+    }
