@@ -6,6 +6,23 @@
     font-weight: normal;
 
     .font-size('small');
+
+    @media @mobile-media-query {
+        display: block;
+
+        margin-left: -@mobile-page-indent;
+        margin-right: -@mobile-page-indent;
+
+        margin-top: 5px;
+        margin-bottom: 10px;
+
+        padding-left: @mobile-page-indent;
+        padding-right: @mobile-page-indent;
+
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+    }
 }
     .not-mobile .message_closeable {
         cursor: pointer;
@@ -24,4 +41,8 @@
 
     .message_centered {
         text-align: center;
+
+        @media @mobile-media-query {
+            text-align: left;
+        }
     }

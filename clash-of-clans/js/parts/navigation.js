@@ -36,7 +36,7 @@ part('navigation', [
         moveMenu();
     } else {
         globalScrollOffset = (menuHeight - 10);
-        document.body.style.paddingTop = (menuHeight - 10) + 'px';
+        document.body.style.paddingTop = (menuHeight - 15) + 'px';
         menuEl.classList.add('menu_fixed');
     }
 
