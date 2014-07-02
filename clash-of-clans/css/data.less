@@ -70,6 +70,13 @@
 
         @media @mobile-media-query {
             font-size: @font-size-tiny-mobile;
+
+            td:last-child {
+                padding-right: 4px;
+                padding-left: 3px;
+                white-space: nowrap;
+            }
+
         }
 
         td, th {
@@ -80,7 +87,7 @@
             margin-right: 8px;
 
             @media @mobile-media-query {
-                margin-right: 4px;
+                margin-right: 0;
             }
         }
     }

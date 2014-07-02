@@ -6,12 +6,12 @@ part('navigation', [
 
     var globalScrollOffset = 15;
 
-    var menuEl = dom.id('menu');
-    var menuHeight = menuEl.offsetHeight;
     if (!window.mkIsSmallScreen) {
         var FIXED_TOP_PADDING = 12;
         var FIXED_BOTTOM_PADDING = 15;
 
+        var menuEl = dom.id('menu');
+        var menuHeight = menuEl.offsetHeight;
         globalScrollOffset += menuHeight + FIXED_TOP_PADDING + FIXED_BOTTOM_PADDING;
         dom.id('menu-wrapper').style.height = menuHeight + 'px';
 
@@ -34,10 +34,6 @@ part('navigation', [
         dom.listen(window, 'scroll', moveMenu);
 
         moveMenu();
-    } else {
-        globalScrollOffset = (menuHeight - 10);
-        document.body.style.paddingTop = (menuHeight - 15) + 'px';
-        menuEl.classList.add('menu_fixed');
     }
 
     var smoothScroll = function(el, callback) {
