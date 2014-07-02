@@ -437,7 +437,8 @@ Object.keys(sources).forEach(function(file) {
                 'removeOptionalTags': false,
                 'removeEmptyElements': false,
                 'removeScriptTypeAttributes': true,
-                'removeStyleLinkTypeAttributes': true
+                'removeStyleLinkTypeAttributes': true,
+                'ignoreCustomComments': [/license/]
             });
 
             dataDest = dataDest.replace(/^\s+/gm, '');
