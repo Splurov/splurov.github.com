@@ -30,33 +30,13 @@ part('converter', [
         });
     };
 
-    if (localStorage.getItem('data3') && !localStorage.getItem('data4')) {
-        var parts3 = JSON.parse(localStorage.getItem('data3'));
-        parts3.forEach(function(part, partIndex) {
-            oldConvert3to4(part);
-        });
-
-        localStorage.setItem('data4', JSON.stringify(parts3));
-
-        goal.reach('CONVERTED3TO4');
-    }
-
-    if (localStorage.getItem('data4') && !localStorage.getItem('data5')) {
-        var parts4 = JSON.parse(localStorage.getItem('data4'));
-        parts4.forEach(oldConvert4to5);
-
-        localStorage.setItem('data5', JSON.stringify(parts4));
-
-        goal.reach('CONVERTED4TO5');
-    }
-
     ['savedData', 'savedCalculations', 'data', 'data2', 'data3', 'data4', 'settingsMode'].forEach(function(key) {
         localStorage.removeItem(key);
     });
 
     return {
         'oldConvert3to4': oldConvert3to4,
-        'oldConvert4to5': oldConvert4to5,
+        'oldConvert4to5': oldConvert4to5
     };
 
 });
