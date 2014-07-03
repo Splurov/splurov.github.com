@@ -1,5 +1,14 @@
 [
     [
+        "5.3",
+        "3 July, 2014",
+        [
+            "P.E.K.K.A level 5",
+            "Jump Spell level 3",
+            "Reduced training cost for P.E.K.K.A level 3 and 4"
+        ]
+    ],
+    [
         "5.2",
         "20 May, 2014",
         [
@@ -245,7 +254,7 @@
         "17 June, 2013",
         [
             "Freeze spell, level 6 Lighting and Heal spells",
-            "P.E.K.K.A. level 4",
+            "P.E.K.K.A level 4",
             "Army Camps maximum capacity increased to 240 troops"
         ],
         "Game version 4.53 updates:"
@@ -442,8 +451,8 @@
         "12 March, 2013",
         [
             "Wall Breaker capacity increased from 1 to 2",
-            "P.E.K.K.A. training time reduced from 1 hour to 45 minutes",
-            "P.E.K.K.A. and Dragon costs reduced"
+            "P.E.K.K.A training time reduced from 1 hour to 45 minutes",
+            "P.E.K.K.A and Dragon costs reduced"
         ],
         "Game version 3.54 updates:"
     ],

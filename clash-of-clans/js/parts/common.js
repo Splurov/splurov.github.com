@@ -20,7 +20,11 @@ part('common', function() {
         },
 
         'convertToTitle': function(s) {
-            return s.replace('_', ' ').replace(/-/g, '.');
+            var converted = s.replace('_', ' ').replace(/-/g, '.');
+            if (converted[converted.length - 1] === '.') {
+                return converted.slice(0, -1);
+            }
+            return converted;
         },
 
         'getFormattedTime': function(time, hideSeconds) {
