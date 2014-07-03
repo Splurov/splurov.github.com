@@ -1,8 +1,9 @@
 var ya_metrika_noscript = '<noscript><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px"/></noscript>';
 
+var clash_calc = 'Clash Calc';
 var clash_of_clans = 'Clash of Clans';
-var coc_calc_title = 'Clash Calc — ' + clash_of_clans + ' Troops and Spells Cost Calculator/Time Planner';
-var coc_calc_seo_title = clash_of_clans + ' Troops and Spells Cost Calculator/Time Planner — Clash Calc';
+var coc_calc_title = clash_calc + ' — ' + clash_of_clans + ' Troops and Spells Cost Calculator/Time Planner';
+var coc_calc_seo_title = clash_of_clans + ' Troops and Spells Cost Calculator/Time Planner — ' + clash_calc;
 
 module.exports = {
     'lang': ['ru', 'en'],
@@ -53,6 +54,7 @@ module.exports = {
 
     'coc_title': ['', coc_calc_title],
     'coc_seo_title': ['', coc_calc_seo_title],
-    'coc_title_web_clip': ['', 'Clash Calc'],
+    'coc_title_web_clip': ['', clash_calc],
+    'clash_calc': ['', clash_calc],
     'coc_description': ['', 'Helps to plan the composition of your army, optimize the distribution of troops between barracks for the optimal training time and calculate the cost of the attack in order to remain in plus, after the battle.']
 };
