@@ -1,10 +1,8 @@
 part('dom', function() {
     'use strict';
 
-    var touchSupported = ('ontouchstart' in window);
-
     var registerUniversalClick = function(target, listener) {
-        if (touchSupported) {
+        if (window.mkSupport.touch) {
             var tapping;
 
             target.addEventListener('touchstart', function() {

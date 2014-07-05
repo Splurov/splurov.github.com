@@ -124,26 +124,7 @@ part([
     };
 
 
-    var touchSupported = ('ontouchstart' in window);
-
-    if (!window.mkIsMobile || !touchSupported) {
-        dom.listen(document.body, 'mousedown', function(e) {
-            e.identifier = 'mouse';
-            activeItems.start([e]);
-        });
-
-        dom.listen(document.body, 'mousemove', function(e) {
-            e.identifier = 'mouse';
-            activeItems.move([e]);
-        });
-
-        dom.listen(document.body, 'mouseup', function(e) {
-            e.identifier = 'mouse';
-            activeItems.end([e]);
-        });
-    }
-
-    if (touchSupported) {
+    if (window.mkSupport.touch) {
         var preventTimeStamp = 0;
         dom.listen(document.body, 'touchstart', function(e) {
             if (activeItems.start(e.changedTouches)) {
@@ -164,6 +145,21 @@ part([
             dom.listen(document.body, eventName, function(e) {
                 activeItems.end(e.changedTouches);
             });
+        });
+    } else {
+        dom.listen(document.body, 'mousedown', function(e) {
+            e.identifier = 'mouse';
+            activeItems.start([e]);
+        });
+
+        dom.listen(document.body, 'mousemove', function(e) {
+            e.identifier = 'mouse';
+            activeItems.move([e]);
+        });
+
+        dom.listen(document.body, 'mouseup', function(e) {
+            e.identifier = 'mouse';
+            activeItems.end([e]);
         });
     }
 

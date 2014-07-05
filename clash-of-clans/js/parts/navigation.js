@@ -7,7 +7,8 @@ part('navigation', [
 
     var globalScrollOffset = 15;
 
-    if (!window.mkIsMobile) {
+
+    if (!window.mkSupport.mobile) {
         var FIXED_TOP_PADDING = 12;
         var FIXED_BOTTOM_PADDING = 15;
 

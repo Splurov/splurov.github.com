@@ -6,7 +6,7 @@ part([
 
     'use strict';
 
-    if (!window.mkIsSmallScreen) {
+    if (!window.matchMedia('(max-width: 640px)').matches) {
         return;
     }
 

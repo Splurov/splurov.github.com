@@ -8,6 +8,8 @@
     user-select: none;
     font-weight: normal;
     margin: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 
     .font-size('small');
 }
@@ -15,14 +17,11 @@
         color: #444;
         text-decoration: none;
     }
-    .not-mobile .button {
-        cursor: pointer;
-    }
-    .not-mobile .button:hover {
+    .ns-mobile .button:hover {
         background-image: linear-gradient(#fcfcfc, #e0e0e0);
         text-decoration: none;
     }
-    .button:active, .not-mobile .button:focus, .button_selected {
+    .button:active, .button:focus, .button_selected {
         color: #444;
         background: #e3e3e3;
         text-decoration: none;
@@ -45,10 +44,10 @@
         padding-bottom: 4px;
         background-image: linear-gradient(#fcfcff, #ececff);
     }
-    .not-mobile .button_social:hover {
+    .ns-mobile .button_social:hover {
         background-image: linear-gradient(#fcfcff, #e0e0ff);
     }
-    .button_social:active, .not-mobile .button_social:focus {
+    .button_social:active, .button_social:focus {
         background: #e3e3ff;
     }
 
@@ -59,7 +58,7 @@
         margin-left: 7px;
         vertical-align: middle;
     }
-    .mobile .button_spinner {
+    .s-touch .button_spinner {
         padding: 5px 9px 6px;
         margin-left: 12px;
         font-size: inherit;
