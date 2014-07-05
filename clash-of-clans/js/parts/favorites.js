@@ -22,10 +22,10 @@ part('favorites', [
     var loadHandler = function(e) {
         goal.reach('LOAD_SAVED');
 
-        var dataToLoad = common.objectCopy(
-            storage.all[e.currentTarget.getAttribute('data-num')].getAll()
-        );
+        var index = parseInt(e.currentTarget.getAttribute('data-num'), 10);
+        var dataToLoad = common.objectCopy(storage.all[index].getAll());
         storage.current = new common.Dict(dataToLoad);
+        storage.current.set('favorite-title', '');
 
         dom.triggerCustom('storageUpdated');
         calculateCurrent('all');
@@ -37,7 +37,7 @@ part('favorites', [
     var deleteHandler = function(e) {
         goal.reach('DELETE_SAVED');
 
-        var index = e.currentTarget.getAttribute('data-num');
+        var index = parseInt(e.currentTarget.getAttribute('data-num'), 10);
 
         var el = content.querySelector('.js-favorite[data-num="' + index + '"]');
         dom.listen(el, 'transitionend', function() {
@@ -64,6 +64,12 @@ part('favorites', [
         e.currentTarget.classList.remove('favorite_added');
     };
 
+    var saveTitle = function(e) {
+        var index = parseInt(e.currentTarget.getAttribute('data-num'), 10);
+        storage.all[index].set('favorite-title', e.currentTarget.value);
+        storage.save();
+    };
+
     var addListeners = function(el, isRoot) {
         dom.find('.js-favorite-load', el).listen('universalClick', loadHandler);
         dom.find('.js-favorite-delete', el).listen('universalClick', deleteHandler);
@@ -72,6 +78,8 @@ part('favorites', [
         } else {
             dom.find('.js-favorite', el).listen('animationend', animationEndHandler);
         }
+
+        dom.find('.js-favorite-title', el).listen('input', saveTitle);
     };
 
     var favoritesCreateItem = function(data, index) {
@@ -80,6 +88,7 @@ part('favorites', [
         }
         var templateVars = {
             'index': index,
+            'title': data.get('favorite-title', ''),
             'types': []
         };
 
@@ -159,7 +168,7 @@ part('favorites', [
     var add = function() {
         var output = {};
 
-        var sourceData = storage.getRaw();
+        var sourceData = storage.getForDiff();
         if (sourceData[0]) {
             var currentJSON = JSON.stringify(sourceData[0]);
             var sdIndex = 0;
@@ -208,9 +217,7 @@ part('favorites', [
         addListeners(content);
     }, 0);
 
-    var favoritesCount = storage.all.length;
-
-    window.yandexMetrikaParams.favoritesCount = (favoritesCount ? favoritesCount - 1 : 0).toString();
+    window.yandexMetrikaParams.favoritesCount = (storage.all.length ? storage.all.length - 1 : 0).toString();
 
     return {
         'addBeforeShare': function() {

@@ -208,12 +208,12 @@ part('calculate', [
     var calculateItems = function(type, params) {
         var levelValue;
         if (type === 'spells') {
-            levelValue = params.storage.get('spells-level');
+            levelValue = params.storage.get('spells-level', 0);
         } else {
             var levels = [];
             var i = 0;
             while (++i <= types.buildings[type].count) {
-                levels.push(params.storage.get(type + '-level-' + i));
+                levels.push(params.storage.get(type + '-level-' + i, 0));
             }
             levelValue = Math.max.apply(null, levels);
         }
@@ -244,7 +244,7 @@ part('calculate', [
             var name = value[5];
 
             var quantity = params.storage.get(name, 0);
-            var level = params.storage.get(name + '-level');
+            var level = params.storage.get(name + '-level', 0);
             var costPerItem = value[1][level];
             var summaryCost = (costPerItem * quantity);
 
@@ -352,7 +352,7 @@ part('calculate', [
             'params': params
         };
 
-        result.armyCampsSpace = params.storage.get('army-camps');
+        result.armyCampsSpace = params.storage.get('army-camps', 0);
 
         ['light', 'dark', 'spells'].forEach(function(type) {
             var capLevel;

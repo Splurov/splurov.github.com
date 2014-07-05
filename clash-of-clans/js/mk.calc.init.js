@@ -45,7 +45,7 @@ part([
             dom.updater.instantly(
                 'spells-boosted-wrapper',
                 'display',
-                (storage.current.get(key) === 0 ? 'none' : '')
+                (storage.current.get(key, 0) === 0 ? 'none' : '')
             );
         }
     });
@@ -62,7 +62,7 @@ part([
                 'th': barrackData.th,
                 'onUpdate': function(key, params) {
                     var header = '';
-                    var level = storage.current.get(key);
+                    var level = storage.current.get(key, 0);
                     if (level !== 0) {
                         header = barrackData.queue[level];
                     }

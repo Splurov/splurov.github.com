@@ -52,7 +52,12 @@ part('storage', [
         'Freeze',
         'Freeze-level',
         'Witch',
-        'Witch-level'
+        'Witch-level',
+        'favorite-title'
+    ];
+
+    var excludeIndexes = [
+        saveMappingKeys.indexOf('favorite-title')
     ];
 
     var dataObjectToArray = function(dataObject) {
@@ -63,7 +68,7 @@ part('storage', [
             if (dataObject.hasOwnProperty(key)) {
                 value = dataObject[key];
             } else {
-                value = 0;
+                value = null;
             }
             dataArray.push(value);
         });
@@ -76,7 +81,7 @@ part('storage', [
 
         saveMappingKeys.forEach(function(key, index) {
             if (dataArray[index] === undefined) {
-                dataObject[key] = 0;
+                dataObject[key] = null;
             } else {
                 dataObject[key] = dataArray[index];
             }
@@ -102,8 +107,14 @@ part('storage', [
     });
 
     return {
-        'getRaw': function() {
-            return load(true);
+        'getForDiff': function() {
+            var source = load(true);
+            excludeIndexes.forEach(function(index) {
+                source.forEach(function(item) {
+                    item[index] = null;
+                });
+            });
+            return source;
         },
         'all': all,
         'current': all[0] || new common.Dict({}),
