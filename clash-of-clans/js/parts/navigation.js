@@ -1,6 +1,7 @@
 part('navigation', [
-    'dom'
-], function(dom){
+    'dom',
+    'goal'
+], function(dom, goal){
 
     'use strict';
 
@@ -74,7 +75,11 @@ part('navigation', [
 
     dom.find('.js-anchor').listen('universalClick', function(e) {
         e.preventDefault();
-        smoothScroll(dom.id(e.currentTarget.getAttribute('data-for')));
+        var id = e.currentTarget.getAttribute('data-for');
+        smoothScroll(dom.id(id));
+        goal.reach('ANCHOR_CLICKED', {
+            'anchorFor': id
+        });
     });
 
     return {
