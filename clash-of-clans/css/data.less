@@ -9,7 +9,6 @@
 
     @media @mobile-media-query {
         width: 100%;
-        -webkit-user-select: none;
     }
 
     th, td {
@@ -64,10 +63,14 @@
         padding-right: @mobile-page-indent;
         border-right: 0;
     }
-
 }
+    .s-touch .data {
+        -webkit-user-select: none;
+    }
+
     .data_buildings {
         font-size: @font-size-small;
+        margin-bottom: 0;
 
         @media @mobile-media-query {
             font-size: @font-size-tiny-mobile;

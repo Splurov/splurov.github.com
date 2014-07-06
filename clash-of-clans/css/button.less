@@ -17,7 +17,7 @@
         color: #444;
         text-decoration: none;
     }
-    .ns-mobile .button:hover {
+    .ns-touch .button:hover {
         background-image: linear-gradient(#fcfcfc, #e0e0e0);
         text-decoration: none;
     }
@@ -44,7 +44,7 @@
         padding-bottom: 4px;
         background-image: linear-gradient(#fcfcff, #ececff);
     }
-    .ns-mobile .button_social:hover {
+    .ns-touch .button_social:hover {
         background-image: linear-gradient(#fcfcff, #e0e0ff);
     }
     .button_social:active, .button_social:focus {
@@ -53,20 +53,15 @@
 
     /* spinner */
     .button_spinner {
-        padding-top: 2px;
-        padding-bottom: 2px;
         margin-left: 7px;
+        padding-left: 7px;
+        padding-right: 7px;
         vertical-align: middle;
     }
     .s-touch .button_spinner {
-        padding: 5px 9px 6px;
-        margin-left: 12px;
         font-size: inherit;
-
-        @media @mobile-media-query {
-            padding: 4px 7px 5px;
-            margin-left: 10px;
-        }
+        padding: 4px 8px 5px;
+        margin-left: 9px;
     }
 
 .button-group .button {
@@ -84,13 +79,6 @@
         border-bottom-right-radius: 5px;
         margin-right: 0;
     }
-
-    .button-group_menu {
-    }
-        .button-group_menu .button {
-            padding: 5px 7px;
-            -webkit-font-smoothing: subpixel-antialiased;
-        }
 
     .button-group_settings {
         margin-top: 3px;

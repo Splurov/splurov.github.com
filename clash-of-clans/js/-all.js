@@ -25,3 +25,4 @@
 /* build:js:js/mk.calc.spinner.js */
 /* build:js:js/mk.calc.reset.js */
 /* build:js:js/help.js */
+/* build:js:js/menu.js */

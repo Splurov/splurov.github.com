@@ -2,8 +2,9 @@ var ya_metrika_noscript = '<noscript><img src="//mc.yandex.ru/watch/19642528" st
 
 var clash_calc = 'Clash Calc';
 var clash_of_clans = 'Clash of Clans';
-var coc_calc_title = clash_calc + ' — ' + clash_of_clans + ' Troops and Spells Cost Calculator/Time Planner';
-var coc_calc_seo_title = clash_of_clans + ' Troops and Spells Cost Calculator/Time Planner — ' + clash_calc;
+var coc_calc_base_title = clash_of_clans + ' Troops and Spells Cost Calculator/Time Planner';
+var coc_calc_title = clash_calc + ' — ' + coc_calc_base_title;
+var coc_calc_seo_title = coc_calc_base_title + ' — ' + clash_calc;
 
 module.exports = {
     'lang': ['ru', 'en'],
@@ -52,6 +53,7 @@ module.exports = {
     'next_previous_image_addon': ['Next-Previous Image Hotkeys', 'Next-Previous Image Hotkeys'],
     'coc_name': [clash_of_clans, clash_of_clans],
 
+    'coc_base_title': ['', coc_calc_base_title],
     'coc_title': ['', coc_calc_title],
     'coc_seo_title': ['', coc_calc_seo_title],
     'coc_title_web_clip': ['', clash_calc],

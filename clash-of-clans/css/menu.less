@@ -1,19 +1,104 @@
-.menu-wrapper {
-    margin-bottom: 15px;
+@menu-padding: 8px;
+@menu-background: #fefefe;
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+
+    width: 100%;
+    padding: 0 @page-indent 0;
+
+    background: @menu-background;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .17);
+
+    font-size: 0;
 
     @media @mobile-media-query {
-        display: none;
+        padding: 0 @mobile-page-indent;
     }
 }
-.menu {
-}
-    .menu_fixed {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 50;
-        background: #fefefe;
-        width: 100%;
-        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .17);
-        padding: 12px 20px 15px;
+    .menu__item {
+        display: inline-block;
+        border: 0;
+        padding: 0 @menu-padding;
+        height: @menu-height;
+
+        font-size: @font-size-small;
+        line-height: @menu-height;
+
+        background: transparent;
+        color: #444;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+
+        /* Mobile Chrome */
+        border-radius: 0;
+    }
+        .ns-touch .menu__item:hover, .menu__item:active, .menu__item_selected {
+            background-color: #cfc;
+            color: #111;
+        }
+
+        .menu__item_logo {
+            width: 90px + (@menu-padding * 2);
+            margin-left: -@menu-padding;
+
+            background: url('/clash-of-clans/i/logo.svg') no-repeat @menu-padding 50%;
+            background-size: 90px 13px;
+
+            vertical-align: top;
+        }
+
+        .menu__item_mobile {
+            display: none;
+
+            @media @mobile-media-query {
+                display: inline-block;
+
+                position: absolute;
+                right: @menu-padding + @mobile-page-indent;
+                top: 0;
+
+                padding-left: 14px;
+                padding-right: 14px;
+                width: 24px + (@menu-padding * 2);
+
+                background-image: data-uri('clash-of-clans/i/icons/menu.svg');
+                background-repeat: no-repeat;
+                background-position: @menu-padding 50%;
+                background-size: 24px 24px;
+
+                vertical-align: top;
+            }
+        }
+
+    @media @mobile-media-query {
+        .menu__items {
+            position: absolute;
+            top: @menu-height;
+
+            background: @menu-background;
+
+            box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, .17);
+            opacity: 0;
+            transition: opacity 125ms;
+        }
+
+            .menu__items_active {
+                display: block;
+                opacity: 1;
+                transition: opacity 250ms;
+            }
+
+            .menu__items .menu__item {
+                display: block;
+
+                width: 100%;
+                padding-right: 13px;
+                padding-left: 10px;
+
+                text-align: left;
+            }
     }

@@ -37,8 +37,8 @@
 <body>
 <script src="../js/ya-metrika.js"></script>
 
-<h1>
-    {{coc_title}}
+<h1 id="top-anchor">
+    Troops and Spells Cost Calculator/Time Planner for Clash of Clans
 
     <a href="https://twitter.com/ClashCalc"
        target="_blank"
@@ -47,7 +47,7 @@
 
     <a href="https://www.facebook.com/ClashCalc"
        target="_blank"
-       class="button button_social"
+       class="button button_after button_social"
        title="Like Clash Calc on Facebook"><span class="icon-facebook"></span>
     </a>
 </h1>
@@ -61,21 +61,33 @@
 </p>
 <![endif]-->
 
-<div id="menu-wrapper" class="menu-wrapper">
-    <div id="menu" class="menu">
-        <div class="button-group button-group_menu">
-            <button class="button js-anchor" data-for="settings-anchor">Settings</button><!--
-            --><button class="button js-anchor" data-for="light-anchor">Barracks</button><!--
-            --><button class="button js-anchor" data-for="dark-anchor">Dark Barracks</button><!--
-            --><button class="button js-anchor" data-for="spells-anchor">Spell Factory</button><!--
-            --><button class="button js-anchor js-share" data-for="share-anchor">Share</button><!--
-            --><button class="button js-anchor" data-for="favorites-anchor">Favorites</button><!--
-            --><button class="button js-favorite-add"><span class="icon-favorite">Add to Favorites</span></button>
-        </div>
-    </div>
+<div class="menu js-menu">
+    <button class="menu__item menu__item_logo js-anchor" data-for="top-anchor"></button>
+
+    <button class="menu__item menu__item_mobile js-menu-switcher"></button>
+    <span class="menu__items js-menu-items">
+        <button class="menu__item js-anchor" data-for="light-anchor">Barracks</button>
+        <button class="menu__item js-anchor" data-for="dark-anchor">Dark Barracks</button>
+        <button class="menu__item js-anchor" data-for="spells-anchor">Spell Factory</button>
+        <button class="menu__item js-anchor js-share" data-for="share-anchor">Share</button>
+        <button class="menu__item js-anchor" data-for="favorites-anchor">Favorites</button>
+        <button class="menu__item js-favorite-add"><span class="icon-favorite">Add to Favorites</span></button>
+    </span>
 </div>
 
+<p id="view-shared"
+   class="message message_closeable message_root message_centered"
+   title="Click to hide"
+   style="display: none;">
+    You are viewing shared army composition (you can find previous one in the favorites)
+</p>
+
+<p id="storage-quota-exceeded" class="message message_negative message_root" style="display: none;">
+</p>
+
 <div class="settings">
+<!--<h2 id="settings-anchor">Settings</h2>-->
+<p class="small">
     Set the Army Camps capacity, level of barracks, troops,
     Spell Factory and spells based on the Town Hall of level:<br/>
     <span class="button-group button-group_settings">
@@ -90,19 +102,8 @@
         --><button class="button js-settings-level">9</button><!--
         --><button class="button js-settings-level">10</button>
     </span>
-</div>
 
-<p id="view-shared"
-   class="message message_closeable message_root message_centered"
-   title="Click to hide"
-   style="display: none;">
-    You are viewing shared army composition (you can find previous one in the favorites)
 </p>
-
-<p id="storage-quota-exceeded" class="message message_negative message_root" style="display: none;">
-</p>
-
-<h2 id="settings-anchor">Settings</h2>
 <div class="data-wrapper">
     <table class="data data_buildings">
         <tfoot>
@@ -143,6 +144,7 @@
             </tr>
         </tfoot>
     </table>
+</div>
 </div>
 
 {{#types}}

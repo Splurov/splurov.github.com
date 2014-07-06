@@ -77,12 +77,6 @@ var hoganPrepare = function(input) {
 
 var dataCache = {};
 
-var makeDataUri = function(path) {
-    var image = fs.readFileSync(path, 'binary');
-    console.log('data-uri: ' + path);
-    return 'data:image/png;base64,' + (new Buffer(image, 'binary')).toString('base64');
-};
-
 var setItemRowsTemplates = function(vars) {
 
     require('../clash-of-clans/js/parts/common.js');
@@ -262,10 +256,6 @@ Object.keys(sources).forEach(function(file) {
                         'opera >= 17'
                     ).process(styleData).css;
                     console.log('autoprefixer: ' + p1);
-                    styleData = styleData.replace(/url\(([^')]+?\.png)\)/g, function(match, sp1) {
-                        return 'url(' + makeDataUri(sp1.substr(1)) + ')';
-                    });
-
 //                    styleData = new CleanCSS().minify(styleData);
 
                     styleData = cssc.compress(styleData);

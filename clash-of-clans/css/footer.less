@@ -1,14 +1,19 @@
 footer {
     border-top: 1px solid #ddd;
-    padding-top: 20px;
-    margin-top: 20px;
+    padding-top: 17px;
+    margin-top: 17px;
     color: #999;
 
     .font-size('small');
 
     @media @mobile-media-query {
-        padding-top: 15px;
-        margin-top: 15px;
+        margin-top: 12px;
+        padding-top: 10px;
+
+        margin-left: -@mobile-page-indent;
+        margin-right: -@mobile-page-indent;
+        padding-left: @mobile-page-indent;
+        padding-right: @mobile-page-indent;
     }
 
     a:link, a:visited {

@@ -5,42 +5,11 @@ part('navigation', [
 
     'use strict';
 
-    var globalScrollOffset = 15;
-
-
-    if (!window.mkSupport.mobile) {
-        var FIXED_TOP_PADDING = 12;
-        var FIXED_BOTTOM_PADDING = 15;
-
-        var menuEl = dom.id('menu');
-        var menuHeight = menuEl.offsetHeight;
-        globalScrollOffset += menuHeight + FIXED_TOP_PADDING + FIXED_BOTTOM_PADDING;
-        dom.id('menu-wrapper').style.height = menuHeight + 'px';
-
-        var menuTop = dom.getPosition(menuEl).top - FIXED_TOP_PADDING;
-        var isFixed = false;
-
-        var moveMenu = function() {
-            var offset = window.pageYOffset;
-            if (offset > menuTop) {
-                if (!isFixed) {
-                    menuEl.classList.add('menu_fixed');
-                    isFixed = true;
-                }
-            } else if (isFixed) {
-                menuEl.classList.remove('menu_fixed');
-                isFixed = false;
-            }
-        };
-
-        dom.listen(window, 'scroll', moveMenu);
-
-        moveMenu();
-    }
+    var globalScrollOffset = parseInt(window.getComputedStyle(document.body).getPropertyValue('padding-top'), 10);
 
     var smoothScroll = function(el, callback) {
         var currentScrollTop = window.pageYOffset;
-        var elScrollTop = dom.getPosition(el).top - globalScrollOffset;
+        var elScrollTop = Math.max(dom.getPosition(el).top - globalScrollOffset, 0);
 
         var toTop = (elScrollTop < currentScrollTop);
         var diff = (toTop ? (currentScrollTop - elScrollTop) : (elScrollTop - currentScrollTop));
