@@ -17,7 +17,7 @@ part('favorites', [
     var barracksAnchor = dom.id('light-anchor');
 
     var content = dom.id('favorites');
-    var template = new Hogan.Template(/* build:hogan:mustache/favorites.mustache */);
+    var template = new Hogan.Template(/* build:hogan:/clash-of-clans/mustache/favorites.mustache */);
 
     var loadHandler = function(e) {
         goal.reach('LOAD_SAVED');

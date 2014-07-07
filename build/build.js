@@ -20,36 +20,33 @@ var setItemRowsTemplates = require('./set-item-rows-templates');
 var STATIC_PATH = './s/';
 var STATIC_URI = '/s/';
 
+var ROOT_DIR = __dirname.replace('/build', '');
+
 var templates = [
     {
         'source': 'mustache/index.mustache',
         'translationKey': 0,
-        'target': 'index.html',
-        'base': './'
+        'target': 'index.html'
     },
     {
         'source': 'mustache/index.mustache',
         'translationKey': 1,
-        'target': 'en/index.html',
-        'base': './'
+        'target': 'en/index.html'
     },
     {
         'source': 'mustache/404.mustache',
         'translationKey': 1,
-        'target': '404.html',
-        'base': './'
+        'target': '404.html'
     },
     {
         'source': 'clash-of-clans/mustache/index.mustache',
         'target': 'clash-of-clans/index.html',
-        'base': './clash-of-clans/',
         'changelog': 'first',
         'main': true
     },
     {
         'source': 'clash-of-clans/mustache/version-history.mustache',
         'target': 'clash-of-clans/version-history.html',
-        'base': './clash-of-clans/',
         'changelog': 'all'
     }
 ];
@@ -74,7 +71,7 @@ templates.forEach(function(options) {
 
         content = content.replace(/<link rel="stylesheet" type="text\/(css|less)" href="([^"]+)"\/>/g, function(match, type, href) {
             var processStyles = function() {
-                fs.readFile(options.base + href, 'utf8', function(error, styleData) {
+                fs.readFile(ROOT_DIR + href, 'utf8', function(error, styleData) {
                     var processCss = function(styleData) {
                         styleData = cssc.compress(styleData);
                         console.log('cssc: ' + href);
@@ -99,7 +96,7 @@ templates.forEach(function(options) {
 
                     if (type === 'less') {
                         less.render(styleData, {
-                            'paths': options.base + 'css'
+                            'paths': path.dirname(ROOT_DIR + href)
                         }, function(error, css) {
                             if (error) {
                                 console.error(error);
@@ -140,15 +137,15 @@ templates.forEach(function(options) {
                 return dataCache[src + original];
             }
             console.log('js: ' + src);
-            var scriptData = fs.readFileSync(options.base + src, 'utf8');
+            var scriptData = fs.readFileSync(ROOT_DIR + src, 'utf8');
 
             scriptData = scriptData.replace(/\/\* build:js:([^ :]+) \*\//g, function(buildMatch, buildPath) {
                 console.log('js sub: ' + buildPath);
 
-                return fs.readFileSync(options.base + buildPath, 'utf8');
+                return fs.readFileSync(ROOT_DIR + buildPath, 'utf8');
             });
             scriptData = scriptData.replace(/\/\* build:hogan:([^ ]+) \*\//g, function(hoganMatch, hoganPath) {
-                var template = fs.readFileSync(options.base + hoganPath, 'utf8');
+                var template = fs.readFileSync(ROOT_DIR + hoganPath, 'utf8');
                 template = template.replace(/^\s+/gm, '');
                 var compiled = hogan.compile(template, {'asString': 1});
                 console.log('hogan: ' + hoganPath);
@@ -175,7 +172,7 @@ templates.forEach(function(options) {
 
             scriptData = scriptData.replace(/\/\* build:js:vendor:([^ ]+) \*\//g, function(buildMatch, vendorPath) {
                 console.log('js sub vendor: ' + vendorPath);
-                return fs.readFileSync(options.base + vendorPath, 'utf8') + '\n\n// Copyright 2014 Mikhail Kalashnik';
+                return fs.readFileSync(ROOT_DIR + vendorPath, 'utf8') + '\n\n// Copyright 2014 Mikhail Kalashnik';
             });
 
             var output;
@@ -273,7 +270,7 @@ templates.forEach(function(options) {
             if (options.main) {
                 setItemRowsTemplates(templateVars);
 
-                fs.readFile(options.base + 'mustache/item_row.mustache', 'utf8', function(error, subTemplate) {
+                fs.readFile(ROOT_DIR + '/clash-of-clans/mustache/item_row.mustache', 'utf8', function(error, subTemplate) {
                     if (error) {
                         throw error;
                     }
