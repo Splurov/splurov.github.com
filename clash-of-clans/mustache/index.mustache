@@ -8,37 +8,34 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 
-    <title>{{coc_seo_title}}</title>
-    <meta name="description" content="{{coc_description}}"/>
+    <title>{{clash_calc_seo}}</title>
 
     <script src="js/-head-blockers.js"></script>
-
     <script src="js/-all.js" data-main="yes"></script>
-
     <script src="js/preload-images.js"></script>
 
     <link rel="stylesheet" type="text/less" href="css/all.less"/>
 
-    <link rel="icon" href="/clash-of-clans/i/favicon-v2.png"/>
+    <meta name="description" content="{{clash_calc_description}}"/>
 
+    <link rel="icon" href="/clash-of-clans/i/favicon-v2.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/clash-of-clans/i/app-icons/76x76.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/clash-of-clans/i/app-icons/120x120.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/clash-of-clans/i/app-icons/152x152.png"/>
 
-    <meta name="apple-mobile-web-app-title" content="{{coc_title_web_clip}}"/>
+    <meta name="apple-mobile-web-app-title" content="{{clash_calc}}"/>
 
     <meta name="twitter:site" content="@ClashCalc"/>
     <meta name="twitter:creator" content="@Splurov"/>
 
     <meta property="og:url" content="http://mkln.ru/clash-of-clans/"/>
-    <meta property="og:title" content="{{coc_title}}"/>
-    <meta property="og:description" content="{{coc_description}}"/>
+    <meta property="og:title" content="{{clash_calc_title}}"/>
+    <meta property="og:description" content="{{clash_calc_description}}"/>
 </head>
 <body class="index">
-<script src="../js/ya-metrika.js"></script>
 
 <h1 id="top-anchor">
-    Troops and Spells Cost Calculator/Time Planner for Clash of Clans
+    {{clash_calc_base}}
 
     <a href="https://twitter.com/ClashCalc"
        target="_blank"
@@ -48,11 +45,11 @@
     <a href="https://www.facebook.com/ClashCalc"
        target="_blank"
        class="button button_after button_social"
-       title="Like Clash Calc on Facebook"><span class="icon-facebook"></span>
+       title="Like {{clash_calc}} on Facebook"><span class="icon-facebook"></span>
     </a>
 </h1>
 
-<p>{{coc_description}}</p>
+<p>{{clash_calc_description}}</p>
 
 <!--[if lte IE 9]>
 <p class="message message_negative message_centered">
@@ -410,6 +407,7 @@
     </p>
 </footer>
 
+<script src="js/-footer.js"></script>
 {{& ya_metrika_noscript}}
 
 </body>

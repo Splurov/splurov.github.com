@@ -1,10 +1,6 @@
 var part = (function() {
     'use strict';
 
-    var isDomReady = false;
-
-    var postponed = [];
-
     var parts = {};
 
     var buildDeps = function(deps) {
@@ -12,18 +8,6 @@ var part = (function() {
             return parts[dep];
         });
     };
-
-    if (typeof window !== 'undefined') {
-        document.addEventListener('DOMContentLoaded', function() {
-            isDomReady = true;
-            while (postponed.length) {
-                var fn = postponed.shift();
-                fn();
-            }
-        }, false);
-    } else {
-        isDomReady = true;
-    }
 
     return function(nameOrDeps, depsOrFunc, func) {
         var fn = function() {
@@ -34,11 +18,7 @@ var part = (function() {
             }
         };
 
-        if (isDomReady) {
-            fn();
-        } else {
-            postponed.push(fn);
-        }
+        fn();
     };
 }());
 
