@@ -10,17 +10,17 @@ part([
         return;
     }
 
-    var all = ['distribution', 'level', 'quantity', 'total', 'subtract'];
+    var all = ['barrack', 'level', 'quantity', 'total', 'subtract'];
     var views = {
         'light': {
             'quantity': ['level', 'quantity', 'total'],
             'subtract': ['quantity', 'subtract'],
-            'distribution': ['distribution']
+            'barrack': ['barrack']
         },
         'dark': {
             'quantity': ['level', 'quantity', 'total'],
             'subtract': ['quantity', 'subtract'],
-            'distribution': ['quantity', 'distribution']
+            'barrack': ['quantity', 'barrack']
         }
     };
 

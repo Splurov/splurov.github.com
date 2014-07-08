@@ -161,7 +161,7 @@
                 <div class="button-group button-group_switcher">
                     <button class="button js-cols-switcher" data-type="{{type}}" data-view="quantity">Quantity</button><!--
                     --><button class="button js-cols-switcher" data-type="{{type}}" data-view="subtract">Subtract</button><!--
-                    --><button class="button js-cols-switcher" data-type="{{type}}" data-view="distribution">Distribution</button>
+                    --><button class="button js-cols-switcher" data-type="{{type}}" data-view="barrack">Distribution</button>
                 </div>
             {{/spells}}
             {{#spells}}
@@ -177,7 +177,7 @@
                     <tr>
                         <th><span class="data__object-title">{{objectTitle}}</span></th>
                         <th class="js-col-{{type}}-level">Level</th>
-                        <th class="data__quantity-column js-col-{{type}}-quantity">
+                        <th class="col-quantity js-col-{{type}}-quantity">
                             <span class="tiny data__right">
                                 <span id="{{type}}-quantity" class="text-middle"></span>
                                 <span class="help-link js-help-link">
@@ -192,7 +192,7 @@
                                 Reset
                             </button>
                         </th>
-                        <th class="data__total_column js-col-{{type}}-total">
+                        <th class="col-total js-col-{{type}}-total">
                             <span class="icon-{{currencyCode}}">Total</span>
                         </th>
                         {{^spells}}
@@ -228,7 +228,7 @@
                             </th>
 
                             {{#barracks}}
-                                <td class="js-col-{{type}}-distribution">
+                                <td class="js-col-{{type}}-barrack col-barrack{{#isFirst}}-first{{/isFirst}}">
                                     <span id="{{type}}-barrack-info-{{index}}">
                                         <span class="small">
                                             <span id="{{type}}-levelText-{{index}}"></span>
@@ -289,7 +289,7 @@
                         {{^spells}}
                             <td id="{{type}}-subtracted-cost" class="tiny js-col-{{type}}-subtract"></td>
                             {{#barracks}}
-                                <td id="{{type}}-time-{{index}}" class="number data__time js-col-{{type}}-distribution"></td>
+                                <td id="{{type}}-time-{{index}}" class="number data__time js-col-{{type}}-barrack"></td>
                             {{/barracks}}
                         {{/spells}}
                     </tr>
@@ -327,14 +327,14 @@
                 </a>
                 <a href=""
                    target="_blank"
-                   class="button button_social js-share-link"
+                   class="button button_social button_after js-share-link"
                    data-share-link="https://www.facebook.com/sharer/sharer.php?u={url}"
                    title="Share on Facebook">
                     <span class="icon-facebook"></span>
                 </a>
                 <a href=""
                    target="_blank"
-                   class="button button_social js-share-link"
+                   class="button button_social button_after js-share-link"
                    data-share-link="https://plus.google.com/share?url={url}"
                    title="Share on Google+">
                     <span class="icon-gplus"></span>
