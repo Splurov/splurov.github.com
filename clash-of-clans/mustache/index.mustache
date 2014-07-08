@@ -60,18 +60,18 @@
 <![endif]-->
 
 <div class="menu js-menu">
-    <button class="menu__item menu__item_logo js-anchor" data-for="top-anchor">
+    <span class="menu__item menu__item_logo js-anchor" data-for="top-anchor">
         <img src="/clash-of-clans/i/logo.svg" width="90" height="13" alt="{{clash_calc}}" class="logo"/>
-    </button>
+    </span>
 
-    <button class="menu__item menu__item_mobile js-menu-switcher"></button>
+    <span class="menu__item menu__item_mobile js-menu-switcher"></span>
     <span class="menu__items js-menu-items">
-        <button class="menu__item js-anchor" data-for="light-anchor">Barracks</button>
-        <button class="menu__item js-anchor" data-for="dark-anchor">Dark Barracks</button>
-        <button class="menu__item js-anchor" data-for="spells-anchor">Spell Factory</button>
-        <button class="menu__item js-anchor js-share" data-for="share-anchor">Share</button>
-        <button class="menu__item js-anchor" data-for="favorites-anchor">Favorites</button>
-        <button class="menu__item js-favorite-add"><span class="icon-favorite">Add to Favorites</span></button>
+        <span class="menu__item js-anchor" data-for="light-anchor">Barracks</span>
+        <span class="menu__item js-anchor js-dark-object" data-for="dark-anchor">Dark Barracks</span>
+        <span class="menu__item js-anchor js-spells-object" data-for="spells-anchor">Spell Factory</span>
+        <span class="menu__item js-anchor js-share" data-for="share-anchor">Share</span>
+        <span class="menu__item js-anchor" data-for="favorites-anchor">Favorites</span>
+        <span class="menu__item js-favorite-add"><span class="icon-favorite">Add to Favorites</span></span>
     </span>
 </div>
 
@@ -91,16 +91,16 @@
     Set the Army Camps capacity, level of barracks, troops,
     Spell Factory and spells based on the Town Hall of level:<br/>
     <span class="button-group button-group_settings">
-        <button class="button js-settings-level">1</button><!--
-        --><button class="button js-settings-level">2</button><!--
-        --><button class="button js-settings-level">3</button><!--
-        --><button class="button js-settings-level">4</button><!--
-        --><button class="button js-settings-level">5</button><!--
-        --><button class="button js-settings-level">6</button><!--
-        --><button class="button js-settings-level">7</button><!--
-        --><button class="button js-settings-level">8</button><!--
-        --><button class="button js-settings-level">9</button><!--
-        --><button class="button js-settings-level">10</button>
+        <span class="button js-settings-level">1</span><!--
+        --><span class="button js-settings-level">2</span><!--
+        --><span class="button js-settings-level">3</span><!--
+        --><span class="button js-settings-level">4</span><!--
+        --><span class="button js-settings-level">5</span><!--
+        --><span class="button js-settings-level">6</span><!--
+        --><span class="button js-settings-level">7</span><!--
+        --><span class="button js-settings-level">8</span><!--
+        --><span class="button js-settings-level">9</span><!--
+        --><span class="button js-settings-level">10</span>
     </span>
 
 </p>
@@ -159,9 +159,9 @@
                 </span>
 
                 <div class="button-group button-group_switcher">
-                    <button class="button js-cols-switcher" data-type="{{type}}" data-view="quantity">Quantity</button><!--
-                    --><button class="button js-cols-switcher" data-type="{{type}}" data-view="subtract">Subtract</button><!--
-                    --><button class="button js-cols-switcher" data-type="{{type}}" data-view="barrack">Distribution</button>
+                    <span class="button js-cols-switcher" data-type="{{type}}" data-view="quantity">Quantity</span><!--
+                    --><span class="button js-cols-switcher" data-type="{{type}}" data-view="subtract">Subtract</span><!--
+                    --><span class="button js-cols-switcher" data-type="{{type}}" data-view="barrack">Distribution</span>
                 </div>
             {{/spells}}
             {{#spells}}
@@ -188,9 +188,9 @@
                             </span>
                             Quantity
                             <br/>
-                            <button class="button button_reset js-reset" data-reset="{{type}}" data-scope="quantity">
+                            <span class="button button_reset js-reset" data-reset="{{type}}" data-scope="quantity">
                                 Reset
-                            </button>
+                            </span>
                         </th>
                         <th class="col-total js-col-{{type}}-total">
                             <span class="icon-{{currencyCode}}">Total</span>
@@ -222,9 +222,9 @@
                                     </span>
                                 </span>
                                 <br/>
-                                <button class="button button_reset js-reset" data-reset="{{type}}" data-scope="subtract">
+                                <span class="button button_reset js-reset" data-reset="{{type}}" data-scope="subtract">
                                     Reset
-                                </button>
+                                </span>
                             </th>
 
                             {{#barracks}}
@@ -349,7 +349,7 @@
 
 <h2 id="favorites-anchor">
     Favorites
-    <button class="js-favorite-add button button_after"><span class="icon-favorite">Add</span></button>
+    <span class="js-favorite-add button button_after"><span class="icon-favorite">Add</span></span>
 </h2>
 <div id="favorites">
 </div>
