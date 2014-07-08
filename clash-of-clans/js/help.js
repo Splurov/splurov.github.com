@@ -73,11 +73,11 @@ part([
         el.innerHTML = linkEl.querySelector('.js-help-content').innerHTML;
 
         var width = el.offsetWidth;
-        var scrollLeft = window.scrollX;
+        var scrollLeft = window.pageXOffset;
         var windowWidth = window.innerWidth;
         var elPosition = linkEl.getBoundingClientRect();
         var elPositionLeft = elPosition.left + scrollLeft;
-        var elPositionTop = elPosition.top + window.scrollY;
+        var elPositionTop = elPosition.top + window.pageYOffset;
 
         var left = elPositionLeft - X_OFFSET;
         if ((left + width) > (scrollLeft + windowWidth) && (windowWidth / 2) < (left - scrollLeft)) {
