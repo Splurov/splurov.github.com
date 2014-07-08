@@ -3,10 +3,10 @@ part('favorites', [
     'dom',
     'calculate',
     'common',
-    'navigation',
+    'smoothScroll',
     'goal',
     'calculateCurrent'
-], function(storage, dom, calculate, common, navigation, goal, calculateCurrent) {
+], function(storage, dom, calculate, common, smoothScroll, goal, calculateCurrent) {
 
     'use strict';
 
@@ -31,7 +31,7 @@ part('favorites', [
         calculateCurrent('all');
 
         viewSharedMessageHide();
-        navigation.scrollTo(barracksAnchor);
+        smoothScroll.scrollTo(barracksAnchor);
     };
 
     var deleteHandler = function(e) {
@@ -160,7 +160,7 @@ part('favorites', [
 
     var addedAnimation = function(index) {
         var composition = content.querySelector('.js-favorite[data-num="' + index + '"]');
-        navigation.scrollTo(composition, function() {
+        smoothScroll.scrollTo(composition, function() {
             composition.classList.add('favorite_added');
         });
     };

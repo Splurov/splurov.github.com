@@ -1,8 +1,8 @@
 part('localStorageSet', [
     'dom',
     'goal',
-    'navigation'
-], function(dom, goal, navigation) {
+    'smoothScroll'
+], function(dom, goal, smoothScroll) {
     'use strict';
 
     var localStorageKnownKeys = [
@@ -78,7 +78,7 @@ part('localStorageSet', [
         if (message) {
             dom.updater.instantly(memoryMessageId, 'html', message);
             dom.updater.instantly(memoryMessageId, 'display', '');
-            navigation.scrollTo(memoryMessageEl);
+            smoothScroll.scrollTo(memoryMessageEl);
 
             return false;
         } else {

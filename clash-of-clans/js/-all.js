@@ -4,7 +4,7 @@
 
 /* build:js:/clash-of-clans/js/parts/dom.js */
 /* build:js:/clash-of-clans/js/parts/goal.js */
-/* build:js:/clash-of-clans/js/parts/navigation.js */
+/* build:js:/clash-of-clans/js/parts/smoothScroll.js */
 /* build:js:/clash-of-clans/js/parts/localStorageSet.js */
 /* build:js:/clash-of-clans/js/parts/common.js */
 /* build:js:/clash-of-clans/js/parts/converter.js */
@@ -26,3 +26,4 @@
 /* build:js:/clash-of-clans/js/mk.calc.reset.js */
 /* build:js:/clash-of-clans/js/help.js */
 /* build:js:/clash-of-clans/js/menu.js */
+/* build:js:/clash-of-clans/js/navigation.js */
