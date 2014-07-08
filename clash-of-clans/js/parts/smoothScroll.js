@@ -16,7 +16,11 @@ part('smoothScroll', [
 
         var duration = 100 + (diff / 20);
         var delay = 16;
-        var step = Math.round(diff / (duration / delay));
+        var step = Math.ceil(diff / (duration / delay));
+
+        if (step === 0) {
+            return;
+        }
 
         (function scrollIteration() {
             setTimeout(function() {
