@@ -21,14 +21,12 @@
 }
     .menu__item {
         display: inline-block;
-        border: 0;
         padding: 0 @menu-padding;
         height: @menu-height;
 
         font-size: @font-size-small;
         line-height: @menu-height;
 
-        background: transparent;
         color: #444;
         cursor: pointer;
         -webkit-tap-highlight-color: transparent;
@@ -45,6 +43,14 @@
 
         .menu__item_logo {
             margin-left: -@menu-padding;
+
+            background-image: url(/clash-of-clans/i/logo.svg);
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-size: 90px 13px;
+            width: 90px;
+
+            vertical-align: bottom;
         }
 
         .menu__item_mobile {
@@ -57,13 +63,11 @@
                 right: @menu-padding + @mobile-page-indent;
                 top: 0;
 
-                padding-left: 14px;
-                padding-right: 14px;
                 width: 24px + (@menu-padding * 2);
 
                 background-image: data-uri('clash-of-clans/i/icons/menu.svg');
                 background-repeat: no-repeat;
-                background-position: @menu-padding 50%;
+                background-position: 50% 50%;
                 background-size: 24px 24px;
 
                 vertical-align: top;

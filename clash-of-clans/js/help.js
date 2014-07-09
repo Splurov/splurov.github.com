@@ -70,6 +70,7 @@ part([
         var linkEl = e.currentTarget;
 
         el.style.left = HIDDEN_POSITION;
+        el.style.width = 'auto';
         el.innerHTML = linkEl.querySelector('.js-help-content').innerHTML;
 
         var width = el.offsetWidth;
@@ -82,6 +83,10 @@ part([
         var left = elPositionLeft - X_OFFSET;
         if ((left + width) > (scrollLeft + windowWidth) && (windowWidth / 2) < (left - scrollLeft)) {
             left = elPositionLeft - width + linkEl.offsetWidth + X_OFFSET;
+            if (left <= 0) {
+                el.style.width = (elPositionLeft + X_OFFSET - 1) + 'px';
+                left = 1;
+            }
             el.classList.add(RIGHT_CLASS);
         } else {
             el.classList.remove(RIGHT_CLASS);

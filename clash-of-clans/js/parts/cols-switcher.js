@@ -31,7 +31,7 @@ part([
             var colElements = dom.findCache('.js-col-' + type + '-' + col);
             var isHide = (views[type][view].indexOf(col) === -1);
             colElements.iterate(function(colEl) {
-                dom.toggleClass(colEl, 'inactive', isHide);
+                colEl.style.display = (isHide ? 'none' : '');
                 dom.toggleClass(colEl, 'active', !isHide);
                 colEl.classList.remove('data__last');
             });

@@ -109,7 +109,9 @@ part('calculateCurrent', [
          */
 
         if (result.params.type === 'all' || result.params.type === 'barrack-dark') {
-            darkObjects.toggleClass('inactive', (result.dark.levelValue === 0));
+            darkObjects.iterate(function(el) {
+                el.style.display = (result.dark.levelValue === 0 ? 'none' : '');
+            });
         }
 
         if (result.params.type === 'all' || result.params.type !== 'spells') {
@@ -135,7 +137,9 @@ part('calculateCurrent', [
             }
             dom.updater.defer(spellsTimeId, 'html', spellsTimeValue);
 
-            spellsObjects.toggleClass('inactive', (result.spells.levelValue === 0));
+            spellsObjects.iterate(function(el) {
+                el.style.display = (result.spells.levelValue === 0 ? 'none' : '');
+            });
         }
 
         ['light', 'dark', 'spells'].forEach(function(type) {
