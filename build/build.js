@@ -179,7 +179,7 @@ templates.forEach(function(options) {
             if (main) {
                 var fileName = path.basename(src);
                 fs.writeFile(STATIC_PATH + fileName, scriptData);
-                output = hoganPrepare('<script>(function(d){var s=d.createElement(\'script\');s.src=\'' + STATIC_URI + fileName + '?' + (new Date()).getTime() + '\';d.head.appendChild(s);}(document));</script>');
+                output = hoganPrepare('<script src="' + STATIC_URI + fileName + '?' + (new Date()).getTime() + '"></script>');
             } else {
                 output = hoganPrepare('<script>' + scriptData + '</script>');
             }
