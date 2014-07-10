@@ -1,6 +1,8 @@
 var part = (function() {
     'use strict';
 
+    var postponed = [];
+
     var parts = {};
 
     var buildDeps = function(deps) {
@@ -8,6 +10,20 @@ var part = (function() {
             return parts[dep];
         });
     };
+
+    var isDomReady;
+    if (typeof window !== 'undefined') {
+        isDomReady = window.MK_DOM_CONTENT_LOADED;
+        document.addEventListener('DOMContentLoaded', function() {
+            isDomReady = true;
+            while (postponed.length) {
+                var fn = postponed.shift();
+                fn();
+            }
+        }, false);
+    } else {
+        isDomReady = true;
+    }
 
     return function(nameOrDeps, depsOrFunc, func) {
         var fn = function() {
@@ -18,7 +34,11 @@ var part = (function() {
             }
         };
 
-        fn();
+        if (isDomReady) {
+            fn();
+        } else {
+            postponed.push(fn);
+        }
     };
 }());
 

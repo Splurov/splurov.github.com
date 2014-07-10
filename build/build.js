@@ -167,7 +167,7 @@ templates.forEach(function(options) {
                     }
                 }).code;
                 console.log('uglifyjs: ' + src);
-                scriptData = scriptData.replace('"use strict";', '');
+                scriptData = scriptData.replace(/"use strict";/g, '');
             }
 
             scriptData = scriptData.replace(/\/\* build:js:vendor:([^ ]+) \*\//g, function(buildMatch, vendorPath) {
@@ -179,7 +179,9 @@ templates.forEach(function(options) {
             if (main) {
                 var fileName = path.basename(src);
                 fs.writeFile(STATIC_PATH + fileName, scriptData);
-                output = hoganPrepare('<script src="' + STATIC_URI + fileName + '?' + (new Date()).getTime() + '"></script>');
+                // When use async we don't know is dom content loaded fired or not
+                // http://webreflection.blogspot.ru/2014/02/the-underestimated-problem-about-script.html
+                output = hoganPrepare('<script src="' + STATIC_URI + fileName + '?' + (new Date()).getTime() + '" async="async"></script>');
             } else {
                 output = hoganPrepare('<script>' + scriptData + '</script>');
             }
