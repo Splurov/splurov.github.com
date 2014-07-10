@@ -1,5 +1,13 @@
 [
     [
+        "6.1",
+        "10 July, 2014",
+        [
+            "Fixed a bug with the incorrect distribution between the Dark Barracks",
+            "Clash Calc was not initialized in rare cases. It’s fixed now"
+        ]
+    ],
+    [
         "6.0",
         "9 July, 2014",
         [

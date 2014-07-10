@@ -36,7 +36,7 @@ part('calculateCurrent', [
 
                 for (var unitIndex in barrack.units) {
                     if (barrack.units[unitIndex]) {
-                        dom.updater.defer('quantity-' + distributionResult.typesSortedLevel[unitIndex][5] + '-' +
+                        dom.updater.defer('quantity-' + distributionResult.typesSorted[unitIndex][5] + '-' +
                                           barrack.num, 'text', '×' + barrack.units[unitIndex]);
                     }
                 }

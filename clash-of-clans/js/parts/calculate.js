@@ -7,12 +7,15 @@ part('calculate', [
 
     'use strict';
 
-    var typesSortedLevel = {};
+    var typesSorted = {};
     Object.keys(types.data).forEach(function(type) {
-        typesSortedLevel[type] = [];
+        typesSorted[type] = [];
         Object.keys(types.data[type]).forEach(function(name) {
-            typesSortedLevel[type].unshift(types.data[type][name].concat(name));
+            typesSorted[type].unshift(types.data[type][name].concat(name));
         });
+    });
+    typesSorted.dark.sort(function(a, b) {
+        return b[2] - a[2];
     });
 
     var suitableBarracksSort = function(a, b) {
@@ -232,11 +235,11 @@ part('calculate', [
         var distribution = [];
 
         var tsIndex = -1; // ts - types sorted
-        var tsLength = typesSortedLevel[type].length;
+        var tsLength = typesSorted[type].length;
         while (++tsIndex < tsLength) {
             var objectResult = {};
 
-            var value = typesSortedLevel[type][tsIndex];
+            var value = typesSorted[type][tsIndex];
             if (value[3] > levelValue) {
                 continue;
             }
@@ -291,7 +294,7 @@ part('calculate', [
 
             typeResult.objects.push(objectResult);
         }
-        typeResult.typesSortedLevel = typesSortedLevel[type];
+        typeResult.typesSorted = typesSorted[type];
 
         typeResult.totalCost = totalCost;
         typeResult.totalSpace = totalSpace;
