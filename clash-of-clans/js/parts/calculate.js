@@ -2,8 +2,9 @@ part('calculate', [
     'storage',
     'types',
     'dom',
-    'goal'
-], function(storage, types, dom, goal) {
+    'goal',
+    'common'
+], function(storage, types, dom, goal, common) {
 
     'use strict';
 
@@ -234,6 +235,8 @@ part('calculate', [
         var maxUnitTime = 0;
         var distribution = [];
 
+        var stones = [];
+
         var tsIndex = -1; // ts - types sorted
         var tsLength = typesSorted[type].length;
         while (++tsIndex < tsLength) {
@@ -285,6 +288,15 @@ part('calculate', [
                     ]);
                     maxUnitTime = Math.max(maxUnitTime, value[0]);
                     totalTime += (value[0] * quantity);
+
+                    stones.push({
+                        'index': tsIndex,
+                        'name': name,
+                        'barrackLevel': value[3],
+                        'time': value[0],
+                        'space': value[2],
+                        'quantity': quantity
+                    });
                 }
 
                 subtractedCost += (costPerItem * quantity);
@@ -342,13 +354,377 @@ part('calculate', [
             var virtualBarracksCount = activeCount + (boostedCount * 4);
             var avgTime = Math.max(Math.ceil(totalTime / virtualBarracksCount), maxUnitTime);
 
+            if (params.current) {
+                console.time('old distribution');
+            }
             typeResult.fillSuccess = fillBarracks(barracksQueue, distribution, avgTime, activeCount);
+            if (params.current) {
+                console.timeEnd('old distribution');
+            }
             typeResult.barracksQueue = barracksQueue;
             typeResult.subtractedCost = subtractedCost;
+
+
+            var boxes = levels.map(function(level, index) {
+                return {
+                    'num': index + 1,
+                    'time': 0,
+                    'space': 0,
+                    'maxSpace': types.buildings[type].queue[level],
+                    'stones': {},
+                    'level': level
+                };
+            });
+
+            if (params.current) {
+                console.time('NEW DISTRIBUTION');
+                typeResult.distribution = fillBoxes(boxes, stones, type);
+                console.timeEnd('NEW DISTRIBUTION');
+            }
         }
 
         return typeResult;
     };
+
+    function fillBoxes(boxes, stones, type) {
+        var i, j, l, m;
+
+        var activeBoxes = boxes.filter(function(box) {
+            return (box.level !== 0);
+        });
+
+        if (!stones.length || !activeBoxes.length) {
+            return {
+                'stones': stones,
+                'boxes': boxes
+            };
+        }
+
+        var params = {
+            'type': type
+        };
+
+        var totalTime = stones.reduce(function(a, b) {
+            return a + (b.time * b.quantity);
+        }, 0);
+
+        params.averageTime = Math.ceil(totalTime / activeBoxes.length);
+
+        var averageTimeCorrection = params.averageTime % 5;
+        if (averageTimeCorrection !== 0) {
+            params.averageTime += (5 - averageTimeCorrection);
+        }
+
+        params.averageTime = stones.reduce(function(a, b) {
+            return Math.max(a, b.time);
+        }, params.averageTime);
+
+        console.log(params.averageTime);
+
+        if (type === 'light') {
+            var divideImportance = [7, 6, 5, 4, 10, 9, 8];
+            var divideRules = {
+                // stones count, max divided stones, divide parts
+                10: [2, 2],
+                9: [3, 2],
+                8: [4, 2],
+                7: [4, 2],
+                6: [4, 2],
+                5: [4, 2],
+                4: [4, 3],
+                3: [4, 3],
+                2: [4, 3]
+            };
+
+            if (divideRules[stones.length]) {
+                var divideCount = divideRules[stones.length][1];
+
+                var stonesForDivide = stones.filter(function(stone) {
+                    return stone.quantity >= divideCount && divideImportance.indexOf(stone.barrackLevel) !== -1;
+                });
+
+                stonesForDivide.sort(function(a, b) {
+                    return divideImportance.indexOf(a.barrackLevel) - divideImportance.indexOf(b.barrackLevel);
+                });
+
+                for (i = 0, l = Math.min(divideRules[stones.length][0], stonesForDivide.length); i < l; i++) {
+                    var partQuantity = Math.floor(stonesForDivide[i].quantity / divideCount);
+                    for (j = 1, m = divideCount; j < m; j++) {
+                        var stonePart = common.objectCopy(stonesForDivide[i]);
+                        stonesForDivide[i].quantity -= partQuantity;
+                        stonePart.quantity = partQuantity;
+                        stones.push(stonePart);
+                    }
+                }
+            }
+        }
+
+        // lowest first
+        activeBoxes.sort(function(a, b) {
+            return a.level - b.level;
+        });
+
+        var attempts = makeAttempts(activeBoxes, stones, params);
+
+        attempts.sort(function(a, b) {
+            if (a.stones.length === b.stones.length) {
+                return a.time - b.time;
+            }
+            return a.stones.length - b.stones.length;
+        });
+
+        activeBoxes = attempts[0].boxes;
+
+        for (i = 0, l = activeBoxes.length; i < l; i++) {
+            for (j = 0, m = boxes.length; j < m; j++) {
+                if (activeBoxes[i].num === boxes[j].num) {
+                    boxes[j] = activeBoxes[i];
+                }
+            }
+        }
+
+        return {
+            'remaining': attempts[0].stones.length,
+            'boxes': boxes
+        };
+    }
+
+    function makeAttempts(activeBoxes, stones, params) {
+        var i, j, k, l, m, n;
+
+        var attempts = [];
+
+        var variants0 = findOptimal(activeBoxes[0], stones, params, 5);
+
+        for (j = 0, m = variants0.length; j < m; j++) {
+            var attemptBoxes1 = common.objectCopy(activeBoxes);
+            var attemptStones1 = common.objectCopy(stones);
+
+            processVariant(attemptBoxes1[0], variants0[j], attemptStones1, params);
+
+            for (k = 1, n = activeBoxes.length; k < n; k++) {
+                var variants1 = findOptimal(attemptBoxes1[k], attemptStones1, params, 5);
+
+                for (var s = 0, t = variants1.length; s < t; s++) {
+                    var attemptBoxes2 = common.objectCopy(attemptBoxes1);
+                    var attemptStones2 = common.objectCopy(attemptStones1);
+
+                    processVariant(attemptBoxes2[k], variants1[s], attemptStones2, params);
+
+                    for (var x = k + 1, y = attemptBoxes2.length; x < y; x++) {
+                        var variants2 = findOptimal(attemptBoxes2[x], attemptStones2, params, 1);
+
+                        if (variants2.length) {
+                            processVariant(attemptBoxes2[x], variants2[0], attemptStones2, params);
+                        }
+                    }
+
+                    fillRemaining(attemptBoxes2, attemptStones2);
+
+                    var time2 = getBoxesMaxTime(attemptBoxes2);
+
+                    attempts.push({'boxes': attemptBoxes2, 'stones': attemptStones2, 'time': time2});
+
+                    if (time2 === params.averageTime && !attemptStones2.length) {
+                        return attempts;
+                    }
+                }
+            }
+
+            fillRemaining(attemptBoxes1, attemptStones1);
+
+            var time1 = getBoxesMaxTime(attemptBoxes1);
+
+            attempts.push({'boxes': attemptBoxes1, 'stones': attemptStones1, 'time': time1});
+
+            if (time1 === params.averageTime && !attemptBoxes1.length) {
+                return attempts;
+            }
+        }
+
+        return attempts;
+    }
+
+    function getBoxesMaxTime(boxes) {
+        return boxes.reduce(function(maxTime, box) {
+            return Math.max(maxTime, box.time);
+        }, 0);
+    }
+
+    function fillRemaining(boxes, stones) {
+        var i, j, k, l, m, n;
+
+        // max time first
+        stones.sort(function(a, b) {
+            return b.time - a.time;
+        });
+        for (i = 0; i < stones.length; i++) {
+            var stone = stones[i];
+
+            for (j = 0, m = stone.quantity; j < m; j++) {
+                // min time first
+                boxes.sort(function(a, b) {
+                    return a.time - b.time;
+                });
+
+                for (k = 0, n = boxes.length; k < n; k++) {
+                    var box = boxes[k];
+
+                    if (isBoxMatch(box, stone, null)) {
+                        fillBox(box, stone);
+                        stone.quantity--;
+                        if (stone.quantity === 0) {
+                            stones.splice(i, 1);
+                            i--;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    function findOptimal(box, stones, params, returnCount) {
+        var actual = stones.filter(function(stone) {
+            return stone.barrackLevel <= box.level;
+        });
+
+        var variants = [];
+
+        if (!actual.length) {
+            return variants;
+        }
+
+        var hashes = [];
+
+        var all = combine(actual, (actual.length === 1 ? 1 : 2));
+
+        for (var i = 0; i < all.length; i++) {
+            // space, time, stones
+            var fastBox = [0, 0, []];
+            var hash = '';
+
+            // it's important
+            all[i].sort(function(a, b) {
+                //return b.time - a.time;
+                if (b.space === a.space) {
+                    return b.time - a.time;
+                }
+                return b.space - a.space;
+            });
+
+            for (var j = 0; j < all[i].length; j++) {
+                var stone = all[i][j];
+                for (var k = 0; k < stone.quantity; k++) {
+                    var isMatchSpace = ((fastBox[0] + stone.space) <= box.maxSpace);
+                    var isMatchTime = ((fastBox[1] + stone.time) <= params.averageTime);
+
+                    if (isMatchSpace && isMatchTime) {
+                        fastBox[0] += stone.space;
+                        fastBox[1] += stone.time;
+                        if (!fastBox[2][stone.index]) {
+                            fastBox[2][stone.index] = 1;
+                        } else {
+                            fastBox[2][stone.index]++;
+                        }
+                    }
+                }
+            }
+
+            for (var m = 0; m < fastBox[2].length; m++) {
+                if (fastBox[2][m]) {
+                    hash += m + '.' + fastBox[2][m] + '-';
+                }
+            }
+
+            if (hashes.indexOf(hash) !== -1) {
+                continue;
+            }
+
+            hashes.push(hash);
+
+            variants.push(fastBox);
+        }
+
+        // max time and max space first
+        variants.sort(function(a, b) {
+            if (a[1] === b[1]) {
+                return b[0] - a[0];
+            }
+            return b[1] - a[1];
+        });
+
+        return variants.slice(0, returnCount);
+    }
+
+    function processVariant(box, variant, stones, params) {
+        box.space = variant[0];
+        box.time = variant[1];
+        box.stones = {};
+        for (var p = 0; p < variant[2].length; p++) {
+            if (variant[2][p]) {
+                box.stones[typesSorted[params.type][p][5]] = variant[2][p];
+            }
+        }
+
+        var subtract = common.objectCopy(box.stones);
+
+        for (var i = 0; i < stones.length; i++) {
+            if (subtract[stones[i].name]) {
+                var amount = Math.min(subtract[stones[i].name], stones[i].quantity);
+                subtract[stones[i].name] -= amount;
+                stones[i].quantity -= amount;
+                if (stones[i].quantity === 0) {
+                    stones.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+    }
+
+    function combine(input, size){
+        var results = [];
+        var result;
+        var mask;
+        var total = Math.pow(2, input.length);
+
+        for (mask = 0; mask < total; mask++) {
+            result = [];
+            var i = input.length - 1;
+            do {
+                if ((mask & (1 << i)) !== 0) {
+                    result.push(input[i]);
+                }
+            } while(i--);
+            if (result.length >= size) {
+                results.push(result);
+            }
+        }
+
+        return results;
+    }
+
+    function fillBox(box, stone) {
+        box.space += stone.space;
+        box.time += stone.time;
+        if (!box.stones[stone.name]) {
+            box.stones[stone.name] = 0;
+        }
+        box.stones[stone.name]++;
+        //stone.used = true;
+    }
+
+    function isBoxMatch(box, stone, averageTime) {
+        var isMatchLevel = (stone.barrackLevel <= box.level);
+        var isMatchSpace = ((box.space + stone.space) <= box.maxSpace);
+
+        var isMatchTime = true;
+        if (averageTime !== null) {
+            isMatchTime = ((box.time + stone.time) <= averageTime);
+        }
+
+        return (isMatchLevel && isMatchSpace && isMatchTime);
+    }
 
     var calculate = function(params) {
         var result = {

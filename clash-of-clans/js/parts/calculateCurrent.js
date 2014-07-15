@@ -24,24 +24,22 @@ part('calculateCurrent', [
 
     };
 
-    var populateDistribution = function(distributionResult, type) {
+    var populateDistribution = function(result, type) {
         var times = [];
-        if (distributionResult.fillSuccess) {
+        if (!result.distribution.remaining) {
             dom.updater.defer(type + '-exceeded', 'display', 'none');
             var maxTime = 0;
             var maxNum = 1;
 
-            while (distributionResult.barracksQueue.length) {
-                var barrack = distributionResult.barracksQueue.shift();
+            while (result.distribution.boxes.length) {
+                var barrack = result.distribution.boxes.shift();
 
-                for (var unitIndex in barrack.units) {
-                    if (barrack.units[unitIndex]) {
-                        dom.updater.defer('quantity-' + distributionResult.typesSorted[unitIndex][5] + '-' +
-                                          barrack.num, 'text', '×' + barrack.units[unitIndex]);
-                    }
+                for (var unitIndex in barrack.stones) {
+                    dom.updater.defer('quantity-' + unitIndex + '-' +
+                                      barrack.num, 'text', '×' + barrack.stones[unitIndex]);
                 }
 
-                var actualTime = barrack.getActualTime();
+                var actualTime = barrack.time;
                 if (actualTime > maxTime) {
                     maxTime = actualTime;
                     maxNum = parseInt(barrack.num, 10);
@@ -69,8 +67,8 @@ part('calculateCurrent', [
             dom.updater.defer(type + '-exceeded', 'display', '');
             var spaces = [];
             var sumSpace = 0;
-            while (distributionResult.barracksQueue.length) {
-                var barrack = distributionResult.barracksQueue.shift();
+            while (result.distribution.boxes.length) {
+                var barrack = result.distribution.boxes.shift();
                 dom.updater.defer(type + '-time-' + barrack.num, 'text', '');
 
                 spaces[barrack.num] = barrack.space;
@@ -83,7 +81,7 @@ part('calculateCurrent', [
                     dom.updater.defer(barrackSpaceId, 'text', '');
                 } else {
                     if (num === 1) {
-                        space += distributionResult.totalSpace - sumSpace;
+                        space += result.totalSpace - sumSpace;
                         dom.updater.defer(barrackSpaceId, 'html',
                                           '<span class="limit-exceeded result">' + space + '</span> / ');
 

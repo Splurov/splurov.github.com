@@ -7,11 +7,16 @@ part('common', function() {
     'use strict';
 
     return {
-        'objectCopy': function(obj) {
+        'objectCopy': function objectCopy(obj) {
+            if (obj === null || typeof obj !== 'object') {
+                return obj;
+            }
+
             var newObj = obj.constructor();
             Object.keys(obj).forEach(function(key) {
-                newObj[key] = obj[key];
+                newObj[key] = objectCopy(obj[key]);
             });
+
             return newObj;
         },
 
