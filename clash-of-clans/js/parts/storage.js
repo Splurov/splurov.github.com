@@ -116,6 +116,7 @@ part('storage', [
             });
             return source;
         },
+        'excludeIndexes': excludeIndexes,
         'all': all,
         'current': all[0] || new common.Dict({}),
         'save': function() {
