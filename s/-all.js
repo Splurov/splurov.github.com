@@ -795,6 +795,7 @@ part('storage', [
             });
             return source;
         },
+        'excludeIndexes': excludeIndexes,
         'all': all,
         'current': all[0] || new common.Dict({}),
         'save': function() {
@@ -2254,6 +2255,8 @@ part([
         goal.reach('SHARE', goalParams);
 
         urlData = urlData.replace(/[a-z]/g, ',');
+        urlData = urlData.replace(/"+$/, '');
+        urlData = urlData.replace(/,$/, '');
         urlData = urlData.replace(/,(?=,)/g, ',0');
         if (urlData[0] === ',') {
             urlData = '0' + urlData;
@@ -2292,6 +2295,9 @@ part([
         var url = 'http://mkln.ru/clash-of-clans/?s3=';
         var data = common.objectCopy(storage.current.getAll());
         data = storage.dataObjectToArray(data);
+        storage.excludeIndexes.forEach(function(excludeIndex) {
+            data[excludeIndex] = null;
+        });
         data = JSON.stringify(data);
         data = data.replace(/\b(?:null|0)\b/g, '');
         data = data.substr(1, data.length - 2);
