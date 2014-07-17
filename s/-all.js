@@ -1297,42 +1297,39 @@ part('calculate', [
 
         console.log(params.averageTime);
 
-        if (type === 'light') {
+        if (type === 'light' && stones.length > 1) {
             var divideImportance = [7, 6, 5, 4, 10, 9, 8];
-            var divideRules = {
-                // stones count, max divided stones, divide parts
-                10: [2, 2],
-                9: [3, 2],
-                8: [4, 2],
-                7: [4, 2],
-                6: [4, 2],
-                5: [4, 2],
-                4: [4, 3],
-                3: [4, 3],
-                2: [4, 3]
-            };
+            var stonesForDivide = stones.filter(function(stone) {
+                return divideImportance.indexOf(stone.barrackLevel) !== -1 && stone.quantity > 1;
+            });
 
-            if (divideRules[stones.length]) {
-                var divideCount = divideRules[stones.length][1];
+            console.log('STONES FOR DIVIDE:', stonesForDivide);
 
-                var stonesForDivide = stones.filter(function(stone) {
-                    return stone.quantity >= divideCount && divideImportance.indexOf(stone.barrackLevel) !== -1;
-                });
+            if (stonesForDivide.length) {
+                var maxParts = 12;
+                var maxNewParts = maxParts - stones.length;
+                var maxStonesForDivide = Math.min(maxNewParts, stonesForDivide.length);
+                var divideNum = 1 + Math.floor(maxNewParts / maxStonesForDivide);
+
+                console.log('DIVIDE NUM:', divideNum);
 
                 stonesForDivide.sort(function(a, b) {
                     return divideImportance.indexOf(a.barrackLevel) - divideImportance.indexOf(b.barrackLevel);
                 });
 
-                for (i = 0, l = Math.min(divideRules[stones.length][0], stonesForDivide.length); i < l; i++) {
-                    var partQuantity = Math.floor(stonesForDivide[i].quantity / divideCount);
-                    for (j = 1, m = divideCount; j < m; j++) {
+                for (i = 0, l = maxStonesForDivide; i < l; i++) {
+                    var currentDivideNum = Math.min(stonesForDivide[i].quantity, divideNum);
+                    var partQuantity = Math.floor(stonesForDivide[i].quantity / currentDivideNum);
+                    for (j = 1, m = currentDivideNum; j < m; j++) {
                         var stonePart = common.objectCopy(stonesForDivide[i]);
                         stonesForDivide[i].quantity -= partQuantity;
                         stonePart.quantity = partQuantity;
                         stones.push(stonePart);
                     }
-                }
             }
+            }
+
+            console.log('STONES AFTER DIVIDE', common.objectCopy(stones));
         }
 
         // lowest first
@@ -1369,7 +1366,7 @@ part('calculate', [
         var i, j, k, l, m, n;
 
         var attempts = [];
-
+        
         var variants0 = findOptimal(activeBoxes[0], stones, params, 5);
 
         for (j = 0, m = variants0.length; j < m; j++) {
@@ -1378,7 +1375,8 @@ part('calculate', [
 
             processVariant(attemptBoxes1[0], variants0[j], attemptStones1, params);
 
-            for (k = 1, n = activeBoxes.length; k < n; k++) {
+            k = 1;
+            if (activeBoxes[k]) {
                 var variants1 = findOptimal(attemptBoxes1[k], attemptStones1, params, 5);
 
                 for (var s = 0, t = variants1.length; s < t; s++) {
@@ -1395,30 +1393,30 @@ part('calculate', [
                         }
                     }
 
-                    fillRemaining(attemptBoxes2, attemptStones2);
-
-                    var time2 = getBoxesMaxTime(attemptBoxes2);
-
-                    attempts.push({'boxes': attemptBoxes2, 'stones': attemptStones2, 'time': time2});
-
-                    if (time2 === params.averageTime && !attemptStones2.length) {
+                    if (saveAttempt(attempts, attemptBoxes2, attemptStones2, params)) {
                         return attempts;
                     }
                 }
             }
 
-            fillRemaining(attemptBoxes1, attemptStones1);
-
-            var time1 = getBoxesMaxTime(attemptBoxes1);
-
-            attempts.push({'boxes': attemptBoxes1, 'stones': attemptStones1, 'time': time1});
-
-            if (time1 === params.averageTime && !attemptBoxes1.length) {
-                return attempts;
+            if (!activeBoxes[1]) {
+                if (saveAttempt(attempts, attemptBoxes1, attemptStones1, params)) {
+                    return attempts;
+                }
             }
         }
 
         return attempts;
+    }
+
+    function saveAttempt(attempts, boxes, stones, params) {
+        fillRemaining(boxes, stones);
+
+        var time1 = getBoxesMaxTime(boxes);
+
+        attempts.push({'boxes': boxes, 'stones': stones, 'time': time1});
+
+        return (time1 === params.averageTime && !stones.length);
     }
 
     function getBoxesMaxTime(boxes) {
@@ -1481,8 +1479,13 @@ part('calculate', [
             var hash = '';
 
             // it's important
+//            all[i].sort(function(a, b) {
+//                if (b.time === a.time) {
+//                    return b.space - a.space;
+//                }
+//                return b.time - a.time;
+//            });
             all[i].sort(function(a, b) {
-                //return b.time - a.time;
                 if (b.space === a.space) {
                     return b.time - a.time;
                 }
