@@ -430,7 +430,7 @@ part('calculate', [
             console.log('STONES FOR DIVIDE:', stonesForDivide);
 
             if (stonesForDivide.length) {
-                var maxParts = 12;
+                var maxParts = 11;
                 var maxNewParts = maxParts - stones.length;
                 var maxStonesForDivide = Math.min(maxNewParts, stonesForDivide.length);
                 var divideNum = 1 + Math.floor(maxNewParts / maxStonesForDivide);
@@ -490,7 +490,7 @@ part('calculate', [
         var i, j, k, l, m, n;
 
         var attempts = [];
-        
+
         var variants0 = findOptimal(activeBoxes[0], stones, params, 5);
 
         for (j = 0, m = variants0.length; j < m; j++) {
@@ -536,17 +536,13 @@ part('calculate', [
     function saveAttempt(attempts, boxes, stones, params) {
         fillRemaining(boxes, stones);
 
-        var time1 = getBoxesMaxTime(boxes);
-
-        attempts.push({'boxes': boxes, 'stones': stones, 'time': time1});
-
-        return (time1 === params.averageTime && !stones.length);
-    }
-
-    function getBoxesMaxTime(boxes) {
-        return boxes.reduce(function(maxTime, box) {
+        var maxTime = boxes.reduce(function(maxTime, box) {
             return Math.max(maxTime, box.time);
         }, 0);
+
+        attempts.push({'boxes': boxes, 'stones': stones, 'time': maxTime});
+
+        return (maxTime === params.averageTime && !stones.length);
     }
 
     function fillRemaining(boxes, stones) {
@@ -568,8 +564,17 @@ part('calculate', [
                 for (k = 0, n = boxes.length; k < n; k++) {
                     var box = boxes[k];
 
-                    if (isBoxMatch(box, stone, null)) {
-                        fillBox(box, stone);
+                    var isMatchLevel = (stone.barrackLevel <= box.level);
+                    var isMatchSpace = ((box.space + stone.space) <= box.maxSpace);
+
+                    if (isMatchLevel && isMatchSpace) {
+                        box.space += stone.space;
+                        box.time += stone.time;
+                        if (!box.stones[stone.name]) {
+                            box.stones[stone.name] = 0;
+                        }
+                        box.stones[stone.name]++;
+
                         stone.quantity--;
                         if (stone.quantity === 0) {
                             stones.splice(i, 1);
@@ -593,22 +598,58 @@ part('calculate', [
             return variants;
         }
 
+        var SMALL_LCM = 5;
+
         var hashes = [];
+
+        var hashExists = function(boxStones) {
+            var hash = '';
+
+            for (var m = 0; m < boxStones.length; m++) {
+                if (boxStones[m]) {
+                    hash += m + '.' + boxStones[m] + '-';
+                }
+            }
+
+            if (hashes.indexOf(hash) !== -1) {
+                return true;
+            }
+
+            hashes.push(hash);
+
+            return false;
+        };
+
+        var generateSmall = function(fastBox, stoneA, stoneB, remainingTime) {
+            var remainingSpace = (box.maxSpace - fastBox[0]);
+
+            for (var y = 1; y <= stoneB.quantity; y++) {
+                var x = (remainingTime - (stoneB.time * y)) / stoneA.time;
+                var sumSpace = x + y;
+                if (x % 1 === 0 && x >= 0 && x <= stoneA.quantity && sumSpace <= remainingSpace) {
+                    var currentFastBox = common.objectCopy(fastBox);
+                    currentFastBox[0] += sumSpace;
+                    currentFastBox[1] += (x * stoneA.time) + (y * stoneB.time);
+                    currentFastBox[2][stoneA.index] = x;
+                    currentFastBox[2][stoneB.index] = y;
+
+                    if (hashExists(currentFastBox[2])) {
+                        continue;
+                    }
+
+                    variants.push(currentFastBox);
+                }
+            }
+        };
 
         var all = combine(actual, (actual.length === 1 ? 1 : 2));
 
+        allCombinations:
         for (var i = 0; i < all.length; i++) {
             // space, time, stones
             var fastBox = [0, 0, []];
-            var hash = '';
 
-            // it's important
-//            all[i].sort(function(a, b) {
-//                if (b.time === a.time) {
-//                    return b.space - a.space;
-//                }
-//                return b.time - a.time;
-//            });
+            // it's important, max space and max time first
             all[i].sort(function(a, b) {
                 if (b.space === a.space) {
                     return b.time - a.time;
@@ -616,35 +657,38 @@ part('calculate', [
                 return b.space - a.space;
             });
 
+            currentCombination:
             for (var j = 0; j < all[i].length; j++) {
                 var stone = all[i][j];
-                for (var k = 0; k < stone.quantity; k++) {
-                    var isMatchSpace = ((fastBox[0] + stone.space) <= box.maxSpace);
-                    var isMatchTime = ((fastBox[1] + stone.time) <= params.averageTime);
+                var remainingTime = (params.averageTime - fastBox[1]);
+                if (stone.space === 1 && all[i][j + 1] && !all[i][j + 2] && (remainingTime % SMALL_LCM) === 0) {
+                    generateSmall(fastBox, all[i][j], all[i][j + 1], remainingTime);
+                    continue allCombinations;
+                } else {
+                    for (var k = 0; k < stone.quantity; k++) {
+                        var isMatchSpace = ((fastBox[0] + stone.space) <= box.maxSpace);
+                        var isMatchTime = ((fastBox[1] + stone.time) <= params.averageTime);
 
-                    if (isMatchSpace && isMatchTime) {
-                        fastBox[0] += stone.space;
-                        fastBox[1] += stone.time;
-                        if (!fastBox[2][stone.index]) {
-                            fastBox[2][stone.index] = 1;
-                        } else {
-                            fastBox[2][stone.index]++;
+                        if (isMatchSpace && isMatchTime) {
+                            fastBox[0] += stone.space;
+                            fastBox[1] += stone.time;
+                            if (!fastBox[2][stone.index]) {
+                                fastBox[2][stone.index] = 1;
+                            } else {
+                                fastBox[2][stone.index]++;
+                            }
+                        }
+
+                        if (fastBox[0] === box.maxSpace || fastBox[1] === params.averageTime) {
+                            break currentCombination;
                         }
                     }
                 }
             }
 
-            for (var m = 0; m < fastBox[2].length; m++) {
-                if (fastBox[2][m]) {
-                    hash += m + '.' + fastBox[2][m] + '-';
-                }
-            }
-
-            if (hashes.indexOf(hash) !== -1) {
+            if (hashExists(fastBox[2])) {
                 continue;
             }
-
-            hashes.push(hash);
 
             variants.push(fastBox);
         }
@@ -657,7 +701,9 @@ part('calculate', [
             return b[1] - a[1];
         });
 
-        return variants.slice(0, returnCount);
+        return variants.filter(function(variant, index) {
+            return index < returnCount || variant[1] === params.averageTime;
+        });
     }
 
     function processVariant(box, variant, stones, params) {
@@ -707,29 +753,7 @@ part('calculate', [
         return results;
     }
 
-    function fillBox(box, stone) {
-        box.space += stone.space;
-        box.time += stone.time;
-        if (!box.stones[stone.name]) {
-            box.stones[stone.name] = 0;
-        }
-        box.stones[stone.name]++;
-        //stone.used = true;
-    }
-
-    function isBoxMatch(box, stone, averageTime) {
-        var isMatchLevel = (stone.barrackLevel <= box.level);
-        var isMatchSpace = ((box.space + stone.space) <= box.maxSpace);
-
-        var isMatchTime = true;
-        if (averageTime !== null) {
-            isMatchTime = ((box.time + stone.time) <= averageTime);
-        }
-
-        return (isMatchLevel && isMatchSpace && isMatchTime);
-    }
-
-    var calculate = function(params) {
+    return function calculate(params) {
         var result = {
             'params': params
         };
@@ -753,6 +777,4 @@ part('calculate', [
 
         return result;
     };
-
-    return calculate;
 });
