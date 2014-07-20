@@ -39,7 +39,7 @@ part('calculateCurrent', [
                                       barrack.num, 'text', '×' + barrack.stones[unitIndex]);
                 }
 
-                var actualTime = barrack.time;
+                var actualTime = barrack.getActualTime();
                 if (actualTime > maxTime) {
                     maxTime = actualTime;
                     maxNum = parseInt(barrack.num, 10);

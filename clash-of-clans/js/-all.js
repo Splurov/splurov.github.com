@@ -11,6 +11,7 @@
 /* build:js:/clash-of-clans/js/parts/types.js */
 /* build:js:/clash-of-clans/js/parts/storage.js */
 /* build:js:/clash-of-clans/js/parts/cols-switcher.js */
+/* build:js:/clash-of-clans/js/parts/bruteForce.js */
 /* build:js:/clash-of-clans/js/parts/calculate.js */
 /* build:js:/clash-of-clans/js/parts/calculateCurrent.js */
 /* build:js:/clash-of-clans/js/parts/collection.js */
