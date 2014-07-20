@@ -92,6 +92,8 @@ part('favorites', [
             'types': []
         };
 
+        console.log('TITLE:', templateVars.title);
+
         var result = calculate({
             'type': 'all',
             'current': false,
@@ -135,8 +137,8 @@ part('favorites', [
                     data.time = common.getFormattedTime(result[type].totalTime, true);
                 } else {
                     var productionTime;
-                    if (result[type].fillSuccess) {
-                        productionTime = Math.max.apply(null, result[type].barracksQueue.map(function(barrack) {
+                    if (!result[type].distribution.remaining) {
+                        productionTime = Math.max.apply(null, result[type].distribution.boxes.map(function(barrack) {
                             return barrack.time;
                         }));
                         productionTime = common.getFormattedTime(productionTime);
@@ -213,7 +215,9 @@ part('favorites', [
     });
 
     setTimeout(function() {
+        console.time('favorites');
         content.innerHTML = storage.all.map(favoritesCreateItem).join('');
+        console.timeEnd('favorites');
         addListeners(content);
     }, 0);
 

@@ -403,15 +403,18 @@ part('calculate', [
                 };
             });
 
-            if (params.current) {
+//            if (params.current) {
                 console.time('NEW DISTRIBUTION');
-                typeResult.distribution = bruteForce(boxes, stones, {
-                    'typesSorted': typesSorted,
-                    'type': type,
-                    'boostedMultiplier': 4
-                });
+//            }
+            typeResult.distribution = bruteForce(boxes, stones, {
+                'typesSorted': typesSorted,
+                'type': type,
+                'boostedMultiplier': 4,
+                'current': params.current
+            });
+//            if (params.current) {
                 console.timeEnd('NEW DISTRIBUTION');
-            }
+//            }
         }
 
         return typeResult;

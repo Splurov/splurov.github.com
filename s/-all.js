@@ -892,15 +892,29 @@ part('bruteForce', [
             };
         }
 
+        var maxTimes = activeBoxes.map(function(box) {
+            var maxTime = calculateBoxMaxTime(box, stones);
+            if (params.current) {
+                console.log('BOX NUM:', box.num, 'TIME:', maxTime);
+            }
+            return maxTime;
+        });
+
         var totalTime = stones.reduce(function(a, b) {
             return a + (b.time * b.quantity);
         }, 0);
 
         params.averageTime = Math.ceil(totalTime / activeBoxes.length);
 
-        params.averageTime = stones.reduce(function(a, b) {
-            return Math.max(a, b.time);
-        }, params.averageTime);
+//        params.averageTime = stones.reduce(function(a, b) {
+//            return Math.max(a, b.time);
+//        }, params.averageTime);
+
+        maxTimes.forEach(function(maxTime) {
+            if (maxTime < params.averageTime) {
+                params.averageTime = params.averageTime + ((params.averageTime - maxTime) / (activeBoxes.length - 1));
+            }
+        });
 
         var boostedCount = activeBoxes.filter(function(box) {
             return box.isBoosted;
@@ -921,7 +935,9 @@ part('bruteForce', [
             params.averageTime += (5 - averageTimeCorrection);
         }
 
-        console.log(params.averageTime);
+        if (params.current) {
+            console.log(params.averageTime);
+        }
 
         if (params.type === 'light' && stones.length > 1) {
             var divideImportance = [7, 6, 5, 4, 10, 9, 8];
@@ -930,7 +946,11 @@ part('bruteForce', [
             });
 
             if (stonesForDivide.length) {
-                var maxParts = 11;
+                var maxParts = 10;
+                var minPartQuantity = 1;
+                if (stonesForDivide.length === 1) {
+                    minPartQuantity = 2;
+                }
                 var maxNewParts = maxParts - stones.length;
                 var maxStonesForDivide = Math.min(maxNewParts, stonesForDivide.length);
                 var divideNum = 1 + Math.floor(maxNewParts / maxStonesForDivide);
@@ -942,6 +962,10 @@ part('bruteForce', [
                 for (var i = 0, l = maxStonesForDivide; i < l; i++) {
                     var currentDivideNum = Math.min(stonesForDivide[i].quantity, divideNum);
                     var partQuantity = Math.floor(stonesForDivide[i].quantity / currentDivideNum);
+                    if (minPartQuantity > partQuantity && stonesForDivide[i].quantity > minPartQuantity) {
+                        partQuantity = Math.max(partQuantity, minPartQuantity);
+                        currentDivideNum = Math.floor(stonesForDivide[i].quantity / partQuantity);
+                    }
                     for (var j = 1, m = currentDivideNum; j < m; j++) {
                         var stonePart = common.objectCopy(stonesForDivide[i]);
                         stonesForDivide[i].quantity -= partQuantity;
@@ -952,7 +976,8 @@ part('bruteForce', [
             }
         }
 
-        // lowest first
+//        console.log(stones.length);
+
         activeBoxes.sort(function(a, b) {
             if (a.isBoosted === b.isBoosted) {
                 if (boostedCount) {
@@ -986,6 +1011,30 @@ part('bruteForce', [
             'remaining': attempts[0].stones.length,
             'boxes': boxes
         };
+    }
+
+    function calculateBoxMaxTime(box, stones) {
+        var actualStones = stones.filter(function(stone) {
+            return stone.barrackLevel <= box.level;
+        });
+        actualStones.sort(function(a, b) {
+            return (b.time / b.space) - (a.time/ a.space);
+        });
+
+        var boxSpace = 0;
+        var boxTime = 0;
+        actualStones.forEach(function(stone) {
+            for (var i = 0, l = stone.quantity; i < l; i++) {
+                if ((stone.space + boxSpace) > box.maxSpace) {
+                    break;
+                }
+
+                boxSpace += stone.space;
+                boxTime += stone.time;
+            }
+        });
+
+        return boxTime;
     }
 
     function makeAttempts(activeBoxes, stones, params) {
@@ -1089,11 +1138,12 @@ part('bruteForce', [
 
         var variants = [];
 
-        if (!actual.length) {
+        if (actual.length === 0) {
             return variants;
         }
 
         var SMALL_LCM = 5;
+        var SMALL_MIN_QUANTITY = 20;
 
         var hashes = [];
 
@@ -1101,7 +1151,7 @@ part('bruteForce', [
             var hash = '';
 
             for (var m = 0; m < boxStones.length; m++) {
-                if (boxStones[m]) {
+                if (boxStones[m] !== undefined) {
                     hash += m + '.' + boxStones[m] + '-';
                 }
             }
@@ -1118,15 +1168,24 @@ part('bruteForce', [
         var generateSmall = function(fastBox, stoneA, stoneB, remainingTime) {
             var remainingSpace = (box.maxSpace - fastBox[0]);
 
-            for (var y = 1; y <= stoneB.quantity; y++) {
+            var maxA = Math.min(stoneA.quantity, remainingSpace);
+            var maxB = Math.min(stoneB.quantity, remainingSpace);
+
+            remainingTime = Math.min(remainingTime, stoneA.time * remainingSpace);
+
+            for (var y = 0; y <= maxB; y++) {
                 var x = (remainingTime - (stoneB.time * y)) / stoneA.time;
                 var sumSpace = x + y;
-                if (x % 1 === 0 && x >= 0 && x <= stoneA.quantity && sumSpace <= remainingSpace) {
+                if (x % 1 === 0 && x >= 0 && x <= maxA && sumSpace <= remainingSpace) {
                     var currentFastBox = common.objectCopy(fastBox);
                     currentFastBox[0] += sumSpace;
                     currentFastBox[1] += (x * stoneA.time) + (y * stoneB.time);
-                    currentFastBox[2][stoneA.index] = x;
-                    currentFastBox[2][stoneB.index] = y;
+                    if (x !== 0) {
+                        currentFastBox[2][stoneA.index] = x;
+                    }
+                    if (y !== 0) {
+                        currentFastBox[2][stoneB.index] = y;
+                    }
 
                     if (hashExists(currentFastBox[2])) {
                         continue;
@@ -1138,7 +1197,6 @@ part('bruteForce', [
         };
 
         var all = combine(actual, (actual.length === 1 ? 1 : 2));
-
         allCombinations:
         for (var i = 0; i < all.length; i++) {
             // space, time, stones
@@ -1156,8 +1214,13 @@ part('bruteForce', [
             for (var j = 0; j < all[i].length; j++) {
                 var stone = all[i][j];
                 var remainingTime = (box.getAverageTime(params.averageTime) - fastBox[1]);
-                if (stone.space === 1 && all[i][j + 1] && !all[i][j + 2] && (remainingTime % SMALL_LCM) === 0) {
-                    generateSmall(fastBox, all[i][j], all[i][j + 1], remainingTime);
+                if (stone.quantity > SMALL_MIN_QUANTITY &&
+                        stone.space === 1 &&
+                        all[i][j + 1] &&
+                        !all[i][j + 2] &&
+                        (remainingTime % SMALL_LCM) === 0 &&
+                        fastBox[0] !== 0) {
+                    generateSmall(fastBox, stone, all[i][j + 1], remainingTime);
                     continue allCombinations;
                 } else {
                     for (var k = 0; k < stone.quantity; k++) {
@@ -1167,7 +1230,7 @@ part('bruteForce', [
                         if (isMatchSpace && isMatchTime) {
                             fastBox[0] += stone.space;
                             fastBox[1] += stone.time;
-                            if (!fastBox[2][stone.index]) {
+                            if (fastBox[2][stone.index] === undefined) {
                                 fastBox[2][stone.index] = 1;
                             } else {
                                 fastBox[2][stone.index]++;
@@ -1206,7 +1269,7 @@ part('bruteForce', [
         box.time = variant[1];
         box.stones = {};
         for (var p = 0; p < variant[2].length; p++) {
-            if (variant[2][p]) {
+            if (variant[2][p] !== undefined) {
                 box.stones[params.typesSorted[params.type][p][5]] = variant[2][p];
             }
         }
@@ -1214,7 +1277,7 @@ part('bruteForce', [
         var subtract = common.objectCopy(box.stones);
 
         for (var i = 0; i < stones.length; i++) {
-            if (subtract[stones[i].name]) {
+            if (subtract[stones[i].name] !== undefined) {
                 var amount = Math.min(subtract[stones[i].name], stones[i].quantity);
                 subtract[stones[i].name] -= amount;
                 stones[i].quantity -= amount;
@@ -1658,15 +1721,18 @@ part('calculate', [
                 };
             });
 
-            if (params.current) {
+//            if (params.current) {
                 console.time('NEW DISTRIBUTION');
-                typeResult.distribution = bruteForce(boxes, stones, {
-                    'typesSorted': typesSorted,
-                    'type': type,
-                    'boostedMultiplier': 4
-                });
+//            }
+            typeResult.distribution = bruteForce(boxes, stones, {
+                'typesSorted': typesSorted,
+                'type': type,
+                'boostedMultiplier': 4,
+                'current': params.current
+            });
+//            if (params.current) {
                 console.timeEnd('NEW DISTRIBUTION');
-            }
+//            }
         }
 
         return typeResult;
@@ -2155,6 +2221,8 @@ part('favorites', [
             'types': []
         };
 
+        console.log('TITLE:', templateVars.title);
+
         var result = calculate({
             'type': 'all',
             'current': false,
@@ -2198,8 +2266,8 @@ part('favorites', [
                     data.time = common.getFormattedTime(result[type].totalTime, true);
                 } else {
                     var productionTime;
-                    if (result[type].fillSuccess) {
-                        productionTime = Math.max.apply(null, result[type].barracksQueue.map(function(barrack) {
+                    if (!result[type].distribution.remaining) {
+                        productionTime = Math.max.apply(null, result[type].distribution.boxes.map(function(barrack) {
                             return barrack.time;
                         }));
                         productionTime = common.getFormattedTime(productionTime);
@@ -2276,7 +2344,9 @@ part('favorites', [
     });
 
     setTimeout(function() {
+        console.time('favorites');
         content.innerHTML = storage.all.map(favoritesCreateItem).join('');
+        console.timeEnd('favorites');
         addListeners(content);
     }, 0);
 
