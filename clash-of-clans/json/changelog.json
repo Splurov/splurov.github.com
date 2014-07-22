@@ -1,5 +1,12 @@
 [
     [
+        "6.3",
+        "22 July, 2014",
+        [
+            "Fixed a bug with non-working +/- buttons when device supports touch and mouse input at the same time"
+        ]
+    ],
+    [
         "6.2",
         "16 July, 2014",
         [
