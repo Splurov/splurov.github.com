@@ -9,6 +9,8 @@ part('calculate', [
 
     'use strict';
 
+    var BOOSTED_MULTIPLIER = 4;
+
     var typesSorted = {};
     Object.keys(types.data).forEach(function(type) {
         typesSorted[type] = [];
@@ -333,7 +335,7 @@ part('calculate', [
                     'isBoosted': isBoosted,
                     'getActualTime': function() {
                         if (this.isBoosted) {
-                            return Math.floor(this.time / 4);
+                            return Math.floor(this.time / BOOSTED_MULTIPLIER);
                         }
 
                         return this.time;
@@ -346,13 +348,13 @@ part('calculate', [
             }).length;
 
             if (boostedCount) {
-                maxUnitTime = Math.ceil(maxUnitTime / 4);
+                maxUnitTime = Math.ceil(maxUnitTime / BOOSTED_MULTIPLIER);
             }
 
             var activeCount = barracksQueue.filter(function(barrack) {
                 return barrack.level > 0;
             }).length;
-            var virtualBarracksCount = activeCount + (boostedCount * 4);
+            var virtualBarracksCount = activeCount + (boostedCount * BOOSTED_MULTIPLIER);
             var avgTime = Math.max(Math.ceil(totalTime / virtualBarracksCount), maxUnitTime);
 
             if (params.current) {
@@ -382,20 +384,16 @@ part('calculate', [
                     'stones': {},
                     'level': level,
                     'isBoosted': isBoosted,
-                    'getActualTime': function(time) {
-                        var baseTime = this.time;
-                        if (time !== undefined) {
-                            baseTime = time;
-                        }
+                    'getActualTime': function() {
                         if (this.isBoosted) {
-                            return Math.floor(baseTime / 4);
+                            return Math.floor(this.time / BOOSTED_MULTIPLIER);
                         }
 
-                        return baseTime;
+                        return this.time;
                     },
                     'getAverageTime': function(averageTime) {
                         if (this.isBoosted) {
-                            return averageTime * 4;
+                            return averageTime * BOOSTED_MULTIPLIER;
                         }
 
                         return averageTime;
@@ -409,7 +407,7 @@ part('calculate', [
             typeResult.distribution = bruteForce(boxes, stones, {
                 'typesSorted': typesSorted,
                 'type': type,
-                'boostedMultiplier': 4,
+                'boostedMultiplier': BOOSTED_MULTIPLIER,
                 'current': params.current
             });
 //            if (params.current) {

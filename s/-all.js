@@ -892,36 +892,65 @@ part('bruteForce', [
             };
         }
 
-        var maxTimes = activeBoxes.map(function(box) {
-            var maxTime = calculateBoxMaxTime(box, stones);
-            if (params.current) {
-                console.log('BOX NUM:', box.num, 'TIME:', maxTime);
-            }
-            return maxTime;
+        stones.forEach(function(stone) {
+            stone.boxesCount = 0;
+            activeBoxes.forEach(function(box) {
+                if (stone.barrackLevel <= box.level) {
+                    stone.boxesCount++;
+                }
+            });
         });
+
+        activeBoxes.forEach(function(box) {
+            box.averageTime = 0;
+            stones.forEach(function(stone) {
+                if (stone.barrackLevel <= box.level) {
+                    box.averageTime += ((stone.quantity * stone.time) / stone.boxesCount);
+                }
+            });
+        });
+
+        if (params.current) {
+            console.log('BOXES COUNT:', stones.map(function(a) {return a.boxesCount}));
+            console.log('AVERAGE TIMES:', activeBoxes.map(function(a) {return a.averageTime}));
+        }
 
         var totalTime = stones.reduce(function(a, b) {
             return a + (b.time * b.quantity);
         }, 0);
 
-        params.averageTime = Math.ceil(totalTime / activeBoxes.length);
+        var boostedCount = activeBoxes.filter(function(box) {
+            return box.isBoosted;
+        }).length;
+
+        var virtualBoxesCount = activeBoxes.length;
+        if (boostedCount) {
+            virtualBoxesCount += (boostedCount * (params.boostedMultiplier - 1));
+        }
+        params.averageTime = Math.ceil(totalTime / virtualBoxesCount);
+        if (params.current) {
+            console.log('AVG TIME:', params.averageTime);
+        }
 
 //        params.averageTime = stones.reduce(function(a, b) {
 //            return Math.max(a, b.time);
 //        }, params.averageTime);
 
-        maxTimes.forEach(function(maxTime) {
+        activeBoxes.forEach(function(box) {
+            var maxTime = calculateBoxMaxTime(box, stones);
             if (maxTime < params.averageTime) {
                 params.averageTime = params.averageTime + ((params.averageTime - maxTime) / (activeBoxes.length - 1));
             }
         });
 
-        var boostedCount = activeBoxes.filter(function(box) {
-            return box.isBoosted;
-        }).length;
-
+        /*
         if (boostedCount) {
+
             var averageBoosted = params.averageTime / params.boostedMultiplier;
+            if (params.current) {
+                console.log('average boosted:', averageBoosted);
+                // 1697
+            }
             params.averageTime = Math.ceil(
                 (
                     (params.averageTime * (activeBoxes.length - boostedCount)) +
@@ -929,6 +958,7 @@ part('bruteForce', [
                 ) / activeBoxes.length
             );
         }
+        */
 
         var averageTimeCorrection = params.averageTime % 5;
         if (averageTimeCorrection !== 0) {
@@ -1014,9 +1044,9 @@ part('bruteForce', [
     }
 
     function calculateBoxMaxTime(box, stones) {
-        var actualStones = stones.filter(function(stone) {
-            return stone.barrackLevel <= box.level;
-        });
+        var actualStones = getSuitableStones(box, stones);
+
+        // max time to space ratio first
         actualStones.sort(function(a, b) {
             return (b.time / b.space) - (a.time/ a.space);
         });
@@ -1132,9 +1162,7 @@ part('bruteForce', [
     }
 
     function findOptimal(box, stones, params, returnCount) {
-        var actual = stones.filter(function(stone) {
-            return stone.barrackLevel <= box.level;
-        });
+        var actual = getSuitableStones(box, stones);
 
         var variants = [];
 
@@ -1264,6 +1292,12 @@ part('bruteForce', [
         });
     }
 
+    function getSuitableStones(box, stones) {
+        return stones.filter(function(stone) {
+            return stone.barrackLevel <= box.level;
+        });
+    }
+
     function processVariant(box, variant, stones, params) {
         box.space = variant[0];
         box.time = variant[1];
@@ -1326,6 +1360,8 @@ part('calculate', [
 ], function(storage, types, dom, goal, common, bruteForce) {
 
     'use strict';
+
+    var BOOSTED_MULTIPLIER = 4;
 
     var typesSorted = {};
     Object.keys(types.data).forEach(function(type) {
@@ -1651,7 +1687,7 @@ part('calculate', [
                     'isBoosted': isBoosted,
                     'getActualTime': function() {
                         if (this.isBoosted) {
-                            return Math.floor(this.time / 4);
+                            return Math.floor(this.time / BOOSTED_MULTIPLIER);
                         }
 
                         return this.time;
@@ -1664,13 +1700,13 @@ part('calculate', [
             }).length;
 
             if (boostedCount) {
-                maxUnitTime = Math.ceil(maxUnitTime / 4);
+                maxUnitTime = Math.ceil(maxUnitTime / BOOSTED_MULTIPLIER);
             }
 
             var activeCount = barracksQueue.filter(function(barrack) {
                 return barrack.level > 0;
             }).length;
-            var virtualBarracksCount = activeCount + (boostedCount * 4);
+            var virtualBarracksCount = activeCount + (boostedCount * BOOSTED_MULTIPLIER);
             var avgTime = Math.max(Math.ceil(totalTime / virtualBarracksCount), maxUnitTime);
 
             if (params.current) {
@@ -1700,20 +1736,16 @@ part('calculate', [
                     'stones': {},
                     'level': level,
                     'isBoosted': isBoosted,
-                    'getActualTime': function(time) {
-                        var baseTime = this.time;
-                        if (time !== undefined) {
-                            baseTime = time;
-                        }
+                    'getActualTime': function() {
                         if (this.isBoosted) {
-                            return Math.floor(baseTime / 4);
+                            return Math.floor(this.time / BOOSTED_MULTIPLIER);
                         }
 
-                        return baseTime;
+                        return this.time;
                     },
                     'getAverageTime': function(averageTime) {
                         if (this.isBoosted) {
-                            return averageTime * 4;
+                            return averageTime * BOOSTED_MULTIPLIER;
                         }
 
                         return averageTime;
@@ -1727,7 +1759,7 @@ part('calculate', [
             typeResult.distribution = bruteForce(boxes, stones, {
                 'typesSorted': typesSorted,
                 'type': type,
-                'boostedMultiplier': 4,
+                'boostedMultiplier': BOOSTED_MULTIPLIER,
                 'current': params.current
             });
 //            if (params.current) {
