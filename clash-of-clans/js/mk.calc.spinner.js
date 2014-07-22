@@ -53,15 +53,10 @@ part([
         var diffX = Math.abs(touch.screenX - this.x) / divisor;
         var diffY = Math.abs(touch.screenY - this.y) / divisor;
 
-        if (diffX > 16 || diffY > 16) {
-            return true;
-        }
-
-        return false;
+        return (diffX > 16 || diffY > 16);
     };
 
     ActiveItem.prototype.destroy = function() {
-        this.target = null;
         clearTimeout(this.firstTimeout);
         clearTimeout(this.secondTimeout);
     };
@@ -123,10 +118,12 @@ part([
         }
     };
 
+    var isTouch = false;
 
     if (window.mkSupport.touch) {
         var preventTimeStamp = 0;
         dom.listen(document.body, 'touchstart', function(e) {
+            isTouch = true;
             if (activeItems.start(e.changedTouches)) {
                 if (e.timeStamp - preventTimeStamp <= 300) {
                     e.preventDefault();
@@ -146,22 +143,27 @@ part([
                 activeItems.end(e.changedTouches);
             });
         });
-    } else {
-        dom.listen(document.body, 'mousedown', function(e) {
-            e.identifier = 'mouse';
-            activeItems.start([e]);
-        });
+    }
 
-        dom.listen(document.body, 'mousemove', function(e) {
-            e.identifier = 'mouse';
-            activeItems.move([e]);
-        });
+    dom.listen(document.body, 'mousedown', function(e) {
+        if (isTouch || e.which !== 1) {
+            return;
+        }
+        e.identifier = 'mouse';
+        activeItems.start([e]);
+    });
 
-        dom.listen(document.body, 'mouseup', function(e) {
+    dom.listen(document.body, 'mousemove', function(e) {
+        e.identifier = 'mouse';
+        activeItems.move([e]);
+    });
+
+    ['mouseup', 'click'].forEach(function(eventName) {
+        dom.listen(document.body, eventName, function(e) {
             e.identifier = 'mouse';
             activeItems.end([e]);
         });
-    }
+    });
 
     dom.listen(document.body, 'keydown', function(e) {
         if (e.target.classList.contains('js-number') && !e.metaKey && !e.shiftKey && !e.ctrlKey && !e.altKey &&
