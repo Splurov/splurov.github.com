@@ -28,4 +28,10 @@ describe('sentence case', function () {
     assert.equal(sentenceCase('version 0..78..0'), 'version 0.78.0');
     assert.equal(sentenceCase('version.4_99/4'), 'version 4.99.4');
   });
+
+  it('should not fail with odd input', function () {
+    assert.equal(sentenceCase(null), 'null');
+    assert.equal(sentenceCase(10), '10');
+    assert.equal(sentenceCase(undefined), 'undefined');
+  });
 });

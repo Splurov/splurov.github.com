@@ -247,6 +247,7 @@ templates.forEach(function(options) {
                     'removeCommentsFromCDATA': false,
                     'removeCDATASectionsFromCDATA': false,
                     'collapseWhitespace': false,
+                    //'conservativeCollapse': true,
                     'collapseBooleanAttributes': true,
                     'removeAttributeQuotes': true,
                     'removeRedundantAttributes': true,
@@ -255,8 +256,7 @@ templates.forEach(function(options) {
                     'removeOptionalTags': false,
                     'removeEmptyElements': false,
                     'removeScriptTypeAttributes': true,
-                    'removeStyleLinkTypeAttributes': true,
-                    'ignoreCustomComments': [/license/]
+                    'removeStyleLinkTypeAttributes': true
                 });
 
                 dataDest = dataDest.replace(/^\s+/gm, '');
