@@ -392,6 +392,7 @@ part('calculate', [
                         return this.time;
                     },
                     'getAverageTime': function(averageTime) {
+                        return this.averageTime;
                         if (this.isBoosted) {
                             return averageTime * BOOSTED_MULTIPLIER;
                         }
