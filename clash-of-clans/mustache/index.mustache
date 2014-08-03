@@ -68,8 +68,8 @@
         <span class="menu__item js-anchor js-dark-object" data-for="dark-anchor">Dark Barracks</span>
         <span class="menu__item js-anchor js-spells-object" data-for="spells-anchor">Spell Factory</span>
         <span class="menu__item js-anchor js-share" data-for="share-anchor">Share</span>
-        <span class="menu__item js-anchor" data-for="favorites-anchor">Favorites</span>
-        <span class="menu__item js-favorite-add"><span class="icon-favorite">Add to Favorites</span></span>
+        <span class="menu__item js-anchor" data-for="favorites-anchor">Saved</span>
+        <span class="menu__item js-favorite-add"><span class="icon-favorite">Save Composition</span></span>
     </span>
 </div>
 
@@ -77,7 +77,7 @@
    class="message message_closeable message_root message_centered"
    title="Click to hide"
    style="display: none;">
-    You are viewing shared army composition (you can find previous one in the favorites)
+    You are viewing shared army composition (you can find previous one in the saved compositions)
 </p>
 
 <p id="storage-quota-exceeded" class="message message_negative message_root" style="display: none;">
@@ -221,8 +221,8 @@
                                         {{#light}}80 Barbarians and 100 Archers.{{/light}}
                                         {{#dark}}15 Minions.{{/dark}}
                                         This is very useful, when after the battle you have remained part of the army.<br/>
-                                        (Values from the “Subtract” columns not preserved between browser sessions nor saved
-                                        when you add to favorites.)
+                                        (Values from the “Subtract” columns not preserved between browser sessions
+                                        nor stored in the saved compositions.)
                                     </span>
                                 </span>
                                 <br/>
@@ -352,15 +352,16 @@
 </div>
 
 <h2 id="favorites-anchor">
-    Favorites
+    Saved Army Compositions
 
     <span class="help-link js-help-link">
         <span class="help-link__content js-help-content">
-            Values from the “Subtract” columns and “Boost” flags not saved when you add composition to favorites.
+            Formerly “Favorites”.<br />
+            “Boost” flags and values from the “Subtract” columns not stored.
         </span>
     </span>
 
-    <span class="js-favorite-add button button_after"><span class="icon-favorite">Add</span></span>
+    <span class="js-favorite-add button button_after"><span class="icon-favorite">Save</span></span>
 </h2>
 <div id="favorites">
 </div>
