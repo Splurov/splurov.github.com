@@ -6,6 +6,8 @@
 
 .data {
     margin-bottom: 20px;
+    -webkit-transform: translateZ(0);
+    -webkit-font-smoothing: subpixel-antialiased;
 
     @media @mobile-media-query {
         width: 100%;
@@ -64,9 +66,6 @@
         border-right: 0;
     }
 }
-    .s-mobile .data {
-        -webkit-transform: translateZ(0);
-    }
 
     .s-touch .data {
         -webkit-user-select: none;

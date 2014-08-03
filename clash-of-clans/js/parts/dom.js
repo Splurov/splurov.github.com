@@ -2,28 +2,26 @@ part('dom', function() {
     'use strict';
 
     var registerUniversalClick = function(target, listener) {
-        if (window.mkSupport.touch) {
-            var tapping;
+        var tapping;
 
-            target.addEventListener('touchstart', function() {
-                tapping = true;
-            }, false);
+        target.addEventListener('touchstart', function() {
+            tapping = true;
+        }, false);
 
-            target.addEventListener('touchmove', function() {
-                tapping = false;
-            }, false);
+        target.addEventListener('touchmove', function() {
+            tapping = false;
+        }, false);
 
-            target.addEventListener('touchcancel', function() {
-                tapping = false;
-            }, false);
+        target.addEventListener('touchcancel', function() {
+            tapping = false;
+        }, false);
 
-            target.addEventListener('touchend', function(e) {
-                e.preventDefault();
-                if (tapping) {
-                    listener(e);
-                }
-            }, false);
-        }
+        target.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            if (tapping) {
+                listener(e);
+            }
+        }, false);
 
         target.addEventListener('click', function(e) {
             listener(e);

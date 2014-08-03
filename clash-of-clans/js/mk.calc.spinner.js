@@ -120,30 +120,28 @@ part([
 
     var isTouch = false;
 
-    if (window.mkSupport.touch) {
-        var preventTimeStamp = 0;
-        dom.listen(document.body, 'touchstart', function(e) {
-            isTouch = true;
-            if (activeItems.start(e.changedTouches)) {
-                if (e.timeStamp - preventTimeStamp <= 300) {
-                    e.preventDefault();
-                }
-                preventTimeStamp = e.timeStamp;
-            }
-        });
-
-        dom.listen(document.body, 'touchmove', function(e) {
-            if (activeItems.move(e.changedTouches, 2)) {
+    var preventTimeStamp = 0;
+    dom.listen(document.body, 'touchstart', function(e) {
+        isTouch = true;
+        if (activeItems.start(e.changedTouches)) {
+            if (e.timeStamp - preventTimeStamp <= 300) {
                 e.preventDefault();
             }
-        });
+            preventTimeStamp = e.timeStamp;
+        }
+    });
 
-        ['touchend', 'touchcancel'].forEach(function(eventName) {
-            dom.listen(document.body, eventName, function(e) {
-                activeItems.end(e.changedTouches);
-            });
+    dom.listen(document.body, 'touchmove', function(e) {
+        if (activeItems.move(e.changedTouches, 2)) {
+            e.preventDefault();
+        }
+    });
+
+    ['touchend', 'touchcancel'].forEach(function(eventName) {
+        dom.listen(document.body, eventName, function(e) {
+            activeItems.end(e.changedTouches);
         });
-    }
+    });
 
     dom.listen(document.body, 'mousedown', function(e) {
         if (isTouch || e.which !== 1) {
