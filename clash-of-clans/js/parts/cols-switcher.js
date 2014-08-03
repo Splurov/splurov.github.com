@@ -6,10 +6,6 @@ part([
 
     'use strict';
 
-    if (!window.matchMedia('(max-width: 640px)').matches) {
-        return;
-    }
-
     var all = ['barrack', 'level', 'quantity', 'total', 'subtract'];
     var views = {
         'light': {
@@ -46,18 +42,48 @@ part([
 
         Object.keys(views[type]).forEach(function(viewItem) {
             var viewItemEl = document.querySelector(
-                    '.js-cols-switcher[data-type="' + type + '"][data-view="' + viewItem + '"]'
+                '.js-cols-switcher[data-type="' + type + '"][data-view="' + viewItem + '"]'
             );
             dom.toggleClass(viewItemEl, 'button_selected', (view === viewItem));
         });
     };
 
-    dom.find('.js-cols-switcher').listen('universalClick', function(e) {
+    var colSwitchers = dom.find('.js-cols-switcher');
+    colSwitchers.listen('universalClick', function(e) {
         switchView(e.currentTarget.getAttribute('data-type'), e.currentTarget.getAttribute('data-view'));
     });
 
-    ['light', 'dark'].forEach(function(type) {
-        switchView(type, (localStorage.getItem(type + '-view') || 'quantity'));
+
+    var init = function() {
+        ['light', 'dark'].forEach(function(type) {
+            switchView(type, (localStorage.getItem(type + '-view') || 'quantity'));
+        });
+    };
+
+    var mobileMatch = window.matchMedia('(max-width: 640px)');
+    if (mobileMatch.matches) {
+        init();
+    }
+
+    mobileMatch.addListener(function(currentMatch) {
+        if (currentMatch.matches) {
+            init();
+        } else {
+            ['light', 'dark'].forEach(function(type) {
+                all.forEach(function(col) {
+                    var colElements = dom.findCache('.js-col-' + type + '-' + col);
+                    colElements.iterate(function(colEl) {
+                        colEl.style.display = '';
+                        colEl.classList.remove('data__last');
+                        colEl.classList.remove('active');
+                    });
+                });
+            });
+
+            colSwitchers.iterate(function(colSwitcher) {
+                colSwitcher.classList.remove('button_selected');
+            });
+        }
     });
 
 });

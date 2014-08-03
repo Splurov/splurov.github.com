@@ -4,10 +4,6 @@ part([
 
     'use strict';
 
-    if (!window.mkSupport.mobile) {
-        return;
-    }
-
     var ITEMS_ACTIVE_CLASS = 'menu__items_active';
     var SWITCHER_SELECTED_CLASS = 'menu__item_selected';
 
@@ -33,11 +29,16 @@ part([
         switcher.classList.remove(SWITCHER_SELECTED_CLASS);
     };
 
-    dom.listen(window, 'touchmove', hide);
-    dom.listen(window, 'touchend', function(e) {
-        if (e.target !== switcher) {
-            hide();
-        }
+    ['touchmove', 'scroll', 'resize'].forEach(function(eventName) {
+        dom.listen(window, eventName, hide);
+    });
+
+    ['touchend', 'click'].forEach(function(eventName) {
+        dom.listen(window, eventName, function(e) {
+            if (e.target !== switcher) {
+                hide();
+            }
+        });
     });
 
     dom.listen(items, 'transitionend', function() {
