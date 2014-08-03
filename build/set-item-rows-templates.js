@@ -92,9 +92,6 @@ module.exports = function(vars) {
                     var barrack = {'index': i, 'options': [], 'isFirst': (i === 1)};
                     var j = -1;
                     while (++j <= types.buildings[type].maxLevel) {
-                        if (i === 1 && j === 0 && types.buildings[type].firstRequired) {
-                            continue;
-                        }
                         barrack.options.push({'text': j});
                     }
                     barrack.options[barrack.options.length - 1].selected = true;

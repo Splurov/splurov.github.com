@@ -77,12 +77,14 @@ part('calculateCurrent', [
                 sumSpace += barrack.space;
             }
 
+            var isFirstSpace = true;
             spaces.forEach(function(space, num) {
                 var barrackSpaceId = type + '-space-' + num;
                 if (space === 0) {
                     dom.updater.defer(barrackSpaceId, 'text', '');
                 } else {
-                    if (num === 1) {
+                    if (isFirstSpace) {
+                        isFirstSpace = false;
                         space += distributionResult.totalSpace - sumSpace;
                         dom.updater.defer(barrackSpaceId, 'html',
                                           '<span class="limit-exceeded result">' + space + '</span> / ');
@@ -95,8 +97,6 @@ part('calculateCurrent', [
         }
     };
 
-    var darkObjects = dom.find('.js-dark-object');
-    var spellsObjects = dom.find('.js-spells-object');
     dom.listenCustom('calculateDone', function(result) {
         /*
         Types:
@@ -107,12 +107,6 @@ part('calculateCurrent', [
             dark
             spells
          */
-
-        if (result.params.type === 'all' || result.params.type === 'barrack-dark') {
-            darkObjects.iterate(function(el) {
-                el.style.display = (result.dark.levelValue === 0 ? 'none' : '');
-            });
-        }
 
         if (result.params.type === 'all' || result.params.type !== 'spells') {
             var togetherSpace = result.light.totalSpace + result.dark.totalSpace;
@@ -136,14 +130,15 @@ part('calculateCurrent', [
 
             }
             dom.updater.defer(spellsTimeId, 'html', spellsTimeValue);
-
-            spellsObjects.iterate(function(el) {
-                el.style.display = (result.spells.levelValue === 0 ? 'none' : '');
-            });
         }
 
         ['light', 'dark', 'spells'].forEach(function(type) {
             if (['all', 'barrack-' + type, type].indexOf(result.params.type) !== -1) {
+                var objects = dom.findCache('.js-' + type + '-object');
+                objects.iterate(function(el) {
+                    el.style.display = (result[type].levelValue === 0 ? 'none' : '');
+                });
+
                 var clIndex = result[type].capLevel + 1;
                 while (--clIndex > 0) {
                     var rowId = type + '-building-level-' + clIndex;
