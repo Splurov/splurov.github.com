@@ -7,6 +7,8 @@ part('calculate', [
 
     'use strict';
 
+    var BOOSTED_MULTIPLIER = 4;
+
     var typesSorted = {};
     Object.keys(types.data).forEach(function(type) {
         typesSorted[type] = [];
@@ -77,7 +79,7 @@ part('calculate', [
         if (suitable.length > 1) {
             if (requiredSpace === 1) {
                 var timeSuitable = suitable.filter(function(barrack) {
-                    return (barrack.getActualTime() + requiredTime) <= avgTime;
+                    return (barrack.time + requiredTime) <= barrack.getAverageTime(avgTime);
                 });
                 if (timeSuitable.length) {
                     if (timeSuitable.length > 1) {
@@ -160,9 +162,9 @@ part('calculate', [
                 while (kitQuantity--) {
                     var isGetBarrack = true;
                     if (barrack) {
-                        var newTime = barrack.getActualTime() + kitTime;
+                        var newTime = barrack.time + kitTime;
                         var newSpace = barrack.space + kitSpace;
-                        if (kitSpace === 1 && newTime <= avgTime && newSpace <= barrack.maxSpace) {
+                        if (kitSpace === 1 && newTime <= barrack.getAverageTime(avgTime) && newSpace <= barrack.maxSpace) {
                             isGetBarrack = false;
                         }
                     }
@@ -277,11 +279,11 @@ part('calculate', [
                 }
                 if (quantity) {
                     distribution.push([
-                        tsIndex,
-                        quantity,
-                        value[3], // level
-                        value[0], // time
-                        value[2] // space
+                        tsIndex, // 0
+                        quantity, // 1
+                        value[3], // 2 - level
+                        value[0], // 3 - time
+                        value[2] // 4 - space
                     ]);
                     maxUnitTime = Math.max(maxUnitTime, value[0]);
                     totalTime += (value[0] * quantity);
@@ -320,10 +322,17 @@ part('calculate', [
                     'isBoosted': isBoosted,
                     'getActualTime': function() {
                         if (this.isBoosted) {
-                            return Math.floor(this.time / 4);
+                            return Math.floor(this.time / BOOSTED_MULTIPLIER);
                         }
 
                         return this.time;
+                    },
+                    'getAverageTime': function(averageTime) {
+                        if (this.isBoosted) {
+                            return averageTime * BOOSTED_MULTIPLIER;
+                        }
+
+                        return averageTime;
                     }
                 };
             });
@@ -333,14 +342,19 @@ part('calculate', [
             }).length;
 
             if (boostedCount) {
-                maxUnitTime = Math.ceil(maxUnitTime / 4);
+                maxUnitTime = Math.ceil(maxUnitTime / BOOSTED_MULTIPLIER);
             }
 
             var activeCount = barracksQueue.filter(function(barrack) {
                 return barrack.level > 0;
             }).length;
-            var virtualBarracksCount = activeCount + (boostedCount * 4);
+            var virtualBarracksCount = activeCount + (boostedCount * (BOOSTED_MULTIPLIER - 1));
             var avgTime = Math.max(Math.ceil(totalTime / virtualBarracksCount), maxUnitTime);
+
+            var avgTimeCorrection = avgTime % 5;
+            if (avgTimeCorrection !== 0) {
+                avgTime += (5 - avgTimeCorrection);
+            }
 
             typeResult.fillSuccess = fillBarracks(barracksQueue, distribution, avgTime, activeCount);
             typeResult.barracksQueue = barracksQueue;
