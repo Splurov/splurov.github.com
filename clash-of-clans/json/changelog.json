@@ -1,5 +1,17 @@
 [
     [
+        "6.4",
+        "5 August, 2014",
+        [
+            "Now you can select zero level of the first barrack",
+            "Optimized distribution of troops between the barracks in rare cases",
+            "“Favorites” renamed to “Saved Army Compositions”",
+            "Added hint for “Saved Army Compositions”",
+            "Added hint for “Exceeded training capacity…”",
+            "Fixed a bug related to change of screen orientation on some devices"
+        ]
+    ],
+    [
         "6.3",
         "22 July, 2014",
         [
