@@ -53,7 +53,9 @@ part('storage', [
         'Freeze-level',
         'Witch',
         'Witch-level',
-        'favorite-title'
+        'favorite-title',
+        'Lava_Hound',
+        'Lava_Hound-level'
     ];
 
     var excludeIndexes = [

@@ -1,9 +1,20 @@
 [
     [
+        "6.6",
+        "1 September, 2014",
+        [
+            "Added Lava Hound and Dark Barracks level 6",
+            "Added Barbarian level 7",
+            "Added Archer level 7",
+            "Reduced training time for Valkyrie",
+            "Returned cost and training time for Wizard"
+        ]
+    ],
+    [
         "6.5",
         "1 September, 2014",
         [
-            "Temporary reduced cost and training time for Wizards"
+            "Temporary reduced cost and training time for Wizard"
         ]
     ],
     [
