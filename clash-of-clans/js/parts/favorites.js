@@ -183,6 +183,7 @@ part('favorites', [
             }
 
             var index = storage.all.length;
+            storage.current.set('favorite-title', '');
             var data = new common.Dict(common.objectCopy(storage.current.getAll()));
             storage.all.push(data);
 
