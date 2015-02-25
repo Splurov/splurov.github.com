@@ -1,5 +1,13 @@
 [
     [
+        "6.10",
+        "25 February, 2015",
+        [
+            "Added custom color for Android Chrome on Lollipop",
+            "Fixed rare bug with incorrect titles in favorites"
+        ]
+    ],
+    [
         "6.9",
         "14 December, 2014",
         [
