@@ -105,34 +105,40 @@ part('calculateCurrent', [
             barrack-light
             units
             dark
-            spells
+            light-spells
+            dark-spells
          */
 
-        if (result.params.type === 'all' || result.params.type !== 'spells') {
+        if (result.params.type === 'all' || ['light-spells', 'dark-spells'].indexOf(result.params.type) === -1) {
             var togetherSpace = result.light.totalSpace + result.dark.totalSpace;
             setQuantityAndSpace(result.armyCampsSpace, togetherSpace, 'light');
             setQuantityAndSpace(result.armyCampsSpace, togetherSpace, 'dark');
         }
 
-        if (result.params.type === 'all' || result.params.type === 'spells') {
-            setQuantityAndSpace(result.spells.levelValue, result.spells.totalSpace, 'spells');
+        if (result.params.type === 'all' || ['light-spells', 'dark-spells'].indexOf(result.params.type) !== -1) {
+            var spellsTotal = (result['light-spells'].levelValue * 2) + (result['dark-spells'].levelValue ? 1 : 0);
+            var spellsTogether = result['light-spells'].totalSpace + result['dark-spells'].totalSpace;
+            setQuantityAndSpace(spellsTotal, spellsTogether, 'light-spells');
+            setQuantityAndSpace(spellsTotal, spellsTogether, 'dark-spells');
 
-            var spellsTimeId = 'spells-time';
-            var spellsTimeValue = '';
-            if (result.spells.totalTime) {
-                if (localStorage.getItem('spells-boosted') === 'yes') {
-                    spellsTimeValue = '<span class="boosted">' +
-                                      common.getFormattedTime(Math.floor(result.spells.totalTime / 4), true) +
-                                      '</span>';
-                } else {
-                    spellsTimeValue = common.getFormattedTime(result.spells.totalTime, true);
+            ['light-spells', 'dark-spells'].forEach(function(type) {
+                var spellsTimeId = type + '-time';
+                var spellsTimeValue = '';
+                if (result[type].totalTime) {
+                    if (localStorage.getItem(type + '-boosted') === 'yes') {
+                        spellsTimeValue = '<span class="boosted">' +
+                                          common.getFormattedTime(Math.floor(result[type].totalTime / 4), true) +
+                                          '</span>';
+                    } else {
+                        spellsTimeValue = common.getFormattedTime(result[type].totalTime, true);
+                    }
+
                 }
-
-            }
-            dom.updater.defer(spellsTimeId, 'html', spellsTimeValue);
+                dom.updater.defer(spellsTimeId, 'html', spellsTimeValue);
+            });
         }
 
-        ['light', 'dark', 'spells'].forEach(function(type) {
+        ['light', 'dark', 'light-spells', 'dark-spells'].forEach(function(type) {
             if (['all', 'barrack-' + type, type].indexOf(result.params.type) !== -1) {
                 var objects = dom.findCache('.js-' + type + '-object');
                 objects.iterate(function(el) {
@@ -159,7 +165,7 @@ part('calculateCurrent', [
                     dom.updater.defer(objectResult.name + '-summary', 'text',
                                       objectResult.summaryCost ? common.numberFormat(objectResult.summaryCost) : '');
 
-                    if (type !== 'spells') {
+                    if (['light-spells', 'dark-spells'].indexOf(type) === -1) {
                         var mcIndex = 0; // mc - max count
                         var mcLength = types.buildings[type].count;
                         while (++mcIndex <= mcLength) {
@@ -170,7 +176,7 @@ part('calculateCurrent', [
 
                 dom.updater.defer(type + '-cost', 'text', common.numberFormat(result[type].totalCost));
 
-                if (type !== 'spells') {
+                if (['light-spells', 'dark-spells'].indexOf(type) === -1) {
                     populateDistribution(result[type], type);
 
                     var subtractedCostId = type + '-subtracted-cost';
@@ -187,7 +193,11 @@ part('calculateCurrent', [
             }
         });
 
-        dom.updater.defer('grand-total', 'text', common.numberFormat(result.light.subtractedCost + result.spells.totalCost));
+        dom.updater.defer('light-spells-grand-total', 'text',
+                          common.numberFormat(result.light.subtractedCost + result['light-spells'].totalCost));
+
+        dom.updater.defer('dark-spells-grand-total', 'text',
+                          common.numberFormat(result.dark.subtractedCost + result['dark-spells'].totalCost));
 
         dom.updater.runDeferred();
     });

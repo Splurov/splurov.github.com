@@ -31,26 +31,23 @@ part([
         }
     });
 
-    collection.add('spells-level', {
-        'calculateType': 'spells',
-        'th': {
-            1: 0,
-            5: 1,
-            6: 2,
-            7: 3,
-            9: 4,
-            10: 5
-        },
-        'onUpdate': function(key) {
-            dom.updater.instantly(
-                'spells-boosted-wrapper',
-                'display',
-                (storage.current.get(key, 0) === 0 ? 'none' : '')
-            );
-        }
+    ['light-spells', 'dark-spells'].forEach(function(type) {
+        collection.add(type + '-level', {
+            'calculateType': type,
+            'th': types.buildings[type].th,
+            'onUpdate': function(key) {
+                dom.updater.instantly(
+                    type + '-boosted-wrapper',
+                    'display',
+                    (storage.current.get(key, 0) === 0 ? 'none' : '')
+                );
+            }
+        });
+
+        boostedCollection.add(type + '-boosted', type);
     });
 
-    boostedCollection.add('spells-boosted', 'spells');
+
 
     ['light', 'dark'].forEach(function(type) {
         var barrackData = types.buildings[type];

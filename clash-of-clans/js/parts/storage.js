@@ -12,7 +12,7 @@ part('storage', [
         'dark-level-1',
         'dark-level-2',
         'army-camps',
-        'spells-level',
+        'light-spells-level',
         'Barbarian',
         'Archer',
         'Goblin',
@@ -55,7 +55,14 @@ part('storage', [
         'Witch-level',
         'favorite-title',
         'Lava_Hound',
-        'Lava_Hound-level'
+        'Lava_Hound-level',
+        'dark-spells-level',
+        'Poison',
+        'Poison-level',
+        'Earthquake',
+        'Earthquake-level',
+        'Haste',
+        'Haste-level'
     ];
 
     var excludeIndexes = [

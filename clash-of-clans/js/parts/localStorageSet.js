@@ -13,7 +13,8 @@ part('localStorageSet', [
         'light-boosted-4',
         'dark-boosted-1',
         'dark-boosted-2',
-        'spells-boosted',
+        'light-spells-boosted',
+        'dark-spells-boosted',
         'light-view',
         'dark-view'
     ];

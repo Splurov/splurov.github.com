@@ -212,8 +212,8 @@ part('calculate', [
 
     var calculateItems = function(type, params) {
         var levelValue;
-        if (type === 'spells') {
-            levelValue = params.storage.get('spells-level', 0);
+        if (['light-spells', 'dark-spells'].indexOf(type) !== -1) {
+            levelValue = params.storage.get(type + '-level', 0);
         } else {
             var levels = [];
             var i = 0;
@@ -261,7 +261,7 @@ part('calculate', [
             totalCost += summaryCost;
 
             totalSpace += (value[2] * quantity);
-            if (type === 'spells') {
+            if (['light-spells', 'dark-spells'].indexOf(type) !== -1) {
                 totalTime += (value[0] * quantity);
             } else {
                 var subtractQuantity = 0;
@@ -301,7 +301,7 @@ part('calculate', [
         typeResult.totalCost = totalCost;
         typeResult.totalSpace = totalSpace;
 
-        if (type === 'spells') {
+        if (['light-spells', 'dark-spells'].indexOf(type) !== -1) {
             typeResult.totalTime = totalTime;
         } else {
             var barracksQueue = levels.map(function(level, index) {
@@ -371,18 +371,11 @@ part('calculate', [
 
         result.armyCampsSpace = params.storage.get('army-camps', 0);
 
-        ['light', 'dark', 'spells'].forEach(function(type) {
-            var capLevel;
-            if (type === 'spells') {
-                capLevel = types.buildings.spells.max;
-            } else {
-                capLevel = types.buildings[type].maxLevel;
-            }
-
+        ['light', 'dark', 'light-spells', 'dark-spells'].forEach(function(type) {
             result[type] = calculateItems(type, {
                 'storage': params.storage,
                 'current': params.current,
-                'capLevel': capLevel
+                'capLevel': types.buildings[type].maxLevel
             });
         });
 

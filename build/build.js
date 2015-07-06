@@ -126,6 +126,8 @@ templates.forEach(function(options) {
             files[href].promise.then(function(styleData) {
                 content = content.replace(placeholder, styleData);
                 deferred.resolve();
+            }).catch(function(e) {
+                console.error('styles promise error: ', e);
             });
 
             return placeholder;
@@ -232,7 +234,7 @@ templates.forEach(function(options) {
                 }
                 if (options.changelog === 'first') {
                     templateVars.firstChangelog = changelogParsed[0];
-                    //templateVars.secondChangelog = changelogParsed[1];
+                    templateVars.secondChangelog = changelogParsed[1];
                 } else {
                     templateVars.changelog = changelogParsed;
                 }
@@ -285,6 +287,8 @@ templates.forEach(function(options) {
                 finalProcessing();
             }
 
+        }).catch(function(e) {
+            console.error('common promise error: ', e);
         });
     });
 

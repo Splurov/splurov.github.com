@@ -14,7 +14,7 @@ module.exports = function(vars) {
             'title': 'Barracks',
             'titleSingular': 'Barrack',
             'objectTitle': 'Troop',
-            'capacityBuilding': 'Army Camps',
+            'capacityText': 'Available Space in the Army Camps',
             'currencyCode': 'elixir'
         },
         'dark': {
@@ -22,15 +22,24 @@ module.exports = function(vars) {
             'title': 'Dark Barracks',
             'titleSingular': 'Dark Barrack',
             'objectTitle': 'Troop',
-            'capacityBuilding': 'Army Camps',
+            'capacityText': 'Available Space in the Army Camps',
             'currencyCode': 'dark-elixir'
         },
-        'spells': {
+        'light-spells': {
             'tabIndex': 30,
             'title': 'Spell Factory',
             'objectTitle': 'Spell',
-            'capacityBuilding': 'Spell Factory',
-            'currencyCode': 'elixir'
+            'capacityText': 'Available Spells Space',
+            'currencyCode': 'elixir',
+            'opposite': 'Barracks'
+        },
+        'dark-spells': {
+            'tabIndex': 40,
+            'title': 'Dark Spell Factory',
+            'objectTitle': 'Spell',
+            'capacityText': 'Available Spells Space',
+            'currencyCode': 'dark-elixir',
+            'opposite': 'Dark Barracks'
         }
     };
 
@@ -100,6 +109,16 @@ module.exports = function(vars) {
                 }
             }
 
+            if (['light-spells', 'dark-spells'].indexOf(type) !== -1) {
+                basicInfo.spells = true;
+                basicInfo.options = [];
+                var i = -1;
+                while (++i <= types.buildings[type].maxLevel) {
+                    basicInfo.options.push({'text': i});
+                }
+                basicInfo.options[basicInfo.options.length - 1].selected = true;
+            }
+
             vars.types.push(basicInfo);
         });
 
@@ -115,12 +134,6 @@ module.exports = function(vars) {
         }
         vars.armyCamps[vars.armyCamps.length - 1].selected = true;
 
-        vars.spellFactory = [];
-        var i = -1;
-        while (++i <= types.buildings.spells.max) {
-            vars.spellFactory.push({'value': i});
-        }
-        vars.spellFactory[vars.spellFactory.length - 1].selected = true;
     });
 
 };

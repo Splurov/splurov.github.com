@@ -101,13 +101,14 @@ part('favorites', [
         var modifiers = {
             'light': 'elixir',
             'dark': 'dark-elixir',
-            'spells': 'elixir'
+            'light-spells': 'elixir',
+            'dark-spells': 'dark-elixir'
         };
 
-        ['light', 'dark', 'spells'].forEach(function(type) {
+        ['light', 'dark', 'light-spells', 'dark-spells'].forEach(function(type) {
             var items = [];
 
-            if (type !== 'spells') {
+            if (['light-spells', 'dark-spells'].indexOf(type) === -1) {
                 result[type].objects.sort(function(a, b) {
                     return a.minBarrackLevel - b.minBarrackLevel;
                 });
@@ -129,7 +130,7 @@ part('favorites', [
                     'costModifier': modifiers[type]
                 };
 
-                if (type === 'spells') {
+                if (['light-spells', 'dark-spells'].indexOf(type) !== -1) {
                     data.totalCapacity = result[type].totalSpace;
                     data.maximumCapacity = result[type].levelValue;
                     data.time = common.getFormattedTime(result[type].totalTime, true);

@@ -68,7 +68,8 @@
     <span class="menu__items js-menu-items">
         <span class="menu__item js-anchor js-light-object" data-for="light-anchor">Barracks</span>
         <span class="menu__item js-anchor js-dark-object" data-for="dark-anchor">Dark Barracks</span>
-        <span class="menu__item js-anchor js-spells-object" data-for="spells-anchor">Spell Factory</span>
+        <span class="menu__item js-anchor js-light-spells-object" data-for="light-spells-anchor">Spell Factory</span>
+        <span class="menu__item js-anchor js-dark-spells-object" data-for="dark-spells-anchor">Dark Spell Factory</span>
         <span class="menu__item js-anchor js-share" data-for="share-anchor">Share</span>
         <span class="menu__item js-anchor" data-for="favorites-anchor">Saved</span>
         <span class="menu__item js-favorite-add"><span class="icon-favorite">Save Composition</span></span>
@@ -89,7 +90,7 @@
 <!--<h2 id="settings-anchor">Settings</h2>-->
 <p class="small">
     Set the Army Camps capacity, level of barracks, troops,
-    Spell Factory and spells based on the Town Hall of level:<br/>
+    spell factories and spells based on the Town Hall of level:<br/>
     <span class="button-group button-group_settings">
         <span class="button js-settings-level">1</span><!--
         --><span class="button js-settings-level">2</span><!--
@@ -121,10 +122,10 @@
                             </select>
                         {{/barracks}}
                         {{#spells}}
-                            <select id="spells-level" class="js-comp-level">
-                                {{#spellFactory}}
-                                    <option value="{{value}}"{{#selected}} selected="selected"{{/selected}}>{{value}}</option>
-                                {{/spellFactory}}
+                            <select id="{{type}}-level" class="js-comp-level">
+                                {{#options}}
+                                    <option value="{{text}}"{{#selected}} selected="selected"{{/selected}}>{{text}}</option>
+                                {{/options}}
                             </select>
                         {{/spells}}
                     </td>
@@ -171,8 +172,8 @@
                 </div>
             {{/spells}}
             {{#spells}}
-                <label id="spells-boosted-wrapper" class="after">
-                    <input type="checkbox" id="spells-boosted" class="js-comp-boosted"/>
+                <label id="{{type}}-boosted-wrapper" class="after">
+                    <input type="checkbox" id="{{type}}-boosted" class="js-comp-boosted"/>
                     Boost
                 </label>
             {{/spells}}
@@ -188,7 +189,7 @@
                                 <span id="{{type}}-quantity" class="text-middle"></span>
                                 <span class="help-link js-help-link">
                                     <span class="help-link__content js-help-content">
-                                        Available Space in the {{capacityBuilding}}
+                                        {{capacityText}}
                                     </span>
                                 </span>
                             </span>
@@ -304,13 +305,13 @@
                             <td colspan="3" class="small number">
                                 Time:
                             </td>
-                            <td class="result number" id="spells-time"></td>
+                            <td class="result number" id="{{type}}-time"></td>
                         </tr>
                         <tr>
                             <td colspan="3" class="tiny number">
-                                Grand Total with Barracks:
+                                Grand Total with {{opposite}}:
                             </td>
-                            <td class="tiny result number" id="grand-total"></td>
+                            <td class="tiny result number" id="{{type}}-grand-total"></td>
                         </tr>
                     {{/spells}}
                 </tfoot>

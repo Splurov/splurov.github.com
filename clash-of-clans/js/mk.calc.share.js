@@ -97,7 +97,7 @@ part([
     var shareObjects = dom.find('.js-share');
     var placeShareContent = function(result) {
         var display = '';
-        var isAvailable = ['light', 'dark', 'spells'].some(function(type) {
+        var isAvailable = ['light', 'dark', 'light-spells', 'dark-spells'].some(function(type) {
             if (result[type].totalCost) {
                 return true;
             }
