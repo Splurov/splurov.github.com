@@ -1,5 +1,12 @@
 [
     [
+        "6.16",
+        "24 July, 2015",
+        [
+            "Fix incorrect spells space in the favorites"
+        ]
+    ],
+    [
         "6.15",
         "10 July, 2015",
         [

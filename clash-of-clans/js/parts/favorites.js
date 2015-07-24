@@ -105,6 +105,7 @@ part('favorites', [
             'dark-spells': 'dark-elixir'
         };
 
+        var spellsStart = null;
         ['light', 'dark', 'light-spells', 'dark-spells'].forEach(function(type) {
             var items = [];
 
@@ -131,9 +132,10 @@ part('favorites', [
                 };
 
                 if (['light-spells', 'dark-spells'].indexOf(type) !== -1) {
-                    data.totalCapacity = result[type].totalSpace;
-                    data.maximumCapacity = result[type].levelValue;
                     data.time = common.getFormattedTime(result[type].totalTime, true);
+                    if (spellsStart === null) {
+                        spellsStart = templateVars.types.length;
+                    }
                 } else {
                     var productionTime;
                     if (result[type].fillSuccess) {
@@ -154,6 +156,13 @@ part('favorites', [
         if (togetherSpace) {
             templateVars.types[0].totalCapacity = togetherSpace;
             templateVars.types[0].maximumCapacity = result.armyCampsSpace;
+        }
+
+
+        if (spellsStart !== null) {
+            console.log(spellsStart)
+            templateVars.types[spellsStart].totalCapacity = result['light-spells'].totalSpace + result['dark-spells'].totalSpace;
+            templateVars.types[spellsStart].maximumCapacity = (result['light-spells'].levelValue * 2) + (result['dark-spells'].levelValue ? 1 : 0);
         }
 
         return template.render(templateVars);
