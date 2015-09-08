@@ -70,7 +70,15 @@ part('favorites', [
         storage.save();
     };
 
-    var addListeners = function(el, isRoot) {
+    var resizeTextarea = function(el) {
+        var scrollHeight = el.scrollHeight;
+        if (scrollHeight > el.offsetHeight) {
+            // 2 is experimental value to prevent vertical scrolling
+            el.style.height = (scrollHeight + 2) + 'px';
+        }
+    };
+
+    var processContent = function(el, isRoot) {
         dom.find('.js-favorite-load', el).listen('universalClick', loadHandler);
         dom.find('.js-favorite-delete', el).listen('universalClick', deleteHandler);
         if (isRoot) {
@@ -79,7 +87,13 @@ part('favorites', [
             dom.find('.js-favorite', el).listen('animationend', animationEndHandler);
         }
 
-        dom.find('.js-favorite-title', el).listen('input', saveTitle);
+        dom.find('.js-favorite-title', el).iterate(function(titleEl) {
+            resizeTextarea(titleEl);
+            dom.listen(titleEl, 'input', function(e) {
+                saveTitle(e);
+                resizeTextarea(e.currentTarget);
+            });
+        });
     };
 
     var favoritesCreateItem = function(data, index) {
@@ -160,7 +174,6 @@ part('favorites', [
 
 
         if (spellsStart !== null) {
-            console.log(spellsStart)
             templateVars.types[spellsStart].totalCapacity = result['light-spells'].totalSpace + result['dark-spells'].totalSpace;
             templateVars.types[spellsStart].maximumCapacity = (result['light-spells'].levelValue * 2) + (result['dark-spells'].levelValue ? 1 : 0);
         }
@@ -199,7 +212,7 @@ part('favorites', [
 
             if (storage.save()) {
                 content.insertAdjacentHTML('beforeend', favoritesCreateItem(data, index));
-                addListeners(content.lastChild, true);
+                processContent(content.lastChild, true);
 
                 output.added = true;
                 output.index = index;
@@ -225,7 +238,7 @@ part('favorites', [
 
     setTimeout(function() {
         content.innerHTML = storage.all.map(favoritesCreateItem).join('');
-        addListeners(content);
+        processContent(content);
     }, 0);
 
     window.yandexMetrikaParams.favoritesCount = (storage.all.length ? storage.all.length - 1 : 0).toString();
