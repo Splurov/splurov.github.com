@@ -234,7 +234,7 @@ templates.forEach(function(options) {
                 }
                 if (options.changelog === 'first') {
                     templateVars.firstChangelog = changelogParsed[0];
-                    //templateVars.secondChangelog = changelogParsed[1];
+                    templateVars.secondChangelog = changelogParsed[1];
                 } else {
                     templateVars.changelog = changelogParsed;
                 }
