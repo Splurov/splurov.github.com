@@ -1,5 +1,13 @@
 [
     [
+        "6.22",
+        "10 January, 2016",
+        [
+            "Fixed maximum spells capacity on Town Hall level 9",
+            "Fixed cost of Jump Spell level 2"
+        ]
+    ],
+    [
         "6.21",
         "21 December, 2015",
         [
