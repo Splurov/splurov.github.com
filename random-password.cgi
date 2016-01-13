@@ -36,6 +36,8 @@ def generate_password():
 
     return password
 
+print 'Content-Type: text/plain\n'
+
 for i in range(0, 10):
     password = generate_password()
     print password + ' | ' + str(len(password))
