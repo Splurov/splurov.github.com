@@ -62,7 +62,7 @@ module.exports = function(vars) {
             basicInfo.type = type;
 
             var rows = [];
-            Object.keys(types.data[type]).forEach(function(name) {
+            Object.keys(types.data[type]).forEach(function(name, index) {
                 var value = types.data[type][name];
                 var convertedName = common.convertToTitle(name);
                 var levelOptions = value[1].slice(1).map(createLevelOption);
@@ -71,8 +71,8 @@ module.exports = function(vars) {
                     'id': name,
                     'title': convertedName,
                     'levelContent': levelOptions,
-                    'rowId': type + '-building-level-' + value[3],
-                    'tabIndexValue': typesHelper[type].tabIndex + value[3]
+                    'rowId': type + '-building-level-' + name,
+                    'tabIndexValue': typesHelper[type].tabIndex + index
                 };
 
                 if (type === 'light' || type === 'dark') {
@@ -86,7 +86,7 @@ module.exports = function(vars) {
                     templateVars.barracksTimes = barracksTimes;
 
                     templateVars.subtractId = name + '-subtract';
-                    templateVars.tabIndexSubtract = typesHelper[type].tabIndex + 100 + value[3];
+                    templateVars.tabIndexSubtract = typesHelper[type].tabIndex + 100 + index;
                 }
 
                 rows.push(templateVars);

@@ -145,12 +145,13 @@ part('calculateCurrent', [
                     el.style.display = (result[type].levelValue === 0 ? 'none' : '');
                 });
 
-                var clIndex = result[type].capLevel + 1;
-                while (--clIndex > 0) {
-                    var rowId = type + '-building-level-' + clIndex;
-                    var rowEl = dom.id(type + '-building-level-' + clIndex);
+                Object.keys(types.data[type]).forEach(function(name) {
+                    var item = types.data[type][name];
 
-                    if (clIndex > result[type].levelValue) {
+                    var rowId = type + '-building-level-' + name;
+                    var rowEl = dom.id(type + '-building-level-' + name);
+
+                    if (item[3] > result[type].levelValue) {
                         dom.updater.instantly(rowId, 'display', 'none');
 
                         dom.find('td.changed-animation', rowEl).iterate(function(el) {
@@ -159,9 +160,9 @@ part('calculateCurrent', [
                     } else {
                         dom.updater.instantly(rowId, 'display', '');
                     }
-                }
+                });
 
-                result[type].objects.forEach(function(objectResult) {
+                result[type].objects.forEach(function(objectResult, index) {
                     dom.updater.defer(objectResult.name + '-summary', 'text',
                                       objectResult.summaryCost ? common.numberFormat(objectResult.summaryCost) : '');
 
