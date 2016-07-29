@@ -1,8 +1,6 @@
 module.exports = {
     'ya_metrika_noscript': '<noscript><img src="//mc.yandex.ru/watch/19642528" style="position:absolute; left:-9999px"/></noscript>',
 
-    'clash_of_clans': 'Clash of Clans',
-
     'clash_calc': 'Clash Calc',
 
     'clash_calc_title': 'Clash Calc — Troops and Spells Cost Calculator/Time Planner for Clash of Clans',
