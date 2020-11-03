@@ -180,7 +180,7 @@ templates.forEach(function(options) {
             var output;
             if (main) {
                 var fileName = path.basename(src);
-                fs.writeFile(STATIC_PATH + fileName, scriptData);
+                fs.writeFileSync(STATIC_PATH + fileName, scriptData);
                 // When use async we don't know is dom content loaded fired or not
                 // http://webreflection.blogspot.ru/2014/02/the-underestimated-problem-about-script.html
                 output = hoganPrepare('<script src="' + STATIC_URI + fileName + '?' + (new Date()).getTime() + '" async="async"></script>');

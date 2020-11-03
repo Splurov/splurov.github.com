@@ -9,7 +9,7 @@ module.exports = {
     'email': ['Электронная&nbsp;почта', 'Email'],
     'skype': ['Скайп', 'Skype'],
     'add_to_skype': ['Добавить меня в контакты Скайпа', 'Add me to Skype contacts'],
-    'photo_alt': ['Михаил Калашник, май 2012', 'Mikhail Kalashnik, May 2012'],
+    'photo_alt': ['Михаил Калашник, октябрь 2020', 'Mikhail Kalashnik, October 2020'],
     'contacts': ['Контакты', 'Contacts'],
     'resume': ['Резюме', 'CV'],
     'hh_link_title': ['Хэдхантер', 'HeadHunter'],
